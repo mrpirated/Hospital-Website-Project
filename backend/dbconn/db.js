@@ -7,17 +7,16 @@ const connection = mysql.createConnection({
 	user: process.env.RDS_USERNAME,
 	password: process.env.RDS_PASSWORD,
 	port: process.env.RDS_PORT,
+	database: "hmp",
 });
 
-const connectDB = () => {
-	connection.connect(function (err) {
-		if (err) {
-			console.error("Database connection failed: " + err.stack);
-			return;
-		}
+connection.connect(function (err) {
+	if (err) {
+		console.error("Database connection failed: " + err.stack);
+		return;
+	}
 
-		console.log("Connected to database.");
-	});
-};
+	console.log("Connected to database.");
+});
 
-export default connectDB;
+export default connection;
