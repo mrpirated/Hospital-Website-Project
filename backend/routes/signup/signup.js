@@ -1,7 +1,7 @@
 import { Router } from "express";
 const router = Router();
-import connection from "../../dbconn/db";
+import signup from '../../middleware/signup';
 
-router.get("/signup", );
+router.post("/signup", signup);
 
 export default router;
