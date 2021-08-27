@@ -1,6 +1,6 @@
 import express from "express";
 import cors from "cors";
-import login from "./routes/login";
+import login from "./routes/login/login";
 import connection from "./dbconn/db";
 const PORT = process.env.PORT;
 const { json } = express;
