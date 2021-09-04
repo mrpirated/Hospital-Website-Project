@@ -17,6 +17,7 @@ const slice = createSlice({
 			// phone: undefined,
 		},
 		token: "",
+		isauth: false,
 	},
 	reducers: {
 		loginPending: (state) => {
@@ -34,10 +35,12 @@ const slice = createSlice({
 		loggedIn: (auth, action) => {
 			auth.user = action.payload.user;
 			auth.token = action.payload.token;
+			auth.isauth = true;
 		},
 		loggedOut: (auth, action) => {
 			auth.user = undefined;
 			auth.token = undefined;
+			auth.isauth = false;
 		},
 	},
 });

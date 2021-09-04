@@ -4,6 +4,7 @@ import Login from "./components/Login/Login";
 import Home from "./components/Home/Home";
 import Signup from "./components/Signup/Signup";
 import Navbar from "./components/Navbar/Navigation";
+import PrivateRoute from "./components/PrivateRoute";
 import "bootstrap/dist/css/bootstrap.min.css";
 function App() {
 	return (
@@ -13,6 +14,7 @@ function App() {
 				<Route exact path='/' component={Home} />
 				<Route exact path='/login' component={Login} />
 				<Route exact path='/signup' component={Signup} />
+				<PrivateRoute exact path='/appointment' />
 			</Switch>
 		</Router>
 	);
