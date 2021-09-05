@@ -1,11 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 
 import { Navbar, Container, Nav } from "react-bootstrap";
 function Navigation() {
-	const [sidebar, setSidebar] = useState(false);
-
-	const showSidebar = () => setSidebar(!sidebar);
-
 	return (
 		<>
 			<Navbar bg='light' expand='lg'>
