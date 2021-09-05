@@ -20,31 +20,19 @@ const slice = createSlice({
 		isauth: false,
 	},
 	reducers: {
-		loginPending: (state) => {
-			state.isloading = true;
-		},
-		loginSucess: (auth) => {
-			auth.isloading = false;
-			auth.token = undefined;
-			auth.error = "";
-		},
-		loginFailed: (auth, { payload }) => {
-			auth.isloading = false;
-			auth.error = payload;
-		},
 		loggedIn: (auth, action) => {
 			auth.user = action.payload.user;
 			auth.token = action.payload.token;
 			auth.isauth = true;
 		},
 		loggedOut: (auth, action) => {
-			auth.user = undefined;
-			auth.token = undefined;
+			auth.user = {};
+			auth.token = "";
 			auth.isauth = false;
 		},
 	},
 });
 
-export const { loggedIn, loggedOut, loginPending } = slice.actions;
+export const { loggedIn, loggedOut } = slice.actions;
 
 export default slice.reducer;

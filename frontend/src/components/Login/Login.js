@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import loginAPI from "../../api/loginAPI";
 import "./Login.css";
 export default function Login(props) {
 	const [email, setEmail] = useState("");
@@ -12,6 +13,10 @@ export default function Login(props) {
 
 	function handleSubmit(event) {
 		event.preventDefault();
+		loginAPI({
+			email: email,
+			password: password,
+		});
 	}
 	return (
 		<div className='Login'>
