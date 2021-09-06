@@ -3,17 +3,20 @@ import { Form, Row, Col } from "react-bootstrap";
 import signupAPI from "../../api/signupAPI";
 import Button from "react-bootstrap/Button";
 import "./Signup.css";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 function Signup(props) {
 	const [first_name, setFirstName] = useState("");
 	const [last_name, setLastName] = useState("");
-	const [dob, setDob] = useState(undefined);
-	const [gender, setGender] = useState("None");
+	const [dob, setDob] = useState(new Date());
+	const [gender, setGender] = useState("PreferNotToSay");
 	const [address, setAddress] = useState("");
 	const [email, setEmail] = useState("");
 	const [phone, setPhone] = useState("");
 	const [password, setPassword] = useState("");
 	const [confirmPassword, setConfirmPassword] = useState("");
+	const [flag, setFlag] = useState(false);
 
 	const validateForm = () => {
 		return (first_name.length > 0 && email.length > 0 && phone.length === 10 && password.length > 0);
@@ -21,7 +24,13 @@ function Signup(props) {
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
-		//signupAPI({ first_name, last_name, dob, gender, address, email, phone, password });
+		if (validateForm() && password === confirmPassword) {
+			setFlag(false);
+			signupAPI({ first_name, last_name, dob, gender, address, email, phone, password });
+		}
+		else if (password !== confirmPassword) {
+			setFlag(true);
+		}
 	}
 
 	return (
@@ -63,23 +72,45 @@ function Signup(props) {
 					/>
 				</Form.Group>
 				<Form.Group size='lg' controlId='password'>
-					<Form.Label>Confirm Password</Form.Label>
+					<Form.Label>Confirm Password{(flag ? ("*Password and Confirm Password should match") : "")}</Form.Label>
 					<Form.Control
 						type='password'
 						value={confirmPassword}
 						onChange={(e) => setConfirmPassword(e.target.value)}
 					/>
 				</Form.Group>
-				<Form.Group size='lg' controlId='password'>
-					<Form.Label>Confirm Password</Form.Label>
+				<Form.Group size='lg'>
+					<Form.Label>Date Of Birth</Form.Label>
+					<DatePicker selected={dob} onChange={(date) => setDob(date)} />
+				</Form.Group>
+				<Form.Group size='lg'>
+					<Form.Label>Gender</Form.Label>
 					<Form.Control
-						type='password'
-						value={confirmPassword}
-						onChange={(e) => setConfirmPassword(e.target.value)}
+						as="select"
+						custom
+						onChange={(e) => setGender(e.target.value)}
+					>
+						<option value="PreferNotToSay">Prefer Not To Say</option>
+						<option value="Male">Male</option>
+						<option value="Female">Female</option>
+					</Form.Control>
+				</Form.Group>
+				<Form.Group size='lg'>
+					<Form.Label>Address</Form.Label>
+					<Form.Control
+						type='text'
+						value={address}
+						onChange={(e) => setAddress(e.target.value)}
 					/>
 				</Form.Group>
-
-				
+				<Form.Group size='lg'>
+					<Form.Label>Phone</Form.Label>
+					<Form.Control
+						type='text'
+						value={phone}
+						onChange={(e) => setPhone(e.target.value)}
+					/>
+				</Form.Group>
 				<Button block size='lg' type='submit' disabled={!validateForm()}>
 					Login
 				</Button>

@@ -13,10 +13,12 @@ const signupAPI = (data) => {
         phone,
         password
     }).then((res) => {
+        console.log(res.msg);
         if (res.status === 200) {
             console.log(res.data);
         }
-    }).catch();
+    }).catch((err) => {
+    });
 }
 
 export default signupAPI;
