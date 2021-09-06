@@ -1,4 +1,5 @@
 {
 	"baseUrl": "http://localhost:4587",
-	"login": "/api/login"
+	"login": "/api/login",
+	"signup": "/api/signup"
 }
