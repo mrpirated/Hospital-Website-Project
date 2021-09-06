@@ -7,6 +7,8 @@ import Navbar from "./components/Navbar/Navigation";
 import PrivateRoute from "./components/PrivateRoute";
 import Appointment from "./components/Appointment/Appointment";
 import Doctors from "./components/Doctors/Doctors";
+import MyRoute from "./components/MyRoute";
+
 import "bootstrap/dist/css/bootstrap.min.css";
 function App() {
 	return (
@@ -14,8 +16,8 @@ function App() {
 			<Navbar />
 			<Switch>
 				<Route exact path='/' component={Home} />
-				<Route exact path='/login' component={Login} />
-				<Route exact path='/signup' component={Signup} />
+				<MyRoute exact path='/login' component={Login} />
+				<MyRoute exact path='/signup' component={Signup} />
 				<PrivateRoute exact path='/appointment' component={Appointment} />
 				<Route exact path='/doctors' component={Doctors} />
 			</Switch>

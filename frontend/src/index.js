@@ -4,6 +4,7 @@ import { Provider } from "react-redux";
 import App from "./App";
 import store from "./store/configureStore";
 
+console.log(store.getState());
 store.subscribe(() => {
 	console.log("Store changed!");
 	console.log(store.getState());
