@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Form, Row, Col } from "react-bootstrap";
+import PatientNavbar from "../Navbar/Navigation";
 import signupAPI from "../../../api/signupAPI";
 import Button from "react-bootstrap/Button";
 import { useHistory } from "react-router";
@@ -50,90 +51,93 @@ function Signup(props) {
 	};
 
 	return (
-		<div className='Signup'>
-			<Form onSubmit={handleSubmit}>
-				<Row>
-					<Form.Group as={Col}>
-						<Form.Label>First Name</Form.Label>
+		<div>
+			<PatientNavbar/>
+			<div className='Signup'>
+				<Form onSubmit={handleSubmit}>
+					<Row>
+						<Form.Group as={Col}>
+							<Form.Label>First Name</Form.Label>
+							<Form.Control
+								type='text'
+								value={first_name}
+								onChange={(e) => setFirstName(e.target.value)}
+							/>
+						</Form.Group>
+						<Form.Group as={Col}>
+							<Form.Label>Last Name</Form.Label>
+							<Form.Control
+								type='text'
+								value={last_name}
+								onChange={(e) => setLastName(e.target.value)}
+							/>
+						</Form.Group>
+					</Row>
+					<Form.Group size='lg' controlId='email'>
+						<Form.Label>Email</Form.Label>
 						<Form.Control
-							type='text'
-							value={first_name}
-							onChange={(e) => setFirstName(e.target.value)}
+							autoFocus
+							type='email'
+							value={email}
+							onChange={(e) => setEmail(e.target.value)}
 						/>
 					</Form.Group>
-					<Form.Group as={Col}>
-						<Form.Label>Last Name</Form.Label>
+					<Form.Group size='lg' controlId='password'>
+						<Form.Label>Password</Form.Label>
 						<Form.Control
-							type='text'
-							value={last_name}
-							onChange={(e) => setLastName(e.target.value)}
+							type='password'
+							value={password}
+							onChange={(e) => setPassword(e.target.value)}
 						/>
 					</Form.Group>
-				</Row>
-				<Form.Group size='lg' controlId='email'>
-					<Form.Label>Email</Form.Label>
-					<Form.Control
-						autoFocus
-						type='email'
-						value={email}
-						onChange={(e) => setEmail(e.target.value)}
-					/>
-				</Form.Group>
-				<Form.Group size='lg' controlId='password'>
-					<Form.Label>Password</Form.Label>
-					<Form.Control
-						type='password'
-						value={password}
-						onChange={(e) => setPassword(e.target.value)}
-					/>
-				</Form.Group>
-				<Form.Group size='lg' controlId='password'>
-					<Form.Label>
-						Confirm Password
-						{flag ? "*Password and Confirm Password should match" : ""}
-					</Form.Label>
-					<Form.Control
-						type='password'
-						value={confirmPassword}
-						onChange={(e) => setConfirmPassword(e.target.value)}
-					/>
-				</Form.Group>
-				<Form.Group size='lg'>
-					<Form.Label>Date Of Birth</Form.Label>
-					<DatePicker selected={dob} onChange={(date) => setDob(date)} />
-				</Form.Group>
-				<Form.Group size='lg'>
-					<Form.Label>Gender</Form.Label>
-					<Form.Control
-						as='select'
-						custom
-						onChange={(e) => setGender(e.target.value)}
-					>
-						<option value='PreferNotToSay'>Prefer Not To Say</option>
-						<option value='Male'>Male</option>
-						<option value='Female'>Female</option>
-					</Form.Control>
-				</Form.Group>
-				<Form.Group size='lg'>
-					<Form.Label>Address</Form.Label>
-					<Form.Control
-						type='text'
-						value={address}
-						onChange={(e) => setAddress(e.target.value)}
-					/>
-				</Form.Group>
-				<Form.Group size='lg'>
-					<Form.Label>Phone</Form.Label>
-					<Form.Control
-						type='text'
-						value={phone}
-						onChange={(e) => setPhone(e.target.value)}
-					/>
-				</Form.Group>
-				<Button block size='lg' type='submit' disabled={!validateForm()}>
-					Login
-				</Button>
-			</Form>
+					<Form.Group size='lg' controlId='password'>
+						<Form.Label>
+							Confirm Password
+							{flag ? "*Password and Confirm Password should match" : ""}
+						</Form.Label>
+						<Form.Control
+							type='password'
+							value={confirmPassword}
+							onChange={(e) => setConfirmPassword(e.target.value)}
+						/>
+					</Form.Group>
+					<Form.Group size='lg'>
+						<Form.Label>Date Of Birth</Form.Label>
+						<DatePicker selected={dob} onChange={(date) => setDob(date)} />
+					</Form.Group>
+					<Form.Group size='lg'>
+						<Form.Label>Gender</Form.Label>
+						<Form.Control
+							as='select'
+							custom
+							onChange={(e) => setGender(e.target.value)}
+						>
+							<option value='PreferNotToSay'>Prefer Not To Say</option>
+							<option value='Male'>Male</option>
+							<option value='Female'>Female</option>
+						</Form.Control>
+					</Form.Group>
+					<Form.Group size='lg'>
+						<Form.Label>Address</Form.Label>
+						<Form.Control
+							type='text'
+							value={address}
+							onChange={(e) => setAddress(e.target.value)}
+						/>
+					</Form.Group>
+					<Form.Group size='lg'>
+						<Form.Label>Phone</Form.Label>
+						<Form.Control
+							type='text'
+							value={phone}
+							onChange={(e) => setPhone(e.target.value)}
+						/>
+					</Form.Group>
+					<Button block size='lg' type='submit' disabled={!validateForm()}>
+						Login
+					</Button>
+				</Form>
+			</div>
 		</div>
 	);
 }
