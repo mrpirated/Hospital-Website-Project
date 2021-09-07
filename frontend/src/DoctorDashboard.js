@@ -2,7 +2,7 @@ import "./App.css";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import PatientLogin from "./components/PATIENT/Login/Login";
 import DoctorLogin from "./components/DOCTOR/Login/Login";
-import Home from "./components/PATIENT/Home/Home";
+import Home from "./components/DOCTOR/Home/Home";
 import Signup from "./components/PATIENT/Signup/Signup";
 import PatientNavbar from "./components/PATIENT/Navbar/Navigation";
 import DoctorNavbar from "./components/DOCTOR/Navbar/Navigation";
@@ -17,7 +17,7 @@ import AdminRoute from "./components/AdminRoute";
 import "bootstrap/dist/css/bootstrap.min.css";
 function App() {
 	return (
-		<DoctorNavbar/>
+		<Home/>
 		// <Router>
 		// 	<DoctorNavbar/>
 		// 	<Switch>

@@ -17,7 +17,7 @@ import AdminRoute from "./components/AdminRoute";
 import "bootstrap/dist/css/bootstrap.min.css";
 function App() {
 	return (
-		<PatientNavbar />
+		<Home />
 		// <Router>
 		// 	<PatientNavbar />
 		// 	{/* <DoctorNavbar/> */}

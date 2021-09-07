@@ -23,8 +23,8 @@ function App() {
         <Router>
             <Switch>
                 <Route exact path='/' component={Type} />
-                <Route exact path='/pat' component={PatientDashboard} />
-                <Route exact path='/doc' component={DoctorDashboard} />
+                <Route exact path='/patient-dashboard' component={PatientDashboard} />
+                <Route exact path='/doctor-dashboard' component={DoctorDashboard} />
                 <MyRoute exact path='/login-doctor' component={DoctorLogin} />
 				<MyRoute exact path='/login' component={PatientLogin} />
 				<MyRoute exact path='/signup' component={Signup} />

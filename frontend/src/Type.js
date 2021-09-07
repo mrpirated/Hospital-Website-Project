@@ -6,11 +6,11 @@ export default function Type(props) {
     const history = useHistory();
 	
     const openPatient = () => {
-        history.push("/pat");
+        history.push("/patient-dashboard");
     }
 
     const openDoctor = () => {
-        history.push("/doc");
+        history.push("/doctor-dashboard");
     }
 
     return (
