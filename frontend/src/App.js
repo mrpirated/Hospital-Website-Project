@@ -10,7 +10,6 @@ import MyRoute from "./components/MyRoute";
 import PatientRoute from "./components/PatientRoute";
 import DoctorRoute from "./components/DoctorRoute";
 import AdminRoute from "./components/AdminRoute";
-//import PatientRoute from "./components/PatientRoute";
 import "bootstrap/dist/css/bootstrap.min.css";
 function App() {
 	return (
