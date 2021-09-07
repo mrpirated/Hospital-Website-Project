@@ -1,7 +1,8 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { Form, Row, Col } from "react-bootstrap";
-import signupAPI from "../../api/signupAPI";
+import signupAPI from "../../../api/signupAPI";
 import Button from "react-bootstrap/Button";
+import { useHistory } from "react-router";
 import "./Signup.css";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -17,26 +18,41 @@ function Signup(props) {
 	const [password, setPassword] = useState("");
 	const [confirmPassword, setConfirmPassword] = useState("");
 	const [flag, setFlag] = useState(false);
-
+	const history = useHistory();
 	const validateForm = () => {
-		return (first_name.length > 0 && email.length > 0 && phone.length === 10 && password.length > 0);
-	}
+		return (
+			first_name.length > 0 &&
+			email.length > 0 &&
+			phone.length === 10 &&
+			password.length > 0
+		);
+	};
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
 		if (validateForm() && password === confirmPassword) {
 			setFlag(false);
-			signupAPI({ first_name, last_name, dob, gender, address, email, phone, password });
-		}
-		else if (password !== confirmPassword) {
+			signupAPI({
+				first_name,
+				last_name,
+				dob,
+				gender,
+				address,
+				email,
+				phone,
+				password,
+			}).then((res) => {
+				if (res) history.push("/home");
+			});
+		} else if (password !== confirmPassword) {
 			setFlag(true);
 		}
-	}
+	};
 
 	return (
 		<div className='Signup'>
 			<Form onSubmit={handleSubmit}>
-				<Row>	
+				<Row>
 					<Form.Group as={Col}>
 						<Form.Label>First Name</Form.Label>
 						<Form.Control
@@ -45,7 +61,7 @@ function Signup(props) {
 							onChange={(e) => setFirstName(e.target.value)}
 						/>
 					</Form.Group>
-					<Form.Group as={Col}>		
+					<Form.Group as={Col}>
 						<Form.Label>Last Name</Form.Label>
 						<Form.Control
 							type='text'
@@ -72,7 +88,10 @@ function Signup(props) {
 					/>
 				</Form.Group>
 				<Form.Group size='lg' controlId='password'>
-					<Form.Label>Confirm Password{(flag ? ("*Password and Confirm Password should match") : "")}</Form.Label>
+					<Form.Label>
+						Confirm Password
+						{flag ? "*Password and Confirm Password should match" : ""}
+					</Form.Label>
 					<Form.Control
 						type='password'
 						value={confirmPassword}
@@ -86,13 +105,13 @@ function Signup(props) {
 				<Form.Group size='lg'>
 					<Form.Label>Gender</Form.Label>
 					<Form.Control
-						as="select"
+						as='select'
 						custom
 						onChange={(e) => setGender(e.target.value)}
 					>
-						<option value="PreferNotToSay">Prefer Not To Say</option>
-						<option value="Male">Male</option>
-						<option value="Female">Female</option>
+						<option value='PreferNotToSay'>Prefer Not To Say</option>
+						<option value='Male'>Male</option>
+						<option value='Female'>Female</option>
 					</Form.Control>
 				</Form.Group>
 				<Form.Group size='lg'>
@@ -115,7 +134,8 @@ function Signup(props) {
 					Login
 				</Button>
 			</Form>
-		</div>);
+		</div>
+	);
 }
 
 export default Signup;

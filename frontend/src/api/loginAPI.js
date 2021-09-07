@@ -5,7 +5,7 @@ import { loggedIn } from "../store/auth";
 
 const loginAPI = (data) => {
 	const { email, password } = data;
-	axios
+	return axios
 		.post(config.baseUrl + config.login, {
 			email: email,
 			password: password,
@@ -19,6 +19,7 @@ const loginAPI = (data) => {
 						token: res.data.token,
 					})
 				);
+				return true;
 			}
 			if (res.status === 209) {
 				console.log(res.data.msg);

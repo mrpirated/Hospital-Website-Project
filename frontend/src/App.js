@@ -1,14 +1,16 @@
 import "./App.css";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Login from "./components/Login/Login";
-import Home from "./components/Home/Home";
-import Signup from "./components/Signup/Signup";
-import Navbar from "./components/Navbar/Navigation";
-import PrivateRoute from "./components/PrivateRoute";
-import Appointment from "./components/Appointment/Appointment";
-import Doctors from "./components/Doctors/Doctors";
+import Login from "./components/PATIENT/Login/Login";
+import Home from "./components/PATIENT/Home/Home";
+import Signup from "./components/PATIENT/Signup/Signup";
+import Navbar from "./components/PATIENT/Navbar/Navigation";
+import Appointment from "./components/PATIENT/Appointment/Appointment";
+import Doctors from "./components/PATIENT/Doctors/Doctors";
 import MyRoute from "./components/MyRoute";
-
+import PatientRoute from "./components/PatientRoute";
+import DoctorRoute from "./components/DoctorRoute";
+import AdminRoute from "./components/AdminRoute";
+//import PatientRoute from "./components/PatientRoute";
 import "bootstrap/dist/css/bootstrap.min.css";
 function App() {
 	return (
@@ -18,8 +20,10 @@ function App() {
 				<Route exact path='/' component={Home} />
 				<MyRoute exact path='/login' component={Login} />
 				<MyRoute exact path='/signup' component={Signup} />
-				<PrivateRoute exact path='/appointment' component={Appointment} />
-				<Route exact path='/doctors' component={Doctors} />
+				<PatientRoute exact path='/appointment' component={Appointment} />
+				<DoctorRoute exact path='/doctor-appointment' component />
+				<AdminRoute exact path='/admin' component />
+				<PatientRoute exact path='/doctors' component={Doctors} />
 			</Switch>
 		</Router>
 	);

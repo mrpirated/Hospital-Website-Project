@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 
 import { Navbar, Container, Nav } from "react-bootstrap";
-import { loggedOut } from "../../store/auth";
-import store from "../../store/configureStore";
+import { loggedOut } from "../../../store/auth";
+import store from "../../../store/configureStore";
 const logout = () => {
 	store.dispatch(loggedOut());
 };

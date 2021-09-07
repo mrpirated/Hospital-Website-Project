@@ -1,13 +1,14 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import loginAPI from "../../api/loginAPI";
+import loginAPI from "../../../api/loginAPI";
 import "./Login.css";
 
 export default function Login(props) {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
-
+	const history = useHistory();
 	function validateForm() {
 		return email.length > 0 && password.length > 0;
 	}
@@ -17,6 +18,8 @@ export default function Login(props) {
 		loginAPI({
 			email: email,
 			password: password,
+		}).then((res) => {
+			if (res) history.push("/home");
 		});
 	}
 	return (
