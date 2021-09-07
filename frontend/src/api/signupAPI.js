@@ -16,10 +16,13 @@ const signupAPI = (data) => {
     }).then((res) => {
         if (res.status === 200) {
             loginAPI({ email, password });
-            console.log(res.data);
+            console.log(res.data.msg);
+        }
+        else if (res.status === 210) {
+            console.log(res.data.msg);
         }
     }).catch((err) => {
-        console.log("Error Occured in Signup");
+        //console.log("Error Occured in Signup");
     });
 }
 

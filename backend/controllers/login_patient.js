@@ -67,14 +67,14 @@ const login_patient = async (req, res) => {
                                         user: result[0]
                                     });
                                 }
-                                return res.status(401).send({
+                                return res.status(209).send({
                                     msg: 'Username or password is incorrect!'
                                 });
                             }
                         )
                     }
                     else {
-                        return res.status(401).send({
+                        return res.status(209).send({
                             msg: 'Username or password is incorrect!'
                         });
                     }

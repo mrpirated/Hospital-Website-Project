@@ -20,6 +20,9 @@ const loginAPI = (data) => {
 					})
 				);
 			}
+			if (res.status === 209) {
+				console.log(res.data.msg);
+			}
 		})
 		.catch();
 };

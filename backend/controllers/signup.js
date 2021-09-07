@@ -28,7 +28,7 @@ const signup = async (req, res) => {
 
 			connection.query("SELECT * FROM patient WHERE email = ?", value.email, async (err, result) => {
 				if (result[0]) {
-					return res.status(409).send({
+					return res.status(210).send({
 						msg: 'This username is already in use!'
 					});
 				}
