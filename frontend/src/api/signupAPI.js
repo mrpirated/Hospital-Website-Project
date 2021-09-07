@@ -1,5 +1,6 @@
 import axios from 'axios';
 import config from '../config/config.json';
+import loginAPI from './loginAPI';
 
 const signupAPI = (data) => {
     const { first_name, last_name, dob, gender, address, email, phone, password } = data;
@@ -13,11 +14,12 @@ const signupAPI = (data) => {
         phone,
         password
     }).then((res) => {
-        console.log(res.msg);
         if (res.status === 200) {
+            loginAPI({ email, password });
             console.log(res.data);
         }
     }).catch((err) => {
+        console.log("Error Occured in Signup");
     });
 }
 
