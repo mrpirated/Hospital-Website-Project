@@ -1,43 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
-import tokenAPI from "../api/tokenAPI";
-const initialState = () => {
-	if (localStorage.getItem("token")) {
-		// const user = await tokenAPI(JSON.parse(localStorage.getItem("token")));
-		// console.log(user);
-		//console.log(user);
-		return {
-			isloading: false,
-			error: "",
-			type: 0,
-			user: {},
-			token: localStorage.getItem("token"),
-			isauth: true,
-		};
-	} else {
-		return {
-			isloading: false,
-			error: "",
-			type: 0,
-			user: {},
-			token: "",
-			isauth: false,
-		};
-	}
-	// isloading: false,
-	// error: "",
-	// type: 0,
-	// user: localStorage.getItem("user")
-	// 	? JSON.parse(localStorage.getItem("user"))
-	// 	: {},
-	// token: localStorage.getItem("token") ? localStorage.getItem("token") : "",
-	// isauth: localStorage.getItem("isauth")
-	// 	? JSON.parse(localStorage.getItem("isauth"))
-	// 	: false,
-};
 
 const slice = createSlice({
 	name: "auth",
-	initialState: initialState(),
+	initialState: {
+		isloading: false,
+		error: "",
+		type: 0,
+		user: {},
+		token: "",
+		isauth: false,
+	},
 	reducers: {
 		loggedIn: (auth, action) => {
 			auth.user = action.payload.user;
@@ -62,6 +34,6 @@ const slice = createSlice({
 	},
 });
 
-export const { loggedIn, loggedOut } = slice.actions;
+export const { loggedIn, loggedOut, loggedWithToken } = slice.actions;
 
 export default slice.reducer;
