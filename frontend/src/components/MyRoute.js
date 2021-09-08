@@ -1,9 +1,9 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { Route, Redirect } from "react-router-dom";
-import store from "../store/configureStore";
 
 export default function MyRoute({ component: Component, ...rest }) {
-	const isauth = store.getState().auth.isauth;
+	const isauth = useSelector((state) => state.auth.isauth);
 
 	return (
 		<Route

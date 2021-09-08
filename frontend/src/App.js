@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import React, { useEffect } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import Type from "./Type";
 import DoctorDashboard from "./DoctorDashboard";
 import PatientDashboard from "./PatientDashboard";
@@ -12,30 +13,58 @@ import Appointment from "./components/PATIENT/Appointment/Appointment";
 import DoctorAppointment from "./components/DOCTOR/Appointment/Appointment";
 import Doctors from "./components/PATIENT/Doctors/Doctors";
 import MyRoute from "./components/MyRoute";
-import PatientRoute from "./components/PatientRoute";
-import DoctorRoute from "./components/DoctorRoute";
-import AdminRoute from "./components/AdminRoute";
-import "bootstrap/dist/css/bootstrap.min.css";
+import PatientRoute from "./components/PATIENT/PatientRoute";
+import DoctorRoute from "./components/DOCTOR/DoctorRoute";
+import AdminRoute from "./components/ADMIN/AdminRoute";
 
-function App() { 
-    return (
-        <Router>
-            <Switch>
-                <Route exact path='/' component={Type} />
-                <Route exact path='/patient-dashboard' component={PatientDashboard} />
-                <Route exact path='/doctor-dashboard' component={DoctorDashboard} />
-                <MyRoute exact path='/login-doctor' component={DoctorLogin} />
-				<MyRoute exact path='/login' component={PatientLogin} />
-				<MyRoute exact path='/signup' component={Signup} />
-                <PatientRoute exact path='/appointment' component={Appointment} />
-                <PatientRoute exact path='/home' component={PatientHome} />
-				<PatientRoute exact path='/doctors' component={Doctors} />
-                <DoctorRoute exact path='/doctor-appointment' component={DoctorAppointment} />
-                <DoctorRoute exact path='/doctor-home' component={DoctorHome} />
-				<AdminRoute exact path='/admin' component />
+import "bootstrap/dist/css/bootstrap.min.css";
+import tokenAPI from "./api/tokenAPI";
+import { loggedWithToken } from "./store/auth";
+import { useSelector } from "react-redux";
+function App() {
+	// console.log(store.getState().auth.isauth);
+	// if (!store.getState().auth.isauth && localStorage.getItem("token")) {
+	// 	tokenAPI(JSON.parse(localStorage.getItem("token"))).then((res) => {
+	// 		//console.log(res);
+	// 		store.dispatch(
+	// 			loggedWithToken({
+	// 				user: res.user,
+	// 				token: JSON.parse(localStorage.getItem("token")),
+	// 			})
+	// 		);
+	// 	});
+	// }
+	const auth = useSelector((state) => state.auth);
+
+	const dispatch = useDispatch();
+	useEffect(() => {
+		if (!auth.isauth && localStorage.getItem("token")) {
+			console.log("called");
+			tokenAPI(JSON.parse(localStorage.getItem("token"))).then((res) => {
+				dispatch(
+					loggedWithToken({
+						user: res.user,
+						token: JSON.parse(localStorage.getItem("token")),
+					})
+				);
+			});
+		}
+	}, []);
+
+	// useEffect(()=>{
+	//     if()
+	// },[])
+	return (
+		<Router>
+			<Switch>
+				<Route exact path='/login' component={PatientLogin} />
+				<Route exact path='/home' component={PatientHome} />
+				<PatientRoute path='/patient' component={PatientRoute} />
+				<AdminRoute path='/admin' component={AdminRoute} />
+				<DoctorRoute path='/doctor' component={DoctorRoute} />
 			</Switch>
 		</Router>
-    )
+	);
 }
 
-export default App
+export default App;

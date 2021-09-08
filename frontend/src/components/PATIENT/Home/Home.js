@@ -1,12 +1,10 @@
 import React from "react";
-import PatientNavbar from "../Navbar/Navigation";
+import { useSelector } from "react-redux";
 
 function Home() {
-	return (
-		<div>
-			<PatientNavbar/>
-		</div>
-	);
+	const auth = useSelector((state) => state.auth);
+	console.log(auth);
+	return <div></div>;
 }
 
 export default Home;

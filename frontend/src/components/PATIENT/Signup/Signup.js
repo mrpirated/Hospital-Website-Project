@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Form, Row, Col } from "react-bootstrap";
-import PatientNavbar from "../Navbar/Navigation";
 import signupAPI from "../../../api/signupAPI";
 import Button from "react-bootstrap/Button";
 import { useHistory } from "react-router";
@@ -52,7 +51,6 @@ function Signup(props) {
 
 	return (
 		<div>
-			<PatientNavbar/>
 			<div className='Signup'>
 				<Form onSubmit={handleSubmit}>
 					<Row>

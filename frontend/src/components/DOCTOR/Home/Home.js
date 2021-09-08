@@ -1,12 +1,7 @@
 import React from "react";
-import DoctorNavbar from "../Navbar/Navigation";
 
 function Home() {
-	return (
-		<div>
-			<DoctorNavbar/>
-		</div>
-	);
+	return <div></div>;
 }
 
 export default Home;

@@ -1,14 +1,16 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router";
+import { Redirect, useHistory } from "react-router";
 import Form from "react-bootstrap/Form";
-import PatientNavbar from "../Navbar/Navigation";
 import Button from "react-bootstrap/Button";
 import loginAPI from "../../../api/loginAPI";
+import { loggedIn } from "../../../store/auth";
 import "./Login.css";
+import { useDispatch } from "react-redux";
 
 export default function Login(props) {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
+	const dispatch = useDispatch();
 	const history = useHistory();
 	function validateForm() {
 		return email.length > 0 && password.length > 0;
@@ -20,12 +22,18 @@ export default function Login(props) {
 			email: email,
 			password: password,
 		}).then((res) => {
-			if (res) history.push("/home");
+			dispatch(
+				loggedIn({
+					user: res.user,
+					token: res.token,
+					type: 0,
+				})
+			);
+			history.push("/patient");
 		});
 	}
 	return (
 		<div>
-			<PatientNavbar/>
 			<div className='Login'>
 				<Form onSubmit={handleSubmit}>
 					<Form.Group size='lg' controlId='email'>

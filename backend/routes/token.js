@@ -6,6 +6,7 @@ dotenv.config();
 router.post("/token", (req, res) => {
 	const token = req.body.token;
 	//console.log(req.headers);
+	console.log("called");
 	const user = jwt.verify(token, process.env.SECRET_KEY, (err, decoded) => {
 		//console.log(decoded);
 		if (err) {

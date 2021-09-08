@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useHistory } from "react-router";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import DoctorNavbar from "../Navbar/Navigation";
 import loginDoctorAPI from "../../../api/loginDoctorAPI";
 import "./Login.css";
 
@@ -25,7 +24,6 @@ export default function Login(props) {
 	}
 	return (
 		<div>
-			<DoctorNavbar/>
 			<div className='Login'>
 				<Form onSubmit={handleSubmit}>
 					<Form.Group size='lg' controlId='email'>
