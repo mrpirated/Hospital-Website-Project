@@ -2,5 +2,6 @@
 	"baseUrl": "http://localhost:4587",
 	"login": "/api/login",
 	"signup": "/api/signup",
-	"token": "/api/token"
+	"token": "/api/token",
+	"login_doctor": "/api/login_doctor"
 }

@@ -3,10 +3,10 @@ import store from "../store/configureStore";
 import config from "../config/config.json";
 import { loggedIn } from "../store/auth";
 
-const loginAPI = (data) => {
+const loginDoctorAPI = (data) => {
 	const { email, password } = data;
 	return axios
-		.post(config.baseUrl + config.login, {
+		.post(config.baseUrl + config.login_doctor, {
 			email: email,
 			password: password,
 		})
@@ -16,8 +16,8 @@ const loginAPI = (data) => {
 				store.dispatch(
 					loggedIn({
 						user: res.data.user,
-						token: res.data.token,
-						type: 0
+                        token: res.data.token,
+                        type: 1
 					})
 				);
 				return true;
@@ -28,4 +28,4 @@ const loginAPI = (data) => {
 		})
 		.catch();
 };
-export default loginAPI;
+export default loginDoctorAPI;

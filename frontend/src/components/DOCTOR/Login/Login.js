@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router";
 import Form from "react-bootstrap/Form";
-import PatientNavbar from "../Navbar/Navigation";
 import Button from "react-bootstrap/Button";
-import loginAPI from "../../../api/loginAPI";
+import DoctorNavbar from "../Navbar/Navigation";
+import loginDoctorAPI from "../../../api/loginDoctorAPI";
 import "./Login.css";
 
 export default function Login(props) {
@@ -16,16 +16,16 @@ export default function Login(props) {
 
 	function handleSubmit(event) {
 		event.preventDefault();
-		loginAPI({
+		loginDoctorAPI({
 			email: email,
 			password: password,
 		}).then((res) => {
-			if (res) history.push("/home");
+			if (res) history.push("/doctor-home");
 		});
 	}
 	return (
 		<div>
-			<PatientNavbar/>
+			<DoctorNavbar/>
 			<div className='Login'>
 				<Form onSubmit={handleSubmit}>
 					<Form.Group size='lg' controlId='email'>

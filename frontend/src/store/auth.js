@@ -1,9 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 import tokenAPI from "../api/tokenAPI";
-const initialState = async () => {
+const initialState = () => {
 	if (localStorage.getItem("token")) {
-		const user = await tokenAPI(JSON.parse(localStorage.getItem("token")));
-		console.log(user);
+		// const user = await tokenAPI(JSON.parse(localStorage.getItem("token")));
+		// console.log(user);
 		//console.log(user);
 		return {
 			isloading: false,
@@ -56,6 +56,7 @@ const slice = createSlice({
 			auth.user = {};
 			auth.token = "";
 			auth.isauth = false;
+			auth.type = undefined;
 			localStorage.clear();
 		},
 	},

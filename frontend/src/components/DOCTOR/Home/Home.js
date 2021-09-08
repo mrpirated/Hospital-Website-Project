@@ -1,10 +1,10 @@
 import React from "react";
-import PatientNavbar from "../Navbar/Navigation";
+import DoctorNavbar from "../Navbar/Navigation";
 
 function Home() {
 	return (
 		<div>
-			<PatientNavbar/>
+			<DoctorNavbar/>
 		</div>
 	);
 }
