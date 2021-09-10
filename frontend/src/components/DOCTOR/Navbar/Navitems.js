@@ -1,7 +1,13 @@
 const Navitems = [
+	// {
+	// 	name: "Doctors",
+	// 	path: "doctors",
+	// 	url: "/doctor",
+	// },
 	{
-		name: "About Us",
-		path: "/about",
+		name: "Appointment",
+		path: "appointment",
+		url: "/doctor",
 	},
 ];
 export default Navitems;

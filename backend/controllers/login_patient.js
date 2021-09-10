@@ -48,6 +48,7 @@ const login_patient = (req, res) => {
 										email: result[0].email,
 										phone: result[0].phone,
 									},
+									type : 0
 									//password: result[0].password,
 								},
 								process.env.SECRET_KEY,
@@ -69,6 +70,7 @@ const login_patient = (req, res) => {
 									email: result[0].email,
 									phone: result[0].phone,
 								},
+								type: 0
 							});
 						}
 						return res.status(209).send({

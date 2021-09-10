@@ -39,21 +39,25 @@ const login_doctor = async (req, res) => {
                             (bErr, bResult) => {
                                 if (bErr) {
                                     throw bErr;
-                                    return res.status(401).send({
+                                    return res.status(209).send({
                                         msg: 'Username or Password is incorrect!'
                                     });
                                 }
 
                                 if (bResult) {
-                                    const token = jwt.sign({
-                                        doctor_id: result[0].patient_id,
-                                        first_name: result[0].first_name,
-                                        last_name: result[0].last_name,
-                                        dob: result[0].dob,
-                                        gender: result[0].gender,
-                                        address: result[0].address,
-                                        email: result[0].email,
-                                        phone: result[0].phone,
+                                    const token = jwt.sign(
+                                    {
+                                        user: {
+                                            doctor_id: result[0].patient_id,
+                                            first_name: result[0].first_name,
+                                            last_name: result[0].last_name,
+                                            dob: result[0].dob,
+                                            gender: result[0].gender,
+                                            address: result[0].address,
+                                            email: result[0].email,
+                                            phone: result[0].phone,
+                                        },
+                                        type: 1
                                         //password: result[0].password,
                                     },
                                         process.env.SECRET_KEY, {
@@ -64,17 +68,18 @@ const login_doctor = async (req, res) => {
                                     return res.status(200).send({
                                         msg: 'Logged in!',
                                         token,
-                                        user: result[0]
+                                        user: result[0],
+                                        type: 1
                                     });
                                 }
-                                return res.status(401).send({
+                                return res.status(209).send({
                                     msg: 'Username or password is incorrect!'
                                 });
                             }
                         )
                     }
                     else {
-                        return res.status(401).send({
+                        return res.status(209).send({
                             msg: 'Username or password is incorrect!'
                         });
                     }

@@ -1,7 +1,7 @@
 import React from "react";
 
 function Appointment() {
-	return <div></div>;
+	return <div>Doctor_Appointment</div>;
 }
 
 export default Appointment;

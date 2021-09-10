@@ -14,6 +14,8 @@ export default function Login(props) {
 	const auth = useSelector((state) => state.auth);
 	const dispatch = useDispatch();
 	const history = useHistory();
+	const [isDoctor, setIsDoctor] = useState(false);
+
 	function validateForm() {
 		return email.length > 0 && password.length > 0;
 	}
@@ -38,16 +40,26 @@ export default function Login(props) {
 				loggedIn({
 					user: res.user,
 					token: res.token,
-					type: 0,
+					type: (isDoctor) ? 1 : 0,
 				})
 			);
-			history.push("/patient");
+			if (isDoctor) history.push("/doctor");
+			else history.push("/patient");
 		});
 	}
 	return (
 		<div>
 			<div className='Login'>
 				<Form onSubmit={handleSubmit}>
+					<label>
+						<input
+							type="checkbox"
+							// value={isDoctor}
+							checked={isDoctor}
+							onChange={() => {setIsDoctor(!isDoctor)}}
+						/>
+						{"Doctor Login"}
+					</label>
 					<Form.Group size='lg' controlId='email'>
 						<Form.Label>Email</Form.Label>
 						<Form.Control
