@@ -22,9 +22,10 @@ export default function PatientRoute() {
 	return (
 		<div>
 			<Navigation Navitems={Navitems} />
-
-			<Route path='/patient/appointment' component={Appointment} />
-			<Route path='/patient/doctors' component={Doctors} />
+			<Switch>
+				<Route path='/patient/appointment' component={Appointment} />
+				<Route path='/patient/doctors' component={Doctors} />
+			</Switch>
 		</div>
 	);
 }

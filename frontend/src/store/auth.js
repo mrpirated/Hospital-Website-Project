@@ -13,11 +13,10 @@ const slice = createSlice({
 	reducers: {
 		loggedIn: (auth, action) => {
 			auth.user = action.payload.user;
-			//localStorage.setItem("user", JSON.stringify(auth.user));
 			auth.token = action.payload.token;
+			auth.type = action.payload.type;
 			localStorage.setItem("token", JSON.stringify(auth.token));
 			auth.isauth = true;
-			//localStorage.setItem("isauth", JSON.stringify(auth.isauth));
 		},
 		loggedWithToken: (auth, action) => {
 			auth.user = action.payload.user;
@@ -28,7 +27,7 @@ const slice = createSlice({
 			auth.user = {};
 			auth.token = "";
 			auth.isauth = false;
-			auth.type = undefined;
+			//auth.type = undefined;
 			localStorage.clear();
 		},
 	},
