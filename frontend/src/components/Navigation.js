@@ -27,7 +27,7 @@ function Navigation(props) {
 							</Nav.Link>
 							{props.Navitems &&
 								props.Navitems.map((item) => (
-									<Nav.Link as={Link} to={"/" + item.path}>
+									<Nav.Link as={Link} to={item.url + "/" + item.path}>
 										{item.name}
 									</Nav.Link>
 								))}

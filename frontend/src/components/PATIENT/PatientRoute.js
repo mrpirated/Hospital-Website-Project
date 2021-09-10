@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Route } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { useHistory } from "react-router";
+import { Switch, useHistory } from "react-router";
 import Appointment from "./Appointment/Appointment";
 import Navitems from "./Navbar/Navitems";
 import Navigation from "../Navigation";
@@ -23,8 +23,8 @@ export default function PatientRoute() {
 		<div>
 			<Navigation Navitems={Navitems} />
 
-			<Route path='patient/appointment' component={Appointment} />
-			<Route path={`patient/doctors`} component={Doctors} />
+			<Route path='/patient/appointment' component={Appointment} />
+			<Route path='/patient/doctors' component={Doctors} />
 		</div>
 	);
 }
