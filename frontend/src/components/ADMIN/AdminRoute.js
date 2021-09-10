@@ -1,11 +1,6 @@
 import React from "react";
-import {
-	BrowserRouter as Router,
-	Route,
-	Switch,
-	Redirect,
-} from "react-router-dom";
-import { useSelector, useStore } from "react-redux";
+import { BrowserRouter as Router, Redirect } from "react-router-dom";
+import { useStore } from "react-redux";
 
 import Navigation from "../Navigation";
 export default function AdminRoute() {

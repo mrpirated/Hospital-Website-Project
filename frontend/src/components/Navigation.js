@@ -7,7 +7,8 @@ import { Link } from "react-router-dom";
 function Navigation(props) {
 	const store = useStore();
 	//console.log(store);
-	const [isauth, setisauth] = useState(store.getState().auth.is);
+
+	const [isauth, setisauth] = useState(store.getState().auth.isauth);
 	store.subscribe(() => setisauth(store.getState().auth.isauth));
 	const logout = () => {
 		store.dispatch(loggedOut());
@@ -26,19 +27,10 @@ function Navigation(props) {
 							</Nav.Link>
 							{props.Navitems &&
 								props.Navitems.map((item) => (
-									<Nav.Link as={Link} to={item.path}>
+									<Nav.Link as={Link} to={"/" + item.path}>
 										{item.name}
 									</Nav.Link>
 								))}
-							{/* <Nav.Link as={Link} to='about'>
-								About Us
-							</Nav.Link>
-							<Nav.Link as={Link} to='doctors'>
-								Doctors
-							</Nav.Link>
-							<Nav.Link as={Link} to='appointment'>
-								Appointment
-							</Nav.Link> */}
 						</Nav>
 						<Nav className='ml-auto'>
 							{!isauth && (
@@ -56,7 +48,11 @@ function Navigation(props) {
 									Hello {store.getState().auth.user.first_name}
 								</Nav.Link>
 							)}
-							{isauth && <Nav.Link onClick={logout}>Logout</Nav.Link>}
+							{isauth && (
+								<Nav.Link href='/home' onClick={logout}>
+									Logout
+								</Nav.Link>
+							)}
 						</Nav>
 					</Navbar.Collapse>
 				</Container>

@@ -1,33 +1,30 @@
-import React from "react";
-import {
-	BrowserRouter as Router,
-	Route,
-	Switch,
-	Redirect,
-} from "react-router-dom";
-import { useSelector, useStore } from "react-redux";
+import React, { useEffect } from "react";
+import { Route } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useHistory } from "react-router";
 import Appointment from "./Appointment/Appointment";
 import Navitems from "./Navbar/Navitems";
 import Navigation from "../Navigation";
-import Home from "./Home/Home";
 import Doctors from "./Doctors/Doctors";
 export default function PatientRoute() {
-	const store = useStore();
-	const auth = store.getState().auth;
+	const auth = useSelector((state) => state.auth);
 	const isauth = auth.isauth;
 	const type = auth.type;
-	//console.log(isauth);
-	if (!(isauth && type === 0)) {
-		<Redirect to='home' />;
-	}
+	const history = useHistory();
+	//const { path, url } = useRouteMatch();
+
+	useEffect(() => {
+		if (!(isauth && type === 0)) {
+			history.push("/home");
+		}
+	});
+
 	return (
-		<Router>
+		<div>
 			<Navigation Navitems={Navitems} />
-			<Home />
-			<Switch>
-				<Route exact path='appointment' component={Appointment} />
-				<Route exact path='doctors' component={Doctors} />
-			</Switch>
-		</Router>
+
+			<Route path='patient/appointment' component={Appointment} />
+			<Route path={`patient/doctors`} component={Doctors} />
+		</div>
 	);
 }

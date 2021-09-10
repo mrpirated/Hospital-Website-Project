@@ -1,21 +1,33 @@
-import React, { useState } from "react";
-import { Redirect, useHistory } from "react-router";
+import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import loginAPI from "../../../api/loginAPI";
 import { loggedIn } from "../../../store/auth";
 import "./Login.css";
 import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 export default function Login(props) {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
+	const auth = useSelector((state) => state.auth);
 	const dispatch = useDispatch();
 	const history = useHistory();
 	function validateForm() {
 		return email.length > 0 && password.length > 0;
 	}
-
+	useEffect(() => {
+		if (auth.isauth) {
+			if (auth.type === 0) {
+				history.push("/patient");
+			} else if (auth.type === 1) {
+				history.push("/doctor");
+			} else if (auth.type === 2) {
+				history.push("/admin");
+			}
+		}
+	});
 	function handleSubmit(event) {
 		event.preventDefault();
 		loginAPI({
