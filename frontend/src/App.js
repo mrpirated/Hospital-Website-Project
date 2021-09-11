@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 import { useHistory } from "react-router";
 import { useDispatch } from "react-redux";
 import PatientLogin from "./components/PATIENT/Login/Login";
@@ -38,6 +38,13 @@ function App() {
 	return (
 		<div>
 			<Switch>
+				<Route
+					exact
+					path="/"
+					render={() => {
+						history.push('/home');
+					}}
+				/>
 				<Route exact path='/login' component={PatientLogin} />
 				<Route exact path='/home' component={Home} />
 				<PatientRoute path='/patient' component={PatientRoute} />
