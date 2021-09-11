@@ -23,6 +23,7 @@ function App() {
 					loggedWithToken({
 						user: res.user,
 						token: JSON.parse(localStorage.getItem("token")),
+						type: res.type
 					})
 				);
 				history.push("/patient");

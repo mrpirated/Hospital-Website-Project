@@ -2,13 +2,13 @@ import axios from "axios";
 import config from "../config/config.json";
 
 const initialState = (token) => {
-	//console.log(token);
+	console.log(token);
 	return axios
 		.post(config.baseUrl + config.token, {
 			token: token,
 		})
 		.then((res) => {
-			//console.log(res.data);
+			console.log(res.data);
 			return res.data;
 		})
 		.catch();

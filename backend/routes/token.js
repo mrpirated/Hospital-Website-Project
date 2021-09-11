@@ -13,6 +13,7 @@ router.post("/token", (req, res) => {
 			//console.log(err);
 			return false;
 		}
+		//console.log(decoded);
 		return decoded;
 	});
 	//console.log(user);

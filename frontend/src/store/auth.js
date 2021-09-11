@@ -22,12 +22,13 @@ const slice = createSlice({
 			auth.user = action.payload.user;
 			auth.token = action.payload.token;
 			auth.isauth = true;
+			auth.type = action.payload.type;
 		},
 		loggedOut: (auth, action) => {
 			auth.user = {};
 			auth.token = "";
 			auth.isauth = false;
-			//auth.type = undefined;
+			auth.type = undefined;
 			localStorage.clear();
 		},
 	},
