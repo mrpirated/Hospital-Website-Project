@@ -32,12 +32,14 @@ const login_patient = (req, res) => {
 					bcrypt.compare(password, result[0].password, (bErr, bResult) => {
 						if (bErr) {
 							throw bErr;
+							return res.status(209).send({
+								msg: 'Username or Password is incorrect!'
+							});
 						}
 
 						if (bResult) {
 							const token = jwt.sign(
 								{
-									//foo: "bar",
 									user: {
 										patient_id: result[0].patient_id,
 										first_name: result[0].first_name,
@@ -53,23 +55,14 @@ const login_patient = (req, res) => {
 								},
 								process.env.SECRET_KEY,
 								{
-									expiresIn: "30d",
+									expiresIn: '30d',
 								}
 							);
 							//console.log(token);
 							return res.status(200).send({
 								msg: "Logged in!",
 								token,
-								user: {
-									patient_id: result[0].patient_id,
-									first_name: result[0].first_name,
-									last_name: result[0].last_name,
-									dob: result[0].dob,
-									gender: result[0].gender,
-									address: result[0].address,
-									email: result[0].email,
-									phone: result[0].phone,
-								},
+								user: result[0],
 								type: 0
 							});
 						}

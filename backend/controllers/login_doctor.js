@@ -46,23 +46,24 @@ const login_doctor = async (req, res) => {
 
                                 if (bResult) {
                                     const token = jwt.sign(
-                                    {
-                                        user: {
-                                            doctor_id: result[0].patient_id,
-                                            first_name: result[0].first_name,
-                                            last_name: result[0].last_name,
-                                            dob: result[0].dob,
-                                            gender: result[0].gender,
-                                            address: result[0].address,
-                                            email: result[0].email,
-                                            phone: result[0].phone,
+                                        {
+                                            user: {
+                                                doctor_id: result[0].patient_id,
+                                                first_name: result[0].first_name,
+                                                last_name: result[0].last_name,
+                                                dob: result[0].dob,
+                                                gender: result[0].gender,
+                                                address: result[0].address,
+                                                email: result[0].email,
+                                                phone: result[0].phone,
+                                            },
+                                            type: 1
+                                            //password: result[0].password,
                                         },
-                                        type: 1
-                                        //password: result[0].password,
-                                    },
-                                        process.env.SECRET_KEY, {
-                                        expiresIn: '30d'
-                                    }
+                                        process.env.SECRET_KEY, 
+                                        {
+                                            expiresIn: '30d'
+                                        }
                                     );
 
                                     return res.status(200).send({

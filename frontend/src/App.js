@@ -26,7 +26,8 @@ function App() {
 						type: res.type
 					})
 				);
-				history.push("/patient");
+				if(res.type == 0) history.push("/patient");
+				else if(res.type == 1) history.push("/doctor");
 			});
 		}
 	});
