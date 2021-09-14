@@ -26,8 +26,7 @@ const login_doctor = async (req, res) => {
                 (err, result, fields) => {
                     //console.log("jere");
                     if (err) {
-                        throw err;
-                        return res.status(400).send({
+                        return res.status(210).send({
                             msg: err
                         });
                     }
@@ -38,7 +37,6 @@ const login_doctor = async (req, res) => {
                             result[0].password,
                             (bErr, bResult) => {
                                 if (bErr) {
-                                    throw bErr;
                                     return res.status(209).send({
                                         msg: 'Username or Password is incorrect!'
                                     });
