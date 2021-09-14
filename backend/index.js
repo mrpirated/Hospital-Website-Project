@@ -6,7 +6,7 @@ import signup from "./routes/signup/signup";
 import signup_doctor from "./routes/signup/signup_doctor";
 import token from "./routes/token";
 import patient_case from "./routes/patient_case";
-import connection from "./dbconn/db";
+import patient_appointment from "./routes/patient_appointment";
 
 const PORT = process.env.PORT;
 const { json } = express;
@@ -18,7 +18,7 @@ app.use(cors());
 
 app.use(json({ extended: false }));
 
-app.use("/api", login, signup, signup_doctor, login_doctor, token, patient_case);
+app.use("/api", login, signup, signup_doctor, login_doctor, token, patient_case, patient_appointment);
 
 app.listen(PORT, () => {
 	console.log("✨✨ Running on port " + PORT);
