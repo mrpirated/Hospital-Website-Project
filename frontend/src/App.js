@@ -19,15 +19,18 @@ function App() {
 		if (!auth.isauth && localStorage.getItem("token")) {
 			console.log("called");
 			tokenAPI(JSON.parse(localStorage.getItem("token"))).then((res) => {
+				if (res.type === 2) {
+					res.user = { ...res.user, first_name: "Admin" };
+				}
 				dispatch(
 					loggedWithToken({
 						user: res.user,
 						token: JSON.parse(localStorage.getItem("token")),
-						type: res.type
+						type: res.type,
 					})
 				);
-				if(res.type == 0) history.push("/patient");
-				else if(res.type == 1) history.push("/doctor");
+				if (res.type == 0) history.push("/patient");
+				else if (res.type == 1) history.push("/doctor");
 			});
 		}
 	});
@@ -40,9 +43,9 @@ function App() {
 			<Switch>
 				<Route
 					exact
-					path="/"
+					path='/'
 					render={() => {
-						history.push('/home');
+						history.push("/home");
 					}}
 				/>
 				<Route exact path='/login' component={PatientLogin} />
