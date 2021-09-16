@@ -9,7 +9,9 @@ const login = async (req, res) => {
 	const errors = validationResult(req);
 	if (!errors.isEmpty()) {
 		console.log(errors);
-		return res.status(ErrorCode.HTTP_BAD_REQ).json({ errors: errors.array() });
+		return res.status(210).send({
+			msg: errors,
+		});
 	}
 	try {
 		var value = {
@@ -57,7 +59,7 @@ const login = async (req, res) => {
 								msg: "Logged in!",
 								token,
 								user: result[0],
-								type: 1,
+								type: 2,
 							});
 						}
 						return res.status(209).send({
@@ -72,7 +74,10 @@ const login = async (req, res) => {
 			}
 		);
 	} catch (error) {
-		throw error;
+		console.log(errors);
+		return res.status(210).send({
+			msg: errors,
+		});
 	}
 };
 

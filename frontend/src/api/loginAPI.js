@@ -16,10 +16,25 @@ const loginAPI = (data) => {
 		.then((res) => {
 			if (res.status === 200) {
 				//console.log(res.data);
-				return res.data;
+				//return res.data;
+				return {
+					reply: true,
+					data: res.data
+				}
 			}
-			if (res.status === 209) {
+			else if(res.status === 210) {
 				console.log(res.data.msg);
+				return {
+					reply: false,
+					data : res.data.msg.errors[0]
+				}
+			}
+			else {
+				console.log(res.data.msg);
+				return {
+					reply: false,
+					data : res.data
+				}
 			}
 		})
 		.catch();

@@ -37,15 +37,21 @@ export default function Login(props) {
 			password: password,
 			type: isDoctor == true ? 1 : 0,
 		}).then((res) => {
-			dispatch(
-				loggedIn({
-					user: res.user,
-					token: res.token,
-					type: res.type,
-				})
-			);
-			if (res.type == 1) history.push("/doctor");
-			else history.push("/patient");
+			if(res.reply){
+				dispatch(
+					loggedIn({
+						user: res.data.user,
+						token: res.data.token,
+						type: res.data.type,
+					})
+				);
+				if (res.data.type === 1) history.push("/doctor");
+				else history.push("/patient");
+			}
+			else{
+				alert(res.data.msg);
+				//alert(res.data);
+			}
 		});
 	}
 	return (
