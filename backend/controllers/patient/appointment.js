@@ -39,7 +39,7 @@ const appointment = async (req, res) => {
 							}
 						);
 					} else {
-						return res.status(210).send({
+						return res.status(209).send({
 							msg: "Invalid Request. No such case found.",
 						});
 					}
@@ -47,7 +47,10 @@ const appointment = async (req, res) => {
 			);
 		}
 	} catch (error) {
-		throw error;
+		console.log(error);
+		return res.status(210).send({
+			msg: error,
+		});
 	}
 };
 

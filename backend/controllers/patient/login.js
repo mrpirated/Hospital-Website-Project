@@ -26,7 +26,10 @@ const login = (req, res) => {
 			(err, result, fields) => {
 				//console.log("jere");
 				if (err) {
-					throw err;
+					console.log(err);
+					return res.status(210).send({
+						msg: err,
+					});
 				}
 
 				if (result[0]) {

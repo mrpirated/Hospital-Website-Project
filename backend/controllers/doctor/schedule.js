@@ -36,7 +36,10 @@ export const get_doctor_schedule = async (req, res) => {
 			);
 		}
 	} catch (error) {
-		throw error;
+		console.log(error);
+		return res.status(210).send({
+			msg: error,
+		});
 	}
 };
 
@@ -70,7 +73,7 @@ export const post_doctor_schedule = async (req, res) => {
 				[record],
 				(err, result, fields) => {
 					if (err) {
-						return res.status(209).send({
+						return res.status(210).send({
 							msg: err,
 						});
 					} else {
@@ -83,6 +86,9 @@ export const post_doctor_schedule = async (req, res) => {
 			console.log(record);
 		}
 	} catch (error) {
-		throw error;
+		console.log(error);
+		return res.status(210).send({
+			msg: error,
+		});
 	}
 };

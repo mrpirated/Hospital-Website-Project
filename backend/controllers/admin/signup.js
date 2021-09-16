@@ -38,7 +38,7 @@ const signup = async (req, res) => {
 						value,
 						(err, result, fields) => {
 							if (err) {
-								return res.status(209).send({
+								return res.status(210).send({
 									msg: err,
 								});
 							}

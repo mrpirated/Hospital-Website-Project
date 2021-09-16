@@ -31,7 +31,10 @@ const cases = async (req, res) => {
 			);
 		}
 	} catch (error) {
-		throw error;
+		console.log(error);
+		return res.status(210).send({
+			msg: error,
+		});
 	}
 };
 export default cases;
