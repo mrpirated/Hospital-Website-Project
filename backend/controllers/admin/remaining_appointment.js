@@ -14,7 +14,7 @@ const remaining_appointment = async (req, res) => {
 			});
 		} else {
 			connection.query(
-				"SELECT * FROM appointment WHERE start_time=NULL AND end_time=NULL",
+				"SELECT * FROM appointment WHERE start_time IS NULL AND end_time IS NULL",
 				(err, result, fields) => {
 					if (err) {
 						return res.status(209).send({

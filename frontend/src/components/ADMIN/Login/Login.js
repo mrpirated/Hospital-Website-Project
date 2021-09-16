@@ -14,7 +14,7 @@ export default function Login(props) {
 	const auth = useSelector((state) => state.auth);
 	const dispatch = useDispatch();
 	const history = useHistory();
-	
+
 	function validateForm() {
 		return email.length > 0 && password.length > 0;
 	}
@@ -22,8 +22,7 @@ export default function Login(props) {
 		if (auth.isauth) {
 			if (auth.type === 2) {
 				history.push("/admin");
-			}
-			else{
+			} else {
 				history.push("/home");
 			}
 		}
@@ -35,7 +34,10 @@ export default function Login(props) {
 			password: password,
 			type: 2,
 		}).then((res) => {
-			if(res.reply){
+			if (res.reply) {
+				if (res.data.type === 2) {
+					res.data.user = { ...res.data.user, first_name: "Admin" };
+				}
 				dispatch(
 					loggedIn({
 						user: res.data.user,
@@ -44,8 +46,7 @@ export default function Login(props) {
 					})
 				);
 				history.push("/admin");
-			}
-			else{
+			} else {
 				alert(res.data.msg);
 			}
 		});

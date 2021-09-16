@@ -3,8 +3,9 @@ import dotenv from "dotenv";
 dotenv.config();
 
 import checkToken from "../../checkToken";
+import { query } from "express";
 
-const appointment = async (req, res) => {
+export const MyAppointment = async (req, res) => {
 	try {
 		const decodedData = checkToken(req.body.token);
 		if (decodedData == undefined) {
@@ -53,5 +54,84 @@ const appointment = async (req, res) => {
 		});
 	}
 };
+export const NewAppointment = async (req, res) => {
+	try {
+		const decodedData = checkToken(req.body.token);
+		if (!decodedData || decodedData.type != 0) {
+			if (!decodedData) {
+				return res.status(210).send({
+					msg: "Token is invalid",
+				});
+			}
+			return res.status(209).send({
+				msg: "Not authorized!!",
+			});
+		} else {
+			const values = {
+				case_id: req.body.case_id,
+				doctor_id: req.body.doctor_id,
+			};
+			connection.query(
+				"INSERT INTO appointment SET ?",
+				values,
+				(err, result, fields) => {
+					if (err) {
+						return res.status(210).send({
+							msg: err,
+						});
+					} else {
+						return res.status(200).send({
+							msg: "Entered",
+						});
+					}
+				}
+			);
+		}
+	} catch (error) {
+		console.log(error);
+		return res.status(210).send({
+			msg: error,
+		});
+	}
+};
 
-export default appointment;
+export const NewCase = async (req, res) => {
+	try {
+		const decodedData = checkToken(req.body.token);
+		if (!decodedData || decodedData.type != 0) {
+			if (!decodedData) {
+				return res.status(210).send({
+					msg: "Token is invalid",
+				});
+			}
+			return res.status(209).send({
+				msg: "Not authorized!!",
+			});
+		} else {
+			var values = {
+				patient_id: decodedData.user.patient_id,
+			};
+			console.log(values);
+			connection.query(
+				"INSERT INTO cases SET ?",
+				values,
+				(err, result, fields) => {
+					if (err) {
+						return res.status(210).send({
+							msg: err,
+						});
+					} else {
+						return res.status(200).send({
+							msg: "Entered",
+						});
+					}
+				}
+			);
+		}
+	} catch (error) {
+		console.log(error);
+		return res.status(210).send({
+			msg: error,
+		});
+	}
+};
