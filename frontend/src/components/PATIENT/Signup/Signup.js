@@ -42,7 +42,12 @@ function Signup(props) {
 				phone,
 				password,
 			}).then((res) => {
-				if (res) history.push("/home");
+				if(res.reply){
+					history.push("/home");
+				}
+				else{
+					alert(res.data.msg);
+				}
 			});
 		} else if (password !== confirmPassword) {
 			setFlag(true);

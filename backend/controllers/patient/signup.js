@@ -10,7 +10,9 @@ const signup = async (req, res) => {
 	const errors = validationResult(req);
 	if (!errors.isEmpty()) {
 		console.log(errors);
-		return res.status(ErrorCode.HTTP_BAD_REQ).json({ errors: errors.array() });
+		return res.status(210).send({
+			msg: errors,
+		});
 	}
 	try {
 		var value = {
@@ -29,7 +31,7 @@ const signup = async (req, res) => {
 			value.email,
 			async (err, result) => {
 				if (result[0]) {
-					return res.status(210).send({
+					return res.status(209).send({
 						msg: "This username is already in use!",
 					});
 				} else {
@@ -42,8 +44,7 @@ const signup = async (req, res) => {
 						value,
 						(err, result, fields) => {
 							if (err) {
-								throw err;
-								return res.status(400).send({
+								return res.status(209).send({
 									msg: err,
 								});
 							}
@@ -79,7 +80,10 @@ const signup = async (req, res) => {
 		// );
 		//res.send(jwttoken);
 	} catch {
-		(err) => console.log(err);
+		console.log(error);
+		return res.status(210).send({
+			msg: error,
+		});
 	}
 };
 

@@ -26,9 +26,23 @@ const signupAPI = (data) => {
 		})
 		.then((res) => {
 			if (res.status === 200) {
-				return loginAPI({ email, password });
+				//return loginAPI({ email, password });
+				return {
+					reply: true
+				}
 			} else if (res.status === 210) {
 				console.log(res.data.msg);
+				return {
+					reply: false,
+					data : res.data.msg.errors[0]
+				}
+			}
+			else{
+				console.log(res.data.msg);
+				return {
+					reply: false,
+					data : res.data
+				}
 			}
 		})
 		.catch((err) => {
