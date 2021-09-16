@@ -5,7 +5,7 @@ import { check } from "express-validator";
 
 import dotenv from "dotenv";
 dotenv.config();
-import login_admin from "../../controllers/admin/login";
+import login from "../../controllers/admin/login";
 
 router.post(
 	"/login",
@@ -15,7 +15,7 @@ router.post(
 			min: 6,
 		}),
 	],
-	login_admin
+	login
 );
 
 export default router;
