@@ -6,7 +6,7 @@ const loginAPI = (data) => {
 	return axios
 		.post(
 			config.baseUrl +
-				(type === 0 ? config.patient : config.doctor) +
+				(type === 2 ? config.admin : (type === 0 ? config.patient : config.doctor)) +
 				config.login,
 			{
 				email: email,

@@ -29,7 +29,7 @@ const login = async (req, res) => {
 						msg: err,
 					});
 				}
-
+				console.log(result[0]);
 				if (result[0]) {
 					bcrypt.compare(password, result[0].password, (bErr, bResult) => {
 						if (bErr) {
@@ -37,8 +37,10 @@ const login = async (req, res) => {
 								msg: "Username or Password is incorrect!",
 							});
 						}
-
+						console.log(bResult);
 						if (bResult) {
+							console.log("ENTERED");
+							
 							const token = jwt.sign(
 								{
 									user: {

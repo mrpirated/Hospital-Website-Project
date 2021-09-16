@@ -10,7 +10,6 @@ const bcrypt = require("bcrypt");
 router.post(
 	"/signup",
 	[
-		check("first_name", "Name is required").not().isEmpty(),
 		check("email", "Valid Email required").isEmail(),
 		check(
 			"password",
