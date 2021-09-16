@@ -14,7 +14,7 @@ const signupAPI = (data) => {
 		password,
 	} = data;
 	return axios
-		.post(config.baseUrl + config.signup, {
+		.post(config.baseUrl + config.patient + config.signup, {
 			first_name,
 			last_name,
 			dob,

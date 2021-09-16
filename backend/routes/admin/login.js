@@ -1,12 +1,11 @@
 import { Router } from "express";
 const router = Router();
-import connection from "../../dbconn/db";
-import { check, validationResult } from "express-validator";
-import jwt from "jsonwebtoken";
+
+import { check } from "express-validator";
+
 import dotenv from "dotenv";
 dotenv.config();
 import login_admin from "../../controllers/login_admin";
-const bcrypt = require("bcrypt");
 
 router.post(
 	"/login_admin",

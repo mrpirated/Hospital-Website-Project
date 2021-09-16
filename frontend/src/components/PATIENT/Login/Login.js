@@ -35,7 +35,7 @@ export default function Login(props) {
 		loginAPI({
 			email: email,
 			password: password,
-			type: (isDoctor == true ? 1 : 0)
+			type: isDoctor == true ? 1 : 0,
 		}).then((res) => {
 			dispatch(
 				loggedIn({
@@ -54,10 +54,12 @@ export default function Login(props) {
 				<Form onSubmit={handleSubmit}>
 					<label>
 						<input
-							type="checkbox"
+							type='checkbox'
 							// value={isDoctor}
 							checked={isDoctor}
-							onChange={() => {setIsDoctor(!isDoctor)}}
+							onChange={() => {
+								setIsDoctor(!isDoctor);
+							}}
 						/>
 						{"Doctor Login"}
 					</label>
