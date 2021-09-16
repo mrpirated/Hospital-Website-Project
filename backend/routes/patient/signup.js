@@ -4,7 +4,7 @@ import { check, validationResult } from "express-validator";
 import connection from "../../dbconn/db";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
-import signup from "../../controllers/signup";
+import signup from "../../controllers/patient/signup";
 dotenv.config();
 const bcrypt = require("bcrypt");
 router.post(

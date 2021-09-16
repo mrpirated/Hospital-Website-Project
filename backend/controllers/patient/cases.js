@@ -1,9 +1,9 @@
-import connection from "../dbconn/db";
+import connection from "../../dbconn/db";
 import dotenv from "dotenv";
 dotenv.config();
-import checkToken from "../checkToken";
+import checkToken from "../../checkToken";
 
-const patient_case = async (req, res) => {
+const cases = async (req, res) => {
 	try {
 		const decodedData = checkToken(req.body.token);
 		//console.log(decodedData);
@@ -34,4 +34,4 @@ const patient_case = async (req, res) => {
 		throw error;
 	}
 };
-export default patient_case;
+export default cases;

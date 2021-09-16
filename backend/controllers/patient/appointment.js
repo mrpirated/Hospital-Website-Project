@@ -1,10 +1,10 @@
-import connection from "../dbconn/db";
+import connection from "../../dbconn/db";
 import dotenv from "dotenv";
 dotenv.config();
 
-import checkToken from "../checkToken";
+import checkToken from "../../checkToken";
 
-const patient_appointment = async (req, res) => {
+const appointment = async (req, res) => {
 	try {
 		const decodedData = checkToken(req.body.token);
 		if (decodedData == undefined) {
@@ -51,4 +51,4 @@ const patient_appointment = async (req, res) => {
 	}
 };
 
-export default patient_appointment;
+export default appointment;

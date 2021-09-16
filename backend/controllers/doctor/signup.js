@@ -1,12 +1,12 @@
 import { Router } from "express";
-import connection from "../dbconn/db";
+import connection from "../../dbconn/db";
 import { check, validationResult } from "express-validator";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 dotenv.config();
 const bcrypt = require("bcrypt");
 
-const signup_admin = async (req, res) => {
+const signup = async (req, res) => {
 	const errors = validationResult(req);
 	if (!errors.isEmpty()) {
 		console.log(errors);
@@ -14,12 +14,18 @@ const signup_admin = async (req, res) => {
 	}
 	try {
 		var value = {
+			first_name: req.body.first_name,
+			last_name: req.body.last_name,
+			dob: req.body.dob,
+			gender: req.body.gender,
+			address: req.body.address,
 			email: req.body.email,
+			phone: req.body.phone,
 			password: req.body.password,
 		};
 
 		connection.query(
-			"SELECT * FROM admin WHERE email = ?",
+			"SELECT * FROM doctor WHERE email = ?",
 			value.email,
 			async (err, result) => {
 				if (result[0]) {
@@ -32,11 +38,12 @@ const signup_admin = async (req, res) => {
 					console.log(value.password);
 					var patient_id;
 					var q = connection.query(
-						"INSERT INTO admin SET ?",
+						"INSERT INTO doctor SET ?",
 						value,
 						(err, result, fields) => {
 							if (err) {
-								return res.status(209).send({
+								throw err;
+								return res.status(400).send({
 									msg: err,
 								});
 							}
@@ -76,4 +83,4 @@ const signup_admin = async (req, res) => {
 	}
 };
 
-export default signup_admin;
+export default signup;

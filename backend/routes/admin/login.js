@@ -5,10 +5,10 @@ import { check } from "express-validator";
 
 import dotenv from "dotenv";
 dotenv.config();
-import login_admin from "../../controllers/login_admin";
+import login_admin from "../../controllers/admin/login";
 
 router.post(
-	"/login_admin",
+	"/login",
 	[
 		check("email", "Valid Email required").isEmail(),
 		check("password", "Please enter a valid password").isLength({

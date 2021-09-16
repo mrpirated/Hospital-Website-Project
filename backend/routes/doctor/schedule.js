@@ -5,9 +5,9 @@ dotenv.config();
 import {
 	get_doctor_schedule,
 	post_doctor_schedule,
-} from "../../controllers/doctor_schedule";
+} from "../../controllers/doctor/schedule";
 
-router.get("/doctor_schedule", get_doctor_schedule);
-router.post("/doctor_schedule", post_doctor_schedule);
+router.get("/schedule", get_doctor_schedule);
+router.post("/schedule", post_doctor_schedule);
 
 export default router;

@@ -4,11 +4,11 @@ import { check, validationResult } from "express-validator";
 import connection from "../../dbconn/db";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
-import signup_admin from "../../controllers/signup_admin";
+import signup_admin from "../../controllers/admin/signup";
 dotenv.config();
 const bcrypt = require("bcrypt");
 router.post(
-	"/signup_admin",
+	"/signup",
 	[
 		check("first_name", "Name is required").not().isEmpty(),
 		check("email", "Valid Email required").isEmail(),

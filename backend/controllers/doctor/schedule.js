@@ -1,8 +1,8 @@
-import connection from "../dbconn/db";
+import connection from "../../dbconn/db";
 import dotenv from "dotenv";
 dotenv.config();
 
-import checkToken from "../checkToken";
+import checkToken from "../../checkToken";
 
 export const get_doctor_schedule = async (req, res) => {
 	try {

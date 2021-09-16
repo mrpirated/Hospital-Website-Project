@@ -1,8 +1,8 @@
 {
 	"baseUrl": "http://localhost:4587",
-	"doctor": "api/doctor",
-	"patient": "api/patient",
-	"admin": "api/admin",
+	"doctor": "/api/doctor",
+	"patient": "/api/patient",
+	"admin": "/api/admin",
 	"login": "/login",
 	"signup": "/signup",
 	"token": "/api/token"

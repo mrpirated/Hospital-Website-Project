@@ -8,7 +8,7 @@ import doctor from "./routes/doctor/doctor";
 // import signup from "./routes/signup/signup";
 // import signup_doctor from "./routes/signup/signup_doctor";
 // import signup_admin from "./routes/signup/signup_admin";
-// import token from "./routes/token";
+import token from "./routes/token";
 // import patient_case from "./routes/patient_case";
 // import patient_appointment from "./routes/patient_appointment";
 // import doctor_schedule from "./routes/doctor_schedule";
@@ -27,11 +27,11 @@ app.use(
 	"/api",
 	patient,
 	doctor,
-	admin
+	admin,
 	// signup,
 	// signup_doctor,
 	// signup_admin,
-	// token,
+	token
 	// patient_case,
 	// patient_appointment,
 	// doctor_schedule
