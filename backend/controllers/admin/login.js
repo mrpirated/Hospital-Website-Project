@@ -14,10 +14,6 @@ const login = async (req, res) => {
 		});
 	}
 	try {
-		var value = {
-			email: req.body.email,
-			password: req.body.password,
-		};
 		const { email, password } = req.body;
 		var q = connection.query(
 			"SELECT * FROM admin WHERE email = ?",
@@ -32,24 +28,23 @@ const login = async (req, res) => {
 				console.log(result[0]);
 				if (result[0]) {
 					bcrypt.compare(password, result[0].password, (bErr, bResult) => {
+						//console.log(bErr);
 						if (bErr) {
+							//console.log(bErr);
 							return res.status(209).send({
 								msg: "Username or Password is incorrect!",
 							});
 						}
-						console.log(bResult);
+						//console.log(bResult);
 						if (bResult) {
-							console.log("ENTERED");
-							
+							//console.log(bResult);
 							const token = jwt.sign(
 								{
 									user: {
 										admin_id: result[0].admin_id,
 										email: result[0].email,
-										phone: result[0].phone,
 									},
 									type: 2,
-									//password: result[0].password,
 								},
 								process.env.SECRET_KEY,
 								{
@@ -65,12 +60,12 @@ const login = async (req, res) => {
 							});
 						}
 						return res.status(209).send({
-							msg: "Username or password is incorrect!",
+							msg: "Email or password is incorrect!",
 						});
 					});
 				} else {
 					return res.status(209).send({
-						msg: "Username or password is incorrect!",
+						msg: "Email dosen't exist!",
 					});
 				}
 			}

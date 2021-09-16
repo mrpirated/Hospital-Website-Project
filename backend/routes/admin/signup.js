@@ -4,7 +4,7 @@ import { check, validationResult } from "express-validator";
 import connection from "../../dbconn/db";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
-import signup_admin from "../../controllers/admin/signup";
+import signup from "../../controllers/admin/signup";
 dotenv.config();
 const bcrypt = require("bcrypt");
 router.post(
@@ -18,7 +18,7 @@ router.post(
 			min: 6,
 		}),
 	],
-	signup_admin
+	signup
 );
 
 export default router;

@@ -7,14 +7,14 @@ router.post("/token", (req, res) => {
 	const token = req.body.token;
 	//console.log(req.headers);
 	//console.log("called");
-	console.log(token);
+	//console.log(token);
 	const user = jwt.verify(token, process.env.SECRET_KEY, (err, decoded) => {
 		//console.log(decoded);
 		if (err) {
 			//console.log(err);
 			return false;
 		}
-		console.log(decoded);
+		//console.log(decoded);
 		return decoded;
 	});
 	//console.log(user);

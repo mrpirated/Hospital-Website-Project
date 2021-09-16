@@ -31,7 +31,7 @@ const signup = async (req, res) => {
 				} else {
 					value.password = await bcrypt.hash(req.body.password, 10);
 
-					console.log(value.password);
+					//console.log(value.password);
 					var patient_id;
 					var q = connection.query(
 						"INSERT INTO admin SET ?",
@@ -45,35 +45,12 @@ const signup = async (req, res) => {
 							return res.status(200).send({
 								msg: "Registered!",
 							});
-							/*//console.log("jere");
-                        if (err) console.log(err);
-                        else {
-                            patient_id = results.insertId;
-                            //console.log(patient_id);
-                            //console.log(t);
-                        }*/
 						}
 					);
 				}
 			}
 		);
-
-		// console.log(q);
-		// console.log(value);
-		// jwt.sign(
-		// 	{
-		// 		data: value,
-		// 		patient_id,
-		// 	},
-		// 	process.env.SECRET_KEY,
-		// 	{ expiresIn: 60 * 60 * 24 * 30 },
-		// 	(err, token) => {
-		// 		//console.log(token);
-		// 		res.send(token);
-		// 	}
-		// );
-		//res.send(jwttoken);
-	} catch(error) {
+	} catch (error) {
 		console.log(error);
 		return res.status(210).send({
 			msg: error,

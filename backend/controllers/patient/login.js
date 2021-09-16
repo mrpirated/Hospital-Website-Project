@@ -15,10 +15,6 @@ const login = (req, res) => {
 		});
 	}
 	try {
-		var value = {
-			email: req.body.email,
-			password: req.body.password,
-		};
 		const { email, password } = req.body;
 		var q = connection.query(
 			"SELECT * FROM patient WHERE email = ?",
