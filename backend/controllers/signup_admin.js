@@ -36,8 +36,7 @@ const signup_admin = async (req, res) => {
 						value,
 						(err, result, fields) => {
 							if (err) {
-								throw err;
-								return res.status(400).send({
+								return res.status(209).send({
 									msg: err,
 								});
 							}

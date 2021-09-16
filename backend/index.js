@@ -9,6 +9,7 @@ import signup_admin from "./routes/signup/signup_admin";
 import token from "./routes/token";
 import patient_case from "./routes/patient_case";
 import patient_appointment from "./routes/patient_appointment";
+import doctor_schedule from "./routes/doctor_schedule";
 
 const PORT = process.env.PORT;
 const { json } = express;
@@ -30,7 +31,8 @@ app.use(
 	signup_admin,
 	token,
 	patient_case,
-	patient_appointment
+	patient_appointment,
+	doctor_schedule
 );
 
 app.listen(PORT, () => {
