@@ -20,7 +20,7 @@ export const get_doctor_schedule = async (req, res) => {
 			}
 			var q = connection.query(
 				"SELECT start_time, end_time FROM schedule WHERE doctor_id = ?",
-				[res.data.doctor_id],
+				[req.body.doctor_id],
 				(err, result, fields) => {
 					if (err) {
 						return res.status(210).send({
