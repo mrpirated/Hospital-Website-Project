@@ -5,7 +5,8 @@ import checkToken from "../../checkToken";
 
 const cases = async (req, res) => {
 	try {
-		const decodedData = checkToken(req.body.token);
+		//console.log(req.query.token);
+		const decodedData = checkToken(req.query.token);
 		//console.log(decodedData);
 		if (decodedData == undefined) {
 			return res.status(209).send({
