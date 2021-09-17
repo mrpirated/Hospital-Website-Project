@@ -6,5 +6,6 @@
 	"admin": "/api/admin",
 	"login": "/login",
 	"signup": "/signup",
-	"cases": "/cases"
+	"cases": "/cases",
+	"myappointment": "/myappointment"
 }
