@@ -5,8 +5,7 @@ import Button from "react-bootstrap/Button";
 import loginAPI from "../../../api/loginAPI";
 import { loggedIn } from "../../../store/auth";
 import "./Login.css";
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function Login(props) {
 	const [email, setEmail] = useState("");
