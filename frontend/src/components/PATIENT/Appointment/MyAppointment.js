@@ -20,7 +20,7 @@ export default function MyAppointment(props) {
 		else{
             patientMyAppointmentAPI({
                 token: auth.token,
-                case_id: props.location.state.case_id
+                case_id: props.location.state.case_details.case_id
             }).then((res) => {
                 if(res.reply){
                     setAppointments(res.appointments);
@@ -36,7 +36,7 @@ export default function MyAppointment(props) {
 
 	return (
 		<div>
-			<Card className="MyAppointment-AddCard" onClick={()=>{history.push("/patient/doctors")}} bg="dark" text="white" style={{ width : "20rem", margin: "2rem", display:"inline-grid"}}>
+			<Card className="MyAppointment-AddCard" onClick={()=>{history.push("/patient/new-appointment", {case_details: props.location.state.case_details})}} bg="dark" text="white" style={{ width : "20rem", margin: "2rem", display:"inline-grid"}}>
 				<Card.Body>
 					<Card.Title>Create New Appointment</Card.Title>
 					<Card.Text>
@@ -47,7 +47,7 @@ export default function MyAppointment(props) {
 			</Card>
 			{
 				appointments.map((c) => (
-					<Card className="MyAppointment-Card" onClick={()=>{history.push("/patient/doctors")}} bg="dark" text="white" style={{ width : "20rem", margin: "2rem", display:"inline-grid"}}>
+					<Card className="MyAppointment-Card" onClick={()=>{}} bg="dark" text="white" style={{ width : "20rem", margin: "2rem", display:"inline-grid"}}>
 						<Card.Body>
 							<Card.Title>Appointment Id: {c.appointment_id}</Card.Title>
 							<Card.Text>

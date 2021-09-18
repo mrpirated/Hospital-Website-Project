@@ -7,7 +7,7 @@ import { query } from "express";
 
 export const MyAppointment = async (req, res) => {
 	try {
-		console.log(req.query.token, req.query.case_id);
+		//console.log(req.query.token, req.query.case_id);
 		const decodedData = checkToken(req.query.token);
 		if (decodedData == undefined) {
 			return res.status(209).send({
@@ -15,13 +15,13 @@ export const MyAppointment = async (req, res) => {
 			});
 		} else {
 			const user = decodedData.user;
-			//console.log(user.patient_id, req.body.case_id);
+			console.log(user.patient_id, req.body.case_id);
 			var q = connection.query(
 				"SELECT case_id FROM cases WHERE patient_id = ? AND case_id = ?",
 				[user.patient_id, req.query.case_id],
 				(err, result, fields) => {
 					//console.log("HELLO" + result);
-					//console.log(result.length);
+					//console.log(result);
 					if (err) {
 						return res.status(210).send({
 							msg: err,
@@ -124,8 +124,10 @@ export const NewCase = async (req, res) => {
 							msg: err,
 						});
 					} else {
+						console.log(result);
 						return res.status(200).send({
 							msg: "Entered",
+							case_id: result.insertId
 						});
 					}
 				}

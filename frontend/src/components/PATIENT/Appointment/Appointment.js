@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from "react";
-import {useHistory} from "react-router";
+import { Route } from "react-router-dom";
+import {Switch, useHistory} from "react-router";
 import {useDispatch, useSelector} from "react-redux";
 import patientCaseAPI from "../../../api/patientCaseAPI";
 import {Card} from "react-bootstrap";
@@ -24,14 +25,13 @@ export default function Appointment(props) {
 			else{
 				alert(res.data.msg + "\nYou will be redirected to Home.");
 				setTimeout(history.push("/home"), 4000);
-				
 			}
 		})
 	}, []);
 
 	return (
 		<div>
-			<Card className="Appointment-AddCard" onClick={()=>{history.push("/patient/doctors")}} bg="dark" text="white" style={{ width : "20rem", margin: "2rem", display:"inline-grid"}}>
+			<Card className="Appointment-AddCard" onClick={()=>{history.push("/patient/new-case")}} bg="dark" text="white" style={{ width : "20rem", margin: "2rem", display:"inline-grid"}}>
 				<Card.Body>
 					<Card.Title>Create New Case</Card.Title>
 					<Card.Text>
@@ -42,7 +42,7 @@ export default function Appointment(props) {
 			</Card>
 			{
 				cases.map((c) => (
-					<Card className="Appointment-Card" onClick={()=>{history.push("/patient/myappointment", {case_id: c.case_id})}} bg="dark" text="white" style={{ width : "20rem", margin: "2rem", display:"inline-grid"}}>
+					<Card className="Appointment-Card" onClick={()=>{history.push("/patient/myappointment", {case_details: c})}} bg="dark" text="white" style={{ width : "20rem", margin: "2rem", display:"inline-grid"}}>
 						<Card.Body>
 							<Card.Title>Case Id: {c.case_id}</Card.Title>
 							<Card.Text>

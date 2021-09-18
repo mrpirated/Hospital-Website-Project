@@ -7,5 +7,7 @@
 	"login": "/login",
 	"signup": "/signup",
 	"cases": "/cases",
-	"myappointment": "/myappointment"
+	"myappointment": "/myappointment",
+	"newcase": "/newcase",
+	"newappointment": "/newappointment"
 }
