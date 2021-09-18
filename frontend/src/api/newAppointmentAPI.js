@@ -5,7 +5,7 @@ const newAppointmentAPI = (data) => {
     const {token, case_id, doctor_id, start_time, end_time} = data;
 
     return axios.post(
-        config.baseUrl + config.patient + config.newcase,
+        config.baseUrl + config.patient + config.newappointment,
         {
             token:token,
             case_id: case_id,
@@ -15,7 +15,7 @@ const newAppointmentAPI = (data) => {
         }
     ).then((res) => {
         if (res.status === 200) {
-            //console.log(res.data);
+            console.log(res.data);
             //return res.data;
             return {
                 reply: true,
