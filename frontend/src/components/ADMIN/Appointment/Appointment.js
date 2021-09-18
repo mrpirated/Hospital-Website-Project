@@ -5,11 +5,14 @@ function Appointment() {
 	const token = useSelector((state) => state.auth.token);
 	const [appointments, setappointments] = useState();
 	//console.log(token);
-	useEffect(async () => {
-		await remaining_appointmentAPI(token).then((res) => {
-			setappointments(res);
-			//console.log(res);
-		});
+	useEffect(() => {
+		const fetchData = async () => {
+			await remaining_appointmentAPI(token).then((res) => {
+				setappointments(res);
+				//console.log(res);
+			});
+		};
+		fetchData();
 		//console.log(appointments[0]);
 	}, []);
 

@@ -13,7 +13,7 @@ const remaining_appointmentAPI = async (token) => {
 		)
 		.then((res) => {
 			if (res.status === 200) {
-				console.log(res.data);
+				//console.log(res.data);
 				return res.data;
 			} else return false;
 		})
