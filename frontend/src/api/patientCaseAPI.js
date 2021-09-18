@@ -1,10 +1,10 @@
 import axios from "axios";
 import config from "../config/config.json";
 
-const patientCaseAPI = (data) => {
+const patientCaseAPI = async (data) => {
 	const { token } = data;
 	//console.log(token);
-	return axios
+	return await axios
 		.get(
 			config.baseUrl + config.patient + config.cases + "?" + "token=" + token,
 			{

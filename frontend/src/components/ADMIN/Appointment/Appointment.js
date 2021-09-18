@@ -14,7 +14,7 @@ function Appointment() {
 		};
 		fetchData();
 		//console.log(appointments[0]);
-	}, []);
+	}, [token]);
 
 	return (
 		<div>

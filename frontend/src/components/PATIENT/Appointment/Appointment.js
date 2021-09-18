@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import patientCaseAPI from "../../../api/patientCaseAPI";
 import { Card } from "react-bootstrap";
 import "./Appointment.css";
@@ -14,18 +14,20 @@ export default function Appointment(props) {
 		if (!(auth.isauth && auth.type === 0)) {
 			history.push("/home");
 		}
-
-		patientCaseAPI({
-			token: auth.token,
-		}).then((res) => {
-			if (res.reply) {
-				setCases(res.cases);
-			} else {
-				alert(res.data.msg + "\nYou will be redirected to Home.");
-				setTimeout(history.push("/home"), 4000);
-			}
-		});
-	}, []);
+		const fetchData = async () => {
+			await patientCaseAPI({
+				token: auth.token,
+			}).then((res) => {
+				if (res.reply) {
+					setCases(res.cases);
+				} else {
+					alert(res.data.msg + "\nYou will be redirected to Home.");
+					setTimeout(history.push("/home"), 4000);
+				}
+			});
+		};
+		fetchData();
+	}, [auth]);
 
 	return (
 		<div>
