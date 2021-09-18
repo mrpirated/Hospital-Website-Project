@@ -56,8 +56,6 @@ export default function MyAppointment(props) {
 					onClick={() => {
 						history.push("/patient/doctors");
 					}}
-					bg='dark'
-					text='white'
 					style={{ width: "20rem", margin: "2rem", display: "inline-grid" }}
 				>
 					<Card.Body>

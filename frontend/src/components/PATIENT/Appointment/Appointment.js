@@ -27,7 +27,7 @@ export default function Appointment(props) {
 			});
 		};
 		fetchData();
-	}, [auth]);
+	}, []);
 
 	return (
 		<div>

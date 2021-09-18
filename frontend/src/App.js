@@ -13,29 +13,37 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import tokenAPI from "./api/tokenAPI";
 import { loggedWithToken } from "./store/auth";
 import { useSelector } from "react-redux";
+import { createBrowserHistory } from "history";
 function App() {
 	const auth = useSelector((state) => state.auth);
 	const dispatch = useDispatch();
 	const history = useHistory();
+	const browserHistory = createBrowserHistory();
 	useEffect(() => {
-		if (!auth.isauth && localStorage.getItem("token")) {
-			console.log("called");
-			tokenAPI(JSON.parse(localStorage.getItem("token"))).then((res) => {
-				if (res.type === 2) {
-					res.user = { ...res.user, first_name: "Admin" };
-				}
-				dispatch(
-					loggedWithToken({
-						user: res.user,
-						token: JSON.parse(localStorage.getItem("token")),
-						type: res.type,
-					})
+		const checktoken = async () => {
+			if (!auth.isauth && localStorage.getItem("token")) {
+				console.log("called");
+				await tokenAPI(JSON.parse(localStorage.getItem("token"))).then(
+					(res) => {
+						if (res.type === 2) {
+							res.user = { ...res.user, first_name: "Admin" };
+						}
+						dispatch(
+							loggedWithToken({
+								user: res.user,
+								token: JSON.parse(localStorage.getItem("token")),
+								type: res.type,
+							})
+						);
+						//console.log(browserHistory.);
+						if (res.type === 0) history.push("/patient");
+						else if (res.type === 1) history.push("/doctor");
+					}
 				);
-				if (res.type === 0) history.push("/patient");
-				else if (res.type === 1) history.push("/doctor");
-			});
-		}
-	});
+			}
+		};
+		checktoken();
+	}, []);
 
 	// useEffect(()=>{
 	//     if()

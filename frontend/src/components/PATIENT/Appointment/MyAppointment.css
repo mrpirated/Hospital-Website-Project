@@ -4,7 +4,7 @@
 		opacity: 0.9;
 		transform: scale(1.1);
 	}
-	.MyAppointment-AddCard:hover{
+	.MyAppointment-AddCard:hover {
 		opacity: 1;
 		transform: scale(1.12);
 		transition-duration: 0.25s;

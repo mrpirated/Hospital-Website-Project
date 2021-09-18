@@ -11,6 +11,7 @@
 .Appointment-Card {
 	cursor: pointer;
 	opacity: 0.6;
+	background-color: aquamarine;
 }
 .Appointment-Card:hover {
 	opacity: 0.75;
