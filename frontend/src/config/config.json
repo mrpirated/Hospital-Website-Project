@@ -6,6 +6,7 @@
 	"admin": "/api/admin",
 	"login": "/login",
 	"signup": "/signup",
+	"remaining_appointment": "/remaining_appointment",
 	"cases": "/cases",
 	"myappointment": "/myappointment",
 	"newcase": "/newcase",

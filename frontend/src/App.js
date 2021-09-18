@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Route, Switch, Redirect } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import { useHistory } from "react-router";
 import { useDispatch } from "react-redux";
 import PatientLogin from "./components/PATIENT/Login/Login";
@@ -31,8 +31,8 @@ function App() {
 						type: res.type,
 					})
 				);
-				if (res.type == 0) history.push("/patient");
-				else if (res.type == 1) history.push("/doctor");
+				if (res.type === 0) history.push("/patient");
+				else if (res.type === 1) history.push("/doctor");
 			});
 		}
 	});

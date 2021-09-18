@@ -2,7 +2,9 @@ import connection from "../../dbconn/db";
 import checkToken from "../../checkToken";
 const remaining_appointment = async (req, res) => {
 	try {
-		const decodedData = checkToken(req.body.token);
+		//console.log(req.query);
+		const decodedData = checkToken(req.query.token);
+		//console.log(req.params.token);
 		if (!decodedData || decodedData.type != 2) {
 			if (!decodedData) {
 				return res.status(210).send({

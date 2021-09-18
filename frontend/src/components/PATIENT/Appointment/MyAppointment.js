@@ -1,7 +1,7 @@
-import React, {useState, useEffect} from "react";
-import {useHistory} from "react-router";
-import {useDispatch, useSelector} from "react-redux";
-import {Card} from "react-bootstrap";
+import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router";
+import { useSelector } from "react-redux";
+import { Card } from "react-bootstrap";
 import "./MyAppointment.css";
 import patientMyAppointmentAPI from "../../../api/patientMyAppointmentAPI";
 
@@ -9,7 +9,7 @@ export default function MyAppointment(props) {
 	const auth = useSelector((state) => state.auth);
 	const history = useHistory();
 	const [appointments, setAppointments] = useState([]);
-	
+
 	useEffect(() => {
 		if (!(auth.isauth && auth.type === 0)) {
 			history.push("/home");
@@ -40,8 +40,8 @@ export default function MyAppointment(props) {
 				<Card.Body>
 					<Card.Title>Create New Appointment</Card.Title>
 					<Card.Text>
-					Some quick example text to build on the card title and make up the bulk of
-					the card's content.
+						Some quick example text to build on the card title and make up the
+						bulk of the card's content.
 					</Card.Text>
 				</Card.Body>
 			</Card>
@@ -59,5 +59,5 @@ export default function MyAppointment(props) {
 				))
 			}
 		</div>
-	)
+	);
 }
