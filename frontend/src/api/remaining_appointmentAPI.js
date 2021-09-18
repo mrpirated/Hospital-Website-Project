@@ -1,9 +1,9 @@
 import axios from "axios";
 import config from "../config/config.json";
 
-const remaining_appointmentAPI = (token) => {
+const remaining_appointmentAPI = async (token) => {
 	//const token = useSelector((state) => state.auth.token);
-	return axios
+	return await axios
 		.get(
 			config.baseUrl +
 				config.admin +

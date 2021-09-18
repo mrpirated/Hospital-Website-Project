@@ -9,14 +9,14 @@ import Appointment from "./Appointment/Appointment";
 export default function AdminRoute() {
 	const store = useStore();
 	const auth = store.getState().auth;
-	console.log(auth);
+	//console.log(auth);
 	const isauth = auth.isauth;
 	const type = auth.type;
 	const history = useHistory();
 	//console.log(isauth);
 	useEffect(() => {
 		if (!(isauth && type === 2)) {
-			history.push("/home");
+			history.push("/admin/login");
 		}
 	}, []);
 	return (
