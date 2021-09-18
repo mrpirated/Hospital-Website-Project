@@ -1,6 +1,6 @@
 import axios from "axios";
 import config from "../config/config.json";
-import loginAPI from "./loginAPI";
+// import loginAPI from "./loginAPI";
 
 const signupAPI = (data) => {
 	const {
@@ -28,21 +28,20 @@ const signupAPI = (data) => {
 			if (res.status === 200) {
 				//return loginAPI({ email, password });
 				return {
-					reply: true
-				}
+					reply: true,
+				};
 			} else if (res.status === 210) {
 				console.log(res.data.msg);
 				return {
 					reply: false,
-					data : res.data.msg.errors[0]
-				}
-			}
-			else{
+					data: res.data.msg.errors[0],
+				};
+			} else {
 				console.log(res.data.msg);
 				return {
 					reply: false,
-					data : res.data
-				}
+					data: res.data,
+				};
 			}
 		})
 		.catch((err) => {

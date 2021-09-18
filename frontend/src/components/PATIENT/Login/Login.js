@@ -35,9 +35,9 @@ export default function Login(props) {
 		loginAPI({
 			email: email,
 			password: password,
-			type: isDoctor == true ? 1 : 0,
+			type: isDoctor === true ? 1 : 0,
 		}).then((res) => {
-			if(res.reply){
+			if (res.reply) {
 				dispatch(
 					loggedIn({
 						user: res.data.user,
@@ -47,8 +47,7 @@ export default function Login(props) {
 				);
 				if (res.data.type === 1) history.push("/doctor");
 				else history.push("/patient");
-			}
-			else{
+			} else {
 				alert(res.data.msg);
 				//alert(res.data);
 			}

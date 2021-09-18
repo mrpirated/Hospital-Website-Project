@@ -21,6 +21,7 @@ function Home() {
 	return (
 		<div>
 			<Navigation />
+			Welcome Home
 		</div>
 	);
 }
