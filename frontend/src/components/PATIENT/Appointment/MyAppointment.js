@@ -19,7 +19,7 @@ export default function MyAppointment(props) {
 		} else {
 			patientMyAppointmentAPI({
 				token: auth.token,
-				case_id: props.location.state.case_id,
+				case_id: props.location.state.case_details.case_id,
 			}).then((res) => {
 				if (res.reply) {
 					setAppointments(res.appointments);
@@ -36,7 +36,9 @@ export default function MyAppointment(props) {
 			<Card
 				className='MyAppointment-AddCard'
 				onClick={() => {
-					history.push("/patient/doctors");
+					history.push("/patient/new-appointment", {
+						case_details: props.location.state.case_details,
+					});
 				}}
 				bg='dark'
 				text='white'
@@ -53,9 +55,9 @@ export default function MyAppointment(props) {
 			{appointments.map((c) => (
 				<Card
 					className='MyAppointment-Card'
-					onClick={() => {
-						history.push("/patient/doctors");
-					}}
+					onClick={() => {}}
+					bg='dark'
+					text='white'
 					style={{ width: "20rem", margin: "2rem", display: "inline-grid" }}
 				>
 					<Card.Body>

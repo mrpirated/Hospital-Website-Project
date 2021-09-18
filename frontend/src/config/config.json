@@ -8,5 +8,7 @@
 	"signup": "/signup",
 	"remaining_appointment": "/remaining_appointment",
 	"cases": "/cases",
-	"myappointment": "/myappointment"
+	"myappointment": "/myappointment",
+	"newcase": "/newcase",
+	"newappointment": "/newappointment"
 }
