@@ -4,11 +4,13 @@
 	"private": true,
 	"dependencies": {
 		"@reduxjs/toolkit": "^1.6.1",
+		"@syncfusion/ej2-react-schedule": "^19.2.60",
 		"@testing-library/jest-dom": "^5.14.1",
 		"@testing-library/react": "^11.2.7",
 		"@testing-library/user-event": "^12.8.3",
 		"axios": "^0.21.3",
 		"bootstrap": "^5.1.0",
+		"daypilot-pro-react": "https://npm.daypilot.org/daypilot-pro-react/trial/2021.2.4990.tar.gz",
 		"moment": "^2.29.1",
 		"react": "^17.0.2",
 		"react-bootstrap": "^2.0.0-beta.6",
