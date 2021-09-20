@@ -62,9 +62,9 @@ function App() {
 				<Route exact path='/admin/login' component={AdminLogin} />
 				<Route exact path='/signup' component={PatientSignup} />
 				<Route exact path='/home' component={Home} />
-				<PatientRoute path='/patient' component={PatientRoute} />
-				<AdminRoute path='/admin' component={AdminRoute} />
-				<DoctorRoute path='/doctor' component={DoctorRoute} />
+				<Route path='/patient' component={PatientRoute} />
+				<Route path='/admin' component={AdminRoute} />
+				<Route path='/doctor' component={DoctorRoute} />
 			</Switch>
 		</div>
 	);

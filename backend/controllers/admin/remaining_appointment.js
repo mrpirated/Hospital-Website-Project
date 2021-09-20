@@ -16,7 +16,21 @@ const remaining_appointment = async (req, res) => {
 			});
 		} else {
 			connection.query(
-				"SELECT * FROM appointment WHERE start_time IS NULL AND end_time IS NULL",
+				'SELECT\
+				a.appointment_id,\
+				a.case_id,\
+				p.patient_id,\
+				CONCAT(p.first_name, " ", p.last_name) AS patient_name,\
+				a.doctor_id,\
+				CONCAT(d.first_name, " ", d.last_name) AS doctor_name\
+			  FROM\
+				appointment a\
+				LEFT JOIN cases c ON a.case_id = c.case_id\
+				LEFT JOIN patient p ON c.patient_id = p.patient_id\
+				LEFT JOIN doctor d ON a.doctor_id = d.doctor_id\
+			  WHERE\
+				a.start_time IS NULL\
+				AND a.end_time IS NULL',
 				(err, result, fields) => {
 					if (err) {
 						return res.status(209).send({
