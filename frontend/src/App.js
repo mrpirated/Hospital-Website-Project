@@ -13,12 +13,12 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import tokenAPI from "./api/tokenAPI";
 import { loggedWithToken } from "./store/auth";
 import { useSelector } from "react-redux";
-import { createBrowserHistory } from "history";
+
 function App() {
 	const auth = useSelector((state) => state.auth);
 	const dispatch = useDispatch();
 	const history = useHistory();
-	const browserHistory = createBrowserHistory();
+
 	useEffect(() => {
 		const checktoken = async () => {
 			if (!auth.isauth && localStorage.getItem("token")) {

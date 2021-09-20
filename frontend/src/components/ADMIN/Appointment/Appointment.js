@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import "./Appointment.css";
 function Appointment() {
 	const token = useSelector((state) => state.auth.token);
-	const [appointments, setappointments] = useState();
+	const [appointments, setappointments] = useState([]);
 	//console.log(token);
 	useEffect(() => {
 		const fetchData = async () => {
@@ -15,28 +15,42 @@ function Appointment() {
 			});
 		};
 		fetchData();
-		//console.log(appointments[0]);
-	}, [token]);
+		console.log(appointments);
+	}, []);
 
 	return (
 		<div>
-			<Card
-				className='Appointment-AddCard'
-				style={{
-					width: "75%",
-					margin: "5%",
-					display: "inline-grid",
-					backgroundColor: "aquamarine",
-				}}
-			>
-				<Card.Body>
-					<Card.Title>Create New Case</Card.Title>
-					<Card.Text>
-						Some quick example text to build on the card title and make up the
-						bulk of the card's content.
-					</Card.Text>
-				</Card.Body>
-			</Card>
+			{appointments.map((ap) => (
+				<Card
+					className='Appointment-AddCard'
+					style={{
+						width: "75%",
+						marginLeft: "12.5%",
+						marginTop: "1%",
+						marginBottom: "1%",
+						display: "inline-grid",
+						backgroundColor: "aquamarine",
+					}}
+				>
+					<Card.Body>
+						<Card.Text
+							style={{
+								display: "inline-block",
+							}}
+						>
+							Appointment ID: {ap.appointment_id}
+						</Card.Text>
+						<Card.Text
+							style={{
+								display: "inline-block",
+								textAlign: "right",
+							}}
+						>
+							Case ID: {ap.case_id}
+						</Card.Text>
+					</Card.Body>
+				</Card>
+			))}
 		</div>
 	);
 }
