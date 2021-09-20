@@ -14,29 +14,36 @@ export default function MyAppointment(props) {
 		if (!(auth.isauth && auth.type === 0)) {
 			history.push("/home");
 		}
-        if(props.location.state === undefined){
-            history.push("/home");
-        }
-		else{
-            patientMyAppointmentAPI({
-                token: auth.token,
-                case_id: props.location.state.case_details.case_id
-            }).then((res) => {
-                if(res.reply){
-                    setAppointments(res.appointments);
-                }
-                else{
-                    alert(res.data.msg + "\nYou will be redirected to Home.");
-                    setTimeout(history.push("/home"), 4000);
-                    
-                }
-            })
-        }
+		if (props.location.state === undefined) {
+			history.push("/home");
+		} else {
+			patientMyAppointmentAPI({
+				token: auth.token,
+				case_id: props.location.state.case_details.case_id,
+			}).then((res) => {
+				if (res.reply) {
+					setAppointments(res.appointments);
+				} else {
+					alert(res.data.msg + "\nYou will be redirected to Home.");
+					setTimeout(history.push("/home"), 4000);
+				}
+			});
+		}
 	}, []);
 
 	return (
 		<div>
-			<Card className="MyAppointment-AddCard" onClick={()=>{history.push("/patient/new-appointment", {case_details: props.location.state.case_details})}} bg="dark" text="white" style={{ width : "20rem", margin: "2rem", display:"inline-grid"}}>
+			<Card
+				className='MyAppointment-AddCard'
+				onClick={() => {
+					history.push("/patient/new-appointment", {
+						case_details: props.location.state.case_details,
+					});
+				}}
+				bg='dark'
+				text='white'
+				style={{ width: "20rem", margin: "2rem", display: "inline-grid" }}
+			>
 				<Card.Body>
 					<Card.Title>Create New Appointment</Card.Title>
 					<Card.Text>
@@ -45,19 +52,23 @@ export default function MyAppointment(props) {
 					</Card.Text>
 				</Card.Body>
 			</Card>
-			{
-				appointments.map((c) => (
-					<Card className="MyAppointment-Card" onClick={()=>{}} bg="dark" text="white" style={{ width : "20rem", margin: "2rem", display:"inline-grid"}}>
-						<Card.Body>
-							<Card.Title>Appointment Id: {c.appointment_id}</Card.Title>
-							<Card.Text>
-							Some quick example text to build on the card title and make up the bulk of
-							the card's content.
-							</Card.Text>
-						</Card.Body>
-					</Card>
-				))
-			}
+			{appointments.map((c) => (
+				<Card
+					className='MyAppointment-Card'
+					onClick={() => {}}
+					bg='dark'
+					text='white'
+					style={{ width: "20rem", margin: "2rem", display: "inline-grid" }}
+				>
+					<Card.Body>
+						<Card.Title>Appointment Id: {c.appointment_id}</Card.Title>
+						<Card.Text>
+							Some quick example text to build on the card title and make up the
+							bulk of the card's content.
+						</Card.Text>
+					</Card.Body>
+				</Card>
+			))}
 		</div>
 	);
 }

@@ -1,9 +1,9 @@
 import axios from "axios";
 import config from "../config/config.json";
 
-const initialState = (token) => {
-	console.log(token);
-	return axios
+const initialState = async (token) => {
+	//console.log(token);
+	return await axios
 		.post(config.baseUrl + config.token, {
 			token: token,
 		})
