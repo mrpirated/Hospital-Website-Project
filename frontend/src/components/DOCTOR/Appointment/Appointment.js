@@ -6,9 +6,6 @@ import {Inject, ScheduleComponent, Day, Week, WorkWeek, Month, Agenda, EventSett
 
 function Appointment() {
 	const history = useHistory();
-	const onclickfunc = () => {
-		console.log("Hello");
-	}
 	var localData = {
 		dataSource: [{
 			id: 1,
