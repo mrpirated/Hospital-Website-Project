@@ -1,5 +1,6 @@
 import connection from "../../dbconn/db";
-import dotenv from "dotenv";
+import dotenv, { parse } from "dotenv";
+import { parseDateArray, getAvailableTime } from "./helpers";
 dotenv.config();
 
 import checkToken from "../../checkToken";
@@ -20,8 +21,17 @@ export const get_doctor_schedule = async (req, res) => {
 					msg: "Not authorized",
 				});
 			}
+			var sch;
 			var q = connection.query(
-				"SELECT start_time, end_time FROM schedule WHERE doctor_id = ?",
+				"SELECT \
+				start_time, \
+				end_time \
+			  	FROM \
+				schedule \
+			 	WHERE \
+				doctor_id = ? \
+				AND start_time > NOW()\
+				ORDER BY start_time",
 				[req.query.doctor_id],
 				(err, result, fields) => {
 					if (err) {
@@ -29,13 +39,44 @@ export const get_doctor_schedule = async (req, res) => {
 							msg: err,
 						});
 					} else {
-						return res.status(200).send({
-							msg: "Successfully returned Schedule!",
-							schedule: result,
-						});
+						sch = result;
+						//console.log(sch);
+						var app = connection.query(
+							"SELECT \
+							start_time, \
+							end_time \
+						  	FROM \
+							appointment \
+						 	WHERE \
+							doctor_id = ? \
+							AND start_time > NOW()\
+							ORDER BY start_time",
+							[req.query.doctor_id],
+							(err, result, fields) => {
+								if (err) {
+									return res.status(210).send({
+										msg: err,
+									});
+								} else {
+									return res.status(200).send({
+										msg: "Successfully returned Schedule!",
+										schedule: getAvailableTime(
+											parseDateArray(sch),
+											parseDateArray(result)
+										),
+									});
+								}
+							}
+						);
+						//console.log(app);
+						// return res.status(200).send({
+						// 	msg: "Successfully returned Schedule!",
+						// 	schedule: result,
+						// });
 					}
 				}
 			);
+			//console.log(sch);
 		}
 	} catch (error) {
 		console.log(error);
