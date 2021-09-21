@@ -6,7 +6,9 @@ import checkToken from "../../checkToken";
 
 export const get_doctor_schedule = async (req, res) => {
 	try {
-		const decodedData = checkToken(req.body.token);
+		console.log(req.query);
+		//console.log(req);
+		const decodedData = checkToken(req.query.token);
 		//console.log(decodedData);
 		if (decodedData == undefined) {
 			return res.status(209).send({
@@ -20,7 +22,7 @@ export const get_doctor_schedule = async (req, res) => {
 			}
 			var q = connection.query(
 				"SELECT start_time, end_time FROM schedule WHERE doctor_id = ?",
-				[req.body.doctor_id],
+				[req.query.doctor_id],
 				(err, result, fields) => {
 					if (err) {
 						return res.status(210).send({

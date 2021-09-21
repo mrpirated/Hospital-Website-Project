@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from "react";
 import remaining_appointmentAPI from "../../../api/remaining_appointmentAPI";
-import { Card } from "react-bootstrap";
+import adminDoctorScheduleAPI from "../../../api/adminDoctorScheduleAPI";
+import { Card, Modal } from "react-bootstrap";
 import { useSelector } from "react-redux";
-
+import Popup from "./Popup";
 import "./Appointment.css";
 import { Route, Switch, useRouteMatch, useHistory } from "react-router";
 function Appointment() {
 	const token = useSelector((state) => state.auth.token);
 	const [appointments, setappointments] = useState([]);
+	const [openPopup, setopenPopup] = useState(false);
+	const [selectedAP, setselectedAP] = useState({});
+	const [docschedule, setdocschedule] = useState([]);
 	//console.log(token);
 	const history = useHistory();
 	const { path, url } = useRouteMatch();
@@ -20,10 +24,27 @@ function Appointment() {
 		};
 		fetchData();
 		console.log(appointments);
-	}, []);
-	const onCLickAppointment = (card) => {
-		history.push("/admin/setappointment");
+	}, [openPopup]);
+	const getDoctorSchedule = async (data) => {
+		await adminDoctorScheduleAPI({
+			token: token,
+			doctor_id: data.doctor_id,
+		}).then((res) => {
+			if (res.reply) {
+				console.log(res);
+				setdocschedule(res.schedule);
+			}
+		});
 	};
+	const onCLickAppointment = async (card) => {
+		//console.log(1);
+		setselectedAP(card);
+		//console.log(selectedAP);
+		await getDoctorSchedule(card);
+		console.log(docschedule);
+		setopenPopup(true);
+	};
+	const handleClose = () => setopenPopup(false);
 	return (
 		<div>
 			{appointments.map((ap) => (
@@ -48,6 +69,17 @@ function Appointment() {
 					</Card.Body>
 				</Card>
 			))}
+			<Modal show={openPopup} onHide={handleClose} size='lg' centered>
+				<Modal.Header closeButton>
+					<Modal.Title>Modal heading</Modal.Title>
+				</Modal.Header>
+				<Modal.Body>{selectedAP.patient_name}</Modal.Body>
+				{docschedule.map((ds) => (
+					<Modal.Body>
+						{ds.start_time} {ds.end_time}
+					</Modal.Body>
+				))}
+			</Modal>
 		</div>
 	);
 }
