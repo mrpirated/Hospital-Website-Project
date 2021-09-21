@@ -1,14 +1,19 @@
-export const parseDateArray = (data) => {
+export const parseDateArray = (ans) => {
+	ans = ans.map((a) => {
+		var st = new Date(a.start_time);
+		var et = new Date(a.end_time);
+		return { ...ans, start_time: st.toString(), end_time: et.toString() };
+	});
+	return ans;
+};
+
+export const getAvailableTime = (sch, app) => {
 	data = data.map((dt) => {
 		return {
 			start_time: Date.parse(dt.start_time),
 			end_time: Date.parse(dt.end_time),
 		};
 	});
-	return data;
-};
-
-export const getAvailableTime = (sch, app) => {
 	if (sch.length == 0 || app.length == 0) return sch;
 	var schit = 0,
 		appit = 0;

@@ -1,6 +1,6 @@
 import connection from "../../dbconn/db";
 import dotenv, { parse } from "dotenv";
-import { parseDateArray, getAvailableTime } from "./helpers";
+import { parseDateArray, getAvailableTime } from "../helpers";
 dotenv.config();
 
 import checkToken from "../../checkToken";
@@ -60,10 +60,7 @@ export const get_doctor_schedule = async (req, res) => {
 								} else {
 									return res.status(200).send({
 										msg: "Successfully returned Schedule!",
-										schedule: getAvailableTime(
-											parseDateArray(sch),
-											parseDateArray(result)
-										),
+										schedule: parseDateArray(getAvailableTime(sch, result)),
 									});
 								}
 							}
