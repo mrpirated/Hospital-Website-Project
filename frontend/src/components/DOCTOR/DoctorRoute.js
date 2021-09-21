@@ -5,6 +5,7 @@ import { Switch, useHistory } from "react-router";
 import Navitems from "./Navbar/Navitems";
 import Navigation from "../Navigation";
 import Calendar from "./Calendar/Calendar";
+import Appointment from "./Appointment/Appointment";
 
 export default function PatientRoute() {
 	const auth = useSelector((state) => state.auth);
@@ -23,6 +24,7 @@ export default function PatientRoute() {
 			<Navigation Navitems={Navitems} />
 			<Switch>
 				<Route path='/doctor/calendar' component={Calendar} />
+				<Route path='/doctor/appointment' component={Appointment} />
 				{/* <Route path='/doctor/doctors' component={Doctors} /> */}
 			</Switch>
 		</div>

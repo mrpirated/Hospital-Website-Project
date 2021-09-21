@@ -6,13 +6,14 @@ const doctorAppointmentsAPI = async (data) => {
     //console.log(token);
     return await axios
         .get(
-            config.baseUrl + config.doctor + config.appointment + "?" + "token=" + token,
+            config.baseUrl + config.doctor + config.appointment + "?" + "token=" + token + (data.start_time ? ("&&start_time=" + data.start_time + "&&end_time=" + data.end_time): ""),
             {
                 "token" : token,
             }
         ).then((res) => {
             if(res.status === 200) {
                 console.log(res.data.msg);
+                console.log(res.data.appointments);
                 //console.log(res.data.cases);
                 return {
                     reply: true,

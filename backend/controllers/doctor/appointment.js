@@ -25,7 +25,7 @@ const appointment = async (req, res) => {
             // console.log(end_time);
             if(req.query.start_time != undefined){
                 var q = connection.query(
-                    "SELECT appointment_id as id, doctor_id as Subject, start_time as StartTime, end_time as EndTime from appointment WHERE doctor_id=? AND start_time BETWEEN ? AND ?",
+                    "SELECT * from appointment WHERE doctor_id=? AND start_time BETWEEN ? AND ?",
                     [decodedData.user.doctor_id, req.query.start_time, req.query.end_time],
                     (err, result, fields) => {
                         if(err) {
