@@ -15,4 +15,8 @@ export const columns = [
 		title: "End Time",
 		field: "end_time",
 	},
+	{
+		title: "Doctor ID",
+		field: "doctor_id",
+	},
 ];

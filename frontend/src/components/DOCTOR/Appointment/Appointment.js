@@ -55,7 +55,7 @@ export default function Appointment() {
 
     return (
         <div>
-			{"Date: " + new Date().toISOString().slice(0, 10)}
+			<h5 style={{margin:"2rem 2rem"}}>{"Date: " + new Date().toISOString().slice(0, 10)}</h5>
             <DataTable
 				columns={columns}
 				actions={actions}
