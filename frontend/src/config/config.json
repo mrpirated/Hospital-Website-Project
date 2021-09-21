@@ -12,5 +12,6 @@
 	"newcase": "/newcase",
 	"newappointment": "/newappointment",
 	"schedule": "/schedule",
-	"appointment": "/appointment"
+	"appointment": "/appointment",
+	"allappointments": "/allappointments"
 }

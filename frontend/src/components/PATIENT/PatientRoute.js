@@ -9,6 +9,7 @@ import Navigation from "../Navigation";
 import Doctors from "./Doctors/Doctors";
 import NewCase from "./Appointment/NewCase"; 
 import NewAppointment from "./Appointment/NewAppointment";
+import Records from "./Records/Records";
 
 export default function PatientRoute() {
 	const auth = useSelector((state) => state.auth);
@@ -28,6 +29,7 @@ export default function PatientRoute() {
 			<Navigation Navitems={Navitems} />
 			<Switch>
 				<Route path='/patient/appointment' component={Appointment} />
+				<Route path='/patient/records' component={Records} />
 				<Route path='/patient/myappointment' component={MyAppointment} />
 				<Route path='/patient/doctors' component={Doctors} />
 				<Route path='/patient/new-case' component={NewCase} />

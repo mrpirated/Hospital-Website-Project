@@ -140,3 +140,42 @@ export const NewCase = async (req, res) => {
 		});
 	}
 };
+
+export const AllAppointments = async (req, res) => {
+	try {
+		const decodedData = checkToken(req.query.token);
+		if (!decodedData || decodedData.type != 0) {
+			if (!decodedData) {
+				return res.status(210).send({
+					msg: "Token is invalid",
+				});
+			}
+			return res.status(209).send({
+				msg: "Not authorized!!",
+			});
+		} else {
+			connection.query(
+				"SELECT * FROM appointment WHERE case_id in (SELECT case_id FROM cases WHERE patient_id=?) ORDER BY start_time DESC",
+				decodedData.user.patient_id,
+				(err, result, fields) => {
+					if (err) {
+						return res.status(210).send({
+							msg: err,
+						});
+					} else {
+						console.log(result);
+						return res.status(200).send({
+							msg: "Entered",
+							appointments: result,
+						});
+					}
+				}
+			);
+		}
+	} catch (error) {
+		console.log(error);
+		return res.status(210).send({
+			msg: error,
+		});
+	}
+};
