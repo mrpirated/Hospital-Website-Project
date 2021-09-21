@@ -6,9 +6,11 @@ import {
 	MyAppointment,
 	NewAppointment,
 	NewCase,
+	AllAppointments
 } from "../../controllers/patient/appointment";
 
 router.get("/myappointment", MyAppointment);
+router.get("/allappointments", AllAppointments);
 router.post("/newappointment", NewAppointment);
 router.post("/newcase", NewCase);
 export default router;
