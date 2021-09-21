@@ -13,6 +13,11 @@ export const getAvailableTime = (sch, app) => {
 		appit = 0;
 	var ans = [];
 	var tp = sch[0];
-	while (schit < sch.length && appit < app.length) {}
+	while (schit < sch.length && appit < app.length) {
+		if (sch[schit].start_time === app[appit].start_time) {
+			if (sch[schit].end_time > app[appit].end_time) {
+			}
+		}
+	}
 	return ans;
 };
