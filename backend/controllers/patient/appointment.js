@@ -3,8 +3,6 @@ import dotenv from "dotenv";
 dotenv.config();
 
 import checkToken from "../../checkToken";
-import { query } from "express";
-
 export const MyAppointment = async (req, res) => {
 	try {
 		//console.log(req.query.token, req.query.case_id);
@@ -28,7 +26,7 @@ export const MyAppointment = async (req, res) => {
 						});
 					} else if (result.length) {
 						var q1 = connection.query(
-							"SELECT * FROM appointment WHERE case_id = ?",
+							"SELECT * FROM appointment WHERE case_id = ? ORDER BY start_time DESC",
 							req.query.case_id,
 							(err, result, fields) => {
 								if (err) {
@@ -74,7 +72,7 @@ export const NewAppointment = async (req, res) => {
 				case_id: req.body.case_id,
 				doctor_id: req.body.doctor_id,
 				start_time: req.body.start_time,
-				end_time: req.body.end_time
+				end_time: req.body.end_time,
 			};
 			connection.query(
 				"INSERT INTO appointment SET ?",
@@ -129,7 +127,7 @@ export const NewCase = async (req, res) => {
 						console.log(result);
 						return res.status(200).send({
 							msg: "Entered",
-							case_id: result.insertId
+							case_id: result.insertId,
 						});
 					}
 				}
