@@ -1,10 +1,10 @@
 import axios from "axios";
 import config from "../config/config.json";
 
-const newCaseAPI = (data) => {
+const newCaseAPI = async (data) => {
     const {token} = data;
 
-    return axios.post(
+    return await axios.post(
         config.baseUrl + config.patient + config.newcase,
         {
             token:token

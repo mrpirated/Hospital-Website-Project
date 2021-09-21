@@ -2,7 +2,7 @@ import axios from "axios";
 import config from "../config/config.json";
 // import loginAPI from "./loginAPI";
 
-const signupAPI = (data) => {
+const signupAPI = async (data) => {
 	const {
 		first_name,
 		last_name,
@@ -13,7 +13,7 @@ const signupAPI = (data) => {
 		phone,
 		password,
 	} = data;
-	return axios
+	return await axios
 		.post(config.baseUrl + config.patient + config.signup, {
 			first_name,
 			last_name,

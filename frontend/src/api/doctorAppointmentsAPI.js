@@ -1,15 +1,14 @@
 import axios from "axios";
 import config from "../config/config.json";
 
-const patientMyAppointmentAPI = async (data) => {
-    const {token, case_id} = data;
+const doctorAppointmentsAPI = async (data) => {
+    const {token} = data;
     //console.log(token);
     return await axios
         .get(
-            config.baseUrl + config.patient + config.myappointment + "?" + "token=" + token + "&&" + "case_id=" + case_id,
+            config.baseUrl + config.doctor + config.appointment + "?" + "token=" + token,
             {
                 "token" : token,
-                "case_id" : case_id
             }
         ).then((res) => {
             if(res.status === 200) {
@@ -36,4 +35,4 @@ const patientMyAppointmentAPI = async (data) => {
 			}
         })
 }
-export default patientMyAppointmentAPI;
+export default doctorAppointmentsAPI;

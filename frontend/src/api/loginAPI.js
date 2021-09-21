@@ -1,9 +1,9 @@
 import axios from "axios";
 import config from "../config/config.json";
 
-const loginAPI = (data) => {
+const loginAPI = async (data) => {
 	const { email, password, type } = data;
-	return axios
+	return await axios
 		.post(
 			config.baseUrl +
 				(type === 2 ? config.admin : (type === 0 ? config.patient : config.doctor)) +

@@ -8,6 +8,10 @@ const Navitems = [
 		name: "Appointment",
 		path: "appointment",
 		url: "/doctor",
+	},{
+		name: "Calendar",
+		path: "calendar",
+		url: "/doctor",
 	},
 ];
 export default Navitems;
