@@ -1,10 +1,10 @@
 import axios from "axios";
 import config from "../config/config.json";
 
-const newAppointmentAPI = (data) => {
+const newAppointmentAPI = async(data) => {
     const {token, case_id, doctor_id, start_time, end_time} = data;
 
-    return axios.post(
+    return await axios.post(
         config.baseUrl + config.patient + config.newappointment,
         {
             token:token,

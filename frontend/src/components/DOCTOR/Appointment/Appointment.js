@@ -1,42 +1,33 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from 'react';
 import { useHistory } from "react-router";
+import { useSelector } from "react-redux";
 import {Button} from "react-bootstrap";
-import { Link } from 'react-router-dom';
-import {Inject, ScheduleComponent, Day, Week, WorkWeek, Month, Agenda, EventSettingsModel, ViewsDirective, ViewDirective, ResourcesDirective, ResourceDirective} from "@syncfusion/ej2-react-schedule";
+import doctorAppointmentsAPI from "../../../api/doctorAppointmentsAPI";
 
-function Appointment() {
+export default function Appointment() {
+    const auth = useSelector((state) => state.auth);
 	const history = useHistory();
-	var localData = {
-		dataSource: [{
-			id: 1,
-			Subject: "Hello",
-			EndTime: new Date(2021, 8, 20, 15, 0),
-			StartTime: new Date(2021,8, 20, 14, 0),
-		},
-		{
-			id: 2,
-			Subject: "Hello",
-			EndTime: new Date(2021, 8, 20, 16, 0),
-			StartTime: new Date(2021,8, 20, 15, 0)
-		}],
-	}
-
-	const onPopupOpen = (args) => {
-        history.push("/home", {data: args.data});	
-    }
-
-	return (
-		<div>
-			{/* <ButtonComponent id='btn1' title='Click to open Editor' onClick={this.onClickButton1.bind(this)}>Click to open Editor</ButtonComponent> */}
-			<ScheduleComponent currentView='Day' eventSettings={localData} 
-			readonly={true} popupOpen={onPopupOpen}>
-				<ViewsDirective>
-					<ViewDirective option='Day'/>
-				</ViewsDirective>
-				<Inject services={[Day, Week, WorkWeek, Month, Agenda]} />
-			</ScheduleComponent>
-		</div>
-	);
+    useEffect(() => {
+		if (!(auth.isauth && auth.type === 1)) {
+			history.push("/home");
+		}
+		else{
+			doctorAppointmentsAPI({
+				token: auth.token
+			}).then((res) => {
+				if (res.reply) {
+					var tmp1 = {dataSource: res.appointments};
+				} else {
+					alert(res.data.msg + "\nYou will be redirected to Home.");
+					setTimeout(history.push("/home"), 4000);
+				}
+			})
+		}
+		
+	}, [])
+    return (
+        <div>
+            
+        </div>
+    )
 }
-
-export default Appointment;

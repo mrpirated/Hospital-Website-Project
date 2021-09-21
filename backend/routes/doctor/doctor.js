@@ -3,6 +3,8 @@ const router = Router();
 import login from "./login";
 import signup from "./signup";
 import schedule from "./schedule";
-router.use("/doctor", login, signup, schedule);
+import appointment from "./appointment";
+
+router.use("/doctor", login, signup, schedule, appointment);
 
 export default router;

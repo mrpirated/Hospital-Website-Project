@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { Switch, useHistory } from "react-router";
 import Navitems from "./Navbar/Navitems";
 import Navigation from "../Navigation";
-import Appointment from "../DOCTOR/Appointment/Appointment";
+import Calendar from "./Calendar/Calendar";
 
 export default function PatientRoute() {
 	const auth = useSelector((state) => state.auth);
@@ -22,7 +22,7 @@ export default function PatientRoute() {
 		<div>
 			<Navigation Navitems={Navitems} />
 			<Switch>
-				<Route path='/doctor/appointment' component={Appointment} />
+				<Route path='/doctor/calendar' component={Calendar} />
 				{/* <Route path='/doctor/doctors' component={Doctors} /> */}
 			</Switch>
 		</div>
