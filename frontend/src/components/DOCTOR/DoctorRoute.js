@@ -6,6 +6,7 @@ import Navitems from "./Navbar/Navitems";
 import Navigation from "../Navigation";
 import Calendar from "./Calendar/Calendar";
 import Appointment from "./Appointment/Appointment";
+import AppointmentDetails from "./Appointment/AppointmentDetails";
 
 export default function PatientRoute() {
 	const auth = useSelector((state) => state.auth);
@@ -25,6 +26,7 @@ export default function PatientRoute() {
 			<Switch>
 				<Route path='/doctor/calendar' component={Calendar} />
 				<Route path='/doctor/appointment' component={Appointment} />
+				<Route path='/doctor/appointment-details' component={AppointmentDetails} />
 				{/* <Route path='/doctor/doctors' component={Doctors} /> */}
 			</Switch>
 		</div>

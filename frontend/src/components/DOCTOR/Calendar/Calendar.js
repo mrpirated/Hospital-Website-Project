@@ -42,21 +42,7 @@ function Calendar() {
 			})
 		}
 		
-	}, [])
-	var localData1 = {
-		dataSource: [{
-			id: 1,
-			Subject: "Hello",
-			EndTime: new Date(2021, 8, 20, 15, 0),
-			StartTime: new Date(2021,8, 20, 14, 0),
-		},
-		{
-			id: 2,
-			Subject: "Hello",
-			EndTime: new Date(2021, 8, 20, 16, 0),
-			StartTime: new Date(2021,8, 20, 15, 0)
-		}],
-	}
+	}, []);
 
 	const onPopupOpen = (args) => {
         //console.log(args.data);

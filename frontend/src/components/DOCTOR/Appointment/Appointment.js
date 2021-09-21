@@ -61,6 +61,7 @@ export default function Appointment() {
 				actions={actions}
 				data={data}
                 isLoading={isLoading}
+				onclicklink="/doctor/appointment-details"
 			/>
         </div>
     )
