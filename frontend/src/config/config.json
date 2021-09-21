@@ -10,5 +10,6 @@
 	"cases": "/cases",
 	"myappointment": "/myappointment",
 	"newcase": "/newcase",
-	"newappointment": "/newappointment"
+	"newappointment": "/newappointment",
+	"schedule": "/schedule"
 }
