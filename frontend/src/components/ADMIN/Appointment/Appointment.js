@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import remaining_appointmentAPI from "../../../api/remaining_appointmentAPI";
 import adminDoctorScheduleAPI from "../../../api/adminDoctorScheduleAPI";
-import { Card, Modal } from "react-bootstrap";
+import { Card, Modal, DropdownButton, Dropdown } from "react-bootstrap";
 import { useSelector } from "react-redux";
-import Popup from "./Popup";
+import DataTable from "../../DataTable";
 import "./Appointment.css";
 import { Route, Switch, useRouteMatch, useHistory } from "react-router";
 function Appointment() {
@@ -12,6 +12,17 @@ function Appointment() {
 	const [openPopup, setopenPopup] = useState(false);
 	const [selectedAP, setselectedAP] = useState({});
 	const [docschedule, setdocschedule] = useState([]);
+	const [selectedtime, setselectedtime] = useState("Select Time");
+	const col = [
+		{
+			title: "Start Time",
+			field: "start_time",
+		},
+		{
+			title: "End Time",
+			field: "end_time",
+		},
+	];
 	//console.log(token);
 	const history = useHistory();
 	const { path, url } = useRouteMatch();
@@ -74,11 +85,18 @@ function Appointment() {
 					<Modal.Title>Modal heading</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>{selectedAP.patient_name}</Modal.Body>
-				{docschedule.map((ds) => (
+				<DropdownButton title={selectedtime}>
+					{docschedule.map((ds) => (
+						<Dropdown.Item onClick={(e) => setselectedtime(e.target.value)}>
+							{ds.start_time} {ds.end_time}
+						</Dropdown.Item>
+					))}
+				</DropdownButton>
+				{/* {docschedule.map((ds) => (
 					<Modal.Body>
-						{ds.start_time} {ds.end_time}
+						
 					</Modal.Body>
-				))}
+				))} */}
 			</Modal>
 		</div>
 	);

@@ -6,7 +6,7 @@ import checkToken from "../../checkToken";
 
 export const get_doctor_schedule = async (req, res) => {
 	try {
-		console.log(req.query);
+		//console.log(req.query);
 		//console.log(req);
 		const decodedData = checkToken(req.query.token);
 		//console.log(decodedData);
