@@ -24,6 +24,7 @@ const appointment = async (req, res) => {
 			// console.log(start_time);
 			// console.log(end_time);
 			if (req.query.start_time != undefined) {
+				console.log(req.query);
 				var q = connection.query(
 					"SELECT * from appointment WHERE doctor_id=? AND start_time BETWEEN ? AND ?",
 					[

@@ -72,8 +72,8 @@ export const NewAppointment = async (req, res) => {
 			const values = {
 				case_id: req.body.case_id,
 				doctor_id: req.body.doctor_id,
-				start_time: req.body.start_time,
-				end_time: req.body.end_time,
+				// start_time: req.body.start_time,
+				// end_time: req.body.end_time,
 			};
 			connection.query(
 				"INSERT INTO appointment SET ?",

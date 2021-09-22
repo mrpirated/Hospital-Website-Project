@@ -15,19 +15,19 @@ const appointment = async (req, res) => {
 			});
 		} else {
 			const mtl = await zoommeeting();
-			const values = {
-				start_time: req.body.start_time,
-				end_time: req.body.end_time,
-				appointment_id: req.body.appointment_id,
-				meeting_link: mtl.join_url,
-			};
+			var values = [
+				req.body.start_time,
+				req.body.end_time,
+				mtl.join_url,
+				req.body.appointment_id,
+			];
 			console.log(values);
 			connection.query(
-				"UPDATE appointment SET start_time=?,end_time=?,meeting_link=?\
-			WHERE appointment_id=?",
+				"UPDATE appointment SET start_time=?,end_time=?,meeting_link=? WHERE appointment_id=?",
 				values,
 				(err, result, fields) => {
 					if (err) {
+						console.log(err);
 						return res.status(209).send({
 							msg: err,
 						});

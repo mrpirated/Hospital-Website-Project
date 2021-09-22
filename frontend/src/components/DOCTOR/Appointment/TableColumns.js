@@ -19,4 +19,8 @@ export const columns = [
 		title: "Doctor ID",
 		field: "doctor_id",
 	},
+	{
+		title: "Meeting Link",
+		field: "meeting_link",
+	},
 ];

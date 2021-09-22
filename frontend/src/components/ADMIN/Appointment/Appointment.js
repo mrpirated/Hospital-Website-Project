@@ -1,7 +1,18 @@
 import React, { useEffect, useState } from "react";
 import remaining_appointmentAPI from "../../../api/remaining_appointmentAPI";
 import adminDoctorScheduleAPI from "../../../api/adminDoctorScheduleAPI";
-import { Card, Modal, DropdownButton, Dropdown, Form, Row, Col, Button } from "react-bootstrap";
+import setappointmentAPI from "../../../api/setappointmentAPI";
+import format from "date-fns/format";
+import {
+	Card,
+	Modal,
+	DropdownButton,
+	Dropdown,
+	Form,
+	Row,
+	Col,
+	Button,
+} from "react-bootstrap";
 import { useSelector } from "react-redux";
 import DataTable from "../../DataTable";
 import "./Appointment.css";
@@ -28,6 +39,8 @@ function Appointment() {
 	const history = useHistory();
 	const { path, url } = useRouteMatch();
 	useEffect(() => {
+		setselectedtime("Select Time");
+
 		const fetchData = async () => {
 			await remaining_appointmentAPI(token).then((res) => {
 				setappointments(res);
@@ -35,7 +48,7 @@ function Appointment() {
 			});
 		};
 		fetchData();
-		console.log(appointments);
+		//console.log(appointments);
 	}, [openPopup]);
 	const getDoctorSchedule = async (data) => {
 		await adminDoctorScheduleAPI({
@@ -58,6 +71,19 @@ function Appointment() {
 		setopenPopup(true);
 	};
 	const onSaveChanges = async () => {
+		//var tzoffset = new Date().getTimezoneOffset() * 60000;
+		setappointmentAPI({
+			start_time:
+				format(new Date(selectedtime.start_time), "yyyy-MM-dd") +
+				" " +
+				format(new Date(selectedtime.start_time), "HH:mm:ss"),
+			end_time:
+				format(new Date(selectedtime.end_time), "yyyy-MM-dd") +
+				" " +
+				format(new Date(selectedtime.end_time), "HH:mm:ss"),
+			token: token,
+			appointment_id: selectedAP.appointment_id,
+		});
 		setopenPopup(false);
 	};
 	const handleClose = () => setopenPopup(false);
@@ -85,18 +111,21 @@ function Appointment() {
 					</Card.Body>
 				</Card>
 			))}
-			<Modal 
-				size="lg" 
-				aria-labelledby="example-custom-modal-styling-title"
-				show={openPopup} 
-				onHide={handleClose} 
-				centered>
+			<Modal
+				size='lg'
+				aria-labelledby='example-custom-modal-styling-title'
+				show={openPopup}
+				onHide={handleClose}
+				centered
+			>
 				<Modal.Header closeButton>
-					<Modal.Title id="example-custom-modal-styling-title">Appointment Details</Modal.Title>
+					<Modal.Title id='example-custom-modal-styling-title'>
+						Appointment Details
+					</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>
 					<Form>
-						<Row style={{margin:"1rem"}}>
+						<Row style={{ margin: "1rem" }}>
 							<Form.Group as={Col}>
 								<Form.Label>Case ID:</Form.Label>
 								<Form.Control
@@ -116,7 +145,7 @@ function Appointment() {
 								/>
 							</Form.Group>
 						</Row>
-						<Row style={{margin:"1rem"}}>
+						<Row style={{ margin: "1rem" }}>
 							<Form.Group as={Col}>
 								<Form.Label>Patient ID:</Form.Label>
 								<Form.Control
@@ -134,7 +163,7 @@ function Appointment() {
 								/>
 							</Form.Group>
 						</Row>
-						<Row style={{margin:"1rem"}}>
+						<Row style={{ margin: "1rem" }}>
 							<Form.Group as={Col}>
 								<Form.Label>Doctor ID:</Form.Label>
 								<Form.Control
@@ -152,16 +181,19 @@ function Appointment() {
 								/>
 							</Form.Group>
 						</Row>
-						<Row style={{margin:"1rem"}}>
+						<Row style={{ margin: "1rem" }}>
 							<Form.Group as={Col}>
 								<Form.Label>Appointment Time:</Form.Label>
-								<DropdownButton menuVariant="dark" size="sm" variant="secondary"
+								<DropdownButton
+									menuVariant='dark'
+									size='sm'
+									variant='secondary'
 									title={
 										selectedtime != "Select Time"
 											? "From :" +
-											selectedtime.start_time.substr(0, 28) +
-											" To: " +
-											selectedtime.end_time.substr(0, 28)
+											  selectedtime.start_time.substr(0, 28) +
+											  " To: " +
+											  selectedtime.end_time.substr(0, 28)
 											: selectedtime
 									}
 								>
@@ -176,10 +208,12 @@ function Appointment() {
 												}}
 											>
 												<div>
-													From: {st.toDateString()} {st.toTimeString().substring(0, 12)}
+													From: {st.toDateString()}{" "}
+													{st.toTimeString().substring(0, 12)}
 												</div>
 												<div>
-													To :{et.toDateString()} {et.toTimeString().substring(0, 12)}
+													To :{et.toDateString()}{" "}
+													{et.toTimeString().substring(0, 12)}
 												</div>
 											</Dropdown.Item>
 										);
@@ -190,7 +224,9 @@ function Appointment() {
 					</Form>
 				</Modal.Body>
 				<Modal.Footer>
-					<Button variant="outline-dark" onClick={onSaveChanges}>Save Changes</Button>
+					<Button variant='outline-dark' onClick={onSaveChanges}>
+						Save Changes
+					</Button>
 				</Modal.Footer>
 			</Modal>
 		</div>
