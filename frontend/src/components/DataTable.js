@@ -20,29 +20,40 @@ export default function DataTable(props) {
 					</tr>
 				</thead>
 				<tbody>
-					{props.data.map((d) => (
-						<tr>
-							{/* <td>{idx++}</td> */}
-							<td>
-								<Button
-									block
-									variant='dark'
-									size='sm'
-									type='submit'
-									id={d.appointment_id}
-									onClick={(e) => {
-										history.push(props.onclicklink, { id: e.target.id });
-									}}
-								>
-									+
-								</Button>
-							</td>
-							{Object.keys(d).map(function (key, index) {
-								console.log(d);
-								return <td>{d[key]}</td>;
-							})}
-						</tr>
-					))}
+					{props.data.map((d) => {
+						console.log(d);
+						return (
+							<tr>
+								{/* <td>{idx++}</td> */}
+								<td>
+									<Button
+										block
+										variant='dark'
+										size='sm'
+										type='submit'
+										id={d.appointment_id}
+										onClick={(e) => {
+											history.push(props.onclicklink, { id: e.target.id });
+										}}
+									>
+										+
+									</Button>
+								</td>
+								{Object.keys(d).map(function (key, index) {
+									//console.log(d);
+									if (key === "meeting_link") {
+										return (
+											<td>
+												<a href={d[key]} target='_blank'>
+													Meeting Link
+												</a>
+											</td>
+										);
+									} else return <td>{d[key]}</td>;
+								})}
+							</tr>
+						);
+					})}
 				</tbody>
 			</Table>
 		</div>

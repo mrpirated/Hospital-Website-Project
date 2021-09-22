@@ -1,6 +1,6 @@
 import connection from "../../dbconn/db";
 import dotenv from "dotenv";
-import { parseDateArray } from "../helpers";
+
 dotenv.config();
 
 import checkToken from "../../checkToken";
@@ -37,7 +37,7 @@ export const MyAppointment = async (req, res) => {
 								}
 								return res.status(200).send({
 									msg: "Successfully returned Appointments!",
-									appointments: parseDateArray(result),
+									appointments: result,
 								});
 							}
 						);
@@ -167,7 +167,7 @@ export const AllAppointments = async (req, res) => {
 						//console.log(result);
 						return res.status(200).send({
 							msg: "Entered",
-							appointments: parseDateArray(result),
+							appointments: result,
 						});
 					}
 				}
