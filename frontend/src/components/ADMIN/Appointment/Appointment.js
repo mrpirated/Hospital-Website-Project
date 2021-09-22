@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import remaining_appointmentAPI from "../../../api/remaining_appointmentAPI";
 import adminDoctorScheduleAPI from "../../../api/adminDoctorScheduleAPI";
-import { Card, Modal, DropdownButton, Dropdown, Button } from "react-bootstrap";
+import { Card, Modal, DropdownButton, Dropdown, Form, Row, Col, Button } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import DataTable from "../../DataTable";
 import "./Appointment.css";
@@ -9,6 +9,7 @@ import { Route, Switch, useRouteMatch, useHistory } from "react-router";
 function Appointment() {
 	const token = useSelector((state) => state.auth.token);
 	const [appointments, setappointments] = useState([]);
+	const [doa, setDoa] = useState(new Date());
 	const [openPopup, setopenPopup] = useState(false);
 	const [selectedAP, setselectedAP] = useState({});
 	const [docschedule, setdocschedule] = useState([]);
@@ -43,6 +44,7 @@ function Appointment() {
 		}).then((res) => {
 			if (res.reply) {
 				console.log(res);
+				// setDoa(res.schedule.length > 0 ? new Date(res.schedule[0]) : "");
 				setdocschedule(res.schedule);
 			}
 		});
@@ -83,48 +85,112 @@ function Appointment() {
 					</Card.Body>
 				</Card>
 			))}
-			<Modal show={openPopup} onHide={handleClose} size='lg' centered>
+			<Modal 
+				size="lg" 
+				aria-labelledby="example-custom-modal-styling-title"
+				show={openPopup} 
+				onHide={handleClose} 
+				centered>
 				<Modal.Header closeButton>
-					<Modal.Title>Modal heading</Modal.Title>
+					<Modal.Title id="example-custom-modal-styling-title">Appointment Details</Modal.Title>
 				</Modal.Header>
-				<Modal.Body>{selectedAP.patient_name}</Modal.Body>
-				<DropdownButton
-					title={
-						selectedtime != "Select Time"
-							? "From :" +
-							  selectedtime.start_time.substr(0, 28) +
-							  " To: " +
-							  selectedtime.end_time.substr(0, 28)
-							: selectedtime
-					}
-				>
-					{docschedule.map((ds) => {
-						var st = new Date(ds.start_time);
-						var et = new Date(ds.end_time);
-						return (
-							<Dropdown.Item
-								onClick={(e) => {
-									console.log(e.target.value);
-									setselectedtime(ds);
-								}}
-							>
-								<div>
-									From: {st.toDateString()} {st.toTimeString().substring(0, 12)}
-								</div>
-								<div>
-									To :{et.toDateString()} {et.toTimeString().substring(0, 12)}
-								</div>
-							</Dropdown.Item>
-						);
-					})}
-				</DropdownButton>
-				{/* {docschedule.map((ds) => (
-					<Modal.Body>
-						
-					</Modal.Body>
-				))} */}
+				<Modal.Body>
+					<Form>
+						<Row style={{margin:"1rem"}}>
+							<Form.Group as={Col}>
+								<Form.Label>Case ID:</Form.Label>
+								<Form.Control
+									type='text'
+									value={selectedAP.case_id}
+									disabled={true}
+									// onChange={(e) => setFirstName(e.target.value)}
+								/>
+							</Form.Group>
+							<Form.Group as={Col}>
+								<Form.Label>Appointment ID:</Form.Label>
+								<Form.Control
+									type='text'
+									value={selectedAP.appointment_id}
+									disabled={true}
+									// onChange={(e) => setLastName(e.target.value)}
+								/>
+							</Form.Group>
+						</Row>
+						<Row style={{margin:"1rem"}}>
+							<Form.Group as={Col}>
+								<Form.Label>Patient ID:</Form.Label>
+								<Form.Control
+									type='text'
+									value={selectedAP.patient_id}
+									disabled={true}
+								/>
+							</Form.Group>
+							<Form.Group as={Col}>
+								<Form.Label>Patient Name:</Form.Label>
+								<Form.Control
+									type='text'
+									value={selectedAP.patient_name}
+									disabled={true}
+								/>
+							</Form.Group>
+						</Row>
+						<Row style={{margin:"1rem"}}>
+							<Form.Group as={Col}>
+								<Form.Label>Doctor ID:</Form.Label>
+								<Form.Control
+									type='text'
+									value={selectedAP.doctor_id}
+									disabled={true}
+								/>
+							</Form.Group>
+							<Form.Group as={Col}>
+								<Form.Label>Doctor Name:</Form.Label>
+								<Form.Control
+									type='text'
+									value={selectedAP.doctor_name}
+									disabled={true}
+								/>
+							</Form.Group>
+						</Row>
+						<Row style={{margin:"1rem"}}>
+							<Form.Group as={Col}>
+								<Form.Label>Appointment Time:</Form.Label>
+								<DropdownButton menuVariant="dark" size="sm" variant="secondary"
+									title={
+										selectedtime != "Select Time"
+											? "From :" +
+											selectedtime.start_time.substr(0, 28) +
+											" To: " +
+											selectedtime.end_time.substr(0, 28)
+											: selectedtime
+									}
+								>
+									{docschedule.map((ds) => {
+										var st = new Date(ds.start_time);
+										var et = new Date(ds.end_time);
+										return (
+											<Dropdown.Item
+												onClick={(e) => {
+													console.log(e.target.value);
+													setselectedtime(ds);
+												}}
+											>
+												<div>
+													From: {st.toDateString()} {st.toTimeString().substring(0, 12)}
+												</div>
+												<div>
+													To :{et.toDateString()} {et.toTimeString().substring(0, 12)}
+												</div>
+											</Dropdown.Item>
+										);
+									})}
+								</DropdownButton>
+							</Form.Group>
+						</Row>
+					</Form>
+				</Modal.Body>
 				<Modal.Footer>
-					<Button onClick={onSaveChanges}>Save Changes</Button>
+					<Button variant="outline-dark" onClick={onSaveChanges}>Save Changes</Button>
 				</Modal.Footer>
 			</Modal>
 		</div>

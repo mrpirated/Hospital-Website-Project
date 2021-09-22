@@ -137,7 +137,7 @@ function Signup(props) {
 						/>
 					</Form.Group>
 					<Button block size='lg' type='submit' disabled={!validateForm()}>
-						Login
+						Signup
 					</Button>
 				</Form>
 			</div>
