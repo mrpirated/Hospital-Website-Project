@@ -57,6 +57,9 @@ function Appointment() {
 		console.log(docschedule);
 		setopenPopup(true);
 	};
+	const onSaveChanges = async () => {
+		setopenPopup(false);
+	};
 	const handleClose = () => setopenPopup(false);
 	return (
 		<div>
@@ -150,68 +153,46 @@ function Appointment() {
 							</Form.Group>
 						</Row>
 						<Row style={{margin:"1rem"}}>
-							{/* <Form.Group as={Col}>
-								<Form.Label>Appointment Date:</Form.Label>
-								<Form.Control
-									type='text'
-									value={docschedule.length > 0 ? new Date(docschedule[0].start_time).toLocaleDateString() : ""}
-									disabled={true}
-								/>
-							</Form.Group> */}
 							<Form.Group as={Col}>
 								<Form.Label>Appointment Time:</Form.Label>
-								<DropdownButton menuVariant="dark" size="sm" variant="secondary" title={selectedtime}>
-									{docschedule.map((ds) => (
-										<Dropdown.Item onClick={(e) => setselectedtime(e.target.value)}>
-											{ds.start_time} - {ds.end_time}
-										</Dropdown.Item>
-									))}
+								<DropdownButton menuVariant="dark" size="sm" variant="secondary"
+									title={
+										selectedtime != "Select Time"
+											? "From :" +
+											selectedtime.start_time.substr(0, 28) +
+											" To: " +
+											selectedtime.end_time.substr(0, 28)
+											: selectedtime
+									}
+								>
+									{docschedule.map((ds) => {
+										var st = new Date(ds.start_time);
+										var et = new Date(ds.end_time);
+										return (
+											<Dropdown.Item
+												onClick={(e) => {
+													console.log(e.target.value);
+													setselectedtime(ds);
+												}}
+											>
+												<div>
+													From: {st.toDateString()} {st.toTimeString().substring(0, 12)}
+												</div>
+												<div>
+													To :{et.toDateString()} {et.toTimeString().substring(0, 12)}
+												</div>
+											</Dropdown.Item>
+										);
+									})}
 								</DropdownButton>
 							</Form.Group>
 						</Row>
-						<div className="text-center" style={{margin: "1rem"}}>
-							<Button variant="outline-dark" block size='sm' type='submit'>
-								Submit
-							</Button>	
-						</div>
 					</Form>
-					{/* <div style={{display: "inline"}}>
-						<div style={{width: "50%", display: 'inline-block', float:'left', marginRight: '10px'}}>
-							<h6 style={{display:"inline", margin:"1rem 1rem"}}>Case ID:</h6>
-							<input 
-								style={{margin:"1rem 1rem"}}
-								type='text'
-								value={selectedAP.case_id}
-								disabled={true}
-							/> 
-						</div>
-						<div style={{width: "50%", display: 'inline-block', float:'left', marginRight: '10px'}}> 
-							<h6 style={{display:"inline", margin:"1rem 1rem"}}>Patient Name:</h6>
-							<input 
-								style={{margin:"1rem 1rem"}}
-								type='text'
-								value={selectedAP.patient_name}
-								disabled={true}
-							/>
-						</div>
-						
-					</div>
-					<div>
-						<h6 style={{display:"inline", margin:"1rem 1rem"}}>Patient Name:</h6>
-						<input 
-							style={{margin:"1rem 1rem"}}
-							type='text'
-							value={selectedAP.patient_name}
-							disabled={true}
-						/> 
-					</div> */}
 				</Modal.Body>
-				{/* {docschedule.map((ds) => (
-					<Modal.Body>
-						
-					</Modal.Body>
-				))} */}
-			</Modal>	
+				<Modal.Footer>
+					<Button variant="outline-dark" onClick={onSaveChanges}>Save Changes</Button>
+				</Modal.Footer>
+			</Modal>
 		</div>
 	);
 }
