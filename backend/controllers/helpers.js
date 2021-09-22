@@ -8,7 +8,13 @@ export const parseDateArray = (ans) => {
 };
 
 export const getAvailableTime = (sch, app) => {
-	data = data.map((dt) => {
+	sch = sch.map((dt) => {
+		return {
+			start_time: Date.parse(dt.start_time),
+			end_time: Date.parse(dt.end_time),
+		};
+	});
+	app = app.map((dt) => {
 		return {
 			start_time: Date.parse(dt.start_time),
 			end_time: Date.parse(dt.end_time),
