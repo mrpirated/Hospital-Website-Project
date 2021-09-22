@@ -3,6 +3,7 @@ import cors from "cors";
 import admin from "./routes/admin/admin";
 import patient from "./routes/patient/patient";
 import doctor from "./routes/doctor/doctor";
+
 // import login_doctor from "./routes/login/login_doctor";
 
 // import signup from "./routes/signup/signup";
@@ -32,6 +33,7 @@ app.use(
 	// signup_doctor,
 	// signup_admin,
 	token
+
 	// patient_case,
 	// patient_appointment,
 	// doctor_schedule

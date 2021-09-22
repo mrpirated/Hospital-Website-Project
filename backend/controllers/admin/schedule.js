@@ -40,7 +40,7 @@ export const get_doctor_schedule = async (req, res) => {
 						});
 					} else {
 						sch = result;
-						//console.log(sch);
+						console.log(sch);
 						var app = connection.query(
 							"SELECT \
 							start_time, \
