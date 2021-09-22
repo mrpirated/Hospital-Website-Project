@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import remaining_appointmentAPI from "../../../api/remaining_appointmentAPI";
 import adminDoctorScheduleAPI from "../../../api/adminDoctorScheduleAPI";
-import { Card, Modal, DropdownButton, Dropdown } from "react-bootstrap";
+import { Card, Modal, DropdownButton, Dropdown, Button } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import DataTable from "../../DataTable";
 import "./Appointment.css";
@@ -55,6 +55,9 @@ function Appointment() {
 		console.log(docschedule);
 		setopenPopup(true);
 	};
+	const onSaveChanges = async () => {
+		setopenPopup(false);
+	};
 	const handleClose = () => setopenPopup(false);
 	return (
 		<div>
@@ -85,18 +88,44 @@ function Appointment() {
 					<Modal.Title>Modal heading</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>{selectedAP.patient_name}</Modal.Body>
-				<DropdownButton title={selectedtime}>
-					{docschedule.map((ds) => (
-						<Dropdown.Item onClick={(e) => setselectedtime(e.target.value)}>
-							{ds.start_time} {ds.end_time}
-						</Dropdown.Item>
-					))}
+				<DropdownButton
+					title={
+						selectedtime != "Select Time"
+							? "From :" +
+							  selectedtime.start_time.substr(0, 28) +
+							  " To: " +
+							  selectedtime.end_time.substr(0, 28)
+							: selectedtime
+					}
+				>
+					{docschedule.map((ds) => {
+						var st = new Date(ds.start_time);
+						var et = new Date(ds.end_time);
+						return (
+							<Dropdown.Item
+								onClick={(e) => {
+									console.log(e.target.value);
+									setselectedtime(ds);
+								}}
+							>
+								<div>
+									From: {st.toDateString()} {st.toTimeString().substring(0, 12)}
+								</div>
+								<div>
+									To :{et.toDateString()} {et.toTimeString().substring(0, 12)}
+								</div>
+							</Dropdown.Item>
+						);
+					})}
 				</DropdownButton>
 				{/* {docschedule.map((ds) => (
 					<Modal.Body>
 						
 					</Modal.Body>
 				))} */}
+				<Modal.Footer>
+					<Button onClick={onSaveChanges}>Save Changes</Button>
+				</Modal.Footer>
 			</Modal>
 		</div>
 	);
