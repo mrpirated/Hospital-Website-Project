@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const zoommeeting = async () => {
-	const email = "deepeshrathi9@gmail.com";
+	const email = "support@periwalmanavseva.com";
 	const zoom_token = jwt.sign(
 		{
 			iss: process.env.ZOOM_API_KEY,

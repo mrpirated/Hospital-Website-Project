@@ -5,7 +5,7 @@ import rp from "request-promise";
 import dotenv from "dotenv";
 dotenv.config();
 router.post("/newmeeting", (req, res) => {
-	const email = "deepeshrathi9@gmail.com";
+	const email = "support@periwalmanavseva.com";
 	const zoom_token = jwt.sign(
 		{
 			iss: process.env.ZOOM_API_KEY,
@@ -20,8 +20,8 @@ router.post("/newmeeting", (req, res) => {
 			topic: "test create meeting",
 			type: 1,
 			settings: {
-				host_video: "true",
-				participant_video: "true",
+				join_before_host: true,
+				mute_upon_entry: true,
 			},
 		},
 		auth: {

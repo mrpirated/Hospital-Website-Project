@@ -3,13 +3,14 @@ import cors from "cors";
 import admin from "./routes/admin/admin";
 import patient from "./routes/patient/patient";
 import doctor from "./routes/doctor/doctor";
-
+import zoommeeting from "./routes/admin/zoommeeting";
 // import login_doctor from "./routes/login/login_doctor";
 
 // import signup from "./routes/signup/signup";
 // import signup_doctor from "./routes/signup/signup_doctor";
 // import signup_admin from "./routes/signup/signup_admin";
 import token from "./routes/token";
+
 // import patient_case from "./routes/patient_case";
 // import patient_appointment from "./routes/patient_appointment";
 // import doctor_schedule from "./routes/doctor_schedule";
@@ -32,7 +33,8 @@ app.use(
 	// signup,
 	// signup_doctor,
 	// signup_admin,
-	token
+	token,
+	zoommeeting
 
 	// patient_case,
 	// patient_appointment,

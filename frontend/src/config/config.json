@@ -13,5 +13,6 @@
 	"newappointment": "/newappointment",
 	"schedule": "/schedule",
 	"appointment": "/appointment",
-	"allappointments": "/allappointments"
+	"allappointments": "/allappointments",
+	"setavailability": "/setavailability"
 }

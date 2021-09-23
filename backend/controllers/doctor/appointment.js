@@ -6,7 +6,7 @@ dotenv.config();
 import checkToken from "../../checkToken";
 import { format } from "mysql";
 
-const appointment = async (req, res) => {
+export const appointment = async (req, res) => {
 	try {
 		const decodedData = checkToken(req.query.token);
 
@@ -71,4 +71,64 @@ const appointment = async (req, res) => {
 		});
 	}
 };
-export default appointment;
+export const setAvailability = async (req, res) => {
+	try {
+		const decodedData = checkToken(req.body.token);
+
+		if (decodedData === undefined || decodedData.type !== 1) {
+			return res.status(209).send({
+				msg: "Invalid Request",
+			});
+		} else {
+			//console.log(decodedData);
+			connection.query(
+				"SELECT start_time, end_time FROM schedule WHERE doctor_id = ?",
+				[decodedData.user.doctor_id],
+				(err, result, fields) => {
+					if (err) {
+						return res.status(210).send({
+							msg: err,
+						});
+					} else {
+						//console.log(result);
+						var st = new Date(req.body.start_time);
+						var et = new Date(req.body.end_time);
+						for (var i = 0; i < result.length; i++) {
+							if (result[i].start_time <= st && result[i].end_time >= st) {
+								st = result[i].end_time;
+								if (result[i].start_time <= et && result[i].end_time >= et)
+									et = result[i].end_time;
+							} else if (
+								result[i].start_time <= et &&
+								result[i].end_time >= et
+							) {
+								et = result[i].start_time;
+							}
+						}
+
+						if (st < et) {
+							connection.query(
+								"INSERT INTO schedule VALUES(?,?,?)",
+								[decodedData.user.doctor_id, st, et],
+								(err, result, query) => {
+									if (err) {
+										return res.status(210).send({
+											msg: err,
+										});
+									} else {
+										return res.status(200).send(result);
+									}
+								}
+							);
+						} else res.send("No new Availability");
+					}
+				}
+			);
+		}
+	} catch (error) {
+		console.log(error);
+		return res.status(210).send({
+			msg: error,
+		});
+	}
+};
