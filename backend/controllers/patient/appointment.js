@@ -27,7 +27,21 @@ export const MyAppointment = async (req, res) => {
 						});
 					} else if (result.length) {
 						var q1 = connection.query(
-							"SELECT * FROM appointment WHERE case_id = ? ORDER BY start_time DESC",
+							'SELECT\
+							a.appointment_id,\
+							a.case_id,\
+							a.doctor_id,\
+							CONCAT(d.first_name, " ", d.last_name) AS doctor_name,\
+							a.end_time,\
+							a.meeting_link,\
+							a.start_time\
+						  FROM\
+							appointment a\
+							JOIN doctor d ON a.doctor_id = d.doctor_id\
+						  WHERE\
+							a.case_id = ?\
+						  ORDER BY\
+							start_time DESC',
 							req.query.case_id,
 							(err, result, fields) => {
 								if (err) {
