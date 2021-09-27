@@ -67,7 +67,7 @@ export default function MyAppointment(props) {
 				>
 					<Card.Body>
 						<Card.Title>Appointment Id: {c.appointment_id}</Card.Title>
-						<Card.Text>Doctor Name: {c.doctor_name}</Card.Text>
+						<Card.Text>Doctor: {c.doctor_name}</Card.Text>
 						<Card.Text>
 							Date: {new Date(c.start_time).toString().slice(0, 15)}
 						</Card.Text>
@@ -141,7 +141,9 @@ export default function MyAppointment(props) {
 						<Row>
 							<Form.Group as={Col}>
 								<Form.Group>
-									<a href={selectedAP.meeting_link}>Meeting Link</a>
+									<a href={selectedAP.meeting_link} target='_blank'>
+										Meeting Link
+									</a>
 								</Form.Group>
 							</Form.Group>
 						</Row>

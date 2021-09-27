@@ -30,6 +30,7 @@ export const getAvailableTime = (sch, app) => {
 	console.log(sch);
 	console.log(app);
 	while (schit < sch.length && appit < app.length) {
+		//console.log(schit);
 		if (
 			st <= app[appit].start_time &&
 			sch[schit].end_time >= app[appit].start_time

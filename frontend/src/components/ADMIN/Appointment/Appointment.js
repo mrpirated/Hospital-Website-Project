@@ -48,7 +48,7 @@ function Appointment() {
 			});
 		};
 		fetchData();
-		//console.log(appointments);
+		console.log(appointments);
 	}, [openPopup]);
 	const getDoctorSchedule = async (data) => {
 		await adminDoctorScheduleAPI({
@@ -63,7 +63,7 @@ function Appointment() {
 		});
 	};
 	const onCLickAppointment = async (card) => {
-		//console.log(1);
+		console.log(1);
 		setselectedAP(card);
 		//console.log(selectedAP);
 		await getDoctorSchedule(card);

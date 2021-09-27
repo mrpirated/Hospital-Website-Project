@@ -53,6 +53,7 @@ export const get_doctor_schedule = async (req, res) => {
 							ORDER BY start_time",
 							[req.query.doctor_id],
 							(err, result, fields) => {
+								//console.log(result);
 								if (err) {
 									return res.status(210).send({
 										msg: err,
