@@ -21,6 +21,12 @@ function Availability() {
 				format(new Date(availDate), "yyyy-MM-dd") + " " + start_time + ":00",
 			end_time:
 				format(new Date(availDate), "yyyy-MM-dd") + " " + end_time + ":00",
+		}).then((res) => {
+			if (res.reply) {
+				alert("Availability is Set Successfully!");
+			} else {
+				alert(res.data.msg);
+			}
 		});
 		setavailDate(new Date());
 		setstart_time(format(new Date(), "HH:mm"));
@@ -46,7 +52,7 @@ function Availability() {
 						<Form.Label>Select Start Time</Form.Label>
 						<TimePicker
 							value={start_time}
-							minTime={new Date()}
+							// minTime={new Date()}
 							clearIcon={false}
 							onChange={setstart_time}
 						/>
@@ -55,7 +61,7 @@ function Availability() {
 						<Form.Label>Select End Time</Form.Label>
 						<TimePicker
 							value={end_time}
-							minTime={new Date()}
+							// minTime={new Date()}
 							clearIcon={false}
 							onChange={setend_time}
 						/>
