@@ -23,38 +23,22 @@ export const getAvailableTime = (sch, app) => {
 	if (sch.length == 0 || app.length == 0) return sch;
 	var schit = 0,
 		appit = 0;
-	var ans = [];
+	var ans = [{}];
 	var st = sch[0].start_time;
 	var tp = sch[0];
 
 	console.log(sch);
 	console.log(app);
-	while (schit < sch.length && appit < app.length) {
-		//console.log(schit);
-		if (
-			st <= app[appit].start_time &&
-			sch[schit].end_time >= app[appit].start_time
-		) {
-			//console.log(st);
-			if (st != app[appit].start_time) {
-				tp.start_time = st;
-				tp.end_time = app[appit].start_time;
-				ans.push(tp);
-				st = app[appit].end_time;
-				appit++;
-			} else {
-				st = app[appit].end_time;
-			}
-		} else {
-			if (st != sch[schit].end_time) {
-				tp.start_time = st;
-				tp.end_time = sch[schit].end_time;
-				ans.push(tp);
-				schit++;
-				if (schit < sch.length) st = sch[schit].start_time;
-			}
-		}
-	}
+	sch.forEach((sh) => {
+		ans.push({ time: sh.start_time, type: 1 });
+		ans.push({ time: sh.end_time, type: 0 });
+	});
+	app.forEach((sh) => {
+		ans.push({ time: sh.start_time, type: 1 });
+		ans.push({ time: sh.end_time, type: 0 });
+	});
+	ans.sort();
+	console.log(ans);
 	//console.log(typeof ans[0].start_time);
 	ans = ans.map((a) => {
 		var st = new Date(a.start_time);

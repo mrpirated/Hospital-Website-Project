@@ -91,6 +91,7 @@ export const setAvailability = async (req, res) => {
 						});
 					} else {
 						//console.log(result);
+						console.log(req.body);
 						var st = new Date(req.body.start_time);
 						var et = new Date(req.body.end_time);
 						for (var i = 0; i < result.length; i++) {
@@ -105,7 +106,7 @@ export const setAvailability = async (req, res) => {
 								et = result[i].start_time;
 							}
 						}
-
+						console.log(st + " " + et);
 						if (st < et) {
 							connection.query(
 								"INSERT INTO schedule VALUES(?,?,?)",
