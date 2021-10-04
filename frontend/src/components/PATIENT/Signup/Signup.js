@@ -5,6 +5,7 @@ import Button from "react-bootstrap/Button";
 import { useHistory } from "react-router";
 import "./Signup.css";
 import DatePicker from "react-datepicker";
+import format from "date-fns/format";
 import "react-datepicker/dist/react-datepicker.css";
 
 function Signup(props) {
@@ -32,10 +33,11 @@ function Signup(props) {
 		event.preventDefault();
 		if (validateForm() && password === confirmPassword) {
 			setFlag(false);
+			const dobSend = format(dob, "yyyy-MM-dd");
 			signupAPI({
 				first_name,
 				last_name,
-				dob,
+				dob: dobSend,
 				gender,
 				address,
 				email,
