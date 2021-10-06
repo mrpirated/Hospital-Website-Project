@@ -9,8 +9,8 @@ import setAvailabilityAPI from "../../../api/setAvailabilityAPI";
 function Availability() {
 	const token = useSelector((state) => state.auth.token);
 	const [availDate, setavailDate] = useState(new Date());
-	const [start_time, setstart_time] = useState(format(new Date(), "HH:mm"));
-	const [end_time, setend_time] = useState(format(new Date(), "HH:mm"));
+	const [start_time, setstart_time] = useState(new Date());
+	const [end_time, setend_time] = useState(new Date());
 	const onSaveChanges = async () => {
 		console.log(start_time);
 		console.log(end_time);
@@ -54,7 +54,7 @@ function Availability() {
 							value={start_time}
 							// minTime={new Date()}
 							clearIcon={false}
-							onChange={setstart_time}
+							onChange={(time) => setstart_time(time)}
 						/>
 					</Form.Group>
 					<Form.Group as={Col}>
@@ -63,7 +63,7 @@ function Availability() {
 							value={end_time}
 							// minTime={new Date()}
 							clearIcon={false}
-							onChange={setend_time}
+							onChange={(time) => setend_time(time)}
 						/>
 					</Form.Group>
 				</Row>

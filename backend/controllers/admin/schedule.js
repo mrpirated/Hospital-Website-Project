@@ -61,7 +61,7 @@ export const get_doctor_schedule = async (req, res) => {
 								} else {
 									return res.status(200).send({
 										msg: "Successfully returned Schedule!",
-										schedule: parseDateArray(getAvailableTime(sch, result)),
+										schedule: getAvailableTime(sch, result),
 									});
 								}
 							}
