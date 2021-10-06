@@ -26,7 +26,7 @@ export default function MyAppointment(props) {
 				if (res.reply) {
 					setAppointments(res.appointments);
 				} else {
-					alert(res.data.msg + "\nYou will be redirected to Home.");
+					//alert(res.data.msg + "\nYou will be redirected to Home.");
 					setTimeout(history.push("/home"), 4000);
 				}
 			});

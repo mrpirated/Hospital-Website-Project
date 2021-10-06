@@ -11,6 +11,7 @@ function Navigation(props) {
 	const [isauth, setisauth] = useState(store.getState().auth.isauth);
 	store.subscribe(() => setisauth(store.getState().auth.isauth));
 	const logout = () => {
+		sessionStorage.setItem("lastPage", "/home");
 		store.dispatch(loggedOut());
 	};
 

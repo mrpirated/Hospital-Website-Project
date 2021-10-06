@@ -13,6 +13,8 @@ export default function Records() {
 	const [future, setFuture] = useState([]);
 
 	useEffect(() => {
+		sessionStorage.setItem("lastPage", "/patient/records");
+		
 		if (!(auth.isauth && auth.type === 0)) {
 			history.push("/home");
 		} else {

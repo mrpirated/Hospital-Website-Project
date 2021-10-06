@@ -36,7 +36,13 @@ function App() {
 							})
 						);
 						//console.log(browserHistory.);
-						if (res.type === 0) history.push("/patient");
+						if (res.type === 0){
+							if(sessionStorage.getItem("lastPage") && sessionStorage.getItem("lastPage").includes("/patient")){
+								console.log(sessionStorage.getItem("lastPage"));
+								history.push(sessionStorage.getItem("lastPage"));
+							}
+							else history.push("/patient");
+						}
 						else if (res.type === 1) history.push("/doctor");
 					}
 				);

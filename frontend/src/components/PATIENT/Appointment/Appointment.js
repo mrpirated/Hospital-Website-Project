@@ -11,21 +11,26 @@ export default function Appointment(props) {
 	const history = useHistory();
 	const [cases, setCases] = useState([]);
 
-	useEffect(() => {
-		if (!(auth.isauth && auth.type === 0)) {
-			history.push("/home");
+	useEffect( () => {
+		sessionStorage.setItem("lastPage", "/patient/appointment");
+		// if (!(auth.isauth && auth.type === 0)) {
+		// 	history.push("/home");
+		// }
+		const patientFunc = async () =>{ 
+			const tokenNow = auth.token ? auth.token : localStorage.getItem("token");
+			console.log(tokenNow);
+			await patientCaseAPI({
+				token: tokenNow,
+			}).then((res) => {
+				if (res.reply) {
+					setCases(res.cases);
+				} else {
+					// alert(res.data.msg + "\nYou will be redirected to Home.");
+					setTimeout(history.push("/patient/appointment"), 0);
+				}
+			});
 		}
-
-		patientCaseAPI({
-			token: auth.token,
-		}).then((res) => {
-			if (res.reply) {
-				setCases(res.cases);
-			} else {
-				alert(res.data.msg + "\nYou will be redirected to Home.");
-				setTimeout(history.push("/home"), 4000);
-			}
-		});
+		setTimeout(patientFunc(), 100);
 	}, []);
 
 	return (
