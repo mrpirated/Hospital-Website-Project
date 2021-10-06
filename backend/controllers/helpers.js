@@ -27,8 +27,8 @@ export const getAvailableTime = (sch, app) => {
 	var st = sch[0].start_time;
 	var tp = sch[0];
 
-	console.log(sch);
-	console.log(app);
+	//console.log(sch);
+	//console.log(app);
 	sch.forEach((sh) => {
 		ans.push({ time: sh.start_time, type: 1 });
 		ans.push({ time: sh.end_time, type: 0 });
@@ -42,7 +42,7 @@ export const getAvailableTime = (sch, app) => {
 
 		return a.type < b.type ? 1 : a.type < b.type ? -1 : 0;
 	});
-	console.log(ans);
+	//console.log(ans);
 	var ret = [];
 	var n = ans.length;
 	var st = null,
