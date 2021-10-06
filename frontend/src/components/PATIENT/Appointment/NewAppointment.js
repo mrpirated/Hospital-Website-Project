@@ -4,11 +4,12 @@ import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
 import { Form, Button, Row, Col } from "react-bootstrap";
 import "./NewCase.css";
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import TimePicker from "react-time-picker";
 import format from "date-fns/format";
 import newAppointmentAPI from "../../../api/newAppointmentAPI";
+import DateFnsUtils from '@date-io/date-fns';
+import {KeyboardDatePicker , MuiPickersUtilsProvider } from '@material-ui/pickers';
 
 export default function NewAppointment(props) {
 	const auth = useSelector((state) => state.auth);
@@ -30,6 +31,9 @@ export default function NewAppointment(props) {
 		} else {
 			history.push("/home");
 		}
+
+		
+
 	}, []);
 
 	function validateForm() {
@@ -39,17 +43,16 @@ export default function NewAppointment(props) {
 
 	function handleSubmit(event) {
 		event.preventDefault();
-		const start_time =
-			format(dateOfAppointment, "yyyy-MM-dd") + " " + startTime + ":00";
-		const end_time =
-			format(dateOfAppointment, "yyyy-MM-dd") + " " + endTime + ":00";
-
+		// const start_time =
+		// 	format(dateOfAppointment, "yyyy-MM-dd") + " " + startTime + ":00";
+		// const end_time =
+		// 	format(dateOfAppointment, "yyyy-MM-dd") + " " + endTime + ":00";
+		console.log(dateOfAppointment);
 		newAppointmentAPI({
 			token: auth.token,
 			case_id: caseDetails.case_id,
 			doctor_id: doctorId,
-			start_time: start_time,
-			end_time: end_time,
+			preferred_date: format(dateOfAppointment, "yyyy-MM-dd")
 		}).then((res) => {
 			if (res.reply) {
 				history.push("/patient");
@@ -86,24 +89,26 @@ export default function NewAppointment(props) {
 							onChange={(e) => setDoctorId(e.target.value)}
 						/>
 					</Form.Group>
-					<Row>
-						<Form.Group as={Col}>
-							<Form.Label>Date Of Appointment</Form.Label>
-							<DatePicker
-								selected={dateOfAppointment}
+					<Form.Label>Preferred Date Of Appointment</Form.Label>
+					<Form.Group as={Col}>
+						<MuiPickersUtilsProvider utils={DateFnsUtils}>
+							<KeyboardDatePicker
+								autoOk
+								variant="inline"
+								inputVariant="outlined"
+								format="dd/MM/yyyy"
+								value={dateOfAppointment}
 								onChange={(date) => setDateOfAppointment(date)}
+								InputAdornmentProps={{ position: "start" }}
 								minDate={new Date()}
 							/>
-						</Form.Group>
-						<Form.Group as={Col}>
-							<Form.Label style={{ display: "block" }}>Start Time</Form.Label>
-							<TimePicker onChange={setStartTime} value={startTime} />
-						</Form.Group>
-						<Form.Group as={Col}>
-							<Form.Label style={{ display: "block" }}>End Time</Form.Label>
-							<TimePicker onChange={setEndTime} value={endTime} />
-						</Form.Group>
-					</Row>
+						</MuiPickersUtilsProvider>
+						{/* <ReactDatePicker
+							value={dateOfAppointment}
+							onChange={(date) => setDateOfAppointment(date)}
+							minDate={new Date()}
+						/> */}
+					</Form.Group>
 					<div className='text-center' style={{ paddingTop: "2rem" }}>
 						<Button
 							variant='outline-dark'

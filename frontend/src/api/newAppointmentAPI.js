@@ -2,7 +2,7 @@ import axios from "axios";
 import config from "../config/config.json";
 
 const newAppointmentAPI = async(data) => {
-    const {token, case_id, doctor_id, start_time, end_time} = data;
+    const {token, case_id, doctor_id, preferred_date} = data;
 
     return await axios.post(
         config.baseUrl + config.patient + config.newappointment,
@@ -10,8 +10,7 @@ const newAppointmentAPI = async(data) => {
             token:token,
             case_id: case_id,
             doctor_id: doctor_id,
-            start_time: start_time,
-            end_time: end_time
+            preferred_date: preferred_date
         }
     ).then((res) => {
         if (res.status === 200) {
