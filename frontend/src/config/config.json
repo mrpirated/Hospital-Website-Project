@@ -14,5 +14,6 @@
 	"schedule": "/schedule",
 	"appointment": "/appointment",
 	"allappointments": "/allappointments",
-	"setavailability": "/setavailability"
+	"setavailability": "/setavailability",
+	"doctor_details": "/doctor_details"
 }

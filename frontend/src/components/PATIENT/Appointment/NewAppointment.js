@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
-import { Form, Button, Row, Col } from "react-bootstrap";
+import { Form, Button, Row, Col, DropdownButton, Dropdown} from "react-bootstrap";
 import "./NewCase.css";
 import "react-datepicker/dist/react-datepicker.css";
 import TimePicker from "react-time-picker";
@@ -10,6 +10,7 @@ import format from "date-fns/format";
 import newAppointmentAPI from "../../../api/newAppointmentAPI";
 import DateFnsUtils from '@date-io/date-fns';
 import {KeyboardDatePicker , MuiPickersUtilsProvider } from '@material-ui/pickers';
+import getDoctorDetailsAPI from "../../../api/getDoctorDetailsAPI";
 
 export default function NewAppointment(props) {
 	const auth = useSelector((state) => state.auth);
@@ -19,7 +20,8 @@ export default function NewAppointment(props) {
 	const [startTime, setStartTime] = useState("00:00");
 	const [endTime, setEndTime] = useState("00:00");
 	const [doctorId, setDoctorId] = useState(undefined);
-
+	const [selectedDoctor, setSelectedDoctor] = useState("SELECT DOCTOR");
+	const [doctorDetails, setDoctorDetails] = useState([]);
 	useEffect(() => {
 		if (
 			props.location.state !== undefined &&
@@ -32,7 +34,17 @@ export default function NewAppointment(props) {
 			history.push("/home");
 		}
 
-		
+		getDoctorDetailsAPI({
+			token: auth.token
+		}).then((res) => {
+			if (res.reply) {
+				console.log(res.doctors);
+				setDoctorDetails(res.doctors);
+			} else {
+				// alert(res.data.msg + "\nYou will be redirected to Home.");
+				setTimeout(history.push("/patient/appointment"), 0);
+			}
+		})
 
 	}, []);
 
@@ -82,12 +94,35 @@ export default function NewAppointment(props) {
 						<Form.Control as='textarea' rows={3} />
 					</Form.Group>
 					<Form.Group className='mb-3' controlId='exampleForm.ControlTextarea1'>
-						<Form.Label>Select Doctor ID</Form.Label>
-						<Form.Control
+						<Form.Label>Select Doctor</Form.Label>
+						<DropdownButton 
+							variant="secondary" 
+							id="dropdown-basic-button" 
+							title={selectedDoctor}
+						>
+							{
+								doctorDetails.map((dd) => {
+									return (
+										<Dropdown.Item
+												onClick={(e) => {
+													console.log(e.target.value);
+													setSelectedDoctor(dd.first_name + " " + dd.last_name);
+													setDoctorId(dd.doctor_id);
+												}}
+											>
+												<div>
+													{dd.first_name + " " + dd.last_name}
+												</div>
+											</Dropdown.Item>
+									);
+								})
+							}
+						</DropdownButton>
+						{/* <Form.Control
 							type='text'
 							value={doctorId}
 							onChange={(e) => setDoctorId(e.target.value)}
-						/>
+						/> */}
 					</Form.Group>
 					<Form.Label>Preferred Date Of Appointment</Form.Label>
 					<Form.Group as={Col}>
