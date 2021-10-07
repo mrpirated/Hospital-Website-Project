@@ -20,7 +20,7 @@ export const getAvailableTime = (sch, app) => {
 			end_time: Date.parse(dt.end_time),
 		};
 	});
-	if (sch.length == 0 || app.length == 0) return sch;
+	if (sch.length == 0) return sch;
 
 	var ans = [];
 	var st = sch[0].start_time;
@@ -55,8 +55,8 @@ export const getAvailableTime = (sch, app) => {
 		if (st && et) {
 			if (st < et) {
 				ret.push({
-					start_time: new Date(st).toString(),
-					end_time: new Date(et).toString(),
+					start_time: st,
+					end_time: et,
 				});
 				st = et = null;
 			} else st = et = null;
@@ -65,4 +65,27 @@ export const getAvailableTime = (sch, app) => {
 	//console.log(typeof ans[0].start_time);
 	//console.log(ret);
 	return ret;
+};
+export const scheduleAppointment = (sch, prevapp, time_interval) => {
+	//console.log(time_interval);
+	var availability = getAvailableTime(sch, prevapp);
+	//console.log(availability);
+	var n = availability.length;
+	var ans = {
+		start_time: null,
+		end_time: null,
+	};
+	for (var i = 0; i < n; i++) {
+		//console.log(availability[i].end_time - availability[i].start_time);
+		if (
+			availability[i].end_time - availability[i].start_time >=
+			time_interval
+		) {
+			ans.start_time = availability[i].start_time;
+			ans.end_time = availability[i].start_time + time_interval;
+			//console.log(ans);
+			return ans;
+		}
+	}
+	return ans;
 };
