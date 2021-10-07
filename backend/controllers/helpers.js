@@ -20,9 +20,8 @@ export const getAvailableTime = (sch, app) => {
 			end_time: Date.parse(dt.end_time),
 		};
 	});
-	//if (sch.length == 0 || app.length == 0) return sch;
-	var schit = 0,
-		appit = 0;
+	if (sch.length == 0 || app.length == 0) return sch;
+
 	var ans = [];
 	var st = sch[0].start_time;
 	var tp = sch[0];

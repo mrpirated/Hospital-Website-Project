@@ -7,10 +7,10 @@ import MyAppointment from "./Appointment/MyAppointment";
 import Navitems from "./Navbar/Navitems";
 import Navigation from "../Navigation";
 import Doctors from "./Doctors/Doctors";
-import NewCase from "./Appointment/NewCase"; 
+import NewCase from "./Appointment/NewCase";
 import NewAppointment from "./Appointment/NewAppointment";
 import Records from "./Records/Records";
-
+import Meeting from "./Meeting/Meeting";
 export default function PatientRoute() {
 	const auth = useSelector((state) => state.auth);
 	const isauth = auth.isauth;
@@ -34,6 +34,7 @@ export default function PatientRoute() {
 				<Route path='/patient/doctors' component={Doctors} />
 				<Route path='/patient/new-case' component={NewCase} />
 				<Route path='/patient/new-appointment' component={NewAppointment} />
+				<Route path='/patient/meeting' component={Meeting} />
 			</Switch>
 		</div>
 	);
