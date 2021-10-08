@@ -1,6 +1,7 @@
 import connection from "../../dbconn/db";
 import dotenv from "dotenv";
-
+import moment from "moment-timezone";
+import { scheduleAppointment } from "../helpers";
 dotenv.config();
 
 import checkToken from "../../checkToken";
@@ -83,28 +84,113 @@ export const NewAppointment = async (req, res) => {
 				msg: "Not authorized!!",
 			});
 		} else {
-			const values = {
-				case_id: req.body.case_id,
-				doctor_id: req.body.doctor_id,
-				preferred_date: req.body.preferred_date
-				// start_time: req.body.start_time,
-				// end_time: req.body.end_time,
-			};
+			var sch;
 			connection.query(
-				"INSERT INTO appointment SET ?",
-				values,
-				(err, result, fields) => {
+				"SELECT \
+				start_time, \
+				end_time \
+				FROM \
+				schedule \
+				WHERE \
+				doctor_id = ? \
+				AND end_time > ?\
+				ORDER BY start_time",
+				[req.body.doctor_id, req.body.preferred_date],
+				(err, result, query) => {
 					if (err) {
 						return res.status(210).send({
 							msg: err,
 						});
 					} else {
-						return res.status(200).send({
-							msg: "Entered",
-						});
+						sch = result;
+						connection.query(
+							"SELECT \
+							start_time, \
+							end_time \
+							FROM \
+							appointment \
+							WHERE \
+							doctor_id = ? \
+							AND end_time >?\
+							ORDER BY start_time",
+							[req.body.doctor_id, req.body.preferred_date],
+							(err, result, query) => {
+								if (err) {
+									return res.status(210).send({
+										msg: err,
+									});
+								} else {
+									console.log(sch);
+									console.log(result);
+									var appointment = scheduleAppointment(
+										sch,
+										result,
+										30 * 60 * 1000
+									);
+									console.log(appointment);
+									const values = {
+										case_id: req.body.case_id,
+
+										start_time: appointment.start_time
+											? moment(appointment.start_time).format(
+													"YYYY-MM-DD HH:mm:ss"
+											  )
+											: null,
+										end_time: appointment.end_time
+											? moment(appointment.end_time).format(
+													"YYYY-MM-DD HH:mm:ss"
+											  )
+											: null,
+										doctor_id: req.body.doctor_id,
+										preferred_date: req.body.preferred_date,
+									};
+									console.log(values);
+									connection.query(
+										"INSERT INTO appointment SET ?",
+										values,
+										(err, result, query) => {
+											if (err) {
+												console.log(err);
+												return res.status(210).send({
+													msg: err,
+												});
+											} else {
+												return res.status(200).send({
+													msg: "Appointment saved successfuly",
+													appointment: {
+														start_time: values.start_time,
+														end_time: values.end_time,
+													},
+												});
+											}
+										}
+									);
+									// return res.status(200).send({
+									// 	msg: "Successfully returned Schedule!",
+
+									// })
+								}
+							}
+						);
 					}
 				}
 			);
+
+			// connection.query(
+			// 	"INSERT INTO appointment SET ?",
+			// 	values,
+			// 	(err, result, fields) => {
+			// 		if (err) {
+			// 			return res.status(210).send({
+			// 				msg: err,
+			// 			});
+			// 		} else {
+			// 			return res.status(200).send({
+			// 				msg: "Entered",
+			// 			});
+			// 		}
+			// 	}
+			// );
 		}
 	} catch (error) {
 		console.log(error);

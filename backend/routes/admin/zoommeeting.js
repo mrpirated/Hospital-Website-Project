@@ -21,7 +21,8 @@ router.post("/newmeeting", (req, res) => {
 			type: 1,
 			settings: {
 				join_before_host: true,
-				mute_upon_entry: true,
+				host_video: true,
+				participant_video: true,
 			},
 		},
 		auth: {
