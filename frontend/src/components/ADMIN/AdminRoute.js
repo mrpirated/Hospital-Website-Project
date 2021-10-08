@@ -6,6 +6,8 @@ import Navitems from "./Navitems";
 import Navigation from "../Navigation";
 import Appointment from "./Appointment/Appointment";
 import SetAppointment from "./SetAppointment/SetAppointment";
+import Doctors from "./Doctors/Doctors";
+
 export default function AdminRoute() {
 	const store = useStore();
 	const auth = store.getState().auth;
@@ -25,6 +27,7 @@ export default function AdminRoute() {
 			<Navigation Navitems={Navitems} />
 			<Switch>
 				<Route path={`${path}/appointment`} component={Appointment} />
+				<Route path={`${path}/doctors`} component={Doctors} />
 				<Route path={`${path}/setappointment`} component={SetAppointment} />
 			</Switch>
 		</div>

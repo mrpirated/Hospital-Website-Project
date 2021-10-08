@@ -11,7 +11,7 @@ function Doctors() {
 	const history = useHistory();
 	const [doctorDetails, setDoctorDetails] = useState([]);
 	useEffect(() => {
-		sessionStorage.setItem("lastPage", "/patient/doctors");
+		sessionStorage.setItem("lastPage", "/admin/doctors");
 
 		getDoctorDetailsAPI({
 			token: auth.token
@@ -20,7 +20,7 @@ function Doctors() {
 				console.log(res.doctors);
 				setDoctorDetails(res.doctors);
 			} else {
-				setTimeout(history.push("/patient/doctors"), 0);
+				setTimeout(history.push("/admin/doctors"), 0);
 			}
 		})
 	}, []);
