@@ -7,6 +7,7 @@ import Navigation from "../Navigation";
 import Appointment from "./Appointment/Appointment";
 import SetAppointment from "./SetAppointment/SetAppointment";
 import Doctors from "./Doctors/Doctors";
+import AddDoctor from "./AddDoctor/AddDoctor";
 
 export default function AdminRoute() {
 	const store = useStore();
@@ -29,6 +30,7 @@ export default function AdminRoute() {
 				<Route path='/admin/appointment' component={Appointment} />
 				<Route path='/admin/doctors' component={Doctors} />
 				<Route path='/admin/setappointment' component={SetAppointment} />
+				<Route path='/admin/add-doctor' component={AddDoctor} />
 			</Switch>
 		</div>
 	);
