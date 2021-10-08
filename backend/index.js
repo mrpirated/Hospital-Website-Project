@@ -30,9 +30,6 @@ app.use(
 	patient,
 	doctor,
 	admin,
-	// signup,
-	// signup_doctor,
-	// signup_admin,
 	token,
 	zoommeeting
 

@@ -31,9 +31,13 @@ const slice = createSlice({
 			auth.type = undefined;
 			localStorage.clear();
 		},
+		setLoading: (auth, action) => {
+			auth.isloading = action.payload.loading;
+		},
 	},
 });
 
-export const { loggedIn, loggedOut, loggedWithToken } = slice.actions;
+export const { loggedIn, loggedOut, loggedWithToken, setLoading } =
+	slice.actions;
 
 export default slice.reducer;
