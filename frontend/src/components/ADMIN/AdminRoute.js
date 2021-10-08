@@ -26,9 +26,9 @@ export default function AdminRoute() {
 		<div>
 			<Navigation Navitems={Navitems} />
 			<Switch>
-				<Route path={`${path}/appointment`} component={Appointment} />
-				<Route path={`${path}/doctors`} component={Doctors} />
-				<Route path={`${path}/setappointment`} component={SetAppointment} />
+				<Route path='/admin/appointment' component={Appointment} />
+				<Route path='/admin/doctors' component={Doctors} />
+				<Route path='/admin/setappointment' component={SetAppointment} />
 			</Switch>
 		</div>
 	);

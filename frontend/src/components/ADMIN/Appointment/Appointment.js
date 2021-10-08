@@ -39,6 +39,21 @@ function Appointment() {
 	const history = useHistory();
 	const { path, url } = useRouteMatch();
 	useEffect(() => {
+		sessionStorage.setItem("lastPage", "/admin/appointment");
+		
+		const fetchData = async () => {
+			await remaining_appointmentAPI(token).then((res) => {
+				if(res !== false){
+					setappointments(res);
+				} else{
+					setTimeout(history.push("/admin/appointment"), 0);
+				}
+				//console.log(res);
+			});
+		};
+		fetchData();
+	}, [])
+	useEffect(() => {
 		setselectedtime("Select Time");
 
 		const fetchData = async () => {

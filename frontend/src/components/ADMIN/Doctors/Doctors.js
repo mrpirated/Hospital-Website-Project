@@ -12,7 +12,6 @@ function Doctors() {
 	const [doctorDetails, setDoctorDetails] = useState([]);
 	useEffect(() => {
 		sessionStorage.setItem("lastPage", "/admin/doctors");
-
 		getDoctorDetailsAPI({
 			token: auth.token
 		}).then((res) => {
