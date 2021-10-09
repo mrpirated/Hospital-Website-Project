@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-//import Controls from "./Controls/Controls";
-//import TopHeader from "./TopHeader/TopHeader";
+import Controls from "./Controls/Controls";
 
+import TopHeader from "./TopHeader/TopHeader";
 import Participant from "./Participant";
-//import Details from "./Details/Details";
+import Details from "./Details/Details";
 import { useSelector } from "react-redux";
 
 const Room = ({ roomName, room, handleLogout }) => {
@@ -60,29 +60,28 @@ const Room = ({ roomName, room, handleLogout }) => {
 			});
 		}
 	};
-
+	console.log(roomName);
 	return (
 		<main className='room'>
-			<h2>Room: {roomName}</h2>
-			<button onClick={handleLogout}>Leave Meeting </button>
-			<button onClick={muteParticipant}> Mute </button>
+			{/* <h2>Room: {roomName}</h2> */}
+			{/* <button onClick={handleLogout}>Leave Meeting </button> */}
+			{/* <button onClick={muteParticipant}> Mute </button> */}
 			{/* <TopHeader
 				participants={participants}
 				participant={room.localParticipant}
 			/> */}
+			<TopHeader participant={room.localParticipant} />
 			<div className='all-participants'>
-				{room ? (
+				{room && (
 					<Participant
 						totalParticipant={participants}
 						key={room.localParticipant.sid}
 						participant={room.localParticipant}
 					/>
-				) : (
-					""
 				)}
 				{remoteParticipants}
 			</div>
-			{/* <Controls
+			<Controls
 				handleLogout={handleLogout}
 				muteParticipant={muteParticipant}
 				enableVideo={enableVideo}
@@ -95,7 +94,7 @@ const Room = ({ roomName, room, handleLogout }) => {
 				participants={participants}
 				roomName={roomName}
 				participant={room.localParticipant}
-			/> */}
+			/>
 		</main>
 	);
 };

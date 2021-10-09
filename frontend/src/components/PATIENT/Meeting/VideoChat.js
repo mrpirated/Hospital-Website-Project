@@ -2,12 +2,13 @@ import axios from "axios";
 import React, { useEffect, useCallback, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setLoading } from "../../../store/auth";
+import { CircularProgress } from "@material-ui/core";
 import { v4 as uuidv4 } from "uuid";
 import Video from "twilio-video";
 import config from "../../../config/config.json";
 import Room from "./Room";
-import Header from "./Header";
-import Hero from "./Hero";
+import Header from "./Header/Header";
+import Hero from "./Hero/Hero";
 function VideoChat() {
 	const [roomName, setRoomName] = useState(uuidv4());
 	const [room, setRoom] = useState(null);
@@ -77,7 +78,10 @@ function VideoChat() {
 		render = (
 			<>
 				{auth.loading ? (
-					<h1>Loading</h1>
+					<div className='loading'>
+						<CircularProgress />
+						<h1 className='loading_text'>Loading...</h1>
+					</div>
 				) : (
 					<>
 						<Header />
