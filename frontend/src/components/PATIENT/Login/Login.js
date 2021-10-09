@@ -56,37 +56,28 @@ export default function Login(props) {
 		<div>
 			<div className='Login'>
 				<Form onSubmit={handleSubmit}>
-					<label>
-						<input
-							type='checkbox'
-							// value={isDoctor}
-							checked={isDoctor}
-							onChange={() => {
-								setIsDoctor(!isDoctor);
-							}}
-						/>
-						{"Doctor Login"}
-					</label>
-					<Form.Group size='lg' controlId='email'>
-						<Form.Label>Email</Form.Label>
-						<Form.Control
-							autoFocus
-							type='email'
-							value={email}
-							onChange={(e) => setEmail(e.target.value)}
-						/>
-					</Form.Group>
-					<Form.Group size='lg' controlId='password'>
-						<Form.Label>Password</Form.Label>
-						<Form.Control
-							type='password'
-							value={password}
-							onChange={(e) => setPassword(e.target.value)}
-						/>
-					</Form.Group>
-					<Button block size='lg' type='submit' disabled={!validateForm()}>
-						Login
-					</Button>
+					<div id="loginform">
+						<h2 id="headerTitle">Login</h2>
+						<div>
+							<div class="row-temp">
+								<label>
+									<p style={{display: "inline-grid", marginRight: "2rem"}}>Are Your A Doctor?</p>
+									<input style={{width:"1rem", height: "1rem"}} type='checkbox' checked={isDoctor} onChange={() => {setIsDoctor(!isDoctor)}}/>
+								</label>
+							</div>
+							<div class="row">
+								<label>Email</label>
+								<input autoFocus type="text" placeholder="Enter your email" value={email} onChange={(e) => setEmail(e.target.value)}/>
+							</div>
+							<div class="row">
+								<label>Password</label>
+								<input type="password" placeholder="Enter your password" value={password} onChange={(e) => setPassword(e.target.value)}/>
+							</div>
+							<div id="button" class="row">
+								<button type='submit' disabled={!validateForm()}>Log in</button>
+							</div>
+						</div>
+					</div>
 				</Form>
 			</div>
 		</div>

@@ -31,7 +31,7 @@ function Doctors() {
 					className='Appointment-AddCard'
 					bg='dark'
 					text='white'
-					style={{ width: "20rem", margin: "2rem", display: "inline-grid" }}
+					style={{ width: "20%", margin: "2rem", display: "inline-grid" }}
 				>
 					<Card.Body>
 						<img src={bird} alt="Bird"/>

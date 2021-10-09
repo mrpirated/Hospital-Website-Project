@@ -42,10 +42,10 @@ export default function Appointment(props) {
 				}}
 				bg='dark'
 				text='white'
-				style={{ width: "20rem", margin: "2rem", display: "inline-grid" }}
+				style={{ maxWidth: "80%", fontSize: "75%", width: "20rem", margin: "2rem", display: "inline-grid" }}
 			>
 				<Card.Body>
-					<Card.Title>Create New Case</Card.Title>
+					<Card.Title style={{fontSize: "140%"}}>Create New Case</Card.Title>
 					<Card.Text>
 						Some quick example text to build on the card title and make up the
 						bulk of the card's content.
@@ -60,10 +60,10 @@ export default function Appointment(props) {
 					}}
 					bg='dark'
 					text='white'
-					style={{ width: "20rem", margin: "2rem", display: "inline-grid" }}
+					style={{ maxWidth: "80%", fontSize: "75%", width: "20rem", margin: "2rem", display: "inline-grid" }}
 				>
 					<Card.Body>
-						<Card.Title>Case Id: {c.case_id}</Card.Title>
+						<Card.Title style={{fontSize: "140%"}}>Case Id: {c.case_id}</Card.Title>
 						<Card.Text>
 							Some quick example text to build on the card title and make up the
 							bulk of the card's content.

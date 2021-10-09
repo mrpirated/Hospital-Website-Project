@@ -29,6 +29,7 @@ export default function Login(props) {
 	});
 	function handleSubmit(event) {
 		event.preventDefault();
+		console.log(email, password);
 		loginAPI({
 			email: email,
 			password: password,
@@ -51,32 +52,56 @@ export default function Login(props) {
 			}
 		});
 	}
+
 	return (
-		<div>
-			<div className='Login'>
-				<Form onSubmit={handleSubmit}>
-					<Form.Group size='lg' controlId='email'>
-						<Form.Label>Email</Form.Label>
-						<Form.Control
-							autoFocus
-							type='email'
-							value={email}
-							onChange={(e) => setEmail(e.target.value)}
-						/>
-					</Form.Group>
-					<Form.Group size='lg' controlId='password'>
-						<Form.Label>Password</Form.Label>
-						<Form.Control
-							type='password'
-							value={password}
-							onChange={(e) => setPassword(e.target.value)}
-						/>
-					</Form.Group>
-					<Button block size='lg' type='submit' disabled={!validateForm()}>
-						Login
-					</Button>
-				</Form>
-			</div>
+		<div id="container">
+			<Form onSubmit={handleSubmit}>
+				<div id="loginform">
+					<h2 id="headerTitle">Login</h2>
+					<div>
+						<div class="row">
+							<label>Email</label>
+							<input type="text" placeholder="Enter your email" value={email} onChange={(e) => setEmail(e.target.value)}/>
+						</div>
+						<div class="row">
+							<label>Password</label>
+							<input type="password" placeholder="Enter your password" value={password} onChange={(e) => setPassword(e.target.value)}/>
+						</div>
+						<div id="button" class="row">
+							<button type='submit' disabled={!validateForm()}>Log in</button>
+						</div>
+					</div>
+				</div>
+			</Form>
 		</div>
 	);
+
+	// return (
+	// 	<div>
+	// 		<div className='Login'>
+	// 			<Form onSubmit={handleSubmit}>
+	// 				<Form.Group size='lg' controlId='email'>
+	// 					<Form.Label>Email</Form.Label>
+	// 					<Form.Control
+	// 						autoFocus
+	// 						type='email'
+	// 						value={email}
+	// 						onChange={(e) => setEmail(e.target.value)}
+	// 					/>
+	// 				</Form.Group>
+	// 				<Form.Group size='lg' controlId='password'>
+	// 					<Form.Label>Password</Form.Label>
+	// 					<Form.Control
+	// 						type='password'
+	// 						value={password}
+	// 						onChange={(e) => setPassword(e.target.value)}
+	// 					/>
+	// 				</Form.Group>
+	// 				<Button block size='lg' type='submit' disabled={!validateForm()}>
+	// 					Login
+	// 				</Button>
+	// 			</Form>
+	// 		</div>
+	// 	</div>
+	// );
 }
