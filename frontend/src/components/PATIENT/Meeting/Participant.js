@@ -1,4 +1,3 @@
-import { Avatar } from "@material-ui/core";
 import React, { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 
@@ -68,6 +67,11 @@ const Participant = ({ participant, totalParticipant }) => {
 	}, [audioTracks]);
 
 	return (
+		// <div className='participant'>
+		// 	<h3>{participant.identity}</h3>
+		// 	<video ref={videoRef} autoPlay />
+		// 	<audio ref={audioRef} autoPlay muted />
+		// </div>
 		<div
 			className={`participant ${
 				totalParticipant?.length === 0 && "one_participant"
