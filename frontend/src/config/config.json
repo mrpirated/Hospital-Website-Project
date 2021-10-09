@@ -17,5 +17,6 @@
 	"setavailability": "/setavailability",
 	"doctor_details": "/doctor_details",
 	"meeting": "/newmeeting",
-	"video_token": "/api/video/token"
+	"video_token": "/api/video/token",
+	"add_doctor": "/add_doctor"
 }

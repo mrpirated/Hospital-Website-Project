@@ -39,6 +39,21 @@ function Appointment() {
 	const history = useHistory();
 	const { path, url } = useRouteMatch();
 	useEffect(() => {
+		sessionStorage.setItem("lastPage", "/admin/appointment");
+		
+		const fetchData = async () => {
+			await remaining_appointmentAPI(token).then((res) => {
+				if(res !== false){
+					setappointments(res);
+				} else{
+					setTimeout(history.push("/admin/appointment"), 0);
+				}
+				//console.log(res);
+			});
+		};
+		fetchData();
+	}, [])
+	useEffect(() => {
 		setselectedtime("Select Time");
 
 		const fetchData = async () => {
@@ -91,16 +106,10 @@ function Appointment() {
 		<div>
 			{appointments.map((ap) => (
 				<Card
-					className='Appointment-AddCard'
-					style={{
-						width: "20rem",
-						marginLeft: "4rem",
-						marginRight: "4rem",
-						marginTop: "2rem",
-						marginBottom: "2rem",
-						display: "inline-grid",
-						backgroundColor: "aquamarine",
-					}}
+					className='Appointment-Card'
+					bg='dark'
+					text='white'
+					style={{ width: "20rem", margin: "2rem", display: "inline-grid" }}
 					onClick={() => onCLickAppointment(ap)}
 				>
 					<Card.Body>

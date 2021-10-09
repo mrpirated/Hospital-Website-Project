@@ -1,17 +1,16 @@
 import React, { useState } from "react";
-import { Form, Row, Col } from "react-bootstrap";
-import signupAPI from "../../../api/signupAPI";
-import Button from "react-bootstrap/Button";
+import { Form, Row, Col, Button } from "react-bootstrap";
 import { useHistory } from "react-router";
 import "./Signup.css";
-import DatePicker from "react-datepicker";
 import format from "date-fns/format";
 import DateFnsUtils from '@date-io/date-fns';
 import "react-datepicker/dist/react-datepicker.css";
 import {KeyboardDatePicker , MuiPickersUtilsProvider } from '@material-ui/pickers';
+import addDoctorAPI from "../../../api/addDoctorAPI";
+import { useSelector } from "react-redux";
 
-function Signup(props) {
-	const [first_name, setFirstName] = useState("");
+function AddDoctor() {
+    const [first_name, setFirstName] = useState("");
 	const [last_name, setLastName] = useState("");
 	const [dob, setDob] = useState(new Date());
 	const [gender, setGender] = useState("PreferNotToSay");
@@ -22,7 +21,9 @@ function Signup(props) {
 	const [confirmPassword, setConfirmPassword] = useState("");
 	const [flag, setFlag] = useState(false);
 	const history = useHistory();
-	const validateForm = () => {
+	const auth = useSelector((state) => state.auth);
+	
+    const validateForm = () => {
 		return (
 			first_name.length > 0 &&
 			email.length > 0 &&
@@ -31,12 +32,13 @@ function Signup(props) {
 		);
 	};
 
-	const handleSubmit = (event) => {
+    const handleSubmit = (event) => {
 		event.preventDefault();
 		if (validateForm() && password === confirmPassword) {
 			setFlag(false);
 			const dobSend = format(dob, "yyyy-MM-dd");
-			signupAPI({
+			addDoctorAPI({
+				token: auth.token,
 				first_name,
 				last_name,
 				dob: dobSend,
@@ -47,6 +49,7 @@ function Signup(props) {
 				password,
 			}).then((res) => {
 				if(res.reply){
+                    alert("Doctor Added Successfully!");
 					history.push("/home");
 				}
 				else{
@@ -58,9 +61,10 @@ function Signup(props) {
 		}
 	};
 
-	return (
-		<div>
+    return (
+        <div>
 			<div className='Signup'>
+                <h3 className='FormHeading'>Enter Details of Doctor</h3>
 				<Form onSubmit={handleSubmit}>
 					<Row>
 						<Form.Group as={Col}>
@@ -158,7 +162,7 @@ function Signup(props) {
 				</Form>
 			</div>
 		</div>
-	);
+    )
 }
 
-export default Signup;
+export default AddDoctor;
