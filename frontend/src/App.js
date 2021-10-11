@@ -13,7 +13,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import tokenAPI from "./api/tokenAPI";
 import { loggedWithToken } from "./store/auth";
 import { useSelector } from "react-redux";
-
+import "./App.css";
 function App() {
 	const auth = useSelector((state) => state.auth);
 	const dispatch = useDispatch();
@@ -45,7 +45,7 @@ function App() {
 								history.push(sessionStorage.getItem("lastPage"));
 							} else history.push("/patient");
 						} else if (res.type === 1) history.push("/doctor");
-						else if(res.type == 2){
+						else if (res.type == 2) {
 							if (
 								sessionStorage.getItem("lastPage") &&
 								sessionStorage.getItem("lastPage").includes("/admin")

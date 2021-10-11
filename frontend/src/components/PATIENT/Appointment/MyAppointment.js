@@ -1,16 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router";
 import { useSelector } from "react-redux";
+import moment from "moment";
 import { Card, Form, Modal, Row, Col, Button } from "react-bootstrap";
 import "./MyAppointment.css";
 import patientMyAppointmentAPI from "../../../api/patientMyAppointmentAPI";
 import format from "date-fns/format";
+import { grey } from "@material-ui/core/colors";
 export default function MyAppointment(props) {
 	const auth = useSelector((state) => state.auth);
 	const history = useHistory();
 	const [appointments, setAppointments] = useState([]);
 	const [openPopup, setopenPopup] = useState(false);
 	const [selectedAP, setselectedAP] = useState({});
+	const case_details = props.location.state.case_details;
+	//console.log(props);
 	useEffect(() => {
 		if (!(auth.isauth && auth.type === 0)) {
 			history.push("/home");
@@ -21,7 +25,7 @@ export default function MyAppointment(props) {
 		const fetchData = async () => {
 			await patientMyAppointmentAPI({
 				token: auth.token,
-				case_id: props.location.state.case_details.case_id,
+				case_id: case_details.case_id,
 			}).then((res) => {
 				if (res.reply) {
 					setAppointments(res.appointments);
@@ -37,45 +41,44 @@ export default function MyAppointment(props) {
 	}, []);
 	const onSelectAppointment = async (app) => {
 		setselectedAP(app);
+		//console.log(app);
 		setopenPopup(true);
 	};
 	return (
 		<div>
-			<Card
-				className='MyAppointment-AddCard'
-				onClick={() => {
-					history.push("/patient/new-appointment", {
-						case_details: props.location.state.case_details,
-					});
-				}}
-				bg='dark'
-				text='white'
-				style={{ width: "20rem", margin: "2rem", display: "inline-grid" }}
-			>
-				<Card.Body>
-					<Card.Title>Create New Appointment</Card.Title>
-					<Card.Text></Card.Text>
-				</Card.Body>
-			</Card>
-			{appointments.map((c) => (
+			<div id='card'>
 				<Card
-					className='MyAppointment-Card'
-					onClick={() => onSelectAppointment(c)}
-					bg='dark'
-					text='white'
-					style={{ width: "20rem", margin: "2rem", display: "inline-grid" }}
+					className='appointment-addcard'
+					onClick={() => {
+						history.push("/patient/new-appointment", {
+							case_details: case_details,
+						});
+					}}
 				>
 					<Card.Body>
-						<Card.Title>Appointment Id: {c.appointment_id}</Card.Title>
-						<Card.Text>Doctor: {c.doctor_name}</Card.Text>
-						<Card.Text>
-							Date: {new Date(c.start_time).toString().slice(0, 15)}
-						</Card.Text>
+						<Card.Title>Create New Appointment</Card.Title>
+						<Card.Text></Card.Text>
 					</Card.Body>
 				</Card>
+			</div>
+			{appointments.map((c) => (
+				<div id='card'>
+					<Card className='appointment' onClick={() => onSelectAppointment(c)}>
+						<Card.Body>
+							<Card.Title>Appointment Id: {c.appointment_id}</Card.Title>
+							<Card.Text>Doctor: {c.doctor_name}</Card.Text>
+							<Card.Text>
+								Date:{" "}
+								{c.start_time !== 0
+									? new Date(c.start_time).toString().slice(0, 15)
+									: "Not Yet Appointed"}
+							</Card.Text>
+						</Card.Body>
+					</Card>
+				</div>
 			))}
+
 			<Modal
-				size='lg'
 				aria-labelledby='example-custom-modal-styling-title'
 				show={openPopup}
 				onHide={() => setopenPopup(false)}
@@ -87,27 +90,35 @@ export default function MyAppointment(props) {
 					</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>
-					<Form>
-						<Row style={{ margin: "1rem" }}>
-							<Form.Group as={Col}>
-								<Form.Label>Case ID:</Form.Label>
-								<Form.Control
-									type='text'
-									value={selectedAP.case_id}
-									disabled={true}
-									// onChange={(e) => setFirstName(e.target.value)}
-								/>
-							</Form.Group>
-							<Form.Group as={Col}>
-								<Form.Label>Appointment ID:</Form.Label>
-								<Form.Control
-									type='text'
-									value={selectedAP.appointment_id}
-									disabled={true}
-									// onChange={(e) => setLastName(e.target.value)}
-								/>
-							</Form.Group>
-						</Row>
+					<div>
+						<span style={{ fontSize: "20px", color: "grey" }}>Doctor: </span>
+						<span style={{ fontSize: "22px" }}>{selectedAP.doctor_name}</span>
+					</div>
+					<div>
+						<span style={{ fontSize: "20px", color: "grey" }}>
+							Descrption:{" "}
+						</span>
+						<span style={{ fontSize: "18px" }}>
+							{case_details.case_description}
+						</span>
+					</div>
+					<div>
+						<span style={{ fontSize: "20px", color: "grey" }}>Date: </span>
+						<span style={{ fontSize: "18px" }}>
+							{new Date(selectedAP.start_time).toString().slice(0, 15)}
+						</span>
+					</div>
+
+					<div>
+						<span style={{ fontSize: "20px" }}>
+							From: {moment(selectedAP.start_time).format("HH:mm A")}
+						</span>
+
+						<span style={{ fontSize: "20px", float: "right" }}>
+							To: {moment(selectedAP.end_time).format("HH:mm A")}
+						</span>
+					</div>
+					{/* <Form>
 						<Row>
 							<Form.Group as={Col}>
 								<Form.Group>
@@ -147,7 +158,7 @@ export default function MyAppointment(props) {
 								</Form.Group>
 							</Form.Group>
 						</Row>
-					</Form>
+					</Form> */}
 				</Modal.Body>
 			</Modal>
 		</div>

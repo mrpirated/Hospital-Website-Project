@@ -16,7 +16,7 @@ const cases = async (req, res) => {
 			const user = decodedData.user;
 			//console.log(user.patient_id);
 			var q = connection.query(
-				"SELECT c.case_id FROM cases c LEFT JOIN appointment a ON c.case_id = a.case_id WHERE c.patient_id = ? GROUP BY c.case_id ORDER BY a.start_time DESC",
+				"SELECT c.case_id,c.case_description FROM cases c LEFT JOIN appointment a ON c.case_id = a.case_id WHERE c.patient_id = ? GROUP BY c.case_id ORDER BY a.start_time DESC",
 				user.patient_id,
 				(err, result, fields) => {
 					if (err) {
