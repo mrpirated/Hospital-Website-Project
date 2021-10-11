@@ -48,7 +48,12 @@ body {
 	transform: scale(1.05);
 	transition-duration: 0.25s;
 }
-
+.card-text {
+	font-size: 16px;
+}
+.card-header {
+	font-size: 20px;
+}
 .modal-header {
 	background-color: rgb(99, 226, 243);
 }

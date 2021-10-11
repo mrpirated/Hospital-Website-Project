@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router";
 import { useSelector } from "react-redux";
 import { TabNav } from "./TabNav";
-import TabComponent from "../../TabComponent";
+import TabComponent from "./TabComponent";
 import patientAllAppointmentsAPI from "../../../api/patientAllAppointmentsAPI";
 
 export default function Records() {
@@ -14,7 +14,7 @@ export default function Records() {
 
 	useEffect(() => {
 		sessionStorage.setItem("lastPage", "/patient/records");
-		
+
 		if (!(auth.isauth && auth.type === 0)) {
 			history.push("/home");
 		} else {

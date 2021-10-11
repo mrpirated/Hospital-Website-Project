@@ -257,7 +257,18 @@ export const AllAppointments = async (req, res) => {
 			});
 		} else {
 			connection.query(
-				"SELECT * FROM appointment WHERE case_id in (SELECT case_id FROM cases WHERE patient_id=?) ORDER BY start_time DESC",
+				'SELECT\
+				a.*,\
+				c.*,\
+				CONCAT(d.first_name, " ", d.last_name) AS doctor_name,\
+				d.phone\
+			  	FROM\
+				appointment a\
+				JOIN cases c ON a.case_id = c.case_id\
+				JOIN doctor d ON a.doctor_id = d.doctor_id\
+			  	WHERE c.patient_id=?\
+			  	ORDER BY\
+				start_time DESC',
 				decodedData.user.patient_id,
 				(err, result, fields) => {
 					if (err) {

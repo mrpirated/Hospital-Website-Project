@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import { Tabs, Tab, Card } from "react-bootstrap";
-import "./TabComponent.css";
-
+import moment from "moment";
 export default function TabComponent(props) {
 	const [key, setKey] = useState(props.selectedKey);
-
+	console.log(props.all);
 	return (
 		<Tabs id='tab' activeKey={key} onSelect={(k) => setKey(k)} className='mb-3'>
 			{props.tabList.map((item) => (
@@ -15,20 +14,26 @@ export default function TabComponent(props) {
 						? props.future
 						: props.past
 					).map((c) => (
-						<Card style={{ margin: "3% 5%" }}>
-							<Card.Header
-								style={{ display: "flex", justifyContent: "space-between" }}
-							>
-								<h6>Case ID: {c.case_id}</h6>
-								<h6>Appointment ID: {c.appointment_id}</h6>
-							</Card.Header>
-							<Card.Body
-								style={{ display: "flex", justifyContent: "space-between" }}
-							>
-								<Card.Text>Start Time: {c.start_time}</Card.Text>
-								<Card.Text>End Time: {c.end_time}</Card.Text>
-							</Card.Body>
-						</Card>
+						<div id='card'>
+							<Card>
+								<Card.Header>
+									<h5>Doctor: {c.doctor_name}</h5>
+									<h6>
+										Date: {new Date(c.start_time).toString().slice(0, 15)}
+									</h6>
+								</Card.Header>
+								<Card.Body>
+									<span style={{ fontSize: "18px" }}>
+										From: {moment(c.start_time).format("hh:mm A")}
+									</span>
+									<span style={{ fontSize: "18px", float: "right" }}>
+										To: {moment(c.end_time).format("hh:mm A")}
+									</span>
+
+									<div>Description: {c.case_description}</div>
+								</Card.Body>
+							</Card>
+						</div>
 					))}
 				</Tab>
 			))}

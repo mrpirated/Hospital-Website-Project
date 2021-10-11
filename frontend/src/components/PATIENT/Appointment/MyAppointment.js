@@ -41,7 +41,7 @@ export default function MyAppointment(props) {
 	}, []);
 	const onSelectAppointment = async (app) => {
 		setselectedAP(app);
-		//console.log(app);
+		console.log(app);
 		setopenPopup(true);
 	};
 	return (
@@ -57,7 +57,6 @@ export default function MyAppointment(props) {
 				>
 					<Card.Body>
 						<Card.Title>Create New Appointment</Card.Title>
-						<Card.Text></Card.Text>
 					</Card.Body>
 				</Card>
 			</div>
@@ -65,11 +64,10 @@ export default function MyAppointment(props) {
 				<div id='card'>
 					<Card className='appointment' onClick={() => onSelectAppointment(c)}>
 						<Card.Body>
-							<Card.Title>Appointment Id: {c.appointment_id}</Card.Title>
 							<Card.Text>Doctor: {c.doctor_name}</Card.Text>
 							<Card.Text>
 								Date:{" "}
-								{c.start_time !== 0
+								{c.start_time !== null
 									? new Date(c.start_time).toString().slice(0, 15)
 									: "Not Yet Appointed"}
 							</Card.Text>
@@ -105,60 +103,27 @@ export default function MyAppointment(props) {
 					<div>
 						<span style={{ fontSize: "20px", color: "grey" }}>Date: </span>
 						<span style={{ fontSize: "18px" }}>
-							{new Date(selectedAP.start_time).toString().slice(0, 15)}
+							{selectedAP.start_time !== null
+								? new Date(selectedAP.start_time).toString().slice(0, 15)
+								: "NA"}
 						</span>
 					</div>
 
 					<div>
 						<span style={{ fontSize: "20px" }}>
-							From: {moment(selectedAP.start_time).format("HH:mm A")}
+							From:{" "}
+							{selectedAP.start_time !== null
+								? moment(selectedAP.start_time).format("hh:mm A")
+								: "NA"}
 						</span>
 
 						<span style={{ fontSize: "20px", float: "right" }}>
-							To: {moment(selectedAP.end_time).format("HH:mm A")}
+							To:{" "}
+							{selectedAP.end_time !== null
+								? moment(selectedAP.end_time).format("hh:mm A")
+								: "NA"}
 						</span>
 					</div>
-					{/* <Form>
-						<Row>
-							<Form.Group as={Col}>
-								<Form.Group>
-									<Form.Label>
-										Date:{" "}
-										{new Date(selectedAP.start_time).toString().slice(0, 15)}
-									</Form.Label>
-								</Form.Group>
-							</Form.Group>
-						</Row>
-						<Row style={{ margin: "1rem" }}>
-							<Form.Group as={Col}>
-								<Form.Label>Start Time</Form.Label>
-								<Form.Control
-									type='text'
-									value={new Date(selectedAP.start_time)}
-									disabled={true}
-									// onChange={(e) => setLastName(e.target.value)}
-								/>
-							</Form.Group>
-							<Form.Group as={Col}>
-								<Form.Label>End Time</Form.Label>
-								<Form.Control
-									type='text'
-									value={new Date(selectedAP.end_time)}
-									disabled={true}
-									// onChange={(e) => setLastName(e.target.value)}
-								/>
-							</Form.Group>
-						</Row>
-						<Row>
-							<Form.Group as={Col}>
-								<Form.Group>
-									<a href={selectedAP.meeting_link} target='_blank'>
-										Meeting Link
-									</a>
-								</Form.Group>
-							</Form.Group>
-						</Row>
-					</Form> */}
 				</Modal.Body>
 			</Modal>
 		</div>

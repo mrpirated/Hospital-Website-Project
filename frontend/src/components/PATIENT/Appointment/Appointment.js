@@ -60,9 +60,7 @@ export default function Appointment(props) {
 						}}
 					>
 						<Card.Body>
-							<Card.Title style={{ fontSize: "140%" }}>
-								Case Id: {c.case_id}
-							</Card.Title>
+							<Card.Title>Case Id: {c.case_id}</Card.Title>
 							<Card.Text>{c.case_description}</Card.Text>
 						</Card.Body>
 					</Card>
