@@ -48,6 +48,9 @@ body {
 	transform: scale(1.05);
 	transition-duration: 0.25s;
 }
+#card .records {
+	background-color: rgb(123, 228, 241);
+}
 .card-text {
 	font-size: 16px;
 }

@@ -3,7 +3,7 @@ import { Tabs, Tab, Card } from "react-bootstrap";
 import moment from "moment";
 export default function TabComponent(props) {
 	const [key, setKey] = useState(props.selectedKey);
-	console.log(props.all);
+	//console.log(props.all);
 	return (
 		<Tabs id='tab' activeKey={key} onSelect={(k) => setKey(k)} className='mb-3'>
 			{props.tabList.map((item) => (
@@ -15,19 +15,28 @@ export default function TabComponent(props) {
 						: props.past
 					).map((c) => (
 						<div id='card'>
-							<Card>
+							<Card className='records'>
 								<Card.Header>
 									<h5>Doctor: {c.doctor_name}</h5>
 									<h6>
-										Date: {new Date(c.start_time).toString().slice(0, 15)}
+										Date:{" "}
+										{c.start_time !== null
+											? new Date(c.start_time).toString().slice(0, 15)
+											: "NA"}
 									</h6>
 								</Card.Header>
 								<Card.Body>
 									<span style={{ fontSize: "18px" }}>
-										From: {moment(c.start_time).format("hh:mm A")}
+										From:{" "}
+										{c.start_time !== null
+											? moment(c.start_time).format("hh:mm A")
+											: "NA"}
 									</span>
 									<span style={{ fontSize: "18px", float: "right" }}>
-										To: {moment(c.end_time).format("hh:mm A")}
+										To:{" "}
+										{c.end_time !== null
+											? moment(c.end_time).format("hh:mm A")
+											: "NA"}
 									</span>
 
 									<div>Description: {c.case_description}</div>

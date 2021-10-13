@@ -24,11 +24,13 @@ export default function Records() {
 				var now = new Date();
 				if (res.reply) {
 					var tmp1 = res.appointments.filter(
-						(item) => new Date(item.start_time) >= now
+						(item) =>
+							new Date(item.start_time) >= now || item.start_time === null
 					);
 					console.log(tmp1);
 					var tmp2 = res.appointments.filter(
-						(item) => new Date(item.start_time) < now
+						(item) =>
+							item.start_time !== null && new Date(item.start_time) < now
 					);
 					console.log(tmp2);
 					setPast(tmp2);
