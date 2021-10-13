@@ -1,7 +1,26 @@
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:600|Work+Sans:400,500,600,700&display=swap");
+:root {
+	--color1: #420516;
+	--color2: #7D1935;
+	--color3: #B42B51;
+	--color4: #E63E6D;
 
+	--bgColor1: rgb(180, 232, 233);
+	--bgColor2: rgb(134, 233, 235);
+	--bgColor3: rgb(123, 228, 241);
+	--bgColor4: rgb(99, 226, 243);
+	--bgColor5: rgb(164, 231, 240);
+	--bgColor6: rgba(34, 193, 195, 0.7);
+	--bgColor7: rgba(187, 187, 187, 0.9);
+	--bgColor8: rgb(34, 193, 195);
+	--bgColor9: rgba(34, 193, 195, 1);
+	--bgColor10: rgba(253, 187, 45, 1);
+	
+	--boxShadow: rgba(187, 187, 187, 0.2);
+}
 body {
-	background: rgb(180, 232, 233);
+	background: var(--bgColor1);
+	
 	/* background: linear-gradient(
 		135deg,
 		rgb(180, 245, 226) 0%,
@@ -10,7 +29,7 @@ body {
 	font-family: "work sans";
 }
 .navbar {
-	background-color: rgb(134, 233, 235);
+	background-color: var(--bgColor2);
 }
 #card {
 	width: 18rem;
@@ -18,11 +37,11 @@ body {
 	display: inline-block;
 }
 #card .doctor {
-	background-color: rgb(123, 228, 241);
+	background-color: var(--bgColor3);
 }
 #card .appointment-addcard {
 	font-size: 75%;
-	background-color: rgb(123, 228, 241);
+	background-color: var(--bgColor3);
 	color: black;
 	/* display: inline-block; */
 
@@ -36,7 +55,7 @@ body {
 }
 #card .appointment {
 	font-size: 75%;
-	background-color: rgb(123, 228, 241);
+	background-color: var(--bgColor3);
 	color: black;
 	/* display: inline-block; */
 
@@ -55,11 +74,11 @@ body {
 	font-size: 20px;
 }
 .modal-header {
-	background-color: rgb(99, 226, 243);
+	background-color: var(--bgColor4);
 }
 .modal-body {
 	font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-	background-color: rgb(164, 231, 240);
+	background-color: var(--bgColor5);
 }
 html {
 	font-size: 100%;
@@ -99,12 +118,12 @@ html {
 	font-size: 1.3rem;
 	padding-left: 1.5rem;
 	padding-bottom: 1rem;
-	box-shadow: inset 0px -3px 0px 0px rgba(187, 187, 187, 0.2);
+	box-shadow: inset 0px -3px 0px 0px var(--boxShadow);
 	transition: box-shadow 0.2s ease-in;
 }
 
 .row input:focus {
-	box-shadow: inset 0px -3px 0px 0px rgba(34, 193, 195, 0.7);
+	box-shadow: inset 0px -3px 0px 0px var(--bgColor6);
 	outline: none;
 }
 
@@ -122,7 +141,7 @@ html {
 	align-self: start;
 	padding-left: 4.5rem;
 	padding-bottom: 0.5rem;
-	color: rgba(187, 187, 187, 0.9);
+	color: var(--bgColor7);
 }
 
 .row button {
@@ -132,11 +151,11 @@ html {
 	font-size: 1.3rem;
 	color: white;
 	font-weight: 700;
-	background: rgb(34, 193, 195);
+	background: var(--bgColor8);
 	background: linear-gradient(
 		90deg,
-		rgba(34, 193, 195, 1) 0%,
-		rgba(253, 187, 45, 1) 100%
+		var(--bgColor9) 0%,
+		var(--bgColor10) 100%
 	);
 	border: 0px;
 	cursor: pointer;
