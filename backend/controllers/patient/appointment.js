@@ -175,22 +175,6 @@ export const NewAppointment = async (req, res) => {
 					}
 				}
 			);
-
-			// connection.query(
-			// 	"INSERT INTO appointment SET ?",
-			// 	values,
-			// 	(err, result, fields) => {
-			// 		if (err) {
-			// 			return res.status(210).send({
-			// 				msg: err,
-			// 			});
-			// 		} else {
-			// 			return res.status(200).send({
-			// 				msg: "Entered",
-			// 			});
-			// 		}
-			// 	}
-			// );
 		}
 	} catch (error) {
 		console.log(error);
