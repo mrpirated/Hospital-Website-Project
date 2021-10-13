@@ -6,7 +6,12 @@ const patientAllAppointmentsAPI = async (data) => {
 	//console.log(token);
 	return await axios
 		.get(
-			config.baseUrl + config.patient + config.allappointments + "?" + "token=" + token,
+			config.baseUrl +
+				config.patient +
+				config.allappointments +
+				"?" +
+				"token=" +
+				token,
 			{
 				token: token,
 			}
@@ -23,7 +28,7 @@ const patientAllAppointmentsAPI = async (data) => {
 				console.log(res.data.msg);
 				return {
 					reply: false,
-					data: res.data.msg.errors[0],
+					data: res.data,
 				};
 			} else {
 				console.log(res.data.msg);

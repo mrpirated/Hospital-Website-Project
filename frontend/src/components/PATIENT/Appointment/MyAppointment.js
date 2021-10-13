@@ -5,8 +5,6 @@ import moment from "moment";
 import { Card, Form, Modal, Row, Col, Button } from "react-bootstrap";
 import "./MyAppointment.css";
 import patientMyAppointmentAPI from "../../../api/patientMyAppointmentAPI";
-import format from "date-fns/format";
-import { grey } from "@material-ui/core/colors";
 export default function MyAppointment(props) {
 	const auth = useSelector((state) => state.auth);
 	const history = useHistory();

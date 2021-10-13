@@ -54,6 +54,7 @@ body {
 	transition-duration: 0.25s;
 }
 #card .appointment {
+	height: 20rem;
 	font-size: 75%;
 	background-color: var(--bgColor3);
 	color: black;
@@ -66,6 +67,12 @@ body {
 	opacity: 0.9;
 	transform: scale(1.05);
 	transition-duration: 0.25s;
+}
+#card .records {
+	background-color: rgb(123, 228, 241);
+}
+#card .records:hover {
+	transform: scale(1.05);
 }
 .card-text {
 	font-size: 16px;
@@ -80,22 +87,8 @@ body {
 	font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 	background-color: var(--bgColor5);
 }
-html {
-	font-size: 100%;
-}
-
-#loginform {
-	max-width: 500px;
-	min-width: 300px;
-	max-height: 700px;
-	width: 30%;
-	height: 60%;
-	margin: 100px auto;
-	background-color: #ffffff;
-	border-radius: 25px;
-}
-
-#headerTitle {
+.availability {
+	margin: auto;
 	text-align: center;
 	font-family: "open sans", sans-serif;
 	padding: 2rem 0;
@@ -205,4 +198,14 @@ html {
 	text-align: center;
 	padding-top: 2rem;
 	margin-top: 1.5rem;
+	padding: 10px;
+}
+
+.availability form {
+	margin: 0 auto;
+	max-width: 320px;
+	width: 75%;
+}
+html {
+	font-size: 100%;
 }

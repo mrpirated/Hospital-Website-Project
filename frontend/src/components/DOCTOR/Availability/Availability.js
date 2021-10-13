@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Col, Form, Row, Button } from "react-bootstrap";
-import "./Availability.css";
 import DatePicker from "react-datepicker";
 import TimePicker from "react-time-picker";
 import { useSelector } from "react-redux";
@@ -33,7 +32,7 @@ function Availability() {
 		setend_time(format(new Date(), "HH:mm"));
 	};
 	return (
-		<div className='Availability'>
+		<div className='availability'>
 			<h2> Give Availability </h2>
 			<Form>
 				{/* <Row style={{ margin: "1rem" }}>
@@ -47,9 +46,10 @@ function Availability() {
 						onChange={(date) => setavailDate(date)}
 					/>
 				</Form.Group>
-				<Row>
-					<Form.Group as={Col}>
-						<Form.Label>Select Start Time</Form.Label>
+				<span>
+					<Form.Group className='mb-3'>
+						<Form.Label>Start Time</Form.Label>
+						{"  "}
 						<TimePicker
 							value={start_time}
 							// minTime={new Date()}
@@ -57,8 +57,9 @@ function Availability() {
 							onChange={(time) => setstart_time(time)}
 						/>
 					</Form.Group>
-					<Form.Group as={Col}>
-						<Form.Label>Select End Time</Form.Label>
+					<Form.Group className='mb-3'>
+						<Form.Label>End Time</Form.Label>
+						{"  "}
 						<TimePicker
 							value={end_time}
 							// minTime={new Date()}
@@ -66,7 +67,7 @@ function Availability() {
 							onChange={(time) => setend_time(time)}
 						/>
 					</Form.Group>
-				</Row>
+				</span>
 				<div className='text-center' style={{ paddingTop: "2rem" }}>
 					<Button
 						variant='outline-dark'
