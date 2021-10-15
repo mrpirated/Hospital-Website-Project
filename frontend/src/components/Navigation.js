@@ -45,7 +45,7 @@ function Navigation(props) {
 								</Nav.Link>
 							)}
 							{isauth && (
-								<Nav.Link as={Link} to='/profile'>
+								<Nav.Link as={Link} to='profile'>
 									Hello {store.getState().auth.user.first_name}
 								</Nav.Link>
 							)}
