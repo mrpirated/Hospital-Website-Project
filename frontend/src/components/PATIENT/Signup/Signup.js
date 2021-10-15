@@ -87,7 +87,8 @@ function Signup(props) {
 				if(res.reply){
 					if(res.status === 200){
 						setopenPopup(false);
-						history.push("/home");
+						alert("Registered Successfully!");
+						history.push("/login");
 					}
 					else{
 						alert("Please check your OTP and phone number.")
