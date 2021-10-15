@@ -61,7 +61,7 @@ export default function Login(props) {
 						<div>
 							<div class="row-temp">
 								<label>
-									<p style={{display: "inline-grid", marginRight: "2rem"}}>Are Your A Doctor?</p>
+									<p style={{display: "inline-grid", marginRight: "2rem"}}>Are You A Registered Doctor?</p>
 									<input style={{width:"1rem", height: "1rem"}} type='checkbox' checked={isDoctor} onChange={() => {setIsDoctor(!isDoctor)}}/>
 								</label>
 							</div>
