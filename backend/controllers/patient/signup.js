@@ -9,7 +9,7 @@ const client = require("twilio")(process.env.TWILIO_ACCOUNT_SID, process.env.TWI
 
 export const signup = async (req, res) => {
 	try {
-		//console.log(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN, process.env.TWILIO_SERVICE_ID);
+		console.log("called");
 		client
 			.verify
 			.services(process.env.TWILIO_SERVICE_ID)
@@ -18,7 +18,9 @@ export const signup = async (req, res) => {
 				to: req.body.phone,
 				channel: 'sms'
 			})
-			.then(data => res.status(210).send(data))
+			.then(data => res.status(200).send({
+				msg: data
+			}))
 	} catch {
 		console.log(error);
 		return res.status(210).send({
@@ -90,7 +92,9 @@ export const verify = async (req, res) => {
 					);
 				}
 				else{
-					res.status(200).send("Code is incorrect.");
+					res.status(204).send({
+						msg: "Code is incorrect.",
+					});
 				}
 			})
 
