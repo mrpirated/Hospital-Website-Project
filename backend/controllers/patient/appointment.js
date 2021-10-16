@@ -120,14 +120,14 @@ export const NewAppointment = async (req, res) => {
 										msg: err,
 									});
 								} else {
-									console.log(sch);
-									console.log(result);
+									// console.log(sch);
+									// console.log(result);
 									var appointment = scheduleAppointment(
 										sch,
 										result,
 										30 * 60 * 1000
 									);
-									console.log(appointment);
+									//console.log(appointment);
 									const values = {
 										case_id: req.body.case_id,
 
@@ -144,7 +144,7 @@ export const NewAppointment = async (req, res) => {
 										doctor_id: req.body.doctor_id,
 										preferred_date: req.body.preferred_date,
 									};
-									console.log(values);
+									//console.log(values);
 									connection.query(
 										"INSERT INTO appointment SET ?",
 										values,

@@ -6,7 +6,7 @@ import loginAPI from "../../../api/loginAPI";
 import { loggedIn } from "../../../store/auth";
 import "./Login.css";
 import { useDispatch, useSelector } from "react-redux";
-
+import Navigation from "../../Navigation";
 export default function Login(props) {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
@@ -54,27 +54,50 @@ export default function Login(props) {
 	}
 	return (
 		<div>
+			<Navigation />
 			<div className='Login'>
 				<Form onSubmit={handleSubmit}>
-					<div id="loginform">
-						<h2 id="headerTitle">Login</h2>
+					<div id='loginform'>
+						<h2 id='headerTitle'>Login</h2>
 						<div>
-							<div class="row-temp">
+							<div class='row-temp'>
 								<label>
-									<p style={{display: "inline-grid", marginRight: "2rem"}}>Are You A Registered Doctor?</p>
-									<input style={{width:"1rem", height: "1rem"}} type='checkbox' checked={isDoctor} onChange={() => {setIsDoctor(!isDoctor)}}/>
+									<p style={{ display: "inline-grid", marginRight: "2rem" }}>
+										Are You A Registered Doctor?
+									</p>
+									<input
+										style={{ width: "1rem", height: "1rem" }}
+										type='checkbox'
+										checked={isDoctor}
+										onChange={() => {
+											setIsDoctor(!isDoctor);
+										}}
+									/>
 								</label>
 							</div>
-							<div class="row">
+							<div class='row'>
 								<label>Email</label>
-								<input autoFocus type="text" placeholder="Enter your email" value={email} onChange={(e) => setEmail(e.target.value)}/>
+								<input
+									autoFocus
+									type='text'
+									placeholder='Enter your email'
+									value={email}
+									onChange={(e) => setEmail(e.target.value)}
+								/>
 							</div>
-							<div class="row">
+							<div class='row'>
 								<label>Password</label>
-								<input type="password" placeholder="Enter your password" value={password} onChange={(e) => setPassword(e.target.value)}/>
+								<input
+									type='password'
+									placeholder='Enter your password'
+									value={password}
+									onChange={(e) => setPassword(e.target.value)}
+								/>
 							</div>
-							<div id="button" class="row">
-								<button type='submit' disabled={!validateForm()}>Log in</button>
+							<div id='button' class='row'>
+								<button type='submit' disabled={!validateForm()}>
+									Log in
+								</button>
 							</div>
 						</div>
 					</div>

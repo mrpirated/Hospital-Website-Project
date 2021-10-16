@@ -1,6 +1,7 @@
 import connection from "../../dbconn/db";
 import dotenv from "dotenv";
-
+import { scheduleAppointment } from "../helpers";
+import moment from "moment";
 dotenv.config();
 
 import checkToken from "../../checkToken";
@@ -71,6 +72,109 @@ export const appointment = async (req, res) => {
 		});
 	}
 };
+const afterAvailability = (st, et, doctor_id) => {
+	connection.query(
+		"SELECT appointment_id,\
+		start_time,\
+		end_time,\
+		preferred_date\
+		FROM appointment\
+		WHERE start_time IS NULL\
+		AND end_time IS NULL\
+		AND doctor_id=?",
+		[doctor_id],
+		(err, result, query) => {
+			if (err) {
+				return {
+					msg: err,
+				};
+			} else {
+				var app = result;
+				//console.log(app);
+				var n = app.length;
+				for (var i = 0; i < n; i++) {
+					var ap = app[i];
+					//console.log("ap: " + ap.preferred_date);
+					connection.query(
+						"SELECT \
+					start_time, \
+					end_time \
+					FROM \
+					schedule \
+					WHERE \
+					doctor_id = ? \
+					AND end_time > ?\
+					ORDER BY start_time",
+						[doctor_id, ap.preferred_date],
+						(err, result, query) => {
+							//console.log(result);
+							if (err) {
+								return {
+									msg: err,
+								};
+							} else {
+								var sch = result;
+								connection.query(
+									"SELECT \
+								start_time, \
+								end_time \
+								FROM \
+								appointment \
+								WHERE \
+								doctor_id = ? \
+								AND end_time >?\
+								ORDER BY start_time",
+									[doctor_id, ap.preferred_date],
+									(err, result, query) => {
+										if (err) {
+											return {
+												msg: err,
+											};
+										} else {
+											var appointment = scheduleAppointment(
+												sch,
+												result,
+												30 * 60 * 1000
+											);
+											const values = {
+												start_time: appointment.start_time
+													? moment(appointment.start_time).format(
+															"YYYY-MM-DD HH:mm:ss"
+													  )
+													: null,
+												end_time: appointment.end_time
+													? moment(appointment.end_time).format(
+															"YYYY-MM-DD HH:mm:ss"
+													  )
+													: null,
+											};
+											connection.query(
+												"UPDATE appointment SET ? WHERE appointment_id=?",
+												[values, ap.appointment_id],
+												(err, result, query) => {
+													if (err) {
+														console.log(err);
+														return {
+															msg: err,
+														};
+													} else {
+														return {
+															msg: "successful",
+														};
+													}
+												}
+											);
+										}
+									}
+								);
+							}
+						}
+					);
+				}
+			}
+		}
+	);
+};
 export const setAvailability = async (req, res) => {
 	try {
 		const decodedData = checkToken(req.body.token);
@@ -81,7 +185,8 @@ export const setAvailability = async (req, res) => {
 			});
 		} else {
 			//console.log(decodedData);
-			connection.query(
+			var st, et;
+			var qans = connection.query(
 				"SELECT start_time, end_time FROM schedule WHERE doctor_id = ?",
 				[decodedData.user.doctor_id],
 				(err, result, fields) => {
@@ -91,9 +196,9 @@ export const setAvailability = async (req, res) => {
 						});
 					} else {
 						//console.log(result);
-						console.log(req.body);
-						var st = new Date(req.body.start_time);
-						var et = new Date(req.body.end_time);
+						//console.log(req.body);
+						st = new Date(req.body.start_time);
+						et = new Date(req.body.end_time);
 						for (var i = 0; i < result.length; i++) {
 							if (result[i].start_time <= st && result[i].end_time >= st) {
 								st = result[i].end_time;
@@ -107,6 +212,7 @@ export const setAvailability = async (req, res) => {
 							}
 						}
 						console.log(st + " " + et);
+
 						if (st < et) {
 							connection.query(
 								"INSERT INTO schedule VALUES(?,?,?)",
@@ -117,6 +223,7 @@ export const setAvailability = async (req, res) => {
 											msg: err,
 										});
 									} else {
+										afterAvailability(st, et, decodedData.user.doctor_id);
 										return res.status(200).send(result);
 									}
 								}
@@ -125,6 +232,7 @@ export const setAvailability = async (req, res) => {
 					}
 				}
 			);
+			//console.log(qans.result);
 		}
 	} catch (error) {
 		console.log(error);

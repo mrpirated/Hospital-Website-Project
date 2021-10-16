@@ -14,7 +14,12 @@ function Navigation(props) {
 		sessionStorage.setItem("lastPage", "/home");
 		store.dispatch(loggedOut());
 	};
-
+	const account_type =
+		store.getState().auth.type === 0
+			? "/patient"
+			: store.getState().auth.type === 1
+			? "/doctor"
+			: "/admin";
 	return (
 		<>
 			<Navbar className='navbar' expand='lg'>
@@ -45,7 +50,7 @@ function Navigation(props) {
 								</Nav.Link>
 							)}
 							{isauth && (
-								<Nav.Link as={Link} to='profile'>
+								<Nav.Link as={Link} to={account_type + "/profile"}>
 									Hello {store.getState().auth.user.first_name}
 								</Nav.Link>
 							)}
