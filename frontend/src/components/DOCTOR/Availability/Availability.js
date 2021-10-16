@@ -1,10 +1,16 @@
 import React, { useState } from "react";
 import { Col, Form, Row, Button } from "react-bootstrap";
 import DatePicker from "react-datepicker";
-import TimePicker from "react-time-picker";
+//import TimePicker from "react-time-picker";
+import DateFnsUtils from "@date-io/date-fns";
 import { useSelector } from "react-redux";
 import format from "date-fns/format";
 import setAvailabilityAPI from "../../../api/setAvailabilityAPI";
+import {
+	KeyboardTimePicker,
+	KeyboardDatePicker,
+	MuiPickersUtilsProvider,
+} from "@material-ui/pickers";
 function Availability() {
 	const token = useSelector((state) => state.auth.token);
 	const [availDate, setavailDate] = useState(new Date());
@@ -33,39 +39,48 @@ function Availability() {
 	};
 	return (
 		<div className='availability'>
-			<h2> Give Availability </h2>
+			<h1> Give Availability </h1>
 			<Form>
 				{/* <Row style={{ margin: "1rem" }}>
 
                 </Row> */}
 				<Form.Group className='mb-3'>
 					<Form.Label>Select Date</Form.Label>
-					<DatePicker
-						selected={availDate}
-						minDate={new Date()}
-						onChange={(date) => setavailDate(date)}
-					/>
+					<MuiPickersUtilsProvider utils={DateFnsUtils}>
+						<KeyboardDatePicker
+							//dateFormat='dd-MM-yyyy'
+							selected={availDate}
+							minDate={new Date()}
+							onChange={(date) => setavailDate(date)}
+							//className='date-picker'
+						/>
+					</MuiPickersUtilsProvider>
 				</Form.Group>
 				<span>
 					<Form.Group className='mb-3'>
 						<Form.Label>Start Time</Form.Label>
 						{"  "}
-						<TimePicker
-							value={start_time}
-							// minTime={new Date()}
-							clearIcon={false}
-							onChange={(time) => setstart_time(time)}
-						/>
+						<MuiPickersUtilsProvider utils={DateFnsUtils}>
+							<KeyboardTimePicker
+								value={end_time}
+								// minTime={new Date()}
+								//clearIcon={false}
+								onChange={(time) => setstart_time(time)}
+							/>
+						</MuiPickersUtilsProvider>
 					</Form.Group>
 					<Form.Group className='mb-3'>
 						<Form.Label>End Time</Form.Label>
 						{"  "}
-						<TimePicker
-							value={end_time}
-							// minTime={new Date()}
-							clearIcon={false}
-							onChange={(time) => setend_time(time)}
-						/>
+
+						<MuiPickersUtilsProvider utils={DateFnsUtils}>
+							<KeyboardTimePicker
+								value={end_time}
+								// minTime={new Date()}
+								//clearIcon={false}
+								onChange={(time) => setend_time(time)}
+							/>
+						</MuiPickersUtilsProvider>
 					</Form.Group>
 				</span>
 				<div className='text-center' style={{ paddingTop: "2rem" }}>

@@ -45,7 +45,7 @@ function App() {
 								history.push(sessionStorage.getItem("lastPage"));
 							} else history.push("/patient");
 						} else if (res.type === 1) history.push("/doctor");
-						else if (res.type == 2) {
+						else if (res.type === 2) {
 							if (
 								sessionStorage.getItem("lastPage") &&
 								sessionStorage.getItem("lastPage").includes("/admin")
