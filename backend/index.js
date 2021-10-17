@@ -16,6 +16,7 @@ import token from "./routes/token";
 // import doctor_schedule from "./routes/doctor_schedule";
 
 const PORT = process.env.PORT;
+const HOST_NAME = process.env.HOST_NAME;
 const { json } = express;
 const app = express();
 
@@ -39,5 +40,5 @@ app.use(
 );
 
 app.listen(PORT, () => {
-	console.log("✨✨ Running on port " + PORT);
+	console.log(`✨✨ Server running at http://${HOST_NAME}:${PORT}:`);
 });
