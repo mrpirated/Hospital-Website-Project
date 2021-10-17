@@ -38,7 +38,9 @@ app.use(
 	// patient_appointment,
 	// doctor_schedule
 );
-
+app.use("/", (req, res) => {
+	res.send("Server is Running");
+});
 app.listen(PORT, HOST_NAME, () => {
 	console.log(`✨✨ Server running at http://${HOST_NAME}:${PORT}:`);
 });
