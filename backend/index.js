@@ -39,6 +39,6 @@ app.use(
 	// doctor_schedule
 );
 
-app.listen(PORT, () => {
+app.listen(PORT, HOST_NAME, () => {
 	console.log(`✨✨ Server running at http://${HOST_NAME}:${PORT}:`);
 });
