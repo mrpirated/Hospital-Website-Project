@@ -3,10 +3,15 @@ import config from "../config/config.json";
 
 const loginAPI = async (data) => {
 	const { email, password, type } = data;
+	console.log(config.baseUrl);
 	return await axios
 		.post(
 			config.baseUrl +
-				(type === 2 ? config.admin : (type === 0 ? config.patient : config.doctor)) +
+				(type === 2
+					? config.admin
+					: type === 0
+					? config.patient
+					: config.doctor) +
 				config.login,
 			{
 				email: email,
@@ -19,22 +24,20 @@ const loginAPI = async (data) => {
 				//return res.data;
 				return {
 					reply: true,
-					data: res.data
-				}
-			}
-			else if(res.status === 210) {
+					data: res.data,
+				};
+			} else if (res.status === 210) {
 				console.log(res.data.msg);
 				return {
 					reply: false,
-					data : res.data.msg.errors[0]
-				}
-			}
-			else {
+					data: res.data.msg.errors[0],
+				};
+			} else {
 				console.log(res.data.msg);
 				return {
 					reply: false,
-					data : res.data
-				}
+					data: res.data,
+				};
 			}
 		})
 		.catch();
