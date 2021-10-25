@@ -5,7 +5,7 @@ dotenv.config();
 import {
 	appointment,
 	setAvailability,
-} from "../../../controllers/doctor/appointment";
+} from "../../controllers/doctor/appointment";
 
 router.get("/appointment", appointment);
 router.post("/setavailability", setAvailability);
