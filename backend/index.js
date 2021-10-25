@@ -4,6 +4,7 @@ import admin from "./routes/admin/admin";
 import patient from "./routes/patient/patient";
 import doctor from "./routes/doctor/doctor";
 import zoommeeting from "./routes/admin/zoommeeting";
+import path from "path";
 // import login_doctor from "./routes/login/login_doctor";
 
 // import signup from "./routes/signup/signup";
