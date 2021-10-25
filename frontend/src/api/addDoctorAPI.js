@@ -4,7 +4,7 @@ import config from "../config/config.json";
 
 const addDoctorAPI = async (data) => {
 	const {
-        token,
+		token,
 		first_name,
 		last_name,
 		dob,
@@ -16,7 +16,7 @@ const addDoctorAPI = async (data) => {
 	} = data;
 	return await axios
 		.post(config.baseUrl + config.admin + config.add_doctor, {
-            token,
+			token,
 			first_name,
 			last_name,
 			dob,
@@ -29,7 +29,7 @@ const addDoctorAPI = async (data) => {
 		.then((res) => {
 			if (res.status === 200) {
 				//return loginAPI({ email, password });
-                console.log(res);
+				console.log(res);
 				return {
 					reply: true,
 				};
@@ -37,7 +37,7 @@ const addDoctorAPI = async (data) => {
 				console.log(res.data.msg);
 				return {
 					reply: false,
-					data: res.data.msg.errors[0],
+					data: res.data,
 				};
 			} else {
 				console.log(res.data.msg);

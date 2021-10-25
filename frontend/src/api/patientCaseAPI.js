@@ -23,7 +23,7 @@ const patientCaseAPI = async (data) => {
 				console.log(res.data.msg);
 				return {
 					reply: false,
-					data: res.data.msg.errors[0],
+					data: res.data,
 				};
 			} else {
 				console.log(res.data.msg);

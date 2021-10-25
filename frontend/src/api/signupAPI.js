@@ -34,7 +34,7 @@ const signupAPI = async (data) => {
 				console.log(res.data.msg);
 				return {
 					reply: false,
-					data: res.data.msg.errors[0],
+					data: res.data,
 				};
 			} else {
 				console.log(res.data.msg);
@@ -45,7 +45,7 @@ const signupAPI = async (data) => {
 			}
 		})
 		.catch((err) => {
-			//console.log("Error Occured in Signup");
+			console.log("Error Occured in Signup:" + err);
 		});
 };
 
