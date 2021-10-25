@@ -4,9 +4,15 @@ import admin from "./routes/admin/admin";
 import patient from "./routes/patient/patient";
 import doctor from "./routes/doctor/doctor";
 import zoommeeting from "./routes/admin/zoommeeting";
+import fs from "fs";
 import path from "path";
-// import login_doctor from "./routes/login/login_doctor";
+import https from "https";
 
+// import login_doctor from "./routes/login/login_doctor";
+const options = {
+	key: fs.readFileSync(path.resolve("src/key.pem")),
+	cert: fs.readFileSync(path.resolve("src/cert.pem")),
+};
 // import signup from "./routes/signup/signup";
 // import signup_doctor from "./routes/signup/signup_doctor";
 // import signup_admin from "./routes/signup/signup_admin";
@@ -42,6 +48,7 @@ app.use(
 app.use("/", (req, res) => {
 	res.send("Server is Running");
 });
-app.listen(PORT, HOST_NAME, () => {
-	console.log(`✨✨ Server running at http://${HOST_NAME}:${PORT}:`);
+const server = https.createServer(options, app);
+server.listen(PORT, HOST_NAME, () => {
+	console.log(`✨✨ Server running at https://${HOST_NAME}:${PORT}:`);
 });
