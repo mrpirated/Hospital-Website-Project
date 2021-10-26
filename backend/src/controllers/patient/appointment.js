@@ -32,7 +32,7 @@ export const MyAppointment = async (req, res) => {
 							a.appointment_id,\
 							a.case_id,\
 							a.doctor_id,\
-							CONCAT(d.first_name, " ", d.last_name) AS doctor_name,\
+							CONCAT(d.first_name," ", d.last_name) AS doctor_name,\
 							a.end_time,\
 							a.meeting_link,\
 							a.start_time\
