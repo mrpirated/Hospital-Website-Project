@@ -22,7 +22,6 @@ const cases = async (req, res) => {
 				LEFT JOIN appointment a\
 				ON c.case_id = a.case_id \
 				WHERE c.patient_id = ? \
-				AND a.start_time IS NOT NULL\
 				GROUP BY c.case_id ORDER \
 				BY a.start_time DESC",
 				user.patient_id,
