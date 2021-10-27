@@ -40,6 +40,7 @@ body {
 	background-color: var(--bgColor3);
 }
 #card .appointment-addcard {
+	height: 10rem;
 	font-size: 75%;
 	background-color: var(--bgColor3);
 	color: black;
@@ -54,7 +55,7 @@ body {
 	transition-duration: 0.25s;
 }
 #card .appointment {
-	height: 20rem;
+	height: 10rem;
 	font-size: 75%;
 	background-color: var(--bgColor3);
 	color: black;
