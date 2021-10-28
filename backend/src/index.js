@@ -48,7 +48,7 @@ app.use(
 app.use("/", (req, res) => {
 	res.send("Server is Running");
 });
-//const server = https.createServer(options, app);
-app.listen(PORT, HOST_NAME, () => {
-	console.log(`✨✨ Server running at http://${HOST_NAME}:${PORT}:`);
+const server = https.createServer(options, app);
+server.listen(PORT, HOST_NAME, () => {
+	console.log(`✨✨ Server running at https://${HOST_NAME}:${PORT}:`);
 });
