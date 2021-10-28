@@ -1,5 +1,5 @@
 {
-	"baseUrl": "https://localhost:443",
+	"baseUrl": "http://localhost:4587",
 	"token": "/api/token",
 	"doctor": "/api/doctor",
 	"patient": "/api/patient",
