@@ -16,7 +16,7 @@ const options = {
 app.get("/*", (req, res) => {
 	res.sendFile(path.join(__dirname, "build", "index.html"));
 });
-const server = https.createServer(options, app);
-server.listen(PORT, "0.0.0.0", (req, res) => {
-	console.log(`Frontend is Running at https://${HOST_NAME}:${PORT}:`);
+//const server = https.createServer(options, app);
+app.listen(PORT, "0.0.0.0", (req, res) => {
+	console.log(`Frontend is Running at http://${HOST_NAME}:${PORT}:`);
 });
