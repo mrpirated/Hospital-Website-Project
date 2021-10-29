@@ -1,5 +1,5 @@
 import axios from "axios";
-import config from "../config/config.json";
+import config from "../config/config";
 
 const setappointmentAPI = async (data) => {
 	const { token, start_time, end_time, appointment_id } = data;

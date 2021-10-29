@@ -1,5 +1,5 @@
 import axios from "axios";
-import config from "../config/config.json";
+import config from "../config/config";
 // import loginAPI from "./loginAPI";
 
 const signupAPI = async (data) => {

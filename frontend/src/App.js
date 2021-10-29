@@ -18,7 +18,6 @@ function App() {
 	const auth = useSelector((state) => state.auth);
 	const dispatch = useDispatch();
 	const history = useHistory();
-
 	useEffect(() => {
 		const checktoken = async () => {
 			if (!auth.isauth && localStorage.getItem("token")) {

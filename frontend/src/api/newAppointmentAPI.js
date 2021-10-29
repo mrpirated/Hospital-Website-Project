@@ -1,5 +1,5 @@
 import axios from "axios";
-import config from "../config/config.json";
+import config from "../config/config";
 
 const newAppointmentAPI = async (data) => {
 	const { token, case_id, doctor_id, preferred_date } = data;

@@ -5,7 +5,7 @@ import { setLoading } from "../../../store/auth";
 import { CircularProgress } from "@material-ui/core";
 import { v4 as uuidv4 } from "uuid";
 import Video from "twilio-video";
-import config from "../../../config/config.json";
+import config from "../../../config/config";
 import Room from "./Room";
 import Header from "./Header/Header";
 import Hero from "./Hero/Hero";

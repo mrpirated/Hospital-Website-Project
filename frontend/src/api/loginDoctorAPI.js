@@ -1,6 +1,6 @@
 // import axios from "axios";
 // import store from "../store/configureStore";
-// import config from "../config/config.json";
+// import config from "../config/config";
 // import { loggedIn } from "../store/auth";
 
 // const loginDoctorAPI = (data) => {
