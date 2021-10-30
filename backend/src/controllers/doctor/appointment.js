@@ -195,10 +195,12 @@ export const setAvailability = async (req, res) => {
 							msg: err,
 						});
 					} else {
-						//console.log(result);
-						//console.log(req.body);
+						console.log(result);
+						console.log(req.body);
 						st = new Date(req.body.start_time);
 						et = new Date(req.body.end_time);
+						console.log(st + " " + et);
+
 						for (var i = 0; i < result.length; i++) {
 							if (result[i].start_time <= st && result[i].end_time >= st) {
 								st = result[i].end_time;

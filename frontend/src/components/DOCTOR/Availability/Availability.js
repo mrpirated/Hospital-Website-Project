@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Col, Form, Row, Button } from "react-bootstrap";
 import DatePicker from "react-datepicker";
 //import TimePicker from "react-time-picker";
 import DateFnsUtils from "@date-io/date-fns";
 import { useSelector } from "react-redux";
-import format from "date-fns/format";
+import moment from "moment";
 import setAvailabilityAPI from "../../../api/setAvailabilityAPI";
 import {
 	KeyboardTimePicker,
@@ -16,16 +16,24 @@ function Availability() {
 	const [availDate, setavailDate] = useState(new Date());
 	const [start_time, setstart_time] = useState(new Date());
 	const [end_time, setend_time] = useState(new Date());
+
 	const onSaveChanges = async () => {
 		console.log(start_time);
 		console.log(end_time);
-		console.log(format(new Date(availDate), "yyyy-MM-dd"));
+		console.log(moment(start_time).format("hh:mm"));
+
 		await setAvailabilityAPI({
 			token: token,
 			start_time:
-				format(new Date(availDate), "yyyy-MM-dd") + " " + start_time + ":00",
+				moment(availDate).format("yyyy-MM-DD") +
+				" " +
+				moment(start_time).format("hh:mm") +
+				":00",
 			end_time:
-				format(new Date(availDate), "yyyy-MM-dd") + " " + end_time + ":00",
+				moment(availDate).format("yyyy-MM-DD") +
+				" " +
+				moment(end_time).format("hh:mm") +
+				":00",
 		}).then((res) => {
 			if (res.reply) {
 				alert("Availability is Set Successfully!");
@@ -33,9 +41,9 @@ function Availability() {
 				alert(res.data.msg);
 			}
 		});
-		setavailDate(new Date());
-		setstart_time(format(new Date(), "HH:mm"));
-		setend_time(format(new Date(), "HH:mm"));
+		// setavailDate(new Date());
+		// setstart_time(new Date());
+		// setend_time(new Date());
 	};
 	return (
 		<div className='availability'>
@@ -62,7 +70,7 @@ function Availability() {
 						{"  "}
 						<MuiPickersUtilsProvider utils={DateFnsUtils}>
 							<KeyboardTimePicker
-								value={end_time}
+								value={start_time}
 								// minTime={new Date()}
 								//clearIcon={false}
 								onChange={(time) => setstart_time(time)}
