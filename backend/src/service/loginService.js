@@ -1,7 +1,7 @@
 import dbg from "debug";
 const debug = dbg("service:login");
-import { checkIfUserExists, checkPassword } from "../data/loginData";
-
+import checkIfUserExists from "../data/checkIfUserExists";
+import { checkPassword } from "../controllers/loginController";
 import config from "../config";
 const loginService = async ({ type, email, password }) => {
 	//debug(config);
@@ -11,9 +11,11 @@ const loginService = async ({ type, email, password }) => {
 			//debug(response);
 			if (response.length > 0) {
 				return response[0];
-			} else {
-				return Promise.reject("User Dosen't exists");
 			}
+			return Promise.reject({
+				success: false,
+				message: "User Dosen't exists",
+			});
 		})
 		.then((user) => {
 			//debug(user);
@@ -32,7 +34,7 @@ const loginService = async ({ type, email, password }) => {
 			return checkPassword(details);
 		})
 		.catch((err) => {
-			debug(err);
+			//debug(err);
 			return err;
 		});
 };

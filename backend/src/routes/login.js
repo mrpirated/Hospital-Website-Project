@@ -12,7 +12,7 @@ router.post(
 			min: 6,
 		}),
 	],
-	(req, res) => {
+	async (req, res) => {
 		const errors = validationResult(req);
 		if (!errors.isEmpty()) {
 			//debug(errors);
@@ -20,14 +20,18 @@ router.post(
 				msg: errors,
 			});
 		}
-		loginService(req.body).then((response) => {
-			//debug(response);
-			if (response.success) {
-				res.send({ msg: "Logged in!", token: response.token });
-			} else {
-				res.status(403).send({ msg: response.message });
-			}
-		});
+		await loginService(req.body)
+			.then((response) => {
+				//debug(response);
+				if (response.success) {
+					res.send({ msg: "Logged in!", token: response.token });
+				} else {
+					res.status(403).send({ message: response.message });
+				}
+			})
+			.catch((err) => {
+				res.status(500).send({ message: err.message });
+			});
 	}
 );
 export default router;

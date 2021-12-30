@@ -5,22 +5,25 @@ import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 dotenv.config();
 const bcrypt = require("bcrypt");
-const client = require("twilio")(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
+const client = require("twilio")(
+	process.env.TWILIO_ACCOUNT_SID,
+	process.env.TWILIO_AUTH_TOKEN
+);
 
 export const signup = async (req, res) => {
 	try {
 		console.log("called");
-		client
-			.verify
+		client.verify
 			.services(process.env.TWILIO_SERVICE_ID)
-			.verifications
-			.create({
+			.verifications.create({
 				to: req.body.phone,
-				channel: 'sms'
+				channel: "sms",
 			})
-			.then(data => res.status(200).send({
-				msg: data
-			}))
+			.then((data) =>
+				res.status(200).send({
+					msg: data,
+				})
+			);
 	} catch {
 		console.log(error);
 		return res.status(210).send({
@@ -38,17 +41,14 @@ export const verify = async (req, res) => {
 		});
 	}
 	try {
-
-		client
-			.verify
+		client.verify
 			.services(process.env.TWILIO_SERVICE_ID)
-			.verificationChecks
-			.create({
-				to:req.body.phone,
-				code: req.body.code
+			.verificationChecks.create({
+				to: req.body.phone,
+				code: req.body.code,
 			})
 			.then((data) => {
-				if(data.status === "approved"){
+				if (data.status === "approved") {
 					var value = {
 						first_name: req.body.first_name,
 						last_name: req.body.last_name,
@@ -59,7 +59,7 @@ export const verify = async (req, res) => {
 						phone: req.body.phone,
 						password: req.body.password,
 					};
-			
+
 					connection.query(
 						"SELECT * FROM patient WHERE email = ?",
 						value.email,
@@ -70,7 +70,7 @@ export const verify = async (req, res) => {
 								});
 							} else {
 								value.password = await bcrypt.hash(req.body.password, 10);
-			
+
 								console.log(value.password);
 								var patient_id;
 								var q = connection.query(
@@ -90,14 +90,12 @@ export const verify = async (req, res) => {
 							}
 						}
 					);
-				}
-				else{
+				} else {
 					res.status(204).send({
 						msg: "Code is incorrect.",
 					});
 				}
-			})
-
+			});
 	} catch {
 		console.log(error);
 		return res.status(210).send({
