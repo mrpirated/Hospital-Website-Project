@@ -4,10 +4,12 @@ import admin from "./routes/admin/admin";
 import patient from "./routes/patient/patient";
 import doctor from "./routes/doctor/doctor";
 import zoommeeting from "./routes/admin/zoommeeting";
+import login from "./routes/login";
 import fs from "fs";
 import path from "path";
 import https from "https";
-
+import dbg from "debug";
+const debug = dbg("http");
 // import login_doctor from "./routes/login/login_doctor";
 const options = {
 	key: fs.readFileSync(path.resolve("src/key.pem")),
@@ -39,7 +41,8 @@ app.use(
 	doctor,
 	admin,
 	token,
-	zoommeeting
+	zoommeeting,
+	login
 
 	// patient_case,
 	// patient_appointment,
@@ -50,5 +53,5 @@ app.use("/", (req, res) => {
 });
 const server = https.createServer(options, app);
 app.listen(PORT, HOST_NAME, () => {
-	console.log(`✨✨ Server running at http://${HOST_NAME}:${PORT}:`);
+	debug(`✨✨ Server running at http://${HOST_NAME}:${PORT}:`);
 });

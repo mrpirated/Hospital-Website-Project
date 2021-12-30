@@ -1,7 +1,8 @@
 import dotenv from "dotenv";
 dotenv.config();
 import mysql from "mysql";
-
+import dbg from "debug";
+const debug = dbg("database");
 const connection = mysql.createConnection({
 	host: process.env.RDS_HOSTNAME,
 	user: process.env.RDS_USERNAME,
@@ -12,11 +13,11 @@ const connection = mysql.createConnection({
 
 connection.connect(function (err) {
 	if (err) {
-		console.error("Database connection failed: " + err.stack);
+		debug("Database connection failed: " + err.stack);
 		return;
 	}
 
-	console.log("Connected to database.");
+	debug("Connected to database.");
 });
 
 export default connection;
