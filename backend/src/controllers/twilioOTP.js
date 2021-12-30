@@ -11,7 +11,7 @@ const twilioOTP = async (user) => {
 			.services(config.TWILIO_SERVICE_ID)
 			.verifications.create({ to: user.phone, channel: "sms" })
 			.then((data) => {
-				debug(data);
+				//debug(data);
 				return Promise.resolve({
 					success: true,
 					message: "SMS sent successfully",

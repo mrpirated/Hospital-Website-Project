@@ -57,7 +57,7 @@ const loginService = async ({ type, email, password }) => {
 			return checkPassword(details);
 		})
 		.catch((err) => {
-			//debug(err);
+			debug(err);
 			return err;
 		});
 };

@@ -18,6 +18,7 @@ router.post("/signup", async (req, res) => {
 		})
 		.catch((err) => {
 			debug(err);
+			res.status(500).send({ message: err });
 		});
 });
 export default router;

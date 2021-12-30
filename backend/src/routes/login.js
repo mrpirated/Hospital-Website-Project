@@ -33,6 +33,7 @@ router.post(
 				}
 			})
 			.catch((err) => {
+				debug(err);
 				res.status(500).send({ message: err.message });
 			});
 	}

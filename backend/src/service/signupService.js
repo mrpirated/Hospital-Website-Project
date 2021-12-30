@@ -6,11 +6,11 @@ import addNewUser from "../data/addNewUser";
 import twilioOTP from "../controllers/twilioOTP";
 import loginService from "./loginService";
 const signupService = async (user) => {
-	debug(user);
+	//debug(user);
 	if (user.otp == undefined) {
 		return await checkIfUserExists(user)
 			.then((response) => {
-				debug(response.length);
+				//debug(response.length);
 				if (response.length > 0) {
 					return Promise.reject({
 						success: false,
@@ -19,7 +19,7 @@ const signupService = async (user) => {
 				}
 				if (user.type === "admin") {
 					var password = hashPassword(user.password);
-					debug(password);
+					//debug(password);
 					user.password = password;
 					return addNewUser(user);
 				} else {
