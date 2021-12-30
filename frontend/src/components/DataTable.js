@@ -1,7 +1,7 @@
 import React from "react";
 import { Table, Button } from "react-bootstrap";
 import { useHistory } from "react-router";
-
+import moment from "moment";
 export default function DataTable(props) {
 	var idx = 1;
 	const history = useHistory();
@@ -41,14 +41,12 @@ export default function DataTable(props) {
 								</td>
 								{Object.keys(d).map(function (key, index) {
 									//console.log(d);
-									if (key === "meeting_link") {
-										return (
-											<td>
-												<a href={d[key]} target='_blank'>
-													Meeting Link
-												</a>
-											</td>
-										);
+									if (
+										key === "start_time" ||
+										key === "end_time" ||
+										key === "preffered_date"
+									) {
+										return <td>{moment(d[key]).format("hh:mm A")}</td>;
 									} else return <td>{d[key]}</td>;
 								})}
 							</tr>

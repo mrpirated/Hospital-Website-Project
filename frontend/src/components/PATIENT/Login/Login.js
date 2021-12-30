@@ -4,7 +4,6 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import loginAPI from "../../../api/loginAPI";
 import { loggedIn } from "../../../store/auth";
-import "./Login.css";
 import { useDispatch, useSelector } from "react-redux";
 import Navigation from "../../Navigation";
 export default function Login(props) {

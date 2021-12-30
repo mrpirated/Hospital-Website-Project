@@ -20,7 +20,7 @@
 		"moment": "^2.29.1",
 		"otp-input-react": "^0.2.4",
 		"react": "^17.0.2",
-		"react-bootstrap": "^2.0.0-beta.6",
+		"react-bootstrap": "^2.0.1",
 		"react-bootstrap-date-picker": "^5.1.0",
 		"react-date-picker-cs": "^0.1.28",
 		"react-datepicker": "^4.2.1",
@@ -40,7 +40,7 @@
 		"web-vitals": "^1.1.2"
 	},
 	"scripts": {
-		"start": "set PORT=5904 && react-scripts --max-old-space-size=4096 start",
+		"start": "react-scripts --max-old-space-size=4096 start",
 		"build": "react-scripts --max-old-space-size=4096 build",
 		"server": "node index.js",
 		"test": "react-scripts test",

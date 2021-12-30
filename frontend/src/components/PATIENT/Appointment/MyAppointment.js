@@ -3,7 +3,6 @@ import { useHistory } from "react-router";
 import { useSelector } from "react-redux";
 import moment from "moment";
 import { Card, Form, Modal, Row, Col, Button } from "react-bootstrap";
-import "./MyAppointment.css";
 import patientMyAppointmentAPI from "../../../api/patientMyAppointmentAPI";
 export default function MyAppointment(props) {
 	const auth = useSelector((state) => state.auth);

@@ -3,7 +3,6 @@ import { Form, Row, Col, Modal, Button } from "react-bootstrap";
 import signupAPI from "../../../api/signupAPI";
 import verifyAPI from "../../../api/verifyAPI";
 import { useHistory } from "react-router";
-import "./Signup.css";
 import DatePicker from "react-datepicker";
 import format from "date-fns/format";
 import DateFnsUtils from "@date-io/date-fns";

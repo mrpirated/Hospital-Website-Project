@@ -3,3 +3,4 @@
 /build
 /target
 .env
+package-lock.json

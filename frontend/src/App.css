@@ -20,12 +20,6 @@
 }
 body {
 	background: var(--bgColor1);
-
-	/* background: linear-gradient(
-		135deg,
-		rgb(180, 245, 226) 0%,
-		rgb(172, 240, 155) 100%
-	); */
 	font-family: "work sans";
 }
 .navbar {
@@ -175,4 +169,31 @@ html {
 }
 .date-picker {
 	text-align: center;
+}
+#signupform {
+	max-width: 500px;
+	min-width: 300px;
+	width: 30%;
+	margin: 100px auto;
+	background-color: #ffffff;
+	border-radius: 25px;
+}
+
+#headerTitle {
+	text-align: center;
+	font-family: "open sans", sans-serif;
+	padding: 2rem 0;
+	margin: 0;
+	font-size: 2rem;
+}
+
+#loginform {
+	max-width: 500px;
+	min-width: 300px;
+	max-height: 700px;
+	width: 30%;
+	height: 60%;
+	margin: 100px auto;
+	background-color: #ffffff;
+	border-radius: 25px;
 }
