@@ -12,7 +12,11 @@ const twilioOTP = async (user) => {
 			.verifications.create({ to: user.phone, channel: "sms" })
 			.then((data) => {
 				debug(data);
-				return Promise.resolve({ success: true, message: data });
+				return Promise.resolve({
+					success: true,
+					message: "SMS sent successfully",
+					data,
+				});
 			})
 			.catch((err) => Promise.reject({ success: false, message: err }));
 	} else {

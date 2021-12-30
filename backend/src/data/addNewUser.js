@@ -29,7 +29,7 @@ const addNewUser = async (user) => {
 				(err, result) => {
 					if (err) {
 						reject({ success: false, message: err });
-					} else resolve({ success: true, message: result });
+					} else resolve({ success: true, message: result, user: user });
 				}
 			);
 		}

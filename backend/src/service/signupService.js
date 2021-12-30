@@ -4,6 +4,7 @@ import checkIfUserExists from "../data/checkIfUserExists";
 import hashPassword from "../controllers/hashPassword";
 import addNewUser from "../data/addNewUser";
 import twilioOTP from "../controllers/twilioOTP";
+import loginService from "./loginService";
 const signupService = async (user) => {
 	debug(user);
 	if (user.otp == undefined) {
@@ -29,7 +30,20 @@ const signupService = async (user) => {
 				return err;
 			});
 	} else {
-		return await twilioOTP(user)
+		var password = user.password;
+		return await checkIfUserExists(user)
+			.then((response) => {
+				if (response.length > 0) {
+					return Promise.reject({
+						success: false,
+						message: "User Already Exists",
+					});
+				}
+				return user;
+			})
+			.then((user) => {
+				return twilioOTP(user);
+			})
 			.then((response) => {
 				user.password = hashPassword(user.password);
 				if (response == "approved") {
@@ -39,6 +53,15 @@ const signupService = async (user) => {
 			})
 			.then((user) => {
 				return addNewUser(user);
+			})
+			.then((response) => {
+				if (response.success) {
+					return loginService({
+						type: response.user.type,
+						email: response.user.email,
+						password: password,
+					});
+				}
 			})
 			.catch((err) => {
 				debug(err);

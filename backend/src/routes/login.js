@@ -24,7 +24,10 @@ router.post(
 			.then((response) => {
 				//debug(response);
 				if (response.success) {
-					res.send({ msg: "Logged in!", token: response.token });
+					res.send({
+						messsage: response.message,
+						data: response.data,
+					});
 				} else {
 					res.status(403).send({ message: response.message });
 				}

@@ -8,7 +8,10 @@ router.post("/signup", async (req, res) => {
 		.then((response) => {
 			//debug(response);
 			if (response.success) {
-				res.send(response.message);
+				res.send({
+					messsage: response.message,
+					data: response.data,
+				});
 			} else {
 				res.status(403).send({ message: response.message });
 			}

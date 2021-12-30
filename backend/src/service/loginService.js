@@ -1,7 +1,7 @@
 import dbg from "debug";
 const debug = dbg("service:login");
 import checkIfUserExists from "../data/checkIfUserExists";
-import { checkPassword } from "../controllers/loginController";
+import checkPassword from "../controllers/checkPassword";
 import config from "../config";
 const loginService = async ({ type, email, password }) => {
 	//debug(config);
@@ -28,6 +28,29 @@ const loginService = async ({ type, email, password }) => {
 				password: user.password,
 				user_id: user_id,
 				type: type,
+				user: (({
+					patient_id,
+					doctor_id,
+					admin_id,
+					first_name,
+					last_name,
+					dob,
+					gender,
+					address,
+					email,
+					phone,
+				}) => ({
+					patient_id,
+					doctor_id,
+					admin_id,
+					first_name,
+					last_name,
+					dob,
+					gender,
+					address,
+					email,
+					phone,
+				}))(user),
 			};
 		})
 		.then((details) => {
