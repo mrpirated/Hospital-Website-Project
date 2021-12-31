@@ -3,25 +3,34 @@ const router = Router();
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import videoToken from "../controllers/videoToken";
+import tokenService from "../service/tokenService";
+import dbg from "debug";
+const debug = dbg("api:token");
 dotenv.config();
-router.post("/token", (req, res) => {
+router.post("/token", async (req, res) => {
 	const token = req.body.token;
-	//console.log(req.headers);
-	//console.log("called");
-	//console.log(token);
-	const user = jwt.verify(token, process.env.SECRET_KEY, (err, decoded) => {
-		//console.log(decoded);
-		if (err) {
-			//console.log(err);
-			return false;
+
+	// const user = jwt.verify(token, process.env.SECRET_KEY, (err, decoded) => {
+	// 	//console.log(decoded);
+	// 	if (err) {
+	// 		//console.log(err);
+	// 		return false;
+	// 	}
+	// 	//console.log(decoded);
+	// 	return decoded;
+	// });
+	// //console.log(user);
+	// if (!user) {
+	// 	res.status(201).send("not-verified");
+	// } else res.status(200).send(user);
+	await tokenService(token).then((response) => {
+		debug(response);
+		if (response.success) {
+			res.send({ message: response.message, data: response.data });
+		} else {
+			res.status(401).send({ message: response.message });
 		}
-		//console.log(decoded);
-		return decoded;
 	});
-	//console.log(user);
-	if (!user) {
-		res.status(201).send("not-verified");
-	} else res.status(200).send(user);
 });
 
 router.get("/video/token", (req, res) => {
