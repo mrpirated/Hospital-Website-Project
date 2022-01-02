@@ -19,7 +19,7 @@
             "data": {
                 "token":"",
                 "user":{
-                    "_id":0, <!--patient_id,doctor_id,admin_id depending on type-->
+                    "_id":0, 
                     "first_name":"",
                     "last_name":"",
                     "dob":"",
@@ -44,7 +44,7 @@
         {
             "type":"",
             "phone":"",
-            "otp":"", <!-- if not present then otp will be sent to given mobile number-->
+            "otp":"", 
             "email":"",
             "password":"",
             "first_name":"",
@@ -58,9 +58,9 @@
         ```json
         {
             "message":"",
-            "token":"", <!-- user will be logged in after signup-->
+            "token":"", 
             "user":{
-                "_id":0, <!--patient_id,doctor_id,admin_id depending on type-->
+                "_id":0, 
                 "first_name":"",
                 "last_name":"",
                 "dob":"",
@@ -91,7 +91,7 @@
             "message":"",
             "data": {
                 "user":{
-                    "_id":0, <!--patient_id,doctor_id,admin_id depending on type-->
+                    "_id":0, 
                     "first_name":"",
                     "last_name":"",
                     "dob":"",
@@ -114,7 +114,7 @@
    - request
         ```json
         {
-            "token":"", <!-- only for doctors to set their availability-->
+            "token":"", 
             "start_time":"",
             "end_time":""
         }
@@ -122,7 +122,7 @@
    - response
         ```json
         {
-            "message":"", <!-- Availability set successfully or No New Availability-->
+            "message":"", 
         }
         ```
    - error
