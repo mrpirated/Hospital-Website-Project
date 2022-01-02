@@ -6,6 +6,7 @@ import doctor from "./routes/doctor/doctor";
 import zoommeeting from "./routes/admin/zoommeeting";
 import login from "./routes/login";
 import signup from "./routes/signup";
+import setAvailability from "./routes/setAvailability";
 import fs from "fs";
 import path from "path";
 import https from "https";
@@ -44,7 +45,8 @@ app.use(
 	token,
 	zoommeeting,
 	login,
-	signup
+	signup,
+	setAvailability
 	// patient_case,
 	// patient_appointment,
 	// doctor_schedule
