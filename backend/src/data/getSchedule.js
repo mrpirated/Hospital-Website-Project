@@ -1,5 +1,5 @@
 import dbg from "debug";
-const debug = dbg("controller:getSchedule");
+const debug = dbg("data:getSchedule");
 import connection from "../dbconn/db";
 const getSchedule = (user_id) => {
 	return new Promise((resolve, reject) => {
