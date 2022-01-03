@@ -27,7 +27,7 @@ const setAvailabilityService = async ({ token, start_time, end_time }) => {
 		})
 		.then((decoded) => {
 			user_id = decoded.user_id;
-			return getSchedule(decoded.user_id, new Date.now());
+			return getSchedule(decoded.user_id, new Date().toISOString());
 		})
 		.then((response) => {
 			debug(response.data.schedule);

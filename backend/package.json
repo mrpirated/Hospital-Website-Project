@@ -6,7 +6,8 @@
 	"scripts": {
 		"start": "@powershell -Command $env:DEBUG='http,database,api:*,service:*,data:*,controller:*'; nodemon --exec babel-node src/index.js",
 		"build": "babel src -d build",
-		"server": "node ./build/index.js"
+		"server": "node ./build/index.js",
+		"test": "jest"
 	},
 	"keywords": [],
 	"author": "",
@@ -38,6 +39,7 @@
 		"@babel/plugin-transform-runtime": "^7.15.8",
 		"@babel/preset-env": "^7.15.8",
 		"debug": "^4.3.3",
+		"jest": "^27.4.5",
 		"nodemon": "^2.0.13"
 	}
 }

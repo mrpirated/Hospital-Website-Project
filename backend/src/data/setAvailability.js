@@ -14,6 +14,17 @@ const setAvailability = (user_id, { st, et, start_time, end_time }) => {
 					} else {
 						debug(result[0].end_time);
 						connection.query(
+							"DELETE FROM schedule WHERE doctor_id = ? \
+						AND start_time > ? AND start_time < ? AND end_time > ? AND end_time < ?",
+							[user_id, start_time, end_time, start_time, end_time],
+							(err) => {
+								if (err) {
+									debug(err);
+									reject({ success: false, message: err });
+								}
+							}
+						);
+						connection.query(
 							"DELETE FROM schedule WHERE doctor_id = ? AND start_time = ? ",
 							[user_id, end_time],
 							(err) => {
@@ -47,6 +58,17 @@ const setAvailability = (user_id, { st, et, start_time, end_time }) => {
 				end_time: end_time,
 			};
 			connection.query(
+				"DELETE FROM schedule WHERE doctor_id = ? \
+				AND start_time > ? AND start_time < ? AND end_time > ? AND end_time < ?",
+				[user_id, start_time, end_time, start_time, end_time],
+				(err) => {
+					if (err) {
+						debug(err);
+						reject({ success: false, message: err });
+					}
+				}
+			);
+			connection.query(
 				"UPDATE schedule SET ? WHERE doctor_id = ? AND end_time = ?",
 				[values, user_id, start_time],
 				(err, result) => {
@@ -62,6 +84,17 @@ const setAvailability = (user_id, { st, et, start_time, end_time }) => {
 			var values = {
 				start_time: start_time,
 			};
+			connection.query(
+				"DELETE FROM schedule WHERE doctor_id = ? \
+				AND start_time > ? AND start_time < ? AND end_time > ? AND end_time < ?",
+				[user_id, start_time, end_time, start_time, end_time],
+				(err) => {
+					if (err) {
+						debug(err);
+						reject({ success: false, message: err });
+					}
+				}
+			);
 			connection.query(
 				"UPDATE schedule SET ? WHERE doctor_id = ? AND start_time = ?",
 				[values, user_id, end_time],
