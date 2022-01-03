@@ -1,11 +1,19 @@
 import dbg from "debug";
 const debug = dbg("data:getSchedule");
 import connection from "../dbconn/db";
-const getSchedule = (user_id) => {
+const getSchedule = (user_id, end_time) => {
 	return new Promise((resolve, reject) => {
 		connection.query(
-			"SELECT * FROM schedule WHERE doctor_id = ? AND end_time > NOW()",
-			[user_id],
+			"SELECT \
+			start_time, \
+			end_time \
+			FROM \
+			schedule \
+			WHERE \
+			doctor_id = ? \
+			AND end_time > ?\
+			ORDER BY start_time",
+			[user_id, end_time],
 			(err, result) => {
 				if (err) {
 					debug(err);
@@ -21,4 +29,5 @@ const getSchedule = (user_id) => {
 		);
 	});
 };
+
 export default getSchedule;

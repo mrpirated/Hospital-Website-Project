@@ -187,3 +187,23 @@
             "message": string
         }
         ```
+7. /api/newCase (POST)
+   - request
+        ```javascript
+        "body":{
+            "token":string,
+            "case_description":string
+        }
+        ```
+   - response
+        ```javascript
+        {
+            "message":string, 
+        }
+        ```
+   - error
+        ```javascript
+        {
+            "message": string
+        }
+        ```

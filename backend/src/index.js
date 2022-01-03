@@ -9,6 +9,8 @@ import signup from "./routes/signup";
 import setAvailability from "./routes/setAvailability";
 import getPatientCases from "./routes/getPatientCases";
 import getDoctors from "./routes/getDoctors";
+import newAppointment from "./routes/newAppointment";
+import newCase from "./routes/newCase";
 import fs from "fs";
 import path from "path";
 import https from "https";
@@ -50,7 +52,9 @@ app.use(
 	signup,
 	setAvailability,
 	getPatientCases,
-	getDoctors
+	getDoctors,
+	newAppointment,
+	newCase
 );
 app.use("/", (req, res) => {
 	res.send("Server is Running");
