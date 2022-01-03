@@ -8,6 +8,7 @@ import login from "./routes/login";
 import signup from "./routes/signup";
 import setAvailability from "./routes/setAvailability";
 import getPatientCases from "./routes/getPatientCases";
+import getDoctors from "./routes/getDoctors";
 import fs from "fs";
 import path from "path";
 import https from "https";
@@ -48,7 +49,8 @@ app.use(
 	login,
 	signup,
 	setAvailability,
-	getPatientCases
+	getPatientCases,
+	getDoctors
 );
 app.use("/", (req, res) => {
 	res.send("Server is Running");

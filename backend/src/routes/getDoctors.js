@@ -1,10 +1,10 @@
 import { Router } from "express";
 const router = Router();
 import dbg from "debug";
-const debug = dbg("api:getPatientCases");
-import getPatientCasesService from "../service/getPatientCasesService";
-router.get("/getPatientCases", async (req, res) => {
-	await getPatientCasesService(req.query.token)
+const debug = dbg("api:getDoctors");
+import getDoctorsService from "../service/getDoctorsService";
+router.get("/getDoctors", async (req, res) => {
+	await getDoctorsService(req.query.token)
 		.then((response) => {
 			//debug(response);
 			if (response.success) {
@@ -18,4 +18,5 @@ router.get("/getPatientCases", async (req, res) => {
 			res.status(500).send({ message: err.message });
 		});
 });
+
 export default router;

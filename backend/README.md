@@ -156,3 +156,34 @@
             "message": string
         }
         ```
+6. /api/getDoctors (GET)
+    - request
+        ```javascript
+        "query":{
+            "token":string 
+        }
+        ```
+   - response
+        ```javascript
+        {
+            "message":string, 
+            "data": {
+                "doctors":{
+                    "doctor_id": number,
+                    "first_name": string,
+                    "last_name": string,
+                    "dob": string,
+                    "gender": string,
+                    "address": string,
+                    "email": string,
+                    "phone": string
+                }
+            }
+        }
+        ```
+   - error
+        ```javascript
+        {
+            "message": string
+        }
+        ```

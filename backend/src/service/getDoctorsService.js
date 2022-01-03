@@ -1,8 +1,8 @@
 import dbg from "debug";
-const debug = dbg("service:getPatientCases");
+const debug = dbg("service:getDoctorsCases");
 import checkToken from "../controllers/checkToken";
-import getPatientCases from "../data/getPatientCases";
-const getPatientCasesService = async (token) => {
+import getDoctors from "../data/getDoctors";
+const getDoctorsService = async (token) => {
 	return await checkToken(token)
 		.then((response) => {
 			if (response.success && response.data.decoded.type === "patient") {
@@ -12,11 +12,11 @@ const getPatientCasesService = async (token) => {
 			}
 		})
 		.then((decoded) => {
-			return getPatientCases(decoded.user_id);
+			return getDoctors();
 		})
 		.catch((error) => {
 			debug(error);
 			return error;
 		});
 };
-export default getPatientCasesService;
+export default getDoctorsService;
