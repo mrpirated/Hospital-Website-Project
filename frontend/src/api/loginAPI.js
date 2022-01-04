@@ -5,20 +5,14 @@ const loginAPI = async (data) => {
 	const { email, password, type } = data;
 	console.log(config.baseUrl);
 	return await axios
-		.post(
-			config.baseUrl +
-				(type === 2
-					? config.admin
-					: type === 0
-					? config.patient
-					: config.doctor) +
-				config.login,
-			{
-				email: email,
-				password: password,
-			}
-		)
+		.post(config.baseUrl + config.login, {
+			email: email,
+			password: password,
+			type: type,
+		})
 		.then((res) => {
+			return res.data;
+
 			if (res.status === 200) {
 				//console.log(res.data);
 				//return res.data;
@@ -40,6 +34,9 @@ const loginAPI = async (data) => {
 				};
 			}
 		})
-		.catch();
+		.catch((err) => {
+			console.log(err);
+			return { success: false, message: err.message };
+		});
 };
 export default loginAPI;

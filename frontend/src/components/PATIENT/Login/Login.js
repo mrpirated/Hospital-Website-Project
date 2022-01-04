@@ -5,7 +5,7 @@ import Button from "react-bootstrap/Button";
 import loginAPI from "../../../api/loginAPI";
 import { loggedIn } from "../../../store/auth";
 import { useDispatch, useSelector } from "react-redux";
-import doctorLogo from './undraw_doctors_hwty.svg'
+import doctorLogo from "./undraw_doctors_hwty.svg";
 import Navigation from "../../Navigation";
 export default function Login(props) {
 	const [email, setEmail] = useState("");
@@ -13,7 +13,7 @@ export default function Login(props) {
 	const auth = useSelector((state) => state.auth);
 	const dispatch = useDispatch();
 	const history = useHistory();
-	const [isDoctor, setIsDoctor] = useState(false);
+	const type = "patient";
 
 	function validateForm() {
 		return email.length > 0 && password.length > 0;
@@ -34,32 +34,35 @@ export default function Login(props) {
 		loginAPI({
 			email: email,
 			password: password,
-			type: 0,
+			type: type,
 		}).then((res) => {
-			if (res.reply) {
+			//console.log(res);
+			if (res.success) {
 				dispatch(
 					loggedIn({
 						user: res.data.user,
 						token: res.data.token,
-						type: res.data.type,
+						type: type,
 					})
 				);
-				if (res.data.type === 1) history.push("/doctor");
-				else history.push("/patient");
+				history.push("/patient");
 			} else {
-				alert(res.data.msg);
-				//alert(res.data);
+				alert(res.message);
 			}
 		});
 	}
 	return (
 		<div>
 			<Navigation />
-			<div id='loginform' style={{backgroundColor: "#ffffe6"}}>
-				<div id="left">
-					<img style={{ height: "120%", width: "100%", margin: "auto"}} src={doctorLogo} alt={"doctor_logo"}/>
+			<div id='loginform' style={{ backgroundColor: "#ffffe6" }}>
+				<div id='left'>
+					<img
+						style={{ height: "120%", width: "100%", margin: "auto" }}
+						src={doctorLogo}
+						alt={"doctor_logo"}
+					/>
 				</div>
-				<div id="right">
+				<div id='right'>
 					<Form onSubmit={handleSubmit}>
 						<div>
 							<h2 id='headerTitle'>Login</h2>
