@@ -26,8 +26,9 @@ CREATE TABLE `admin` (
   `admin_id` int NOT NULL AUTO_INCREMENT COMMENT 'primary key',
   `email` varchar(50) NOT NULL,
   `password` varchar(200) NOT NULL,
+  `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`admin_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -47,12 +48,14 @@ CREATE TABLE `appointment` (
   `prescription` varchar(500) DEFAULT NULL,
   `doctor_comment` varchar(500) DEFAULT NULL,
   `preferred_date` date DEFAULT NULL,
+  `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `state` varchar(10) DEFAULT 'pending',
   PRIMARY KEY (`appointment_id`),
   KEY `case_id` (`case_id`),
   KEY `fk_doctor_id` (`doctor_id`),
   CONSTRAINT `appointment_ibfk_1` FOREIGN KEY (`case_id`) REFERENCES `cases` (`case_id`),
   CONSTRAINT `fk_doctor_id` FOREIGN KEY (`doctor_id`) REFERENCES `doctor` (`doctor_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -66,10 +69,11 @@ CREATE TABLE `cases` (
   `case_id` int NOT NULL AUTO_INCREMENT,
   `patient_id` int NOT NULL,
   `case_description` varchar(300) DEFAULT NULL,
+  `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`case_id`),
   KEY `patient_id` (`patient_id`),
   CONSTRAINT `cases_ibfk_1` FOREIGN KEY (`patient_id`) REFERENCES `patient` (`patient_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -89,6 +93,8 @@ CREATE TABLE `doctor` (
   `email` varchar(50) DEFAULT NULL,
   `phone` varchar(20) DEFAULT NULL,
   `password` varchar(200) DEFAULT NULL,
+  `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `appointment_duration` int DEFAULT '30',
   PRIMARY KEY (`doctor_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -104,6 +110,7 @@ CREATE TABLE `doctor_questions` (
   `question_id` int NOT NULL AUTO_INCREMENT,
   `doctor_id` int DEFAULT NULL,
   `question` varchar(300) DEFAULT NULL,
+  `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`question_id`),
   KEY `doctor_id` (`doctor_id`),
   CONSTRAINT `doctor_questions_ibfk_1` FOREIGN KEY (`doctor_id`) REFERENCES `doctor` (`doctor_id`)
@@ -121,6 +128,7 @@ CREATE TABLE `medication` (
   `appointment_id` int DEFAULT NULL,
   `medicine_id` int DEFAULT NULL,
   `unit` int DEFAULT NULL,
+  `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   KEY `appointment_id` (`appointment_id`),
   KEY `medicine_id` (`medicine_id`),
   CONSTRAINT `medication_ibfk_1` FOREIGN KEY (`appointment_id`) REFERENCES `appointment` (`appointment_id`),
@@ -159,8 +167,9 @@ CREATE TABLE `patient` (
   `email` varchar(50) DEFAULT NULL,
   `phone` varchar(20) DEFAULT NULL,
   `password` varchar(200) DEFAULT NULL,
+  `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`patient_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -174,6 +183,7 @@ CREATE TABLE `patient_answers` (
   `question_id` int DEFAULT NULL,
   `appointment_id` int DEFAULT NULL,
   `answer` varchar(500) DEFAULT NULL,
+  `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   KEY `question_id` (`question_id`),
   KEY `appointment_id` (`appointment_id`),
   CONSTRAINT `patient_answers_ibfk_1` FOREIGN KEY (`question_id`) REFERENCES `doctor_questions` (`question_id`),
@@ -191,6 +201,7 @@ DROP TABLE IF EXISTS `qualification`;
 CREATE TABLE `qualification` (
   `doctor_id` int NOT NULL,
   `qualification` varchar(50) DEFAULT NULL,
+  `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   KEY `doctor_id` (`doctor_id`),
   CONSTRAINT `qualification_ibfk_1` FOREIGN KEY (`doctor_id`) REFERENCES `doctor` (`doctor_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -207,6 +218,7 @@ CREATE TABLE `schedule` (
   `doctor_id` int NOT NULL,
   `start_time` datetime DEFAULT NULL,
   `end_time` datetime DEFAULT NULL,
+  `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   KEY `doctor_id` (`doctor_id`),
   CONSTRAINT `schedule_ibfk_1` FOREIGN KEY (`doctor_id`) REFERENCES `doctor` (`doctor_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -221,4 +233,4 @@ CREATE TABLE `schedule` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-10-17 18:22:58
+-- Dump completed on 2022-01-04 13:10:40

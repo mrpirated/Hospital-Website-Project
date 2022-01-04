@@ -1,7 +1,7 @@
 import dbg from "debug";
 const debug = dbg("data:getSchedule");
 import connection from "../dbconn/db";
-const getSchedule = (user_id, end_time) => {
+const getSchedule = (user_id, preferred_date) => {
 	return new Promise((resolve, reject) => {
 		connection.query(
 			"SELECT \
@@ -13,7 +13,7 @@ const getSchedule = (user_id, end_time) => {
 			doctor_id = ? \
 			AND end_time > ?\
 			ORDER BY start_time",
-			[user_id, end_time],
+			[user_id, preferred_date],
 			(err, result) => {
 				if (err) {
 					debug(err);
