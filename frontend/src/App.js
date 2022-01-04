@@ -3,6 +3,7 @@ import { Route, Switch } from "react-router-dom";
 import { useHistory } from "react-router";
 import { useDispatch } from "react-redux";
 import PatientLogin from "./components/PATIENT/Login/Login";
+import DoctorLogin from "./components/DOCTOR/Login/Login";
 import AdminLogin from "./components/ADMIN/Login/Login";
 import PatientSignup from "./components/PATIENT/Signup/Signup";
 import PatientRoute from "./components/PATIENT/PatientRoute";
@@ -73,6 +74,7 @@ function App() {
 						history.push("/home");
 					}}
 				/>
+				<Route exact path='/doctor/login' component={DoctorLogin} />
 				<Route exact path='/login' component={PatientLogin} />
 				<Route exact path='/admin/login' component={AdminLogin} />
 				<Route exact path='/signup' component={PatientSignup} />
