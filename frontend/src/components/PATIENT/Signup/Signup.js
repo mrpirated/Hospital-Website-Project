@@ -21,7 +21,7 @@ function Signup(props) {
 	const [first_name, setFirstName] = useState("");
 	const [last_name, setLastName] = useState("");
 	const [dob, setDob] = useState(new Date());
-	const [gender, setGender] = useState("PreferNotToSay");
+	const [gender, setGender] = useState("Other");
 	const [address, setAddress] = useState("");
 	const [email, setEmail] = useState("");
 	const [phone, setPhone] = useState("");
@@ -31,7 +31,7 @@ function Signup(props) {
 	const [openPopup, setopenPopup] = useState(props.openPopup);
 	const handleClose = () => setopenPopup(false);
 	const handleShow = () => setopenPopup(true);
-
+	const type = "patient";
 	const history = useHistory();
 	const validateForm = () => {
 		return first_name.length > 0 && email.length > 0 && password.length > 0;
@@ -44,6 +44,7 @@ function Signup(props) {
 		if (validateForm() && password === confirmPassword) {
 			const dobSend = format(dob, "yyyy-MM-dd");
 			signupAPI({
+				type,
 				first_name,
 				last_name,
 				dob: dobSend,
@@ -53,7 +54,7 @@ function Signup(props) {
 				phone,
 				password,
 			}).then((res) => {
-				if (res.reply) {
+				if (res.success) {
 					setopenPopup(true);
 					// history.push("/home");
 				} else {
@@ -71,7 +72,8 @@ function Signup(props) {
 		// console.log("true");
 		if (validateForm() && password === confirmPassword) {
 			const dobSend = format(dob, "yyyy-MM-dd");
-			verifyAPI({
+			signupAPI({
+				type,
 				first_name,
 				last_name,
 				dob: dobSend,
@@ -80,18 +82,15 @@ function Signup(props) {
 				email,
 				phone,
 				password,
-				code,
+				otp: code,
 			}).then((res) => {
-				if (res.reply) {
-					if (res.status === 200) {
-						setopenPopup(false);
-						alert("Registered Successfully!");
-						history.push("/login");
-					} else {
-						alert("Please check your OTP and phone number.");
-					}
+				console.log(res);
+				if (res.success) {
+					setopenPopup(false);
+					alert("Registered Successfully!");
+					history.push("/login");
 				} else {
-					alert(res.data.msg);
+					alert("Please check your OTP and phone number.");
 				}
 			});
 		} else if (password !== confirmPassword) {
@@ -102,73 +101,80 @@ function Signup(props) {
 	return (
 		<div>
 			<Navigation />
-				<div id='signupform' style={{backgroundColor: "#ffffe6", marginBottom: "20px"}}>
-					<div id="right-signup">
-						<img style={{ height: "100%", width: "100%", margin: "40% auto"}} src={doctorLogo} alt={"doctor_logo"}/>
-					</div>
-					<div id="left-signup">
-						<Form onSubmit={handleSubmit} className='signup'>
-							<div>
-								<h2 id='headerTitle'>Signup</h2>
-								<div style={{ width: "100%", overflow: "hidden" }}>
-									<div className='row' style={{ width: "50%", float: "left" }}>
-										<label>First Name</label>
-										<input
-											type='text'
-											value={first_name}
-											// placeholder="Enter your First Name"
-											onChange={(e) => setFirstName(e.target.value)}
-										/>
-									</div>
-									<div className='row' style={{ float: "right", width: "50%" }}>
-										<label>Last Name</label>
-										<input
-											// placeholder="Enter your Last Name"
-											type='text'
-											value={last_name}
-											onChange={(e) => setLastName(e.target.value)}
-										/>
-									</div>
-								</div>
-								<div className='row'>
-									<label>Phone Number</label>
-									<PhoneInput
-										// placeholder="Enter phone number"
-										defaultCountry='IN'
-										value={phone}
-										style={{ width: "85%" }}
-										onChange={setPhone}
+			<div
+				id='signupform'
+				style={{ backgroundColor: "#ffffe6", marginBottom: "20px" }}
+			>
+				<div id='right-signup'>
+					<img
+						style={{ height: "100%", width: "100%", margin: "40% auto" }}
+						src={doctorLogo}
+						alt={"doctor_logo"}
+					/>
+				</div>
+				<div id='left-signup'>
+					<Form onSubmit={handleSubmit} className='signup'>
+						<div>
+							<h2 id='headerTitle'>Signup</h2>
+							<div style={{ width: "100%", overflow: "hidden" }}>
+								<div className='row' style={{ width: "50%", float: "left" }}>
+									<label>First Name</label>
+									<input
+										type='text'
+										value={first_name}
+										// placeholder="Enter your First Name"
+										onChange={(e) => setFirstName(e.target.value)}
 									/>
 								</div>
-								<div className='row'>
-									<label>Email</label>
+								<div className='row' style={{ float: "right", width: "50%" }}>
+									<label>Last Name</label>
 									<input
 										// placeholder="Enter your Last Name"
+										type='text'
+										value={last_name}
+										onChange={(e) => setLastName(e.target.value)}
+									/>
+								</div>
+							</div>
+							<div className='row'>
+								<label>Phone Number</label>
+								<PhoneInput
+									// placeholder="Enter phone number"
+									defaultCountry='IN'
+									value={phone}
+									style={{ width: "85%" }}
+									onChange={setPhone}
+								/>
+							</div>
+							<div className='row'>
+								<label>Email</label>
+								<input
+									// placeholder="Enter your Last Name"
 
-										type='email'
-										value={email}
-										onChange={(e) => setEmail(e.target.value)}
-									/>
-								</div>
-								<div className='row'>
-									<label>Password</label>
-									<input
-										// placeholder="Enter your Last Name"
-										type='password'
-										value={password}
-										onChange={(e) => setPassword(e.target.value)}
-									/>
-								</div>
-								<div className='row'>
-									<label>Confirm Password</label>
-									<input
-										// placeholder="Enter your Last Name"
-										type='password'
-										value={confirmPassword}
-										onChange={(e) => setConfirmPassword(e.target.value)}
-									/>
-								</div>
-								{/* <div className='row'>
+									type='email'
+									value={email}
+									onChange={(e) => setEmail(e.target.value)}
+								/>
+							</div>
+							<div className='row'>
+								<label>Password</label>
+								<input
+									// placeholder="Enter your Last Name"
+									type='password'
+									value={password}
+									onChange={(e) => setPassword(e.target.value)}
+								/>
+							</div>
+							<div className='row'>
+								<label>Confirm Password</label>
+								<input
+									// placeholder="Enter your Last Name"
+									type='password'
+									value={confirmPassword}
+									onChange={(e) => setConfirmPassword(e.target.value)}
+								/>
+							</div>
+							{/* <div className='row'>
 									<label>Date Of Birth</label>
 								</div>
 								<MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -205,48 +211,48 @@ function Signup(props) {
 										onChange={(e) => setAddress(e.target.value)}
 									/>
 								</div> */}
-								<div id='button' class='row'>
-									<button
-										style={{ width: "45%", fontSize: "15px" }}
-										type='submit'
-										disabled={!validateForm()}
-									>
-										Get OTP
-									</button>
-								</div>
-								<Modal show={openPopup} onHide={handleClose}>
-									<Modal.Header closeButton className='modal-header'>
-										<Modal.Body className='modal-body'>
-											<div className='row'>
-												<label style={{ color: "black", fontSize: "30px" }}>
-													Enter OTP
-												</label>
-												<input
-													type='text'
-													value={code}
-													onChange={(e) => setCode(e.target.value)}
-												/>
-											</div>
-											<div className='row'>
-												<label style={{ color: "black" }}>
-													OTP sent to phone number {phone}
-												</label>
-											</div>
-											<div id='button' class='row'>
-												<button
-													style={{ width: "45%", fontSize: "15px" }}
-													onClick={handleOTPSubmit}
-												>
-													Submit
-												</button>
-											</div>
-										</Modal.Body>
-									</Modal.Header>
-								</Modal>
-								{/* <Button block size='lg' type='submit' disabled={!validateForm()}>
+							<div id='button' class='row'>
+								<button
+									style={{ width: "45%", fontSize: "15px" }}
+									type='submit'
+									disabled={!validateForm()}
+								>
+									Get OTP
+								</button>
+							</div>
+							<Modal show={openPopup} onHide={handleClose}>
+								<Modal.Header closeButton className='modal-header'>
+									<Modal.Body className='modal-body'>
+										<div className='row'>
+											<label style={{ color: "black", fontSize: "30px" }}>
+												Enter OTP
+											</label>
+											<input
+												type='text'
+												value={code}
+												onChange={(e) => setCode(e.target.value)}
+											/>
+										</div>
+										<div className='row'>
+											<label style={{ color: "black" }}>
+												OTP sent to phone number {phone}
+											</label>
+										</div>
+										<div id='button' class='row'>
+											<button
+												style={{ width: "45%", fontSize: "15px" }}
+												onClick={handleOTPSubmit}
+											>
+												Submit
+											</button>
+										</div>
+									</Modal.Body>
+								</Modal.Header>
+							</Modal>
+							{/* <Button block size='lg' type='submit' disabled={!validateForm()}>
 									Submit
 								</Button> */}
-							</div>
+						</div>
 					</Form>
 				</div>
 			</div>

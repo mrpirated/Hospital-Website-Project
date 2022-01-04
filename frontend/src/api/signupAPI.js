@@ -4,6 +4,7 @@ import config from "../config/config";
 
 const signupAPI = async (data) => {
 	const {
+		type,
 		first_name,
 		last_name,
 		dob,
@@ -12,9 +13,11 @@ const signupAPI = async (data) => {
 		email,
 		phone,
 		password,
+		otp,
 	} = data;
 	return await axios
-		.post(config.baseUrl + config.patient + config.signup, {
+		.post(config.baseUrl + config.signup, {
+			type,
 			first_name,
 			last_name,
 			dob,
@@ -23,26 +26,28 @@ const signupAPI = async (data) => {
 			email,
 			phone,
 			password,
+			otp,
 		})
 		.then((res) => {
-			if (res.status === 200) {
-				//return loginAPI({ email, password });
-				return {
-					reply: true,
-				};
-			} else if (res.status === 210) {
-				console.log(res.data.msg);
-				return {
-					reply: false,
-					data: res.data,
-				};
-			} else {
-				console.log(res.data.msg);
-				return {
-					reply: false,
-					data: res.data,
-				};
-			}
+			return res.data;
+			// if (res.status === 200) {
+			// 	//return loginAPI({ email, password });
+			// 	return {
+			// 		reply: true,
+			// 	};
+			// } else if (res.status === 210) {
+			// 	console.log(res.data.msg);
+			// 	return {
+			// 		reply: false,
+			// 		data: res.data,
+			// 	};
+			// } else {
+			// 	console.log(res.data.msg);
+			// 	return {
+			// 		reply: false,
+			// 		data: res.data,
+			// 	};
+			// }
 		})
 		.catch((err) => {
 			console.log("Error Occured in Signup:" + err);

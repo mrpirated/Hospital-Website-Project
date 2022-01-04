@@ -6,7 +6,7 @@ import addNewUser from "../data/addNewUser";
 import twilioOTP from "../controllers/twilioOTP";
 import loginService from "./loginService";
 const signupService = async (user) => {
-	//debug(user);
+	debug(user);
 	if (user.otp == undefined) {
 		return await checkIfUserExists(user)
 			.then((response) => {
@@ -45,6 +45,7 @@ const signupService = async (user) => {
 				return twilioOTP(user);
 			})
 			.then((response) => {
+				debug(response);
 				user.password = hashPassword(user.password);
 				if (response == "approved") {
 					return user;

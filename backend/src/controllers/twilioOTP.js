@@ -6,6 +6,7 @@ const client = require("twilio")(
 	process.env.TWILIO_AUTH_TOKEN
 );
 const twilioOTP = async (user) => {
+	debug(user);
 	if (user.otp == undefined) {
 		return client.verify
 			.services(config.TWILIO_SERVICE_ID)
@@ -18,7 +19,10 @@ const twilioOTP = async (user) => {
 					data,
 				});
 			})
-			.catch((err) => Promise.reject({ success: false, message: err }));
+			.catch((err) => {
+				debug(err);
+				Promise.reject({ success: false, message: err });
+			});
 	} else {
 		return client.verify
 			.services(config.TWILIO_SERVICE_ID)
@@ -26,7 +30,10 @@ const twilioOTP = async (user) => {
 			.then((data) => {
 				return Promise.resolve(data.status);
 			})
-			.catch((err) => Promise.reject({ success: false, message: err }));
+			.catch((err) => {
+				debug(err);
+				Promise.reject({ success: false, message: err });
+			});
 	}
 };
 export default twilioOTP;

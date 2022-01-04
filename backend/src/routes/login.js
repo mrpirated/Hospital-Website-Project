@@ -22,19 +22,11 @@ router.post(
 		}
 		await loginService(req.body)
 			.then((response) => {
-				//debug(response);
-				if (response.success) {
-					res.send({
-						messsage: response.message,
-						data: response.data,
-					});
-				} else {
-					res.status(403).send({ message: response.message });
-				}
+				res.send(response);
 			})
 			.catch((err) => {
 				debug(err);
-				res.status(500).send({ message: err.message });
+				res.status(500).send({ message: err.msg });
 			});
 	}
 );
