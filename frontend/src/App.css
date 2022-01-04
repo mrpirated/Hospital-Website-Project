@@ -5,16 +5,18 @@
 	--color3: #b42b51;
 	--color4: #e63e6d;
 
-	--bgColor1: rgb(180, 232, 233);
-	--bgColor2: rgb(134, 233, 235);
-	--bgColor3: rgb(123, 228, 241);
+	--bgColor1: #FFCE45;
+	/* --bgColor1: rgb(180, 232, 233); */
+	--bgColor2: #D98C00;
+	--bgColor3: #420516;
 	--bgColor4: rgb(99, 226, 243);
 	--bgColor5: rgb(164, 231, 240);
-	--bgColor6: rgba(34, 193, 195, 0.7);
-	--bgColor7: rgba(187, 187, 187, 0.9);
+	--bgColor6: #420516;
+	--bgColor7: #420516;
 	--bgColor8: rgb(34, 193, 195);
 	--bgColor9: rgba(34, 193, 195, 1);
 	--bgColor10: rgba(253, 187, 45, 1);
+	--bgColor11: #ffffe6;
 
 	--boxShadow: rgba(187, 187, 187, 0.2);
 }
@@ -106,15 +108,16 @@ body {
 	font-size: 1.3rem;
 	padding-left: 1.5rem;
 	padding-bottom: 1rem;
-	box-shadow: inset -2px -2px 0px 0px var(--boxShadow);
+	box-shadow: inset -2px -2px 0px 0px  var(--bgColor1);
 	transition: box-shadow 0.2s ease-in;
+	background-color: var(--bgColor11);
 }
 .row label {
 	font-size: 18px;
 	font-weight: 100;
 }
 .row input:focus {
-	box-shadow: inset -3px -3px 0px 0px var(--bgColor6);
+	box-shadow: inset -3px -3px 0px 0px var(--bgColor2);
 	outline: none;
 }
 
@@ -137,7 +140,7 @@ body {
 .row button {
 	border-radius: 25px;
 	width: 80%;
-	height: 40px;
+	height: 45px;
 	font-size: 1.3rem;
 	color: white;
 	font-weight: 700;
@@ -171,29 +174,62 @@ html {
 	text-align: center;
 }
 #signupform {
-	max-width: 500px;
-	min-width: 300px;
-	width: 30%;
-	margin: 100px auto;
+	min-height: auto;
+	height: 830px;
+	margin: 3% auto;
+	width: 70%;
 	background-color: #ffffff;
 	border-radius: 25px;
+	border-width: 10px;
+	border-style: solid;
+	padding: 20px;
+	border-color: #420516;
+	overflow:auto;
 }
 
 #headerTitle {
 	text-align: center;
 	font-family: "open sans", sans-serif;
-	padding: 2rem 0;
+	padding: 1rem 0;
 	margin: 0;
 	font-size: 2rem;
 }
 
 #loginform {
-	max-width: 500px;
+	/* max-width: 500px;
 	min-width: 300px;
-	max-height: 700px;
-	width: 30%;
-	height: 60%;
-	margin: 100px auto;
+	width: 30%; */
+	/* max-height: 800px; */
+	min-height: auto;
+	height: 550px;
+	margin: 3% auto;
+	width: 70%;
 	background-color: #ffffff;
 	border-radius: 25px;
+	border-width: 10px;
+	border-style: solid;
+	padding: 20px;
+	border-color: #420516;
+
+	overflow:auto; 
 }
+
+#left-signup { 
+	width: 50%; 
+	float: left;
+	padding: 2%; 
+}
+#right-signup { 
+	width: 50%;
+	float:right;
+} 
+
+#left  { 
+	width: 60%; 
+	float: left;
+}
+#right { 
+	width: 40%;
+	float:right;
+	padding: 2%; 
+} 

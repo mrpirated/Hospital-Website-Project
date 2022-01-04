@@ -24,7 +24,7 @@ function Navigation(props) {
 		<>
 			<Navbar className='navbar' expand='lg'>
 				<Container>
-					<Navbar.Brand>Ayurveda</Navbar.Brand>
+					<Navbar.Brand style={{color:"#FFFFFF", fontWeight:"bold", fontSize:"2rem"}}>Ayurveda</Navbar.Brand>
 					<Navbar.Toggle aria-controls='basic-navbar-nav' />
 					<Navbar.Collapse id='basic-navbar-nav'>
 						<Nav className='me-auto'>
@@ -33,29 +33,29 @@ function Navigation(props) {
 							</Nav.Link> */}
 							{props.Navitems &&
 								props.Navitems.map((item) => (
-									<Nav.Link as={Link} to={item.url + "/" + item.path}>
+									<Nav.Link style={{color:"#FFFFFF"}} as={Link} to={item.url + "/" + item.path}>
 										{item.name}
 									</Nav.Link>
 								))}
 						</Nav>
 						<Nav className='ml-auto'>
 							{!isauth && (
-								<Nav.Link as={Link} to='login'>
+								<Nav.Link style={{color:"#FFFFFF"}} as={Link} to='login'>
 									Login
 								</Nav.Link>
 							)}
 							{!isauth && (
-								<Nav.Link as={Link} to='signup'>
+								<Nav.Link style={{color:"#FFFFFF"}} as={Link} to='signup'>
 									Signup
 								</Nav.Link>
 							)}
 							{isauth && (
-								<Nav.Link as={Link} to={account_type + "/profile"}>
+								<Nav.Link style={{color:"#FFFFFF"}} as={Link} to={account_type + "/profile"}>
 									Hello {store.getState().auth.user.first_name}
 								</Nav.Link>
 							)}
 							{isauth && (
-								<Nav.Link href='/home' onClick={logout}>
+								<Nav.Link style={{color:"#FFFFFF"}} href='/home' onClick={logout}>
 									Logout
 								</Nav.Link>
 							)}

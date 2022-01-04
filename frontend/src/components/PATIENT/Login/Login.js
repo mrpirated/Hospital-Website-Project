@@ -5,6 +5,7 @@ import Button from "react-bootstrap/Button";
 import loginAPI from "../../../api/loginAPI";
 import { loggedIn } from "../../../store/auth";
 import { useDispatch, useSelector } from "react-redux";
+import doctorLogo from './undraw_doctors_hwty.svg'
 import Navigation from "../../Navigation";
 export default function Login(props) {
 	const [email, setEmail] = useState("");
@@ -33,7 +34,7 @@ export default function Login(props) {
 		loginAPI({
 			email: email,
 			password: password,
-			type: isDoctor === true ? 1 : 0,
+			type: 0,
 		}).then((res) => {
 			if (res.reply) {
 				dispatch(
@@ -54,32 +55,20 @@ export default function Login(props) {
 	return (
 		<div>
 			<Navigation />
-			<div className='Login'>
-				<Form onSubmit={handleSubmit}>
-					<div id='loginform'>
-						<h2 id='headerTitle'>Login</h2>
+			<div id='loginform' style={{backgroundColor: "#ffffe6"}}>
+				<div id="left">
+					<img style={{ height: "120%", width: "100%", margin: "auto"}} src={doctorLogo} alt={"doctor_logo"}/>
+				</div>
+				<div id="right">
+					<Form onSubmit={handleSubmit}>
 						<div>
-							<div class='row-temp'>
-								<label>
-									<p style={{ display: "inline-grid", marginRight: "2rem" }}>
-										Are You A Registered Doctor?
-									</p>
-									<input
-										style={{ width: "1rem", height: "1rem" }}
-										type='checkbox'
-										checked={isDoctor}
-										onChange={() => {
-											setIsDoctor(!isDoctor);
-										}}
-									/>
-								</label>
-							</div>
+							<h2 id='headerTitle'>Login</h2>
 							<div class='row'>
 								<label>Email</label>
 								<input
 									autoFocus
 									type='text'
-									placeholder='Enter your email'
+									// placeholder='Enter your email'
 									value={email}
 									onChange={(e) => setEmail(e.target.value)}
 								/>
@@ -88,7 +77,7 @@ export default function Login(props) {
 								<label>Password</label>
 								<input
 									type='password'
-									placeholder='Enter your password'
+									// placeholder='Enter your password'
 									value={password}
 									onChange={(e) => setPassword(e.target.value)}
 								/>
@@ -99,8 +88,8 @@ export default function Login(props) {
 								</button>
 							</div>
 						</div>
-					</div>
-				</Form>
+					</Form>
+				</div>
 			</div>
 		</div>
 	);
