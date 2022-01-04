@@ -7,6 +7,7 @@ import { loggedIn } from "../../../store/auth";
 import "./Login.css";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
+import doctorLogo from "../../PATIENT/Login/undraw_doctors_hwty.svg";
 
 export default function Login(props) {
 	const [email, setEmail] = useState("");
@@ -55,24 +56,39 @@ export default function Login(props) {
 
 	return (
 		<div id="container">
-			<Form onSubmit={handleSubmit}>
-				<div id="loginform">
-					<h2 id="headerTitle">Login</h2>
-					<div>
-						<div class="row">
-							<label>Email</label>
-							<input type="text" placeholder="Enter your email" value={email} onChange={(e) => setEmail(e.target.value)}/>
-						</div>
-						<div class="row">
-							<label>Password</label>
-							<input type="password" placeholder="Enter your password" value={password} onChange={(e) => setPassword(e.target.value)}/>
-						</div>
-						<div id="button" class="row">
-							<button type='submit' disabled={!validateForm()}>Log in</button>
-						</div>
-					</div>
+			<div id="loginform" style={{backgroundColor: "#ffffe6"}}>
+				<div id="left">
+					<img style={{ height: "120%", width: "100%", margin: "auto"}} src={doctorLogo} alt={"doctor_logo"}/>
 				</div>
-			</Form>
+				<div id="right">
+					<Form onSubmit={handleSubmit}>
+						<h2 id="headerTitle">Login</h2>
+						<div>
+							<div class="row">
+								<label>Email</label>
+								<input 
+									type="text" 
+									// placeholder="Enter your email" 
+									value={email} 
+									onChange={(e) => setEmail(e.target.value)}
+								/>
+							</div>
+							<div class="row">
+								<label>Password</label>
+								<input 
+									type="password" 
+									// placeholder="Enter your password" 
+									value={password} 
+									onChange={(e) => setPassword(e.target.value)}
+								/>
+							</div>
+							<div id="button" class="row">
+								<button type='submit' disabled={!validateForm()}>Log in</button>
+							</div>
+						</div>
+					</Form>
+				</div>
+			</div>
 		</div>
 	);
 
