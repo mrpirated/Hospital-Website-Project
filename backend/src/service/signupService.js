@@ -17,7 +17,7 @@ const signupService = async (user) => {
 						message: "User Already Exists",
 					});
 				}
-				if (user.type === "admin") {
+				if (user.type === "admin" || user.type == "doctor") {
 					var password = hashPassword(user.password);
 					//debug(password);
 					user.password = password;
