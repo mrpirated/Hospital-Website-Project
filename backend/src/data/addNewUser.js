@@ -25,7 +25,7 @@ const addNewUser = async (user) => {
 		}
 		connection.query(
 			"INSERT INTO ?? set ?",
-			[user.type, value],
+			[user.type, values],
 			(err, result) => {
 				if (err) {
 					reject({ success: false, message: err });
