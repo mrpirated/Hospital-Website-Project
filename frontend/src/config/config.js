@@ -24,5 +24,8 @@ const config = {
 	video_token: "/api/video/token",
 	add_doctor: "/add_doctor",
 	verify: "/verify",
+	DOCTOR: "doctor",
+	PATIENT: "patient",
+	ADMIN: "ADMIN",
 };
 export default config;

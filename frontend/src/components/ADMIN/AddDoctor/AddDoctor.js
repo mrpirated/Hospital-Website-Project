@@ -2,15 +2,19 @@ import React, { useState } from "react";
 import { Form, Row, Col, Button } from "react-bootstrap";
 import { useHistory } from "react-router";
 import format from "date-fns/format";
-import DateFnsUtils from '@date-io/date-fns';
+import DateFnsUtils from "@date-io/date-fns";
 import "react-datepicker/dist/react-datepicker.css";
-import {KeyboardDatePicker , MuiPickersUtilsProvider } from '@material-ui/pickers';
+import {
+	KeyboardDatePicker,
+	MuiPickersUtilsProvider,
+} from "@material-ui/pickers";
 import addDoctorAPI from "../../../api/addDoctorAPI";
+import signupAPI from "../../../api/signupAPI";
 import { useSelector } from "react-redux";
 import PhoneInput from "react-phone-number-input";
 
 function AddDoctor() {
-    const [first_name, setFirstName] = useState("");
+	const [first_name, setFirstName] = useState("");
 	const [last_name, setLastName] = useState("");
 	const [dob, setDob] = useState(new Date());
 	const [gender, setGender] = useState("PreferNotToSay");
@@ -22,38 +26,30 @@ function AddDoctor() {
 	const [flag, setFlag] = useState(false);
 	const history = useHistory();
 	const auth = useSelector((state) => state.auth);
-	
-    const validateForm = () => {
-		return (
-			first_name.length > 0 &&
-			email.length > 0 &&
-			phone.length === 10 &&
-			password.length > 0
-		);
+	const type = "doctor";
+	const validateForm = () => {
+		return first_name.length > 0 && email.length > 0 && password.length > 0;
 	};
 
-    const handleSubmit = (event) => {
+	const handleSubmit = (event) => {
+		console.log(phone);
 		event.preventDefault();
 		if (validateForm() && password === confirmPassword) {
 			setFlag(false);
-			const dobSend = format(dob, "yyyy-MM-dd");
-			addDoctorAPI({
-				token: auth.token,
+			signupAPI({
+				type: type,
 				first_name,
 				last_name,
-				dob: dobSend,
-				gender,
-				address,
-				email,
 				phone,
+				email,
 				password,
 			}).then((res) => {
-				if(res.reply){
-                    alert("Doctor Added Successfully!");
+				console.log(res);
+				if (res.success) {
+					alert("Doctor Added Successfully!");
 					history.push("/home");
-				}
-				else{
-					alert(res.data.msg);
+				} else {
+					alert(res.data.message);
 				}
 			});
 		} else if (password !== confirmPassword) {
@@ -61,69 +57,72 @@ function AddDoctor() {
 		}
 	};
 
-    return (
-			<div className='addDoctorForm' style={{ backgroundColor: "#ffffe6", paddingBottom: "20px" }}>
-				<Form onSubmit={handleSubmit}>
-					<div>
-						<h2 id='headerTitle'>Enter Details of Doctor</h2>
-						<div style={{ width: "100%", overflow: "hidden" }}>
-							<div className='row' style={{ width: "50%", float: "left" }}>
-								<label>First Name</label>
-								<input
-									type='text'
-									value={first_name}
-									// placeholder="Enter your First Name"
-									onChange={(e) => setFirstName(e.target.value)}
-								/>
-							</div>
-							<div className='row' style={{ float: "right", width: "50%" }}>
-								<label>Last Name</label>
-								<input
-									// placeholder="Enter your Last Name"
-									type='text'
-									value={last_name}
-									onChange={(e) => setLastName(e.target.value)}
-								/>
-							</div>
-						</div>
-						<div className='row'>
-								<label>Phone Number</label>
-								<PhoneInput
-									// placeholder="Enter phone number"
-									defaultCountry='IN'
-									value={phone}
-									style={{ width: "85%" }}
-									onChange={setPhone}
-								/>
-							</div>
-						<div className='row'>
-							<label>Email</label>
+	return (
+		<div
+			className='addDoctorForm'
+			style={{ backgroundColor: "#ffffe6", paddingBottom: "20px" }}
+		>
+			<Form onSubmit={handleSubmit}>
+				<div>
+					<h2 id='headerTitle'>Enter Details of Doctor</h2>
+					<div style={{ width: "100%", overflow: "hidden" }}>
+						<div className='row' style={{ width: "50%", float: "left" }}>
+							<label>First Name</label>
 							<input
-								// placeholder="Enter your Last Name"
-								type='email'
-								value={email}
-								onChange={(e) => setEmail(e.target.value)}
+								type='text'
+								value={first_name}
+								// placeholder="Enter your First Name"
+								onChange={(e) => setFirstName(e.target.value)}
 							/>
 						</div>
-						<div className='row'>
-							<label>Password</label>
+						<div className='row' style={{ float: "right", width: "50%" }}>
+							<label>Last Name</label>
 							<input
 								// placeholder="Enter your Last Name"
-								type='password'
-								value={password}
-								onChange={(e) => setPassword(e.target.value)}
+								type='text'
+								value={last_name}
+								onChange={(e) => setLastName(e.target.value)}
 							/>
 						</div>
-						<div className='row'>
-							<label>Confirm Password</label>
-							<input
-								// placeholder="Enter your Last Name"
-								type='password'
-								value={confirmPassword}
-								onChange={(e) => setConfirmPassword(e.target.value)}
-							/>
-						</div>
-						{/* <Form.Group size='lg'>
+					</div>
+					<div className='row'>
+						<label>Phone Number</label>
+						<PhoneInput
+							// placeholder="Enter phone number"
+							defaultCountry='IN'
+							value={phone}
+							style={{ width: "85%" }}
+							onChange={setPhone}
+						/>
+					</div>
+					<div className='row'>
+						<label>Email</label>
+						<input
+							// placeholder="Enter your Last Name"
+							type='email'
+							value={email}
+							onChange={(e) => setEmail(e.target.value)}
+						/>
+					</div>
+					<div className='row'>
+						<label>Password</label>
+						<input
+							// placeholder="Enter your Last Name"
+							type='password'
+							value={password}
+							onChange={(e) => setPassword(e.target.value)}
+						/>
+					</div>
+					<div className='row'>
+						<label>Confirm Password</label>
+						<input
+							// placeholder="Enter your Last Name"
+							type='password'
+							value={confirmPassword}
+							onChange={(e) => setConfirmPassword(e.target.value)}
+						/>
+					</div>
+					{/* <Form.Group size='lg'>
 							<Form.Label>Date Of Birth</Form.Label>
 							<MuiPickersUtilsProvider utils={DateFnsUtils}>
 								<KeyboardDatePicker
@@ -167,19 +166,15 @@ function AddDoctor() {
 								onChange={(e) => setPhone(e.target.value)}
 							/>
 						</Form.Group> */}
-						<div id='button' class='row'>
-							<button
-								style={{ width: "45%", fontSize: "15px" }}
-								type='submit'
-								disabled={!validateForm()}
-							>
-								Submit
-							</button>
-						</div>
+					<div id='button' class='row'>
+						<button style={{ width: "45%", fontSize: "15px" }} type='submit'>
+							Submit
+						</button>
 					</div>
-				</Form>
-			</div>
-    )
+				</div>
+			</Form>
+		</div>
+	);
 }
 
 export default AddDoctor;

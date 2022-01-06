@@ -15,7 +15,7 @@ export default function PatientRoute() {
 	const history = useHistory();
 	//console.log(isauth);
 	useEffect(() => {
-		if (!(isauth && type === 1)) {
+		if (!(isauth && type === "doctor")) {
 			history.push("/home");
 		}
 	});

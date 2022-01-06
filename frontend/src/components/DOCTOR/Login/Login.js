@@ -5,26 +5,27 @@ import Button from "react-bootstrap/Button";
 import loginAPI from "../../../api/loginAPI";
 import { loggedIn } from "../../../store/auth";
 import { useDispatch, useSelector } from "react-redux";
-import doctorLogo from '../../PATIENT/Login/undraw_medicine_b-1-ol.svg';
+import doctorLogo from "../../PATIENT/Login/undraw_medicine_b-1-ol.svg";
 import Navigation from "../../Navigation";
+
 export default function Login(props) {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const auth = useSelector((state) => state.auth);
 	const dispatch = useDispatch();
 	const history = useHistory();
-	const [isDoctor, setIsDoctor] = useState(false);
+	const type = "doctor";
 
 	function validateForm() {
 		return email.length > 0 && password.length > 0;
 	}
 	useEffect(() => {
 		if (auth.isauth) {
-			if (auth.type === 0) {
+			if (auth.type === "patient") {
 				history.push("/patient");
-			} else if (auth.type === 1) {
+			} else if (auth.type === "doctor") {
 				history.push("/doctor");
-			} else if (auth.type === 2) {
+			} else if (auth.type === "admin") {
 				history.push("/admin");
 			}
 		}
@@ -34,20 +35,20 @@ export default function Login(props) {
 		loginAPI({
 			email: email,
 			password: password,
-			type: 1,
+			type: type,
 		}).then((res) => {
-			if (res.reply) {
+			if (res.success) {
 				dispatch(
 					loggedIn({
 						user: res.data.user,
 						token: res.data.token,
-						type: res.data.type,
+						type: type,
 					})
 				);
-				if (res.data.type === 1) history.push("/doctor");
+				if (res.data.type === "doctor") history.push("/doctor");
 				else history.push("/patient");
 			} else {
-				alert(res.data.msg);
+				alert(res.data.message);
 				//alert(res.data);
 			}
 		});
@@ -55,11 +56,15 @@ export default function Login(props) {
 	return (
 		<div>
 			<Navigation />
-			<div id='loginform' style={{backgroundColor: "#ffffe6"}}>
-				<div id="left">
-					<img style={{ height: "120%", width: "100%", margin: "auto"}} src={doctorLogo} alt={"doctor_logo"}/>
+			<div id='loginform' style={{ backgroundColor: "#ffffe6" }}>
+				<div id='left'>
+					<img
+						style={{ height: "120%", width: "100%", margin: "auto" }}
+						src={doctorLogo}
+						alt={"doctor_logo"}
+					/>
 				</div>
-				<div id="right">
+				<div id='right'>
 					<Form onSubmit={handleSubmit}>
 						<div>
 							<h2 id='headerTitle'>Login</h2>

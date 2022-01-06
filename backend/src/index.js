@@ -11,6 +11,7 @@ import getPatientCases from "./routes/getPatientCases";
 import getDoctors from "./routes/getDoctors";
 import newAppointment from "./routes/newAppointment";
 import newCase from "./routes/newCase";
+import addSpecialization from "./routes/addSpecialization";
 import fs from "fs";
 import path from "path";
 import https from "https";
@@ -54,7 +55,8 @@ app.use(
 	getPatientCases,
 	getDoctors,
 	newAppointment,
-	newCase
+	newCase,
+	addSpecialization
 );
 app.use("/", (req, res) => {
 	res.send("Server is Running");
