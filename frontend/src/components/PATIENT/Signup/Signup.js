@@ -51,6 +51,7 @@ function Signup(props) {
 				phone,
 				password,
 			}).then((res) => {
+				console.log(res);
 				if (res.success) {
 					setopenPopup(true);
 					// history.push("/home");

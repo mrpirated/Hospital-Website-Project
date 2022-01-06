@@ -26,6 +26,8 @@ body {
 }
 .navbar {
 	background-color: var(--bgColor2);
+	position: sticky;
+	top: 0;
 }
 #card {
 	width: 18rem;
