@@ -19,7 +19,7 @@ export default function AdminRoute() {
 	const { path, url } = useRouteMatch();
 	//console.log(isauth);
 	useEffect(() => {
-		if (!(isauth && type === 2)) {
+		if (!(isauth && type === "admin")) {
 			history.push("/admin/login");
 		}
 	}, []);

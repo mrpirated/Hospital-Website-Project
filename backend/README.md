@@ -15,6 +15,7 @@
    - response
         ```javascript
         {
+            "success":boolean,
             "message":string,
             "data": {
                 "token":string,
@@ -57,6 +58,7 @@
     - response
         ```javascript
         {
+            "success":boolean,
             "message":string,
             "token":string, // user will be logged in after signup
             "user":{
@@ -88,6 +90,7 @@
    - response
         ```javascript
         {
+            "success":boolean,
             "message":string,
             "data": {
                 "user":{

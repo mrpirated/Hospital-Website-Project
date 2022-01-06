@@ -24,7 +24,7 @@ const cases = async (req, res) => {
 				WHERE c.patient_id = ? \
 				GROUP BY c.case_id ORDER \
 				BY a.start_time DESC",
-				user.patient_id,
+				decodedData.user_id,
 				(err, result, fields) => {
 					if (err) {
 						return res.status(210).send({

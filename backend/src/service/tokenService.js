@@ -22,6 +22,7 @@ const tokenService = async (token) => {
 				success,
 				message,
 				data: {
+					type,
 					user: {
 						patient_id,
 						doctor_id,
@@ -39,6 +40,7 @@ const tokenService = async (token) => {
 				success,
 				message,
 				data: {
+					type,
 					user: {
 						patient_id,
 						doctor_id,

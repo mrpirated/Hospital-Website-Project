@@ -47,9 +47,6 @@ function Signup(props) {
 				type,
 				first_name,
 				last_name,
-				dob: dobSend,
-				gender,
-				address,
 				email,
 				phone,
 				password,
@@ -76,9 +73,6 @@ function Signup(props) {
 				type,
 				first_name,
 				last_name,
-				dob: dobSend,
-				gender,
-				address,
 				email,
 				phone,
 				password,
@@ -90,7 +84,7 @@ function Signup(props) {
 					alert("Registered Successfully!");
 					history.push("/login");
 				} else {
-					alert("Please check your OTP and phone number.");
+					alert(res.message);
 				}
 			});
 		} else if (password !== confirmPassword) {

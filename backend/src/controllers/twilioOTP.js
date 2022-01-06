@@ -6,7 +6,7 @@ const client = require("twilio")(
 	process.env.TWILIO_AUTH_TOKEN
 );
 const twilioOTP = async (user) => {
-	debug(user);
+	//debug(user);
 	if (user.otp == undefined) {
 		return client.verify
 			.services(config.TWILIO_SERVICE_ID)

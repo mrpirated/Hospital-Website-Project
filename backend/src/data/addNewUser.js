@@ -15,9 +15,6 @@ const addNewUser = async (user) => {
 			var value = {
 				first_name: user.first_name,
 				last_name: user.last_name,
-				dob: user.dob,
-				gender: user.gender,
-				address: user.address,
 				email: user.email,
 				phone: user.phone,
 				password: user.password,

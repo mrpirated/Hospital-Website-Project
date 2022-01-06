@@ -13,7 +13,7 @@ const getUser = (decoded) => {
 					resolve({
 						success: true,
 						message: "User Details Found",
-						data: { user: result[0] },
+						data: { user: result[0], type: decoded.type },
 					});
 				}
 			}

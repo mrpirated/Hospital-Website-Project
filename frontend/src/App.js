@@ -25,18 +25,18 @@ function App() {
 				console.log("called");
 				await tokenAPI(JSON.parse(localStorage.getItem("token"))).then(
 					(res) => {
-						if (res.type === 2) {
-							res.user = { ...res.user, first_name: "Admin" };
+						if (res.data.type === "Admin") {
+							res.data.user = { ...res.data.user, first_name: res.data.type };
 						}
 						dispatch(
 							loggedWithToken({
-								user: res.user,
+								user: res.data.user,
 								token: JSON.parse(localStorage.getItem("token")),
-								type: res.type,
+								type: res.data.type,
 							})
 						);
 						//console.log(browserHistory.);
-						if (res.type === 0) {
+						if (res.type === "patient") {
 							if (
 								sessionStorage.getItem("lastPage") &&
 								sessionStorage.getItem("lastPage").includes("/patient")
@@ -44,8 +44,8 @@ function App() {
 								console.log(sessionStorage.getItem("lastPage"));
 								history.push(sessionStorage.getItem("lastPage"));
 							} else history.push("/patient");
-						} else if (res.type === 1) history.push("/doctor");
-						else if (res.type === 2) {
+						} else if (res.type === "doctor") history.push("/doctor");
+						else if (res.type === "admin") {
 							if (
 								sessionStorage.getItem("lastPage") &&
 								sessionStorage.getItem("lastPage").includes("/admin")

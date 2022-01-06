@@ -15,13 +15,13 @@ export default function Login(props) {
 	const auth = useSelector((state) => state.auth);
 	const dispatch = useDispatch();
 	const history = useHistory();
-
+	const type = "admin";
 	function validateForm() {
 		return email.length > 0 && password.length > 0;
 	}
 	useEffect(() => {
 		if (auth.isauth) {
-			if (auth.type === 2) {
+			if (auth.type === "admin") {
 				history.push("/admin");
 			} else {
 				history.push("/home");
@@ -34,56 +34,60 @@ export default function Login(props) {
 		loginAPI({
 			email: email,
 			password: password,
-			type: 2,
+			type: type,
 		}).then((res) => {
-			if (res.reply) {
-				if (res.data.type === 2) {
-					res.data.user = { ...res.data.user, first_name: "Admin" };
-				}
+			if (res.success) {
+				res.data.user = { ...res.data.user, first_name: "Admin" };
 				dispatch(
 					loggedIn({
 						user: res.data.user,
 						token: res.data.token,
-						type: res.data.type,
+						type: type,
 					})
 				);
 				history.push("/admin");
 			} else {
-				alert(res.data.msg);
+				alert(res.message);
 			}
 		});
 	}
 
 	return (
-		<div id="container">
-			<div id="loginform" style={{backgroundColor: "#ffffe6"}}>
-				<div id="left">
-					<img style={{ height: "120%", width: "100%", margin: "auto"}} src={doctorLogo} alt={"doctor_logo"}/>
+		<div id='container'>
+			<div id='loginform' style={{ backgroundColor: "#ffffe6" }}>
+				<div id='left'>
+					<img
+						style={{ height: "120%", width: "100%", margin: "auto" }}
+						src={doctorLogo}
+						alt={"doctor_logo"}
+					/>
 				</div>
-				<div id="right">
+				<div id='right'>
 					<Form onSubmit={handleSubmit}>
-						<h2 id="headerTitle">Login</h2>
+						<h2 id='headerTitle'>Login</h2>
 						<div>
-							<div class="row">
+							<div class='row'>
 								<label>Email</label>
-								<input 
-									type="text" 
-									// placeholder="Enter your email" 
-									value={email} 
+								<input
+									type='text'
+									// placeholder="Enter your email"
+									value={email}
 									onChange={(e) => setEmail(e.target.value)}
 								/>
 							</div>
-							<div class="row">
+							<div class='row'>
 								<label>Password</label>
-								<input 
-									type="password" 
-									// placeholder="Enter your password" 
-									value={password} 
+								<input
+									type='password'
+									// placeholder="Enter your password"
+									value={password}
 									onChange={(e) => setPassword(e.target.value)}
 								/>
 							</div>
-							<div id="button" class="row">
-								<button type='submit' disabled={!validateForm()}>Log in</button>
+							<div id='button' class='row'>
+								<button type='submit' disabled={!validateForm()}>
+									Log in
+								</button>
 							</div>
 						</div>
 					</Form>

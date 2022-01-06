@@ -8,11 +8,11 @@ function Home() {
 
 	useEffect(() => {
 		if (auth.isauth) {
-			if (auth.type === 0) {
+			if (auth.type === "patient") {
 				history.push("/patient");
-			} else if (auth.type === 1) {
+			} else if (auth.type === "doctor") {
 				history.push("/doctor");
-			} else if (auth.type === 2) {
+			} else if (auth.type === "admin") {
 				history.push("/admin");
 			}
 		}

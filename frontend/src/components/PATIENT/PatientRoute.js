@@ -20,7 +20,7 @@ export default function PatientRoute() {
 	//const { path, url } = useRouteMatch();
 
 	useEffect(() => {
-		if (!(isauth && type === 0)) {
+		if (!(isauth && type === "patient")) {
 			history.push("/home");
 		}
 	});

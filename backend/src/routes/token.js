@@ -12,11 +12,7 @@ router.post("/token", async (req, res) => {
 	await tokenService(token)
 		.then((response) => {
 			debug(response);
-			if (response.success) {
-				res.send({ message: response.message, data: response.data });
-			} else {
-				res.status(401).send({ message: response.message });
-			}
+			res.send(response);
 		})
 		.catch((err) => {
 			debug(err);
