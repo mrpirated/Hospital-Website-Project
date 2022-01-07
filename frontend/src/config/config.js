@@ -26,6 +26,6 @@ const config = {
 	verify: "/verify",
 	DOCTOR: "doctor",
 	PATIENT: "patient",
-	ADMIN: "ADMIN",
+	ADMIN: "admin",
 };
 export default config;
