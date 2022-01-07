@@ -7,11 +7,7 @@ router.get("/getDoctors", async (req, res) => {
 	await getDoctorsService(req.query.token)
 		.then((response) => {
 			//debug(response);
-			if (response.success) {
-				res.send({ message: response.message, data: response.data });
-			} else {
-				res.status(400).send({ message: response.message });
-			}
+			res.send(response);
 		})
 		.catch((err) => {
 			debug(err);
