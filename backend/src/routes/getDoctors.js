@@ -4,7 +4,7 @@ import dbg from "debug";
 const debug = dbg("api:getDoctors");
 import getDoctorsService from "../service/getDoctorsService";
 router.get("/getDoctors", async (req, res) => {
-	await getDoctorsService(req.query.token)
+	await getDoctorsService(req.body.token)
 		.then((response) => {
 			//debug(response);
 			res.send(response);
