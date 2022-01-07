@@ -4,7 +4,7 @@ import checkToken from "../controllers/checkToken";
 import getSchedule from "../data/getSchedule";
 import getFutureAppointments from "../data/getFutureAppointments";
 import getDoctorDuration from "../data/getDoctorDuration";
-import getAvailableTime from "../controllers/getAppointmentTime";
+import getAppointmentTime from "../controllers/getAppointmentTime";
 import setAppointment from "../data/setAppointment";
 
 const newAppointmentService = async ({
@@ -16,6 +16,10 @@ const newAppointmentService = async ({
 	var schedule;
 	var appointment;
 	var duration;
+	var pd = preferred_date;
+	if (pd == null || new Date(pd) < new Date()) {
+		pd = new Date().toISOString();
+	}
 	return await checkToken(token)
 		.then((response) => {
 			if (response.success && response.data.decoded.type === "patient") {
@@ -27,10 +31,6 @@ const newAppointmentService = async ({
 			}
 		})
 		.then((response) => {
-			var pd = preferred_date;
-			if (new Date(pd) < new Date()) {
-				pd = new Date().toISOString();
-			}
 			debug(pd);
 			return getSchedule(doctor_id, pd);
 		})
@@ -38,7 +38,7 @@ const newAppointmentService = async ({
 			//debug(response);
 			schedule = response.data.schedule;
 			debug(schedule);
-			return getFutureAppointments(doctor_id, preferred_date);
+			return getFutureAppointments(doctor_id, pd);
 		})
 		.then((response) => {
 			appointment = response.data.appointment;
@@ -48,7 +48,7 @@ const newAppointmentService = async ({
 		.then((response) => {
 			//debug(response);
 			duration = response.data.duration;
-			return getAvailableTime(schedule, appointment, duration * 60 * 1000);
+			return getAppointmentTime(schedule, appointment, duration * 60 * 1000);
 		})
 		.then((response) => {
 			return setAppointment(case_id, preferred_date, doctor_id, response);

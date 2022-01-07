@@ -275,7 +275,7 @@
             "token":string
         }
         ```
-   - response
+    - response
         ```javascript
         {
             "success":boolean,
@@ -288,7 +288,7 @@
             }
         }
         ```
-   - error
+    - error
         ```javascript
         {
             "success":boolean,
