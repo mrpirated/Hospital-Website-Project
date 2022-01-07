@@ -42,7 +42,7 @@ function LoginComponent(props) {
     }
 
     return (
-        <div id='loginform' style={{ backgroundColor: "#ffffe6" }}>
+        <div id='loginform' style={{ backgroundColor: "#D3E0EA" }}>
 				<div id='left'>
 					<img
 						style={{ height: "120%", width: "100%", margin: "auto" }}

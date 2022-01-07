@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react";
 import getDoctorDetailsAPI from "../../../api/getDoctorDetailsAPI";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router";
-import { Card, ListGroup, ListGroupItem, Image } from "react-bootstrap";
+import { Card, ListGroup, ListGroupItem, Image, DropdownButton, Dropdown } from "react-bootstrap";
 import { requirePropFactory } from "@material-ui/core";
 import doctor_image from "./doctor.jpg";
+import "./Doctors.css";
 
 function Doctors() {
 	const auth = useSelector((state) => state.auth);
@@ -27,6 +28,25 @@ function Doctors() {
 
 	return (
 		<div>
+			<div className="search-container">
+				<div className="findDoctorDiv">
+					<h2 className="findDoctorHeader" style={{color: "white"}}>Find a Doctor</h2>
+					<p className="findDoctorParagraph">Find the perfect specialist from our list of excellent doctors.</p>
+					<select className="findDoctorDropdown" name="cars" id="cars">
+						<option value="volvo">Volvo</option>
+						<option value="saab">Saab</option>
+						<option value="mercedes">Mercedes</option>
+						<option value="audi">Audi</option>
+					</select>
+					<div style={{display: "flex", marginTop: "2%"}}>
+						<span className="fa-search-icon">
+							<i className="fa fa-search"/>
+						</span>
+						<input className="search-box" type="search" placeholder="Search by name" id="search_doctor" name="search_doctor"></input>
+					</div>
+				</div>
+			</div>
+			<div>
 			{doctorDetails.map((d) => (
 				<div id='card'>
 					<Card
@@ -87,6 +107,7 @@ function Doctors() {
 					</Card>
 				</div>
 			))}
+		</div>
 		</div>
 	);
 }
