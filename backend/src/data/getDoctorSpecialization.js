@@ -18,7 +18,11 @@ const helper = (doctor_id) => {
 				if (err) {
 					reject({ success: false, message: err });
 				} else {
-					resolve({ success: true, data: { specialization: result } });
+					var specialization = [];
+					result.forEach((spec) => {
+						specialization.push(spec.name);
+					});
+					resolve({ success: true, data: { specialization } });
 				}
 			}
 		);
@@ -31,18 +35,22 @@ const getDoctorSpecialization = (doctor) => {
 			var doctor_id = doc.doctor_id;
 			alldocs.push(helper(doctor_id));
 		});
-		Promise.all(alldocs).then((response) => {
-			//debug(response);
-			var n = response.length;
-			for (var i = 0; i < n; i++) {
-				doctor[i].specialization = response[i].data.specialization;
-			}
-			resolve({
-				success: true,
-				message: "Doctors Returned Successfully",
-				data: { doctor: doctor },
+		Promise.all(alldocs)
+			.then((response) => {
+				//debug(response);
+				var n = response.length;
+				for (var i = 0; i < n; i++) {
+					doctor[i].specialization = response[i].data.specialization;
+				}
+				resolve({
+					success: true,
+					message: "Doctors Returned Successfully",
+					data: { doctor: doctor },
+				});
+			})
+			.catch((err) => {
+				reject({ success: false, message: err });
 			});
-		});
 	});
 };
 export default getDoctorSpecialization;
