@@ -11,7 +11,7 @@ router.post("/token", async (req, res) => {
 	const token = req.body.token;
 	await tokenService(token)
 		.then((response) => {
-			debug(response);
+			//debug(response);
 			res.send(response);
 		})
 		.catch((err) => {

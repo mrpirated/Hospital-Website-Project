@@ -6,7 +6,8 @@ import newAppointmentService from "../service/newAppointmentService";
 router.post("/newAppointment", async (req, res) => {
 	await newAppointmentService(req.body)
 		.then((response) => {
-			debug(response);
+			//debug(response);
+			res.send(response);
 		})
 		.catch((err) => {
 			debug(err);

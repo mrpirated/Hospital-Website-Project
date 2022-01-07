@@ -210,3 +210,23 @@
             "message": string
         }
         ```
+8. /api/addSpecialization (POST)
+   - request
+        ```javascript
+        "body":{
+            "token":string,
+            "specialization":string
+        }
+        ```
+   - response
+        ```javascript
+        {
+            "message":string, 
+        }
+        ```
+   - error
+        ```javascript
+        {
+            "message": string
+        }
+        ```

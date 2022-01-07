@@ -3,6 +3,10 @@ const debug = dbg("service:newAppointment");
 import checkToken from "../controllers/checkToken";
 import getSchedule from "../data/getSchedule";
 import getFutureAppointments from "../data/getFutureAppointments";
+import getDoctorDuration from "../data/getDoctorDuration";
+import getAvailableTime from "../controllers/getAppointmentTime";
+import setAppointment from "../data/setAppointment";
+
 const newAppointmentService = async ({
 	token,
 	doctor_id,
@@ -11,6 +15,7 @@ const newAppointmentService = async ({
 }) => {
 	var schedule;
 	var appointment;
+	var duration;
 	return await checkToken(token)
 		.then((response) => {
 			if (response.success && response.data.decoded.type === "patient") {
@@ -22,11 +27,12 @@ const newAppointmentService = async ({
 			}
 		})
 		.then((response) => {
-			if (new Date(preferred_date) < new Date()) {
-				preferred_date = new Date().toISOString();
+			var pd = preferred_date;
+			if (new Date(pd) < new Date()) {
+				pd = new Date().toISOString();
 			}
-			debug(preferred_date);
-			return getSchedule(doctor_id, preferred_date);
+			debug(pd);
+			return getSchedule(doctor_id, pd);
 		})
 		.then((response) => {
 			//debug(response);
@@ -36,7 +42,16 @@ const newAppointmentService = async ({
 		})
 		.then((response) => {
 			appointment = response.data.appointment;
-			debug(appointment);
+			//debug(appointment);
+			return getDoctorDuration(doctor_id);
+		})
+		.then((response) => {
+			//debug(response);
+			duration = response.data.duration;
+			return getAvailableTime(schedule, appointment, duration * 60 * 1000);
+		})
+		.then((response) => {
+			return setAppointment(case_id, preferred_date, doctor_id, response);
 		})
 		.catch((err) => {
 			debug(err);
