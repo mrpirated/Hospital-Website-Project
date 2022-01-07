@@ -1,99 +1,31 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect} from "react";
 import { useHistory } from "react-router";
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
-import loginAPI from "../../../api/loginAPI";
-import { loggedIn } from "../../../store/auth";
-import { useDispatch, useSelector } from "react-redux";
+import {useSelector } from "react-redux";
 import doctorLogo from "./undraw_doctors_hwty.svg";
 import Navigation from "../../Navigation";
-export default function Login(props) {
-	const [email, setEmail] = useState("");
-	const [password, setPassword] = useState("");
-	const auth = useSelector((state) => state.auth);
-	const dispatch = useDispatch();
-	const history = useHistory();
-	const type = "patient";
+import LoginComponent from "../../HOME/LoginComponent";
+import config from "../../../config/config";
 
-	function validateForm() {
-		return email.length > 0 && password.length > 0;
-	}
+export default function Login(props) {
+	const auth = useSelector((state) => state.auth);
+	const history = useHistory();
+	
 	useEffect(() => {
 		if (auth.isauth) {
-			if (auth.type === 0) {
+			if (auth.type === "patient") {
 				history.push("/patient");
-			} else if (auth.type === 1) {
+			} else if (auth.type === "doctor") {
 				history.push("/doctor");
-			} else if (auth.type === 2) {
+			} else if (auth.type === "admin") {
 				history.push("/admin");
 			}
 		}
 	});
-	function handleSubmit(event) {
-		event.preventDefault();
-		loginAPI({
-			email: email,
-			password: password,
-			type: type,
-		}).then((res) => {
-			//console.log(res);
-			if (res.success) {
-				dispatch(
-					loggedIn({
-						user: res.data.user,
-						token: res.data.token,
-						type: type,
-					})
-				);
-				history.push("/patient");
-			} else {
-				alert(res.message);
-			}
-		});
-	}
+	
 	return (
 		<div>
 			<Navigation />
-			<div id='loginform' style={{ backgroundColor: "#ffffe6" }}>
-				<div id='left'>
-					<img
-						style={{ height: "120%", width: "100%", margin: "auto" }}
-						src={doctorLogo}
-						alt={"doctor_logo"}
-					/>
-				</div>
-				<div id='right'>
-					<Form onSubmit={handleSubmit}>
-						<div>
-							<h2 id='headerTitle'>Login</h2>
-							<div class='row'>
-								<label>Email</label>
-								<input
-									autoFocus
-									type='text'
-									// placeholder='Enter your email'
-									value={email}
-									onChange={(e) => setEmail(e.target.value)}
-								/>
-							</div>
-							<div class='row'>
-								<label>Password</label>
-								<input
-									type='password'
-									// placeholder='Enter your password'
-									value={password}
-									onChange={(e) => setPassword(e.target.value)}
-								/>
-							</div>
-							<div id='button' class='row'>
-								<button type='submit' disabled={!validateForm()}>
-									Log in
-								</button>
-							</div>
-						</div>
-					</Form>
-				</div>
-			</div>
+			<LoginComponent type={config.PATIENT} doctorLogo={doctorLogo}/>
 		</div>
 	);
 }
