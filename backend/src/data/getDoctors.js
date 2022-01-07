@@ -14,7 +14,7 @@ const getDoctors = () => {
 					resolve({
 						success: true,
 						message: "Doctors Found Successfully",
-						data: { doctors: result },
+						data: { doctor: result },
 					});
 				}
 			}

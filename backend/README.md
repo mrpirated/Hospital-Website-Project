@@ -36,6 +36,7 @@
    - error
         ```javascript
         {
+            "success":boolean,
             "message": string
         }
         ```
@@ -77,6 +78,7 @@
     - error
         ```javascript
         {
+            "success":boolean,
             "message": string
         }
         ```
@@ -110,6 +112,7 @@
    - error
         ```javascript
         {
+            "success":boolean,
             "message": string
         }
         ```
@@ -125,25 +128,28 @@
    - response
         ```javascript
         {
+            "success":boolean,
             "message":string, 
         }
         ```
    - error
         ```javascript
         {
+            "success":boolean,
             "message": string
         }
         ```
 5. /api/getPatientCases (GET)
    - request
         ```javascript
-        "query":{
+        "body":{
             "token":string 
         }
         ```
    - response
         ```javascript
         {
+            "success":boolean,
             "message":string, 
             "data": {
                 "cases":{
@@ -156,19 +162,21 @@
    - error
         ```javascript
         {
+            "success":boolean,
             "message": string
         }
         ```
 6. /api/getDoctors (GET)
     - request
         ```javascript
-        "query":{
+        "body":{
             "token":string 
         }
         ```
    - response
         ```javascript
         {
+            "success":boolean,
             "message":string, 
             "data": {
                 "doctors":{
@@ -179,7 +187,8 @@
                     "gender": string,
                     "address": string,
                     "email": string,
-                    "phone": string
+                    "phone": string,
+                    "specialization":[string]
                 }
             }
         }
@@ -187,6 +196,7 @@
    - error
         ```javascript
         {
+            "success":boolean,
             "message": string
         }
         ```
@@ -201,12 +211,14 @@
    - response
         ```javascript
         {
+            "success":boolean,
             "message":string, 
         }
         ```
    - error
         ```javascript
         {
+            "success":boolean,
             "message": string
         }
         ```
@@ -221,12 +233,65 @@
    - response
         ```javascript
         {
+            "success":boolean,
             "message":string, 
         }
         ```
    - error
         ```javascript
         {
+            "success":boolean,
+            "message": string
+        }
+        ```
+9. /api/newAppointment (POST)
+    - request
+        ```javascript
+        "body":{
+            "token":string,
+            "doctor_id":number,
+            "preferred_date":string,
+            "case_id":int
+        }
+        ```
+   - response
+        ```javascript
+        {
+            "success":boolean,
+            "message":string, 
+        }
+        ```
+   - error
+        ```javascript
+        {
+            "success":boolean,
+            "message": string
+        }
+        ```
+10. /api/getSpecialization (GET)
+    - request
+        ```javascript
+        "body":{
+            "token":string
+        }
+        ```
+   - response
+        ```javascript
+        {
+            "success":boolean,
+            "message":string, 
+            "data":{
+                "specializaion":[{
+                    "specialization_id":number,
+                    "name":string
+                }]
+            }
+        }
+        ```
+   - error
+        ```javascript
+        {
+            "success":boolean,
             "message": string
         }
         ```

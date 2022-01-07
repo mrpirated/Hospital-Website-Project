@@ -35,6 +35,7 @@ const setAvailabilityService = async ({ token, start_time, end_time }) => {
 		})
 		.then((response) => {
 			//debug(user_id);
+
 			debug(response.data);
 			return setAvailability(user_id, response.data);
 		})

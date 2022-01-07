@@ -8,11 +8,7 @@ router.post("/setAvailability", async (req, res) => {
 	await setAvailabilityService(req.body)
 		.then((response) => {
 			debug(response);
-			if (response.success) {
-				res.send({ message: "Availability set successfully" });
-			} else {
-				res.status(400).send({ message: response.message });
-			}
+			res.send(response);
 		})
 		.catch((err) => {
 			debug(err);
