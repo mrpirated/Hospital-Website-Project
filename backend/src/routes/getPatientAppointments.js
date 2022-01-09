@@ -1,10 +1,10 @@
 import { Router } from "express";
 const router = Router();
 import dbg from "debug";
-const debug = dbg("api:getPatientCases");
-import getPatientCasesService from "../service/getPatientCasesService";
-router.get("/getPatientCases", async (req, res) => {
-	await getPatientCasesService(req.query.token)
+const debug = dbg("api:getPatientAppointments");
+import getPatientAppointmentsService from "../service/getPatientAppointmentsService";
+router.get("/getPatientAppointments", async (req, res) => {
+	await getPatientAppointmentsService(req.query)
 		.then((response) => {
 			//debug(response);
 			res.send(response);

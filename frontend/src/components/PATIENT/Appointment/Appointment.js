@@ -17,14 +17,15 @@ export default function Appointment(props) {
 		// 	history.push("/home");
 		// }
 		const patientFunc = async () => {
-			const tokenNow = auth.token ? auth.token : localStorage.getItem("token");
+			const tokenNow = auth.token;
 			//console.log(tokenNow);
 			await patientCaseAPI({
 				token: tokenNow,
 			}).then((res) => {
-				if (res.reply) {
+				console.log(res);
+				if (res.success) {
 					//console.log(res.cases);
-					setCases(res.cases);
+					setCases(res.data.cases);
 				} else {
 					// alert(res.data.msg + "\nYou will be redirected to Home.");
 					setTimeout(history.push("/patient/appointment"), 0);

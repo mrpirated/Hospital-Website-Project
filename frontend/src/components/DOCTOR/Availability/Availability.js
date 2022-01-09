@@ -35,8 +35,8 @@ function Availability() {
 				moment(end_time).format("hh:mm") +
 				":00",
 		}).then((res) => {
-			if (res.reply) {
-				alert("Availability is Set Successfully!");
+			if (res.success) {
+				alert(res.message);
 			} else {
 				alert(res.data.msg);
 			}

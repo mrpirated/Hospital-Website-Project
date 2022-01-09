@@ -24,8 +24,10 @@ export default function MyAppointment(props) {
 				token: auth.token,
 				case_id: case_details.case_id,
 			}).then((res) => {
-				if (res.reply) {
-					setAppointments(res.appointments);
+				console.log(res);
+				if (res.success) {
+					console.log(res.data.appointments);
+					setAppointments(res.data.appointments);
 				} else {
 					//alert(res.data.msg + "\nYou will be redirected to Home.");
 					setTimeout(history.push("/home"), 4000);
@@ -34,7 +36,6 @@ export default function MyAppointment(props) {
 		};
 
 		fetchData();
-		console.log(appointments);
 	}, []);
 	const onSelectAppointment = async (app) => {
 		setselectedAP(app);

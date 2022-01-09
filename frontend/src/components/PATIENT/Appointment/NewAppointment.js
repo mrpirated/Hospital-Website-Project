@@ -2,14 +2,24 @@ import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
-import { Form, Button, Row, Col, DropdownButton, Dropdown} from "react-bootstrap";
+import {
+	Form,
+	Button,
+	Row,
+	Col,
+	DropdownButton,
+	Dropdown,
+} from "react-bootstrap";
 import "./NewCase.css";
 import "react-datepicker/dist/react-datepicker.css";
 import TimePicker from "react-time-picker";
 import format from "date-fns/format";
 import newAppointmentAPI from "../../../api/newAppointmentAPI";
-import DateFnsUtils from '@date-io/date-fns';
-import {KeyboardDatePicker , MuiPickersUtilsProvider } from '@material-ui/pickers';
+import DateFnsUtils from "@date-io/date-fns";
+import {
+	KeyboardDatePicker,
+	MuiPickersUtilsProvider,
+} from "@material-ui/pickers";
 import getDoctorDetailsAPI from "../../../api/getDoctorDetailsAPI";
 
 export default function NewAppointment(props) {
@@ -35,7 +45,7 @@ export default function NewAppointment(props) {
 		}
 
 		getDoctorDetailsAPI({
-			token: auth.token
+			token: auth.token,
 		}).then((res) => {
 			if (res.reply) {
 				console.log(res.doctors);
@@ -44,14 +54,8 @@ export default function NewAppointment(props) {
 				// alert(res.data.msg + "\nYou will be redirected to Home.");
 				setTimeout(history.push("/patient/appointment"), 0);
 			}
-		})
-
+		});
 	}, []);
-
-	function validateForm() {
-		return true;
-		//return email.length > 0 && password.length > 0;
-	}
 
 	function handleSubmit(event) {
 		event.preventDefault();
@@ -64,9 +68,10 @@ export default function NewAppointment(props) {
 			token: auth.token,
 			case_id: caseDetails.case_id,
 			doctor_id: doctorId,
-			preferred_date: format(dateOfAppointment, "yyyy-MM-dd")
+			preferred_date: format(dateOfAppointment, "yyyy-MM-dd"),
 		}).then((res) => {
-			if (res.reply) {
+			if (res.success) {
+				alert(res.message);
 				history.push("/patient");
 			} else {
 				alert(res.data.msg);
@@ -89,34 +94,27 @@ export default function NewAppointment(props) {
 							disabled={true}
 						/>
 					</Form.Group>
-					<Form.Group className='mb-3' controlId='exampleForm.ControlTextarea1'>
-						<Form.Label>Example textarea</Form.Label>
-						<Form.Control as='textarea' rows={3} />
-					</Form.Group>
+
 					<Form.Group className='mb-3' controlId='exampleForm.ControlTextarea1'>
 						<Form.Label>Select Doctor</Form.Label>
-						<DropdownButton 
-							variant="secondary" 
-							id="dropdown-basic-button" 
+						<DropdownButton
+							variant='secondary'
+							id='dropdown-basic-button'
 							title={selectedDoctor}
 						>
-							{
-								doctorDetails.map((dd) => {
-									return (
-										<Dropdown.Item
-												onClick={(e) => {
-													console.log(e.target.value);
-													setSelectedDoctor(dd.first_name + " " + dd.last_name);
-													setDoctorId(dd.doctor_id);
-												}}
-											>
-												<div>
-													{dd.first_name + " " + dd.last_name}
-												</div>
-											</Dropdown.Item>
-									);
-								})
-							}
+							{doctorDetails.map((dd) => {
+								return (
+									<Dropdown.Item
+										onClick={(e) => {
+											console.log(e.target.value);
+											setSelectedDoctor(dd.first_name + " " + dd.last_name);
+											setDoctorId(dd.doctor_id);
+										}}
+									>
+										<div>{dd.first_name + " " + dd.last_name}</div>
+									</Dropdown.Item>
+								);
+							})}
 						</DropdownButton>
 						{/* <Form.Control
 							type='text'
@@ -129,9 +127,9 @@ export default function NewAppointment(props) {
 						<MuiPickersUtilsProvider utils={DateFnsUtils}>
 							<KeyboardDatePicker
 								autoOk
-								variant="inline"
-								inputVariant="outlined"
-								format="dd/MM/yyyy"
+								variant='inline'
+								inputVariant='outlined'
+								format='dd/MM/yyyy'
 								value={dateOfAppointment}
 								onChange={(date) => setDateOfAppointment(date)}
 								InputAdornmentProps={{ position: "start" }}
@@ -151,7 +149,6 @@ export default function NewAppointment(props) {
 							size='sm'
 							className='NewCaseButton'
 							type='submit'
-							disabled={!validateForm()}
 						>
 							Book An Appointment
 						</Button>

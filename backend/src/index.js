@@ -13,6 +13,7 @@ import newAppointment from "./routes/newAppointment";
 import newCase from "./routes/newCase";
 import addSpecialization from "./routes/addSpecialization";
 import getSpecialization from "./routes/getSpecialization";
+import getPatientAppointments from "./routes/getPatientAppointments";
 import fs from "fs";
 import path from "path";
 import https from "https";
@@ -58,7 +59,8 @@ app.use(
 	newAppointment,
 	newCase,
 	addSpecialization,
-	getSpecialization
+	getSpecialization,
+	getPatientAppointments
 );
 app.use("/", (req, res) => {
 	res.send("Server is Running");

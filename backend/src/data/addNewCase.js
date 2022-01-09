@@ -10,7 +10,11 @@ const addNewCase = (user_id, case_description) => {
 			if (err) {
 				reject({ success: false, message: err });
 			} else {
-				resolve({ success: true, message: result });
+				resolve({
+					success: true,
+					message: "New Case Created",
+					data: { case_id: result.insertId },
+				});
 			}
 		});
 	});
