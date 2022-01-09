@@ -14,7 +14,10 @@ function Doctors() {
 	const auth = useSelector((state) => state.auth);
 	const history = useHistory();
 	const [doctorDetails, setDoctorDetails] = useState([]);
+	const [displayDoctors, setDisplayDoctors] = useState([]);
 	const [specialization, setSpecialization] = useState([]);
+	const [speciality, setSpeciality] = useState("All");
+	const [doctorName, setDoctorName] = useState("");
 	const dataLimit = 10, pageLimit = 5;
 	useEffect(() => {
 		sessionStorage.setItem("lastPage", "/patient/doctors");
@@ -37,23 +40,13 @@ function Doctors() {
 			if(res.success) {
 				console.log(res.data.doctor);
 				setDoctorDetails(res.data.doctor);
+				setDisplayDoctors(res.data.doctor);
 				setPages(Math.ceil(res.data.doctor.length / dataLimit));
 				console.log(Math.ceil(res.data.doctor.length / dataLimit));
 			} else {
 				console.log("No Doctors Recieved.");
 			}
 		})
-
-		// getDoctorDetailsAPI({
-		// 	token: auth.token,
-		// }).then((res) => {
-		// 	if (res.reply) {
-		// 		console.log(res.doctors);
-		// 		setDoctorDetails(res.doctors);
-		// 	} else {
-		// 		setTimeout(history.push("/patient/doctors"), 0);
-		// 	}
-		// });
 	}, []);
 
 	const [pages, setPages] = useState(1);
@@ -75,7 +68,7 @@ function Doctors() {
 	const getPaginatedData = () => {
 		const startIndex = currentPage * dataLimit - dataLimit;
 		const endIndex = startIndex + dataLimit;
-		return doctorDetails.slice(startIndex, endIndex);
+		return displayDoctors.slice(startIndex, endIndex);
 	};
 
 	const getPaginationGroup = () => {
@@ -83,13 +76,40 @@ function Doctors() {
 		return new Array(pageLimit).fill().map((_, idx) => start + idx + 1);
 	};
 
+	const handleSpecialityChange = (event) => {
+		console.log(event.target.value);
+		setSpeciality(event.target.value);
+		if(event.target.value === "All"){
+			setDisplayDoctors(doctorDetails);
+		}
+		else{
+			const tempDoctors = doctorDetails.filter((d) => {
+				return d.specialization.includes(event.target.value);
+			});
+			setDisplayDoctors(tempDoctors);
+		}
+	}
+
+	const handleNameChange = (event) => {
+		console.log(event.target.value);
+		setDoctorName(event.target.value);
+		if(event.target.value === ""){
+			setDisplayDoctors(doctorDetails);
+		} else{
+			const tempDoctors = doctorDetails.filter((d) => {
+				return d.first_name.includes(event.target.value) || d.last_name.includes(event.target.value);
+			});
+			setDisplayDoctors(tempDoctors);
+		}
+	}
+
 	return (
 		<div>
 			<div className="search-container">
 				<div className="findDoctorDiv">
 					<h2 className="findDoctorHeader" style={{color: "white"}}>Find a Doctor</h2>
 					<p className="findDoctorParagraph">Find the perfect specialist from our list of excellent doctors.</p>
-					<select className="findDoctorDropdown" name="cars" id="cars">
+					<select className="findDoctorDropdown" value={speciality} onChange={handleSpecialityChange}>
 						<option value="All">All</option>
 						{
 							specialization.map((s, index) => (
@@ -101,7 +121,7 @@ function Doctors() {
 						<span className="fa-search-icon">
 							<i className="fa fa-search"/>
 						</span>
-						<input className="search-box" type="search" placeholder="Search by name" id="search_doctor" name="search_doctor"></input>
+						<input value={doctorName} onChange={handleNameChange} className="search-box" type="search" placeholder="Search by name" id="search_doctor" name="search_doctor"></input>
 					</div>
 				</div>
 			</div>
@@ -111,22 +131,6 @@ function Doctors() {
 				</div>
 			</div>
 			<div>
-			{/*
-				doctorDetails.map((d) => (
-					<div id='doctorCard'>
-						<div id='leftDoctorCard'>
-						<img
-							id="doctorCardImage"
-							src={doctorLogo}
-							alt={"doctor_logo"}
-						/>
-						</div>
-						<div id='rightDoctorCard'>
-							
-						</div>
-					</div>
-				))
-			*/}
 			<div>
 				{getPaginatedData().map((d) => (
 					<div id='cardDiv'>
