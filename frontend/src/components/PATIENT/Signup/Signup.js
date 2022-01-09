@@ -98,7 +98,7 @@ function Signup(props) {
 			<Navigation />
 			<div
 				id='signupform'
-				style={{ backgroundColor: "#ffffe6", marginBottom: "20px" }}
+				style={{ backgroundColor: "#D3E0EA", marginBottom: "20px" }}
 			>
 				<div id='right-signup'>
 					<img

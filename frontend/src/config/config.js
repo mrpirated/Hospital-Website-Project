@@ -9,6 +9,8 @@ const config = {
 	patient: "/api/patient",
 	admin: "/api/admin",
 	login: "/api/login",
+	getSpecialization: "/api/getSpecialization",
+	getDoctors: "/api/getDoctors",
 	signup: "/api/signup",
 	remaining_appointment: "/remaining_appointment",
 	cases: "/cases",

@@ -33,3 +33,17 @@
     border-bottom-right-radius: 5px;
     outline: 0;
 }
+
+.all-doc-list{
+    display: inline;
+}
+
+.all-doc-list p {
+    color: #424242;
+    font-family: GothamRounded;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 29px;
+    text-align: left;
+    display: inline;
+}

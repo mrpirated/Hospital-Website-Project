@@ -60,7 +60,7 @@ function AddDoctor() {
 	return (
 		<div
 			className='addDoctorForm'
-			style={{ backgroundColor: "#ffffe6", paddingBottom: "20px" }}
+			style={{ backgroundColor: "#D3E0EA", paddingBottom: "20px"}}
 		>
 			<Form onSubmit={handleSubmit}>
 				<div>
