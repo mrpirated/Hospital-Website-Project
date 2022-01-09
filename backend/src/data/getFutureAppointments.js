@@ -5,15 +5,16 @@ import connection from "../dbconn/db";
 const getFutureAppointments = (user_id, preferred_date) => {
 	return new Promise((resolve, reject) => {
 		connection.query(
-			"SELECT \
+			'SELECT \
             start_time, \
             end_time \
             FROM \
             appointment \
             WHERE \
             doctor_id = ? \
+			AND state != "pending"\
             AND end_time > ?\
-            ORDER BY start_time",
+            ORDER BY start_time',
 			[user_id, preferred_date],
 			(err, result) => {
 				if (err) {
