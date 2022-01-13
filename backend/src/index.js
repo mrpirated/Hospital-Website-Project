@@ -14,11 +14,22 @@ import newCase from "./routes/newCase";
 import addSpecialization from "./routes/addSpecialization";
 import getSpecialization from "./routes/getSpecialization";
 import getPatientAppointments from "./routes/getPatientAppointments";
+import profilePicUpload from "./routes/profilePicUpload";
 import fs from "fs";
 import path from "path";
 import https from "https";
+import http from "http";
 import dbg from "debug";
+import socketio from "socket.io";
+dbg.log = console.info.bind(console);
 const debug = dbg("http");
+
+// const logfile = fs.createWriteStream(__dirname + "/logs/info.log", {
+// 	flags: "w",
+// });
+// process.stdout.pipe(logfile);
+// process.stderr.pipe(logfile);
+
 // import login_doctor from "./routes/login/login_doctor";
 const options = {
 	key: fs.readFileSync(path.resolve("src/key.pem")),
@@ -60,12 +71,36 @@ app.use(
 	newCase,
 	addSpecialization,
 	getSpecialization,
-	getPatientAppointments
+	getPatientAppointments,
+	profilePicUpload
 );
 app.use("/", (req, res) => {
 	res.send("Server is Running");
 });
-const server = https.createServer(options, app);
-app.listen(PORT, HOST_NAME, () => {
+//const server = https.createServer(options, app);
+const server = http.createServer(app);
+const io = socketio(server, {
+	cors: {
+		origin: "*",
+		methods: ["GET", "POST"],
+	},
+});
+io.on("connection", (socket) => {
+	socket.emit("me", socket.id);
+	socket.on("disconnect", () => {
+		socket.broadcast.emit("Disconnect");
+	});
+	socket.on("calluser", ({ userToCall, signalData, from, name }) => {
+		io.to(userToCall).emit("calluser", {
+			signalData: signalData,
+			from: from,
+			name: name,
+		});
+	});
+	socket.on("answercall", () => {
+		io.to(data.to).emit("callaccepted", data.signal);
+	});
+});
+server.listen(PORT, HOST_NAME, () => {
 	debug(`✨✨ Server running at http://${HOST_NAME}:${PORT}:`);
 });

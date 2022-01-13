@@ -13,7 +13,7 @@ export default function MyAppointment(props) {
 	const case_details = props.location.state.case_details;
 	//console.log(props);
 	useEffect(() => {
-		if (!(auth.isauth && auth.type === 0)) {
+		if (!(auth.isauth && auth.type === "patient")) {
 			history.push("/home");
 		}
 		if (props.location.state === undefined) {

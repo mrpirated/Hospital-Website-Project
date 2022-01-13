@@ -4,3 +4,4 @@
 /target
 .env
 package-lock.json
+/uploads

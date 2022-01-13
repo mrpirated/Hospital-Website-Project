@@ -9,6 +9,7 @@ import PatientSignup from "./components/PATIENT/Signup/Signup";
 import PatientRoute from "./components/PATIENT/PatientRoute";
 import DoctorRoute from "./components/DOCTOR/DoctorRoute";
 import AdminRoute from "./components/ADMIN/AdminRoute";
+import Meeting from "./components/Meeting/Meeting";
 import Home from "./components/HOME/Home";
 import "bootstrap/dist/css/bootstrap.min.css";
 import tokenAPI from "./api/tokenAPI";
@@ -85,6 +86,7 @@ function App() {
 				<Route path='/patient' component={PatientRoute} />
 				<Route path='/admin' component={AdminRoute} />
 				<Route path='/doctor' component={DoctorRoute} />
+				<Route path='/meeting' component={Meeting} />
 			</Switch>
 		</div>
 	);

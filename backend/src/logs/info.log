@@ -1,0 +1,7 @@
+[33m[nodemon] 2.0.13[39m
+[33m[nodemon] to restart at any time, enter `rs`[39m
+[33m[nodemon] watching path(s): *.*[39m
+[33m[nodemon] watching extensions: js,mjs,json[39m
+[32m[nodemon] starting `babel-node src/index.js`[39m
+  [38;5;62;1mhttp [0m✨✨ Server running at http://localhost:4587: [38;5;62m+0ms[0m
+  [38;5;149;1mdatabase [0mConnected to database. [38;5;149m+0ms[0m
