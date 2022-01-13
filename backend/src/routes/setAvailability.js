@@ -5,7 +5,7 @@ const debug = dbg("api:setAvailability");
 import setAvailabilityService from "../service/setAvailabilityService";
 router.post("/setAvailability", async (req, res) => {
 	debug(req.body);
-	await setAvailabilityService(req.body)
+	await setAvailabilityService(req.headers.authorization, req.body)
 		.then((response) => {
 			debug(response);
 			res.send(response);

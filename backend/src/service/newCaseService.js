@@ -2,7 +2,7 @@ import dbg from "debug";
 const debug = dbg("service:newCase");
 import checkToken from "../controllers/checkToken";
 import addNewCase from "../data/addNewCase";
-const newCaseService = async ({ token, case_description }) => {
+const newCaseService = async (token, { case_description }) => {
 	return await checkToken(token)
 		.then((response) => {
 			if (response.success && response.data.decoded.type === "patient") {

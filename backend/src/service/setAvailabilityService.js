@@ -6,7 +6,7 @@ import mergeAvailability from "../controllers/mergeAvailability";
 import setAvailability from "../data/setAvailability";
 import getUnscheduledAppointment from "../data/getUnscheduledAppointment";
 import scheduleOldAppointment from "../data/scheduleOldAppointment";
-const setAvailabilityService = async ({ token, start_time, end_time }) => {
+const setAvailabilityService = async (token, { start_time, end_time }) => {
 	start_time = new Date(start_time);
 	end_time = new Date(end_time);
 	debug(start_time, end_time);

@@ -4,7 +4,7 @@ import dbg from "debug";
 const debug = dbg("api:getPatientCases");
 import getPatientCasesService from "../service/getPatientCasesService";
 router.get("/getPatientCases", async (req, res) => {
-	await getPatientCasesService(req.query.token)
+	await getPatientCasesService(req.headers.authorization)
 		.then((response) => {
 			//debug(response);
 			res.send(response);

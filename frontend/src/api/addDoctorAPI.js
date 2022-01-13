@@ -15,17 +15,24 @@ const addDoctorAPI = async (data) => {
 		password,
 	} = data;
 	return await axios
-		.post(config.baseUrl + config.admin + config.add_doctor, {
-			token,
-			first_name,
-			last_name,
-			dob,
-			gender,
-			address,
-			email,
-			phone,
-			password,
-		})
+		.post(
+			config.baseUrl + config.admin + config.add_doctor,
+			{
+				first_name,
+				last_name,
+				dob,
+				gender,
+				address,
+				email,
+				phone,
+				password,
+			},
+			{
+				headers: {
+					Authorization: "Bearer " + token,
+				},
+			}
+		)
 		.then((res) => {
 			if (res.status === 200) {
 				//return loginAPI({ email, password });

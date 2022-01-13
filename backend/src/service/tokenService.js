@@ -6,7 +6,7 @@ const tokenService = async (token) => {
 	debug(token);
 	return await checkToken(token)
 		.then((response) => {
-			debug(response);
+			//debug(response);
 			if (response.success) {
 				return Promise.resolve(response.data.decoded);
 			} else {
@@ -14,7 +14,6 @@ const tokenService = async (token) => {
 			}
 		})
 		.then((decoded) => {
-			debug(decoded);
 			return getUser(decoded);
 		})
 		.then(

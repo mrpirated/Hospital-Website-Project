@@ -5,14 +5,11 @@ const getDoctorDetailsAPI = async (data) => {
 	const { token } = data;
 
 	return await axios
-		.get(
-			config.baseUrl +
-				config.patient +
-				config.doctor_details +
-				"?" +
-				"token=" +
-				token
-		)
+		.get(config.baseUrl + config.patient + config.doctor_details, {
+			headers: {
+				Authorization: "Bearer " + token,
+			},
+		})
 		.then((res) => {
 			if (res.status === 200) {
 				console.log(res.data.msg);

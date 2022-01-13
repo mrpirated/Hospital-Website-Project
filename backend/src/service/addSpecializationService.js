@@ -2,7 +2,7 @@ import checkToken from "../controllers/checkToken";
 import dbg from "debug";
 const debug = dbg("service:addSpecialization");
 import addDoctorSpecialization from "../data/addDoctorSpecialization";
-const addSpecializationService = async ({ token, specialization }) => {
+const addSpecializationService = async (token, { specialization }) => {
 	return await checkToken(token)
 		.then((response) => {
 			if (response.success && response.data.decoded.type === "doctor") {

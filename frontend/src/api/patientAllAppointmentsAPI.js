@@ -5,17 +5,11 @@ const patientAllAppointmentsAPI = async (data) => {
 	const { token } = data;
 	//console.log(token);
 	return await axios
-		.get(
-			config.baseUrl +
-				config.patient +
-				config.allappointments +
-				"?" +
-				"token=" +
-				token,
-			{
-				token: token,
-			}
-		)
+		.get(config.baseUrl + config.patient + config.allappointments, {
+			headers: {
+				Authorization: "Bearer " + token,
+			},
+		})
 		.then((res) => {
 			if (res.status === 200) {
 				console.log(res.data.msg);

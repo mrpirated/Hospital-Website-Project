@@ -7,12 +7,10 @@ import getDoctorDuration from "../data/getDoctorDuration";
 import getAppointmentTime from "../controllers/getAppointmentTime";
 import setAppointment from "../data/setAppointment";
 
-const newAppointmentService = async ({
+const newAppointmentService = async (
 	token,
-	doctor_id,
-	preferred_date,
-	case_id,
-}) => {
+	{ doctor_id, preferred_date, case_id }
+) => {
 	var schedule;
 	var appointment;
 	var duration;

@@ -85,8 +85,8 @@
 3. /api/token (POST)
    - request
         ```javascript
-        "body":{
-            "token":string
+        "headers":{
+            "authorization":"Bearer "+token
         }
         ```
    - response
@@ -119,8 +119,10 @@
 4. /api/setAvailability (POST)
    - request
         ```javascript
+        "headers":{
+            "authorization":"Bearer "+token
+        },
         "body":{
-            "token":string, 
             "start_time":string,
             "end_time":string
         }
@@ -142,8 +144,8 @@
 5. /api/getPatientCases (GET)
    - request
         ```javascript
-        "body":{
-            "token":string 
+        "headers":{
+            "authorization":"Bearer "+token
         }
         ```
    - response
@@ -169,8 +171,8 @@
 6. /api/getDoctors (GET)
     - request
         ```javascript
-        "body":{
-            "token":string 
+        "headers":{
+            "authorization":"Bearer "+token
         }
         ```
    - response
@@ -203,8 +205,10 @@
 7. /api/newCase (POST)
    - request
         ```javascript
+        "headers":{
+            "authorization":"Bearer "+token
+        },
         "body":{
-            "token":string,
             "case_description":string
         }
         ```
@@ -225,8 +229,10 @@
 8. /api/addSpecialization (POST)
    - request
         ```javascript
+        "headers":{
+            "authorization":"Bearer "+token
+        },
         "body":{
-            "token":string,
             "specialization":string
         }
         ```
@@ -247,8 +253,10 @@
 9. /api/newAppointment (POST)
     - request
         ```javascript
+        "headers":{
+            "authorization":"Bearer "+token
+        },
         "body":{
-            "token":string,
             "doctor_id":number,
             "preferred_date":string,
             "case_id":int
@@ -271,8 +279,8 @@
 10. /api/getSpecialization (GET)
     - request
         ```javascript
-        "body":{
-            "token":string
+        "headers":{
+            "authorization":"Bearer "+token
         }
         ```
     - response

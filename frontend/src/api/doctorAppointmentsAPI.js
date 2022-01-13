@@ -9,14 +9,13 @@ const doctorAppointmentsAPI = async (data) => {
 			config.baseUrl +
 				config.doctor +
 				config.appointment +
-				"?" +
-				"token=" +
-				token +
 				(data.start_time
 					? "&start_time=" + data.start_time + "&end_time=" + data.end_time
 					: ""),
 			{
-				token: token,
+				headers: {
+					Authorization: "Bearer " + token,
+				},
 			}
 		)
 		.then((res) => {

@@ -8,10 +8,13 @@ const adminDoctorScheduleAPI = async (data) => {
 			config.baseUrl +
 				config.admin +
 				config.schedule +
-				"?token=" +
-				token +
 				"&doctor_id=" +
-				doctor_id
+				doctor_id,
+			{
+				headers: {
+					Authorization: "Bearer " + token,
+				},
+			}
 		)
 		.then((res) => {
 			console.log(res.data);

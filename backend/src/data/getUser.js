@@ -1,3 +1,5 @@
+import dbg from "debug";
+const debug = dbg("controller:getUser");
 import connection from "../dbconn/db";
 
 const getUser = (decoded) => {
@@ -10,11 +12,16 @@ const getUser = (decoded) => {
 					debug(err);
 					reject({ success: false, message: err });
 				} else {
-					resolve({
-						success: true,
-						message: "User Details Found",
-						data: { user: result[0], type: decoded.type },
-					});
+					//debug(result);
+					if (result[0]) {
+						resolve({
+							success: true,
+							message: "User Details Found",
+							data: { user: result[0], type: decoded.type },
+						});
+					} else {
+						reject({ success: false, message: "No user found" });
+					}
 				}
 			}
 		);

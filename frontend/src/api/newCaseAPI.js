@@ -5,10 +5,17 @@ const newCaseAPI = async (data) => {
 	const { token, case_description } = data;
 
 	return await axios
-		.post(config.baseUrl + config.newCase, {
-			token: token,
-			case_description: case_description,
-		})
+		.post(
+			config.baseUrl + config.newCase,
+			{
+				case_description: case_description,
+			},
+			{
+				headers: {
+					Authorization: "Bearer " + token,
+				},
+			}
+		)
 		.then((res) => {
 			return res.data;
 		})

@@ -5,11 +5,18 @@ const setAvailabilityAPI = async (data) => {
 	const { token, start_time, end_time } = data;
 	console.log(data);
 	return await axios
-		.post(config.baseUrl + config.setAvailability, {
-			token: token,
-			start_time: start_time,
-			end_time: end_time,
-		})
+		.post(
+			config.baseUrl + config.setAvailability,
+			{
+				start_time: start_time,
+				end_time: end_time,
+			},
+			{
+				headers: {
+					Authorization: "Bearer " + token,
+				},
+			}
+		)
 		.then((res) => {
 			console.log(res.data);
 			return res.data;

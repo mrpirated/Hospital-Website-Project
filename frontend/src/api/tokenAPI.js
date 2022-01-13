@@ -4,9 +4,15 @@ import config from "../config/config";
 const initialState = async (token) => {
 	//console.log(token);
 	return await axios
-		.post(config.baseUrl + config.token, {
-			token: token,
-		})
+		.post(
+			config.baseUrl + config.token,
+			{},
+			{
+				headers: {
+					Authorization: "Bearer " + token,
+				},
+			}
+		)
 		.then((res) => {
 			console.log(res.data);
 			return res.data;

@@ -2,7 +2,7 @@ import { Router } from "express";
 const router = Router();
 import getSpecializationService from "../service/getSpecializationService";
 router.get("/getSpecialization", async (req, res) => {
-	await getSpecializationService(req.query.token)
+	await getSpecializationService(req.headers.authorization)
 		.then((response) => {
 			res.send(response);
 		})

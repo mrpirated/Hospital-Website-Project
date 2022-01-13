@@ -4,7 +4,7 @@ import dbg from "debug";
 const debug = dbg("api:addSpecialization");
 import addSpecializationService from "../service/addSpecializationService";
 router.post("/addSpecialization", async (req, res) => {
-	await addSpecializationService(req.body)
+	await addSpecializationService(req.headers.authorization, req.body)
 		.then((response) => {
 			//debug(response);
 			res.send(response);

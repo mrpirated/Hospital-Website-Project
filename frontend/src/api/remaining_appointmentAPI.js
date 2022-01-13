@@ -4,13 +4,11 @@ import config from "../config/config";
 const remaining_appointmentAPI = async (token) => {
 	//const token = useSelector((state) => state.auth.token);
 	return await axios
-		.get(
-			config.baseUrl +
-				config.admin +
-				config.remaining_appointment +
-				"?token=" +
-				token
-		)
+		.get(config.baseUrl + config.admin + config.remaining_appointment, {
+			headers: {
+				Authorization: "Bearer " + token,
+			},
+		})
 		.then((res) => {
 			if (res.status === 200) {
 				//console.log(res.data);

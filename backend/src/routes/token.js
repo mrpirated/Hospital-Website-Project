@@ -8,10 +8,11 @@ import dbg from "debug";
 const debug = dbg("api:token");
 dotenv.config();
 router.post("/token", async (req, res) => {
-	const token = req.body.token;
-	await tokenService(token)
+	//debug(req.headers);
+	//debug(req.headers.authorization);
+	await tokenService(req.headers.authorization)
 		.then((response) => {
-			//debug(response);
+			debug(response);
 			res.send(response);
 		})
 		.catch((err) => {

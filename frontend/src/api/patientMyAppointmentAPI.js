@@ -9,11 +9,13 @@ const patientMyAppointmentAPI = async (data) => {
 			config.baseUrl +
 				config.getPatientAppointments +
 				"?" +
-				"token=" +
-				token +
-				"&&" +
 				"case_id=" +
-				case_id
+				case_id,
+			{
+				headers: {
+					Authorization: "Bearer " + token,
+				},
+			}
 		)
 		.then((res) => {
 			return res.data;

@@ -2,7 +2,7 @@ import dbg from "debug";
 const debug = dbg("service:getPatientAppointments");
 import checkToken from "../controllers/checkToken";
 import getPatientAppointments from "../data/getPatientAppointments";
-const getPatientAppointmentsService = async ({ token, case_id }) => {
+const getPatientAppointmentsService = async (token, { case_id }) => {
 	return await checkToken(token)
 		.then((response) => {
 			if (response.success && response.data.decoded.type === "patient") {

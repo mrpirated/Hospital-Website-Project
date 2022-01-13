@@ -5,8 +5,10 @@ const patientCaseAPI = async (data) => {
 	const { token } = data;
 	//console.log(token);
 	return await axios
-		.get(config.baseUrl + config.getPatientCases + "?" + "token=" + token, {
-			token: token,
+		.get(config.baseUrl + config.getPatientCases, {
+			headers: {
+				Authorization: "Bearer " + token,
+			},
 		})
 		.then((res) => {
 			// if (res.status === 200) {

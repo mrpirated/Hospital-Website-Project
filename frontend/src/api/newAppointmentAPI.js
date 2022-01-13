@@ -5,12 +5,19 @@ const newAppointmentAPI = async (data) => {
 	const { token, case_id, doctor_id, preferred_date } = data;
 
 	return await axios
-		.post(config.baseUrl + config.newAppointment, {
-			token: token,
-			case_id: case_id,
-			doctor_id: doctor_id,
-			preferred_date: preferred_date,
-		})
+		.post(
+			config.baseUrl + config.newAppointment,
+			{
+				case_id: case_id,
+				doctor_id: doctor_id,
+				preferred_date: preferred_date,
+			},
+			{
+				headers: {
+					Authorization: "Bearer " + token,
+				},
+			}
+		)
 		.then((res) => {
 			return res.data;
 		})

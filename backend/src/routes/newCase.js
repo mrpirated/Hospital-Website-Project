@@ -4,7 +4,7 @@ import dbg from "debug";
 const debug = dbg("api:newCase");
 import newCaseService from "../service/newCaseService";
 router.post("/newCase", async (req, res) => {
-	await newCaseService(req.body)
+	await newCaseService(req.headers.authorization, req.body)
 		.then((response) => {
 			debug(response);
 			res.send(response);
