@@ -15,6 +15,7 @@ import addSpecialization from "./routes/addSpecialization";
 import getSpecialization from "./routes/getSpecialization";
 import getPatientAppointments from "./routes/getPatientAppointments";
 import profilePicUpload from "./routes/profilePicUpload";
+import setDoctorAppointmentDuration from "./routes/setDoctorAppointmentDuration";
 import fs from "fs";
 import path from "path";
 import https from "https";
@@ -72,7 +73,8 @@ app.use(
 	addSpecialization,
 	getSpecialization,
 	getPatientAppointments,
-	profilePicUpload
+	profilePicUpload,
+	setDoctorAppointmentDuration
 );
 app.use("/", (req, res) => {
 	res.send("Server is Running");
