@@ -3,6 +3,7 @@ const debug = dbg("service:getDoctorsCases");
 import checkToken from "../controllers/checkToken";
 import getDoctors from "../data/getDoctors";
 import getDoctorSpecialization from "../data/getDoctorSpecialization";
+import getDoctorProfilePic from "../controllers/getDoctorProfilePic";
 const getDoctorsService = async (token) => {
 	return await checkToken(token)
 		.then((response) => {
@@ -16,6 +17,10 @@ const getDoctorsService = async (token) => {
 			return getDoctors();
 		})
 		.then((response) => {
+			return getDoctorProfilePic(response.data.doctor);
+		})
+		.then((response) => {
+			debug(response);
 			if (response.success) {
 				return getDoctorSpecialization(response.data.doctor);
 			} else return response;

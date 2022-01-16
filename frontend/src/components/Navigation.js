@@ -60,7 +60,7 @@ function Navigation(props) {
 								<Nav.Link
 									style={{ color: "#FFFFFF" }}
 									as={Link}
-									to={account_type + "/profile"}
+									to={"/" + account_type + "/profile"}
 								>
 									Hello {store.getState().auth.user.first_name}
 								</Nav.Link>

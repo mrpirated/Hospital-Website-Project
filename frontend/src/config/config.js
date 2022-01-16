@@ -29,5 +29,6 @@ const config = {
 	DOCTOR: "doctor",
 	PATIENT: "patient",
 	ADMIN: "admin",
+	profilePicUpload: "/api/profilePicUpload",
 };
 export default config;

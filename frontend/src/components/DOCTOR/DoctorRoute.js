@@ -32,7 +32,7 @@ export default function PatientRoute() {
 					component={AppointmentDetails}
 				/>
 				<Route path='/doctor/availability' component={Availability} />
-				<Route path='/doctor/profile' conponent={Profile} />
+				<Route path='/doctor/profile' component={Profile} />
 				{/* <Route path='/doctor/doctors' component={Doctors} /> */}
 			</Switch>
 		</div>

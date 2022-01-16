@@ -5,7 +5,7 @@ import connection from "../dbconn/db";
 const getDoctors = () => {
 	return new Promise((resolve, reject) => {
 		connection.query(
-			"SELECT doctor_id, first_name, last_name, dob, gender, address, email, phone FROM doctor",
+			"SELECT doctor_id, first_name, last_name, dob, gender, address, email, phone,profile_pic FROM doctor",
 			(err, result) => {
 				if (err) {
 					debug(err);
