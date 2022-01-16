@@ -1,5 +1,5 @@
 import dbg from "debug";
-const debug = dbg("service:getDoctorsCases");
+const debug = dbg("service:getDoctorsService");
 import checkToken from "../controllers/checkToken";
 import getDoctors from "../data/getDoctors";
 import getDoctorSpecialization from "../data/getDoctorSpecialization";
