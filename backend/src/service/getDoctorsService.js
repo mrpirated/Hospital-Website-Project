@@ -20,7 +20,7 @@ const getDoctorsService = async (token) => {
 			return getDoctorProfilePic(response.data.doctor);
 		})
 		.then((response) => {
-			debug(response);
+			//debug(response);
 			if (response.success) {
 				return getDoctorSpecialization(response.data.doctor);
 			} else return response;
