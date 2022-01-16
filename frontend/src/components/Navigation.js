@@ -14,12 +14,8 @@ function Navigation(props) {
 		sessionStorage.setItem("lastPage", "/home");
 		store.dispatch(loggedOut());
 	};
-	const account_type =
-		store.getState().auth.type === 0
-			? "/patient"
-			: store.getState().auth.type === 1
-			? "/doctor"
-			: "/admin";
+	const account_type = store.getState().auth.type;
+
 	return (
 		<>
 			<Navbar className='navbar' expand='lg'>

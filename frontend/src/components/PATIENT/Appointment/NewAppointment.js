@@ -20,7 +20,7 @@ import {
 	KeyboardDatePicker,
 	MuiPickersUtilsProvider,
 } from "@material-ui/pickers";
-import getDoctorDetailsAPI from "../../../api/getDoctorDetailsAPI";
+import getDoctorsAPI from "../../../api/getDoctorsAPI";
 
 export default function NewAppointment(props) {
 	const auth = useSelector((state) => state.auth);
@@ -44,12 +44,11 @@ export default function NewAppointment(props) {
 			history.push("/home");
 		}
 
-		getDoctorDetailsAPI({
+		getDoctorsAPI({
 			token: auth.token,
 		}).then((res) => {
-			if (res.reply) {
-				console.log(res.doctors);
-				setDoctorDetails(res.doctors);
+			if (res.success) {
+				setDoctorDetails(res.data.doctor);
 			} else {
 				// alert(res.data.msg + "\nYou will be redirected to Home.");
 				setTimeout(history.push("/patient/appointment"), 0);
@@ -106,7 +105,7 @@ export default function NewAppointment(props) {
 								return (
 									<Dropdown.Item
 										onClick={(e) => {
-											console.log(e.target.value);
+											//console.log(e.target.value);
 											setSelectedDoctor(dd.first_name + " " + dd.last_name);
 											setDoctorId(dd.doctor_id);
 										}}

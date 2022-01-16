@@ -20,20 +20,31 @@ function Availability() {
 	const onSaveChanges = async () => {
 		console.log(start_time);
 		console.log(end_time);
-		console.log(moment(start_time).format("hh:mm"));
-
+		console.log(moment(start_time).format("HH:mm"));
+		setstart_time(
+			moment(availDate).format("yyyy-MM-DD") +
+				" " +
+				moment(start_time).format("HH:mm") +
+				":00"
+		);
+		setend_time(
+			moment(availDate).format("yyyy-MM-DD") +
+				" " +
+				moment(end_time).format("HH:mm") +
+				":00"
+		);
+		var st = new Date(start_time);
+		var et = new Date(end_time);
+		if (st < new Date() || et < new Date() || st > et) {
+			alert(
+				"Enter date and time after the current time and make sure start time is not greater than end time"
+			);
+			return;
+		}
 		await setAvailabilityAPI({
 			token: token,
-			start_time:
-				moment(availDate).format("yyyy-MM-DD") +
-				" " +
-				moment(start_time).format("hh:mm") +
-				":00",
-			end_time:
-				moment(availDate).format("yyyy-MM-DD") +
-				" " +
-				moment(end_time).format("hh:mm") +
-				":00",
+			start_time: start_time,
+			end_time: end_time,
 		}).then((res) => {
 			if (res.success) {
 				alert(res.message);
