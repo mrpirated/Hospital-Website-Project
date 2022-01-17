@@ -15,7 +15,7 @@ const addUserDetails = (val, decoded) => {
 			"UPDATE ?? SET ? WHERE ?? = ?",
 			[decoded.type, values, decoded.type + "_id", decoded.user_id],
 			(err, result) => {
-				debug(result);
+				//debug(result);
 				if (err) {
 					reject({ success: false, message: err });
 				} else

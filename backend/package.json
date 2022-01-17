@@ -4,7 +4,7 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
-		"start": "@powershell -Command $env:DEBUG='http,database,api:*,service:*,data:*,controller:*'; nodemon --exec babel-node src/index.js",
+		"start": "@powershell -Command $env:DEBUG='http,database,api:*,service:*,data:*,controller:*,socket:*'; nodemon --exec babel-node src/index.js",
 		"build": "babel src -d build",
 		"server": "node ./build/index.js",
 		"test": "jest"

@@ -1,5 +1,6 @@
 import express from "express";
 import cors from "cors";
+import socketServer from "./socket/server";
 import admin from "./routes/admin/admin";
 import patient from "./routes/patient/patient";
 import doctor from "./routes/doctor/doctor";
@@ -89,22 +90,9 @@ const io = socketio(server, {
 		methods: ["GET", "POST"],
 	},
 });
-io.on("connection", (socket) => {
-	socket.emit("me", socket.id);
-	socket.on("disconnect", () => {
-		socket.broadcast.emit("Disconnect");
-	});
-	socket.on("calluser", ({ userToCall, signalData, from, name }) => {
-		io.to(userToCall).emit("calluser", {
-			signalData: signalData,
-			from: from,
-			name: name,
-		});
-	});
-	socket.on("answercall", () => {
-		io.to(data.to).emit("callaccepted", data.signal);
-	});
-});
+
+socketServer(io);
+
 server.listen(PORT, HOST_NAME, () => {
 	debug(`✨✨ Server running at http://${HOST_NAME}:${PORT}:`);
 });
