@@ -1,4 +1,4 @@
-import connection from "../dbconn/db";
+import pool from "../dbconn/db";
 import dbg from "debug";
 
 const debug = dbg("data:addNewUser");
@@ -23,15 +23,21 @@ const addNewUser = async (user) => {
 				password: user.password,
 			};
 		}
-		connection.query(
-			"INSERT INTO ?? set ?",
-			[user.type, values],
-			(err, result) => {
-				if (err) {
-					reject({ success: false, message: err });
-				} else resolve({ success: true, message: result, user: user });
+		pool.getConnection((err, connection) => {
+			if (err) {
+				reject({ success: false, message: "Error In connection", error: err });
 			}
-		);
+			connection.query(
+				"INSERT INTO ?? set ?",
+				[user.type, values],
+				(err, result) => {
+					if (err) {
+						reject({ success: false, message: err });
+					} else resolve({ success: true, message: result, user: user });
+				}
+			);
+			connection.release();
+		});
 	});
 };
 export default addNewUser;

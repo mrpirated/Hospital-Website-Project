@@ -1,6 +1,6 @@
 import dbg from "debug";
 const debug = dbg("socket:server");
-var users = {};
+const users = new Map();
 const socketServer = (io) => {
 	io.on("connection", (socket) => {
 		debug("a user connected! ID :- " + socket.id);

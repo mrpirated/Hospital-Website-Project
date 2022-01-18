@@ -1,6 +1,5 @@
 import dbg from "debug";
 const debug = dbg("data:scheduleOldAppointment");
-import connection from "../dbconn/db";
 import getSchedule from "./getSchedule";
 import getFutureAppointments from "./getFutureAppointments";
 import getDoctorDuration from "./getDoctorDuration";
@@ -67,32 +66,6 @@ const scheduleOldAppointment = (doctor_id, oldaps) => {
 			.catch((err) => {
 				reject({ success: false, message: err });
 			});
-		// var allapps = [];
-		// oldaps.forEach((app) => allapps.push(scheduleAppointment(doctor_id, app)));
-		// Promise.all(allapps)
-		// 	.then((response) => {
-		// 		resolve({
-		// 			success: true,
-		// 			message: "Availability set successfully with added appointments",
-		// 			data: response,
-		// 		});
-		// 	})
-		// 	.catch((err) => {
-		// 		reject({ success: false, message: err });
-		// 	});
-		// oldaps.forEach((app) => {
-		// 	scheduleAppointment(doctor_id, app)
-		// 		.then((response) => {
-		// 			debug(response);
-		// 		})
-		// 		.catch((err) => {
-		// 			debug(err);
-		// 		});
-		// });
-		// resolve({
-		// 	success: true,
-		// 	message: "Availability set successfully with added appointments",
-		// });
 	});
 };
 export default scheduleOldAppointment;

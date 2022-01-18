@@ -18,23 +18,23 @@ function Availability() {
 	const [end_time, setend_time] = useState(new Date());
 
 	const onSaveChanges = async () => {
-		console.log(start_time);
-		console.log(end_time);
 		console.log(moment(start_time).format("HH:mm"));
-		setstart_time(
+		console.log(availDate);
+		var ast =
 			moment(availDate).format("yyyy-MM-DD") +
-				" " +
-				moment(start_time).format("HH:mm") +
-				":00"
-		);
-		setend_time(
+			" " +
+			moment(start_time).format("HH:mm") +
+			":00";
+		var aet =
 			moment(availDate).format("yyyy-MM-DD") +
-				" " +
-				moment(end_time).format("HH:mm") +
-				":00"
-		);
-		var st = new Date(start_time);
-		var et = new Date(end_time);
+			" " +
+			moment(end_time).format("HH:mm") +
+			":00";
+
+		console.log(ast);
+		console.log(aet);
+		var st = new Date(ast);
+		var et = new Date(aet);
 		if (st < new Date() || et < new Date() || st > et) {
 			alert(
 				"Enter date and time after the current time and make sure start time is not greater than end time"
@@ -43,13 +43,13 @@ function Availability() {
 		}
 		await setAvailabilityAPI({
 			token: token,
-			start_time: start_time,
-			end_time: end_time,
+			start_time: ast,
+			end_time: aet,
 		}).then((res) => {
 			if (res.success) {
 				alert(res.message);
 			} else {
-				alert(res.data.msg);
+				alert(res.message);
 			}
 		});
 		// setavailDate(new Date());
@@ -68,7 +68,7 @@ function Availability() {
 					<MuiPickersUtilsProvider utils={DateFnsUtils}>
 						<KeyboardDatePicker
 							//dateFormat='dd-MM-yyyy'
-							selected={availDate}
+							value={availDate}
 							minDate={new Date()}
 							onChange={(date) => setavailDate(date)}
 							//className='date-picker'

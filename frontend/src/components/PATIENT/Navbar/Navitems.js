@@ -10,10 +10,15 @@ const Navitems = [
 		url: "/patient",
 	},
 	{
-		name: "Records",
-		path: "records",
+		name: "Rooms",
+		path: "rooms",
 		url: "/patient",
 	},
+	// {
+	// 	name: "Records",
+	// 	path: "records",
+	// 	url: "/patient",
+	// },{}
 	// {
 	// 	name: "Meeting",
 	// 	path: "meeting",

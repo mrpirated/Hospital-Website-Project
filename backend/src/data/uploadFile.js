@@ -1,4 +1,3 @@
-import connection from "../dbconn/db";
 import dbg from "debug";
 const debug = dbg("data:uploadFile");
 

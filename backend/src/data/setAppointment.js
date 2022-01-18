@@ -1,4 +1,4 @@
-import connection from "../dbconn/db";
+import pool from "../dbconn/db";
 import dbg from "debug";
 const debug = dbg("data:setAppointment");
 import moment from "moment";
@@ -22,29 +22,35 @@ const setAppointment = (case_id, preferred_date, doctor_id, response) => {
 			values.state = "scheduled";
 		}
 		//debug(values);
-		connection.query(
-			"INSERT INTO appointment SET ?",
-			[values],
-			(err, result) => {
-				if (err) {
-					reject({ success: false, message: err });
-				} else {
-					if (response.success) {
-						resolve({
-							success: true,
-							message: "Appointment set successfully",
-							data: { appointment_time: response.data.appointment_time },
-						});
+		pool.getConnection((err, connection) => {
+			if (err) {
+				reject({ success: false, message: "Error In connection", error: err });
+			}
+			connection.query(
+				"INSERT INTO appointment SET ?",
+				[values],
+				(err, result) => {
+					if (err) {
+						reject({ success: false, message: err });
 					} else {
-						resolve({
-							success: true,
-							message:
-								"Doctor is not free right now your appointment is in pending state",
-						});
+						if (response.success) {
+							resolve({
+								success: true,
+								message: "Appointment set successfully",
+								data: { appointment_time: response.data.appointment_time },
+							});
+						} else {
+							resolve({
+								success: true,
+								message:
+									"Doctor is not free right now your appointment is in pending state",
+							});
+						}
 					}
 				}
-			}
-		);
+			);
+			connection.release();
+		});
 	});
 };
 export default setAppointment;

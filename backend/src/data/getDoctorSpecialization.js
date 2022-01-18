@@ -1,31 +1,37 @@
-import connection from "../dbconn/db";
+import pool from "../dbconn/db";
 import dbg from "debug";
 
 const debug = dbg("data:getDoctorSpecialization");
 const helper = (doctor_id) => {
 	return new Promise((resolve, reject) => {
-		connection.query(
-			"SELECT\
-            s.name\
-            FROM\
-            specialization s\
-            LEFT JOIN doctor_specialization ds ON ds.specialization_id = s.specialization_id\
-            WHERE\
-            ds.doctor_id = ?\
-          ",
-			[doctor_id],
-			(err, result) => {
-				if (err) {
-					reject({ success: false, message: err });
-				} else {
-					var specialization = [];
-					result.forEach((spec) => {
-						specialization.push(spec.name);
-					});
-					resolve({ success: true, data: { specialization } });
-				}
+		pool.getConnection((err, connection) => {
+			if (err) {
+				reject({ success: false, message: "Error In connection", error: err });
 			}
-		);
+			connection.query(
+				"SELECT\
+				s.name\
+				FROM\
+				specialization s\
+				LEFT JOIN doctor_specialization ds ON ds.specialization_id = s.specialization_id\
+				WHERE\
+				ds.doctor_id = ?\
+			  ",
+				[doctor_id],
+				(err, result) => {
+					if (err) {
+						reject({ success: false, message: err });
+					} else {
+						var specialization = [];
+						result.forEach((spec) => {
+							specialization.push(spec.name);
+						});
+						resolve({ success: true, data: { specialization } });
+					}
+				}
+			);
+			connection.release();
+		});
 	});
 };
 const getDoctorSpecialization = (doctor) => {
