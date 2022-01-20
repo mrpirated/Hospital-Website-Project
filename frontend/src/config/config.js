@@ -30,5 +30,6 @@ const config = {
 	PATIENT: "patient",
 	ADMIN: "admin",
 	profilePicUpload: "/api/profilePicUpload",
+	getScheduledAppointments: "/api/getScheduledAppointments",
 };
 export default config;

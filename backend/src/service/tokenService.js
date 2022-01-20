@@ -3,7 +3,7 @@ import dbg from "debug";
 const debug = dbg("service:token");
 import getUser from "../data/getUser";
 const tokenService = async (token) => {
-	debug(token);
+	//debug(token);
 	return await checkToken(token)
 		.then((response) => {
 			//debug(response);
@@ -56,6 +56,7 @@ const tokenService = async (token) => {
 			})
 		)
 		.catch((err) => {
+			debug(err);
 			return err;
 		});
 };

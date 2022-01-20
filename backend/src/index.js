@@ -18,6 +18,7 @@ import getPatientAppointments from "./routes/getPatientAppointments";
 import profilePicUpload from "./routes/profilePicUpload";
 import setDoctorAppointmentDuration from "./routes/setDoctorAppointmentDuration";
 import addUserDetails from "./routes/addUserDetails";
+import getScheduledAppointments from "./routes/getScheduledAppointments";
 import fs from "fs";
 import path from "path";
 import https from "https";
@@ -77,7 +78,8 @@ app.use(
 	getPatientAppointments,
 	profilePicUpload,
 	setDoctorAppointmentDuration,
-	addUserDetails
+	addUserDetails,
+	getScheduledAppointments
 );
 app.use("/", (req, res) => {
 	res.send("Server is Running");

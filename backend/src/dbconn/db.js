@@ -11,7 +11,7 @@ const pool = mysql.createPool({
 	database: process.env.RDS_DB_NAME,
 	connectionLimit: 10,
 });
-
+debug("mysql pool created");
 // connection.connect(function (err) {
 // 	if (err) {
 // 		debug("Database connection failed: " + err.stack);
