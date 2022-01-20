@@ -5,7 +5,7 @@ import config from "../config";
 const checkToken = (bearertoken) => {
 	//console.log(token);
 	return new Promise((resolve, reject) => {
-		debug(bearertoken);
+		//debug(bearertoken);
 		const token = bearertoken.split(" ")[1];
 		jwt.verify(token, config.SECRET_KEY, (err, decoded) => {
 			if (err) {

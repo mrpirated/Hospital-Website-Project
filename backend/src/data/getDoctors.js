@@ -20,9 +20,7 @@ const getDoctors = () => {
 					}
 				}
 			);
-			debug(pool._freeConnections.length);
 			connection.release();
-			debug(pool._freeConnections.length);
 		});
 	});
 };

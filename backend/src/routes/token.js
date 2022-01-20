@@ -12,7 +12,7 @@ router.post("/token", async (req, res) => {
 	//debug(req.headers.authorization);
 	await tokenService(req.headers.authorization)
 		.then((response) => {
-			debug(response);
+			//debug(response);
 			res.send(response);
 		})
 		.catch((err) => {

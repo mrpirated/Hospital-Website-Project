@@ -15,6 +15,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import tokenAPI from "./api/tokenAPI";
 import { loggedWithToken } from "./store/auth";
 import { useSelector } from "react-redux";
+import io from "socket.io-client";
+import config from "./config/config";
 import "./App.css";
 function App() {
 	const auth = useSelector((state) => state.auth);
@@ -23,43 +25,48 @@ function App() {
 	useEffect(() => {
 		const checktoken = async () => {
 			if (!auth.isauth && localStorage.getItem("token")) {
-				await tokenAPI(JSON.parse(localStorage.getItem("token"))).then(
-					(res) => {
-						if (res.success) {
-							if (res.data.type === "Admin") {
-								res.data.user = { ...res.data.user, first_name: res.data.type };
-							}
-							dispatch(
-								loggedWithToken({
-									user: res.data.user,
-									token: JSON.parse(localStorage.getItem("token")),
-									type: res.data.type,
-								})
-							);
-							//console.log(browserHistory.);
-							if (res.type === "patient") {
-								if (
-									sessionStorage.getItem("lastPage") &&
-									sessionStorage.getItem("lastPage").includes("/patient")
-								) {
-									console.log(sessionStorage.getItem("lastPage"));
-									history.push(sessionStorage.getItem("lastPage"));
-								} else history.push("/patient");
-							} else if (res.type === "doctor") history.push("/doctor");
-							else if (res.type === "admin") {
-								if (
-									sessionStorage.getItem("lastPage") &&
-									sessionStorage.getItem("lastPage").includes("/admin")
-								) {
-									console.log(sessionStorage.getItem("lastPage"));
-									history.push(sessionStorage.getItem("lastPage"));
-								} else history.push("/admin");
-							}
-						} else {
-							alert(res.message);
+				const token = JSON.parse(localStorage.getItem("token"));
+				await tokenAPI(token).then((res) => {
+					if (res.success) {
+						io(config.baseUrl, {
+							transports: ["websocket"],
+							query: {
+								token: "Bearer " + token,
+							},
+						});
+						if (res.data.type === "Admin") {
+							res.data.user = { ...res.data.user, first_name: res.data.type };
 						}
+						dispatch(
+							loggedWithToken({
+								user: res.data.user,
+								token: token,
+								type: res.data.type,
+							})
+						);
+						//console.log(browserHistory.);
+						if (res.type === "patient") {
+							if (
+								sessionStorage.getItem("lastPage") &&
+								sessionStorage.getItem("lastPage").includes("/patient")
+							) {
+								console.log(sessionStorage.getItem("lastPage"));
+								history.push(sessionStorage.getItem("lastPage"));
+							} else history.push("/patient");
+						} else if (res.type === "doctor") history.push("/doctor");
+						else if (res.type === "admin") {
+							if (
+								sessionStorage.getItem("lastPage") &&
+								sessionStorage.getItem("lastPage").includes("/admin")
+							) {
+								console.log(sessionStorage.getItem("lastPage"));
+								history.push(sessionStorage.getItem("lastPage"));
+							} else history.push("/admin");
+						}
+					} else {
+						alert(res.message);
 					}
-				);
+				});
 			}
 		};
 		checktoken();

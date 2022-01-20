@@ -1,17 +1,22 @@
 import dbg from "debug";
 const debug = dbg("socket:server");
-const users = new Map();
+const users = [];
+import addUser from "./helpers/addUser";
+import removeUser from "./helpers/removeUser";
 const socketServer = (io) => {
-	io.on("connection", (socket) => {
+	io.on("connection", async (socket) => {
 		debug("a user connected! ID :- " + socket.id);
-		if (!users[socket.id]) {
-			users[socket.id] = socket.id;
-			debug(users);
-		}
+
+		await addUser(socket.handshake.query.token, users, socket).catch((err) => {
+			debug(err);
+		});
+
 		socket.emit("yourID", socket.id);
 		io.sockets.emit("allUsers", users);
 		socket.on("disconnect", () => {
-			delete users[socket.id];
+			//delete users[socket.id];
+			removeUser(users, socket);
+			//debug(users);
 		});
 
 		socket.on("callUser", (data) => {
