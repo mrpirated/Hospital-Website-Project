@@ -1,7 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import { Route, Switch } from "react-router-dom";
 import { useHistory } from "react-router";
 import { useDispatch } from "react-redux";
+import { SocketContext } from "./context/SocketContext";
 import PatientLogin from "./components/PATIENT/Login/Login";
 import DoctorLogin from "./components/DOCTOR/Login/Login";
 import AdminLogin from "./components/ADMIN/Login/Login";
@@ -14,6 +15,7 @@ import Home from "./components/HOME/Home";
 import "bootstrap/dist/css/bootstrap.min.css";
 import tokenAPI from "./api/tokenAPI";
 import { loggedWithToken } from "./store/auth";
+import { setSocketId } from "./store/socket";
 import { useSelector } from "react-redux";
 import io from "socket.io-client";
 import config from "./config/config";
@@ -22,18 +24,24 @@ function App() {
 	const auth = useSelector((state) => state.auth);
 	const dispatch = useDispatch();
 	const history = useHistory();
+	const [socket, setSocket] = useContext(SocketContext);
 	useEffect(() => {
 		const checktoken = async () => {
 			if (!auth.isauth && localStorage.getItem("token")) {
 				const token = JSON.parse(localStorage.getItem("token"));
 				await tokenAPI(token).then((res) => {
 					if (res.success) {
-						io(config.baseUrl, {
+						const socketio = io(config.baseUrl, {
 							transports: ["websocket"],
 							query: {
 								token: "Bearer " + token,
 							},
 						});
+						setSocket(socketio);
+						socketio.on("yourID", (id) => {
+							dispatch(setSocketId({ socketId: id }));
+						});
+
 						if (res.data.type === "Admin") {
 							res.data.user = { ...res.data.user, first_name: res.data.type };
 						}

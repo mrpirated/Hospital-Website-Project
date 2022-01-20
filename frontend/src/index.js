@@ -5,7 +5,7 @@ import { BrowserRouter } from "react-router-dom";
 //import App from "./App";
 import App from "./App";
 import store from "./store/configureStore";
-
+import { SocketProvider } from "./context/SocketContext";
 store.subscribe(() => {
 	console.log("Store changed!");
 	console.log(store.getState());
@@ -15,7 +15,9 @@ ReactDOM.render(
 	<React.StrictMode>
 		<BrowserRouter>
 			<Provider store={store}>
-				<App />
+				<SocketProvider>
+					<App />
+				</SocketProvider>
 			</Provider>
 		</BrowserRouter>
 	</React.StrictMode>,
