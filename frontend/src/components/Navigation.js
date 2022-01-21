@@ -41,9 +41,9 @@ function Navigation(props) {
 										{item.name}
 									</Nav.Link>
 								))}
-							<Nav.Link style={{ color: "#FFFFFF" }} as={Link} to={"meeting"}>
+							{/* <Nav.Link style={{ color: "#FFFFFF" }} as={Link} to={"meeting"}>
 								Meeting
-							</Nav.Link>
+							</Nav.Link> */}
 						</Nav>
 						<Nav className='ml-auto'>
 							{!isauth && (
