@@ -1,5 +1,4 @@
-import React, { useEffect, useState, useRef, useContext } from "react";
-import { SocketContext } from "../../context/SocketContext";
+import React, { useEffect, useState, useRef } from "react";
 import io from "socket.io-client";
 import Peer from "simple-peer";
 import styled from "styled-components";
@@ -31,8 +30,9 @@ function Meeting() {
 	const [callAccepted, setCallAccepted] = useState(false);
 	const userVideo = useRef();
 	const partnerVideo = useRef();
-	const [socket, setSocket] = useContext(SocketContext);
+	const socket = useRef();
 	useEffect(() => {
+		socket.current = io("http://localhost:4587");
 		navigator.mediaDevices
 			.getUserMedia({ video: true, audio: true })
 			.then((stream) => {
@@ -62,6 +62,7 @@ function Meeting() {
 			stream: stream,
 		});
 		peer.on("signal", (data) => {
+			console.log("herre");
 			socket.current.emit("callUser", {
 				userToCall: id,
 				signalData: data,

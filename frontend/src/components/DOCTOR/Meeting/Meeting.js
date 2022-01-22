@@ -29,9 +29,9 @@ function Meeting(props) {
 	const [stream, setStream] = useState();
 	const [tracks, setTracks] = useState();
 	const [foundApp, setFoundApp] = useState(false);
-	const [doctorPresent, setDoctorPresent] = useState(false);
-	const [doctorSocketId, setDoctorSocketId] = useState(null);
-	const [doctorSignal, setDoctorSignal] = useState();
+	const [patientPresent, setPatientPresent] = useState(false);
+	const [patientSocketId, setPatientSocketId] = useState(null);
+	const [patientSignal, setPatientSignal] = useState();
 	const patientVideo = useRef();
 	const doctorVideo = useRef();
 	console.log(props.location.state);
@@ -48,7 +48,7 @@ function Meeting(props) {
 					console.log(stream);
 					setTracks(stream.getTracks());
 					console.log(stream.getTracks());
-					if (patientVideo.current) patientVideo.current.srcObject = stream;
+					if (doctorVideo.current) doctorVideo.current.srcObject = stream;
 				});
 			console.log(tracks);
 			//stream.mediaDevices.stop();
@@ -69,36 +69,37 @@ function Meeting(props) {
 			console.log(response);
 			if (response.success) {
 				setFoundApp(true);
-				if (response.data.appointment.doctor_socketId) {
-					setDoctorSocketId(response.data.appointment.doctor_socketId);
-					setDoctorPresent(true);
-					callDoctor(response.data.appointment.doctor_socketId);
+				if (response.data.appointment.patient_socketId) {
+					console.log(response.data.appointment.patient_socketId);
+					setPatientSocketId(response.data.appointment.patient_socketId);
+					setPatientPresent(true);
+					callPatient(response.data.appointment.patient_socketId);
 				} else {
 				}
 			} else {
 				alert(response.message);
-				setTimeout(history.push("/patient"), 1000);
+				setTimeout(history.push("/doctor"), 1000);
 				//tracks[0].stop();
 			}
 		});
 	}, []);
 	useEffect(() => {
-		socket.on("doctorCalling", (data) => {
+		socket.on("patientCalling", (data) => {
 			console.log(data);
-			console.log("dc");
-			setDoctorSocketId(data.from);
-			setDoctorSignal(data.signal);
-			waitForDoctor(data.from, data.signal);
+			setPatientSocketId(data.from);
+			setPatientSignal(data.signal);
+			waitForPatient(data.from, data.signal);
 		});
-	});
-	const callDoctor = (id) => {
+	}, []);
+	const callPatient = (id) => {
 		const peer = new Peer({
 			initiator: true,
 			trickle: false,
 			stream: stream,
 		});
 		peer.on("signal", (data) => {
-			socket.emit("callDoctor", {
+			console.log("here");
+			socket.emit("callPatient", {
 				userToCall: id,
 				signalData: data,
 				from: socketData.socketId,
@@ -106,38 +107,38 @@ function Meeting(props) {
 		});
 		peer.on("stream", (stream) => {
 			console.log(stream);
-			doctorVideo.current.srcObject = stream;
+			patientVideo.current.srcObject = stream;
 		});
-		socket.on("doctorHere", (signal) => {
+		socket.on("patientHere", (signal) => {
 			console.log(signal);
-			setDoctorPresent(true);
+			setPatientPresent(true);
 			peer.signal(signal);
-			console.log("signal sent");
 		});
 	};
-	const waitForDoctor = (id, doctorSignal) => {
+	const waitForPatient = (id, patientSignal) => {
 		const peer = new Peer({
 			initiator: false,
 			trickle: false,
 			stream: stream,
 		});
-
+		console.log("waiting for patient");
 		peer.on("signal", (data) => {
-			socket.emit("patientAccept", { signal: data, to: id });
+			console.log(data);
+			socket.emit("doctorAccept", { signal: data, to: id });
 		});
 		peer.on("stream", (stream) => {
 			console.log(stream);
-			doctorVideo.current.srcObject = stream;
+			patientVideo.current.srcObject = stream;
 		});
-		peer.signal(doctorSignal);
+		peer.signal(patientSignal);
 	};
 	let PatientVideo;
-	if (stream) {
-		PatientVideo = <Video playsInline muted ref={patientVideo} autoPlay />;
+	if (patientPresent) {
+		PatientVideo = <Video playsInline ref={patientVideo} autoPlay />;
 	}
 	let DoctorVideo;
-	if (doctorPresent) {
-		DoctorVideo = <Video playsInline ref={doctorVideo} autoPlay />;
+	if (stream) {
+		DoctorVideo = <Video playsInline muted ref={doctorVideo} autoPlay />;
 	}
 	return (
 		// <div>
@@ -151,10 +152,9 @@ function Meeting(props) {
 		// </div>
 		<Container>
 			<Row>
-				{PatientVideo}
 				{DoctorVideo}
+				{PatientVideo}
 			</Row>
-			{doctorPresent && <div>Doctor is present</div>}
 		</Container>
 	);
 }

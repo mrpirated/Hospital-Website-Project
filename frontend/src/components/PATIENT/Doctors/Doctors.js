@@ -160,7 +160,7 @@ function Doctors() {
 			<div>
 				<div>
 					{getPaginatedData().map((d) => (
-						<div id='cardDiv'>
+						<div id='cardDiv' key={d.doctor_id}>
 							<Card className='doctorCard'>
 								<Card.Body>
 									<Card.Title>

@@ -9,6 +9,8 @@ import Appointment from "./Appointment/Appointment";
 import AppointmentDetails from "./Appointment/AppointmentDetails";
 import Availability from "./Availability/Availability";
 import Profile from "./Profile/Profile";
+import Rooms from "./Rooms/Rooms";
+import Meeting from "./Meeting/Meeting";
 export default function PatientRoute() {
 	const auth = useSelector((state) => state.auth);
 	const isauth = auth.isauth;
@@ -33,6 +35,8 @@ export default function PatientRoute() {
 				/>
 				<Route path='/doctor/availability' component={Availability} />
 				<Route path='/doctor/profile' component={Profile} />
+				<Route path='/doctor/rooms' component={Rooms} />
+				<Route path='/doctor/meeting' component={Meeting} />
 				{/* <Route path='/doctor/doctors' component={Doctors} /> */}
 			</Switch>
 		</div>

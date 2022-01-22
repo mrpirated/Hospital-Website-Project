@@ -32,17 +32,18 @@ const findInAppointment = async (
 				}
 				//debug(theapp);
 			} else if (response.data.decoded.type === "doctor") {
-				theapp = currentAppointments.find((app) => {
-					(app.appointment_id = appId),
-						(app.doctor_id = response.data.decoded.user_id);
-				});
+				theapp = currentAppointments.find(
+					(app) =>
+						app.appointment_id === appId &&
+						app.patient_id === response.data.decoded.user_id
+				);
 				if (theapp && theapp.doctor_socketId == null) {
 					theapp.doctor_socketId = socketId;
 					currentAppointments.find(
 						(app) =>
 							app.appointment_id === appId &&
 							app.doctor_id === response.data.decoded.user_id
-					).patient_socketId = socketId;
+					).doctor_socketId = socketId;
 				} else if (theapp && theapp.doctor_socketId !== socketId) {
 					return {
 						success: false,

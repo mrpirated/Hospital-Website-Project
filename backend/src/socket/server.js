@@ -25,21 +25,49 @@ const socketServer = (io) => {
 		io.sockets.emit("allUsers", users);
 		socket.on("disconnect", () => {
 			//delete users[socket.id];
-			removeUser(users, socket);
+			removeUser(users, currentAppointments, socket);
 			//debug(users);
 		});
 		socket.on("getRoom", (data) => {
+			debug("getRoom");
 			findInAppointment(
 				data.token,
 				data.appointment_id,
 				data.socketId,
 				currentAppointments
 			).then((response) => {
-				debug(response);
-				debug(currentAppointments);
+				//debug(response);
+				//debug(currentAppointments);
 				socket.emit("roomStatus", response);
 			});
 		});
+		socket.on("callDoctor", (data) => {
+			debug("callDoctor");
+			debug(data);
+			io.to(data.userToCall).emit("patientCalling", {
+				signal: data.signalData,
+				from: data.from,
+			});
+		});
+		socket.on("callPatient", (data) => {
+			debug("callPatient");
+			debug(data);
+			io.to(data.userToCall).emit("doctorCalling", {
+				signal: data.signalData,
+				from: data.from,
+			});
+		});
+		socket.on("doctorAccept", (data) => {
+			debug("doctorAccept");
+			debug(data);
+			io.to(data.to).emit("doctorHere", data.signal);
+		});
+		socket.on("patientAccept", (data) => {
+			debug("patientAccept");
+			debug(data);
+			io.to(data.to).emit("patientHere", data.signal);
+		});
+
 		socket.on("callUser", (data) => {
 			io.to(data.userToCall).emit("hey", {
 				signal: data.signalData,

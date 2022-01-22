@@ -53,7 +53,7 @@ export default function Appointment(props) {
 				</Card>
 			</div>
 			{cases.map((c) => (
-				<div id='card'>
+				<div id='card' key={c.case_id}>
 					<Card
 						className='appointment'
 						onClick={() => {

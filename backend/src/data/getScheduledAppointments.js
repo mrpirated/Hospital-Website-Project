@@ -18,6 +18,7 @@ const getScheduledAppointments = ({ type, user_id }) => {
                 a.doctor_id,\
                 c.case_description,\
                 CONCAT(d.first_name," ", d.last_name) AS doctor_name,\
+                CONCAT(p.first_name," ", p.last_name) AS patient_name,\
                 a.end_time,\
                 a.start_time\
                 FROM\

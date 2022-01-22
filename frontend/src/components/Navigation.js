@@ -37,6 +37,7 @@ function Navigation(props) {
 										style={{ color: "#FFFFFF" }}
 										as={Link}
 										to={item.url + "/" + item.path}
+										key={item.url + "/" + item.path}
 									>
 										{item.name}
 									</Nav.Link>

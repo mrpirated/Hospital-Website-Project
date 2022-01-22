@@ -30,7 +30,7 @@ function Rooms() {
 								<div style={{ color: "#04009A" }}>
 									{moment(app.start_time).format("LL")}
 								</div>
-								<span>{app.doctor_name}</span>
+								<span>{app.patient_name}</span>
 								<span style={{ float: "right", fontColor: "#04009A" }}>
 									{app.case_description}
 								</span>
@@ -42,7 +42,7 @@ function Rooms() {
 								<span style={{ float: "right" }}>
 									<Button
 										onClick={() => {
-											history.push("/patient/meeting", { app });
+											history.push("/doctor/meeting", { app });
 										}}
 									>
 										Room

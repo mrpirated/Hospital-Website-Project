@@ -37,6 +37,7 @@ function App() {
 								token: "Bearer " + token,
 							},
 						});
+						console.log(socketio);
 						setSocket(socketio);
 						socketio.on("yourID", (id) => {
 							dispatch(setSocketId({ socketId: id }));
