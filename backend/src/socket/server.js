@@ -1,6 +1,7 @@
 import dbg from "debug";
 const debug = dbg("socket:server");
 const users = [];
+const users1 = {};
 const currentAppointments = [
 	{
 		appointment_id: 4,
@@ -20,11 +21,13 @@ const socketServer = (io) => {
 		await addUser(socket.handshake.query.token, users, socket).catch((err) => {
 			debug(err);
 		});
-
+		if (!users1[socket.id]) {
+			users1[socket.id] = socket.id;
+		}
 		socket.emit("yourID", socket.id);
-		io.sockets.emit("allUsers", users);
+		io.sockets.emit("allUsers", users1);
 		socket.on("disconnect", () => {
-			//delete users[socket.id];
+			delete users1[socket.id];
 			removeUser(users, currentAppointments, socket);
 			//debug(users);
 		});
@@ -69,6 +72,8 @@ const socketServer = (io) => {
 		});
 
 		socket.on("callUser", (data) => {
+			debug("callUser");
+			debug(data);
 			io.to(data.userToCall).emit("hey", {
 				signal: data.signalData,
 				from: data.from,
@@ -76,6 +81,8 @@ const socketServer = (io) => {
 		});
 
 		socket.on("acceptCall", (data) => {
+			debug("acceptCall");
+			debug(data);
 			io.to(data.to).emit("callAccepted", data.signal);
 		});
 	});

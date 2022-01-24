@@ -39,24 +39,16 @@ function Meeting(props) {
 		history.push("/home");
 	}
 	const appDetails = props.location.state.app;
-	useEffect(() => {
-		if (foundApp) {
-			navigator.mediaDevices
-				.getUserMedia({ video: true, audio: true })
-				.then((stream) => {
-					setStream(stream);
-					console.log(stream);
-					setTracks(stream.getTracks());
-					console.log(stream.getTracks());
-					if (patientVideo.current) patientVideo.current.srcObject = stream;
-				});
-			console.log(tracks);
-			//stream.mediaDevices.stop();
-		}
-		return () => {
-			if (tracks) tracks.forEach((track) => track.stop());
-		};
-	}, [foundApp]);
+	// useEffect(() => {
+	// 	if (foundApp) {
+
+	// 		console.log(tracks);
+	// 		//stream.mediaDevices.stop();
+	// 	}
+	// 	return () => {
+	// 		if (tracks) tracks.forEach((track) => track.stop());
+	// 	};
+	// }, [foundApp]);
 	useEffect(() => {
 		console.log(appDetails);
 		console.log(socketData);
@@ -68,13 +60,31 @@ function Meeting(props) {
 		socket.on("roomStatus", (response) => {
 			console.log(response);
 			if (response.success) {
-				setFoundApp(true);
-				if (response.data.appointment.doctor_socketId) {
-					setDoctorSocketId(response.data.appointment.doctor_socketId);
-					setDoctorPresent(true);
-					callDoctor(response.data.appointment.doctor_socketId);
-				} else {
-				}
+				//setFoundApp(true);
+				var streamtp;
+				navigator.mediaDevices
+					.getUserMedia({ video: true, audio: true })
+					.then((stream) => {
+						setStream(stream);
+						streamtp = stream;
+						console.log(stream);
+						setTracks(stream.getTracks());
+						console.log(stream.getTracks());
+						if (patientVideo.current) patientVideo.current.srcObject = stream;
+						if (response.data.appointment.doctor_socketId) {
+							setDoctorSocketId(response.data.appointment.doctor_socketId);
+							setDoctorPresent(true);
+							callDoctor(response.data.appointment.doctor_socketId, streamtp);
+						} else {
+							socket.on("doctorCalling", (data) => {
+								console.log(data);
+								console.log("dc");
+								setDoctorSocketId(data.from);
+								setDoctorSignal(data.signal);
+								waitForDoctor(data.from, data.signal, streamtp);
+							});
+						}
+					});
 			} else {
 				alert(response.message);
 				setTimeout(history.push("/patient"), 1000);
@@ -82,20 +92,18 @@ function Meeting(props) {
 			}
 		});
 	}, []);
-	useEffect(() => {
-		socket.on("doctorCalling", (data) => {
-			console.log(data);
-			console.log("dc");
-			setDoctorSocketId(data.from);
-			setDoctorSignal(data.signal);
-			waitForDoctor(data.from, data.signal);
-		});
-	});
-	const callDoctor = (id) => {
+	//useEffect(() => {}, []);
+	const callDoctor = (id, stream) => {
+		console.log(stream);
 		const peer = new Peer({
 			initiator: true,
 			trickle: false,
 			stream: stream,
+		});
+		console.log(peer);
+		peer.on("connect", () => {
+			setDoctorPresent(true);
+			console.log("connected");
 		});
 		peer.on("signal", (data) => {
 			socket.emit("callDoctor", {
@@ -110,23 +118,28 @@ function Meeting(props) {
 		});
 		socket.on("doctorHere", (signal) => {
 			console.log(signal);
-			setDoctorPresent(true);
+
 			peer.signal(signal);
 			console.log("signal sent");
 		});
 	};
-	const waitForDoctor = (id, doctorSignal) => {
+	const waitForDoctor = (id, doctorSignal, stream) => {
 		const peer = new Peer({
 			initiator: false,
 			trickle: false,
 			stream: stream,
 		});
-
+		console.log(stream);
+		//console.log("waiting for doctor");
+		peer.on("connect", () => {
+			console.log("connected");
+		});
 		peer.on("signal", (data) => {
 			socket.emit("patientAccept", { signal: data, to: id });
 		});
 		peer.on("stream", (stream) => {
 			console.log(stream);
+			//console.log(doctorVideo.current);
 			doctorVideo.current.srcObject = stream;
 		});
 		peer.signal(doctorSignal);
@@ -137,7 +150,7 @@ function Meeting(props) {
 	}
 	let DoctorVideo;
 	if (doctorPresent) {
-		DoctorVideo = <Video playsInline ref={doctorVideo} autoPlay />;
+		DoctorVideo = <Video playsInline muted ref={doctorVideo} autoPlay />;
 	}
 	return (
 		// <div>

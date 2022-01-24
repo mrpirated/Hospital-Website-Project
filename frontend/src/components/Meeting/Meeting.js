@@ -33,8 +33,9 @@ function Meeting() {
 	const socket = useRef();
 	useEffect(() => {
 		socket.current = io("http://localhost:4587");
+		console.log(socket.current);
 		navigator.mediaDevices
-			.getUserMedia({ video: true, audio: true })
+			.getUserMedia({ video: true, audio: false })
 			.then((stream) => {
 				setStream(stream);
 				if (userVideo.current) {
@@ -46,6 +47,7 @@ function Meeting() {
 		});
 		socket.current.on("allUsers", (users) => {
 			setUsers(users);
+			//console.log(users);
 		});
 
 		socket.current.on("hey", (data) => {
@@ -71,6 +73,7 @@ function Meeting() {
 		});
 
 		peer.on("stream", (stream) => {
+			console.log(stream);
 			partnerVideo.current.srcObject = stream;
 		});
 
@@ -91,6 +94,7 @@ function Meeting() {
 		});
 
 		peer.on("stream", (stream) => {
+			console.log(stream);
 			partnerVideo.current.srcObject = stream;
 		});
 

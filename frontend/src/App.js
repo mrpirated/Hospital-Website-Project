@@ -32,7 +32,6 @@ function App() {
 				await tokenAPI(token).then((res) => {
 					if (res.success) {
 						const socketio = io(config.baseUrl, {
-							transports: ["websocket"],
 							query: {
 								token: "Bearer " + token,
 							},
