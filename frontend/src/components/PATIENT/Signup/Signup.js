@@ -1,28 +1,24 @@
 import React, { useState } from "react";
-import { Form, Row, Col, Modal, Button } from "react-bootstrap";
+import { Form, Modal } from "react-bootstrap";
 import signupAPI from "../../../api/signupAPI";
-import verifyAPI from "../../../api/verifyAPI";
+//import verifyAPI from "../../../api/verifyAPI";
 import { useHistory } from "react-router";
-import DatePicker from "react-datepicker";
-import format from "date-fns/format";
-import DateFnsUtils from "@date-io/date-fns";
+//import DatePicker from "react-datepicker";
+//import DateFnsUtils from "@date-io/date-fns";
 import "react-datepicker/dist/react-datepicker.css";
-import {
-	KeyboardDatePicker,
-	MuiPickersUtilsProvider,
-} from "@material-ui/pickers";
+
 import PhoneInput from "react-phone-number-input";
 import "react-phone-number-input/style.css";
 import Navigation from "../../Navigation";
 import doctorLogo from "../Login/undraw_doctor_kw-5-l.svg";
-import doctorLogo1 from "../Login/undraw_medical_care_movn.svg";
+//import doctorLogo1 from "../Login/undraw_medical_care_movn.svg";
 
 function Signup(props) {
 	const [first_name, setFirstName] = useState("");
 	const [last_name, setLastName] = useState("");
-	const [dob, setDob] = useState(new Date());
-	const [gender, setGender] = useState("Other");
-	const [address, setAddress] = useState("");
+	//const [dob, setDob] = useState(new Date());
+	// const [gender, setGender] = useState("Other");
+	// const [address, setAddress] = useState("");
 	const [email, setEmail] = useState("");
 	const [phone, setPhone] = useState("");
 	const [password, setPassword] = useState("");
@@ -30,7 +26,7 @@ function Signup(props) {
 	const [code, setCode] = useState("");
 	const [openPopup, setopenPopup] = useState(props.openPopup);
 	const handleClose = () => setopenPopup(false);
-	const handleShow = () => setopenPopup(true);
+	//const handleShow = () => setopenPopup(true);
 	const type = "patient";
 	const history = useHistory();
 	const validateForm = () => {
@@ -42,7 +38,7 @@ function Signup(props) {
 		// setopenPopup(true);
 		// console.log("true");
 		if (validateForm() && password === confirmPassword) {
-			const dobSend = format(dob, "yyyy-MM-dd");
+			//const dobSend = format(dob, "yyyy-MM-dd");
 			signupAPI({
 				type,
 				first_name,
@@ -69,7 +65,7 @@ function Signup(props) {
 		// setopenPopup(true);
 		// console.log("true");
 		if (validateForm() && password === confirmPassword) {
-			const dobSend = format(dob, "yyyy-MM-dd");
+			//const dobSend = format(dob, "yyyy-MM-dd");
 			signupAPI({
 				type,
 				first_name,

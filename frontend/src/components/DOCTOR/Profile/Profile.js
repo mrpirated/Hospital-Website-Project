@@ -29,7 +29,7 @@ function Profile() {
 	};
 	return (
 		<div>
-			<img id='profile_pic' variant='left' width='100' />
+			<img id='profile_pic' variant='left' width='100' alt='profile_pic' />
 			<label for='myfile'>Select a file:</label>
 			<input type='file' onChange={handleFileInput} />
 			<button onClick={handleSubmit}>Submit</button>

@@ -1,14 +1,7 @@
 import React, { useState } from "react";
-import { Form, Row, Col, Button } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 import { useHistory } from "react-router";
-import format from "date-fns/format";
-import DateFnsUtils from "@date-io/date-fns";
 import "react-datepicker/dist/react-datepicker.css";
-import {
-	KeyboardDatePicker,
-	MuiPickersUtilsProvider,
-} from "@material-ui/pickers";
-import addDoctorAPI from "../../../api/addDoctorAPI";
 import signupAPI from "../../../api/signupAPI";
 import { useSelector } from "react-redux";
 import PhoneInput from "react-phone-number-input";
@@ -16,9 +9,9 @@ import PhoneInput from "react-phone-number-input";
 function AddDoctor() {
 	const [first_name, setFirstName] = useState("");
 	const [last_name, setLastName] = useState("");
-	const [dob, setDob] = useState(new Date());
-	const [gender, setGender] = useState("PreferNotToSay");
-	const [address, setAddress] = useState("");
+	//const [dob, setDob] = useState(new Date());
+	//const [gender, setGender] = useState("PreferNotToSay");
+	//const [address, setAddress] = useState("");
 	const [email, setEmail] = useState("");
 	const [phone, setPhone] = useState("");
 	const [password, setPassword] = useState("");
@@ -60,7 +53,7 @@ function AddDoctor() {
 	return (
 		<div
 			className='addDoctorForm'
-			style={{ backgroundColor: "#D3E0EA", paddingBottom: "20px"}}
+			style={{ backgroundColor: "#D3E0EA", paddingBottom: "20px" }}
 		>
 			<Form onSubmit={handleSubmit}>
 				<div>

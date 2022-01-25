@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import getDoctorDetailsAPI from "../../../api/getDoctorDetailsAPI";
+//import getDoctorDetailsAPI from "../../../api/getDoctorDetailsAPI";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import {
@@ -7,21 +7,21 @@ import {
 	ListGroup,
 	ListGroupItem,
 	Image,
-	DropdownButton,
-	Dropdown,
-	Row,
-	Col,
+	// DropdownButton,
+	// Dropdown,
+	// Row,
+	// Col,
 } from "react-bootstrap";
-import { requirePropFactory } from "@material-ui/core";
+//import { requirePropFactory } from "@material-ui/core";
 import doctor_image from "./doctor.jpg";
 import "./Doctors.css";
-import doctorLogo from "./doctor.jpg";
+//import doctorLogo from "./doctor.jpg";
 import getSpecializationAPI from "../../../api/getSpecializationAPI";
 import getDoctorsAPI from "../../../api/getDoctorsAPI";
 
 function Doctors() {
 	const auth = useSelector((state) => state.auth);
-	const history = useHistory();
+	//const history = useHistory();
 	const [doctorDetails, setDoctorDetails] = useState([]);
 	const [displayDoctors, setDisplayDoctors] = useState([]);
 	const [specialization, setSpecialization] = useState([]);

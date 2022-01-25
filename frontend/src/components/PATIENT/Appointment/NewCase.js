@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { Form, Button } from "react-bootstrap";
 import "./NewCase.css";
 import newCaseAPI from "../../../api/newCaseAPI";

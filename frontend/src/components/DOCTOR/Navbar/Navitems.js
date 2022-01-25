@@ -19,10 +19,10 @@ const Navitems = [
 		path: "availability",
 		url: "/doctor",
 	},
-	{
-		name: "Rooms",
-		path: "rooms",
-		url: "/doctor",
-	},
+	// {
+	// 	name: "Rooms",
+	// 	path: "rooms",
+	// 	url: "/doctor",
+	// },
 ];
 export default Navitems;
