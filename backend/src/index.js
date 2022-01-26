@@ -20,6 +20,7 @@ import setDoctorAppointmentDuration from "./routes/setDoctorAppointmentDuration"
 import addUserDetails from "./routes/addUserDetails";
 import getScheduledAppointments from "./routes/getScheduledAppointments";
 import verifyPhone from "./routes/verifyPhone";
+import forgotPassword from "./routes/forgotPassword";
 import fs from "fs";
 import path from "path";
 import https from "https";
@@ -81,7 +82,8 @@ app.use(
 	setDoctorAppointmentDuration,
 	addUserDetails,
 	getScheduledAppointments,
-	verifyPhone
+	verifyPhone,
+	forgotPassword
 );
 app.use("/", (req, res) => {
 	res.send("Server is Running");
