@@ -31,6 +31,7 @@ const patientCaseAPI = async (data) => {
 			// 		data: res.data,
 			// 	};
 			// }
+			console.log(res.data);
 			return res.data;
 		});
 };

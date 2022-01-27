@@ -5,18 +5,18 @@
 	--color3: #b42b51;
 	--color4: #e63e6d;
 
-	--bgColor1: #F6F5F5;
+	--bgColor1: #f6f5f5;
 	/* --bgColor1: rgb(180, 232, 233); */
 	--bgColor2: #030149;
-	--bgColor3: #04009A;
+	--bgColor3: #04009a;
 	--bgColor4: rgb(99, 226, 243);
 	--bgColor5: rgb(164, 231, 240);
-	--bgColor6: #04009A;
-	--bgColor7: #04009A;
+	--bgColor6: #04009a;
+	--bgColor7: #04009a;
 	--bgColor8: rgb(34, 193, 195);
 	--bgColor9: rgba(34, 193, 195, 1);
 	--bgColor10: rgba(253, 187, 45, 1);
-	--bgColor11: #D3E0EA;
+	--bgColor11: #d3e0ea;
 
 	--boxShadow: rgba(187, 187, 187, 0.2);
 }
@@ -26,8 +26,10 @@ body {
 }
 .navbar {
 	background-color: var(--bgColor2);
-	position: sticky;
+	/* position: sticky; */
 	top: 0;
+	min-height: 70px;
+	height: 10vh;
 }
 #card {
 	width: 18rem;
@@ -110,7 +112,7 @@ body {
 	font-size: 1.3rem;
 	padding-left: 1.5rem;
 	padding-bottom: 1rem;
-	box-shadow: inset -2px -2px 0px 0px  var(--bgColor1);
+	box-shadow: inset -2px -2px 0px 0px var(--bgColor1);
 	transition: box-shadow 0.2s ease-in;
 	background-color: var(--bgColor11);
 }
@@ -186,7 +188,7 @@ html {
 	border-style: solid;
 	padding: 20px;
 	border-color: #030149;
-	overflow:auto;
+	overflow: auto;
 }
 
 #headerTitle {
@@ -213,28 +215,28 @@ html {
 	padding: 20px;
 	border-color: #030149;
 
-	overflow:auto; 
+	overflow: auto;
 }
 
-#left-signup { 
-	width: 50%; 
-	float: left;
-	padding: 2%; 
-}
-#right-signup { 
+#left-signup {
 	width: 50%;
-	float:right;
-} 
+	float: left;
+	padding: 2%;
+}
+#right-signup {
+	width: 50%;
+	float: right;
+}
 
-#left  { 
-	width: 60%; 
+#left {
+	width: 60%;
 	float: left;
 }
-#right { 
+#right {
 	width: 40%;
-	float:right;
-	padding: 2%; 
-} 
+	float: right;
+	padding: 2%;
+}
 
 #addDoctorForm {
 	/* min-height: auto; */
@@ -246,7 +248,7 @@ html {
 	border-style: solid;
 	padding: 20px;
 	border-color: #030149;
-	overflow:auto; 
+	overflow: auto;
 }
 
 .search-container {
@@ -270,33 +272,33 @@ html {
 
 .findDoctorDiv {
 	padding-right: 15%;
-    padding-left: 50%;
-    margin-right: auto;
-    margin-left: auto;
+	padding-left: 50%;
+	margin-right: auto;
+	margin-left: auto;
 	/* left:50%;
 	top:150px; */
 }
 
-.findDoctorDropdown{
+.findDoctorDropdown {
 	display: block;
-    width: 100%;
-    height: 40px;
-    padding: 6px 10px;
-    font-size: 14px;
-    line-height: 1.42857143;
-    color: #555;
-    background-color: #fff;
-    background-image: none;
-    border: 1px solid #fff;
-    border-radius: 5px;
-    outline: 0;
+	width: 100%;
+	height: 40px;
+	padding: 6px 10px;
+	font-size: 14px;
+	line-height: 1.42857143;
+	color: #555;
+	background-color: #fff;
+	background-image: none;
+	border: 1px solid #fff;
+	border-radius: 5px;
+	outline: 0;
 }
 
 .container {
-    padding-right: 15px;
-    padding-left: 15px;
-    margin-right: auto;
-    margin-left: auto;
+	padding-right: 15px;
+	padding-left: 15px;
+	margin-right: auto;
+	margin-left: auto;
 }
 
 #doctorCard {
@@ -316,16 +318,16 @@ html {
 	object-fit: contain;
 }
 
-#leftDoctorCard { 
-	width: 40%; 
+#leftDoctorCard {
+	width: 40%;
 	float: left;
 }
 
-#rightDoctorCard { 
+#rightDoctorCard {
 	width: 60%;
-	float:right;
-	padding: 2%; 
-} 
+	float: right;
+	padding: 2%;
+}
 
 #cardDiv {
 	width: 40%;
@@ -364,7 +366,7 @@ html {
 	background: #030149;
 	border: none;
 	padding: 10px;
-	color: #D3E0EA;
+	color: #d3e0ea;
 	box-shadow: 0 0 3px rgba(0, 0, 0, 0.4);
 	margin: 0 10px;
 	cursor: pointer;
@@ -383,20 +385,20 @@ html {
 	color: #999;
 }
 
-@media screen and (max-width: 700px){
+@media screen and (max-width: 700px) {
 	.findDoctorDiv {
 		padding-right: 15px;
 		padding-left: 15px;
 		margin-right: auto;
 		margin-left: auto;
-		text-align:center;
+		text-align: center;
 	}
 
 	#doctorCard {
 		width: 90%;
 		height: 2rem;
 	}
-	
+
 	#doctorCardImage {
 		height: 100%;
 		width: 100%;
