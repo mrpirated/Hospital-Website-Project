@@ -12,12 +12,14 @@ import DoctorRoute from "./components/DOCTOR/DoctorRoute";
 import AdminRoute from "./components/ADMIN/AdminRoute";
 import Meeting from "./components/Meeting/Meeting";
 import Home from "./components/HOME/Home";
+import LoadingProvider from "./components/LoadingProvider";
 import "bootstrap/dist/css/bootstrap.min.css";
 import tokenAPI from "./api/tokenAPI";
-import { loggedWithToken } from "./store/auth";
+import { loggedWithToken, setLoading } from "./store/auth";
 import { setSocketId } from "./store/socket";
 import { useSelector } from "react-redux";
 import io from "socket.io-client";
+import LoadingOverlay from "react-loading-overlay";
 import config from "./config/config";
 import "./App.css";
 function App() {
@@ -28,6 +30,7 @@ function App() {
 	useEffect(() => {
 		const checktoken = async () => {
 			if (!auth.isauth && localStorage.getItem("token")) {
+				dispatch(setLoading({ loading: true }));
 				const token = JSON.parse(localStorage.getItem("token"));
 				await tokenAPI(token).then((res) => {
 					if (res.success) {
@@ -74,6 +77,7 @@ function App() {
 					} else {
 						alert(res.message);
 					}
+					dispatch(setLoading({ loading: false }));
 				});
 			}
 		};
@@ -85,24 +89,37 @@ function App() {
 	// },[])
 	return (
 		<div>
-			<Switch>
-				<Route
-					exact
-					path='/'
-					render={() => {
-						history.push("/home");
-					}}
-				/>
-				<Route exact path='/doctor/login' component={DoctorLogin} />
-				<Route exact path='/login' component={PatientLogin} />
-				<Route exact path='/admin/login' component={AdminLogin} />
-				<Route exact path='/signup' component={PatientSignup} />
-				<Route exact path='/home' component={Home} />
-				<Route path='/patient' component={PatientRoute} />
-				<Route path='/admin' component={AdminRoute} />
-				<Route path='/doctor' component={DoctorRoute} />
-				<Route path='/meeting' component={Meeting} />
-			</Switch>
+			<LoadingProvider
+				active={auth.isloading}
+				// spinner
+				// text='Loading...'
+				// styles={{
+				// 	overlay: (base) => ({
+				// 		...base,
+				// 		background: "rgba(255, 255, 255, 0.7)",
+				// 		color: "black",
+				// 	}),
+				// }}
+			>
+				<Switch>
+					<Route
+						exact
+						path='/'
+						render={() => {
+							history.push("/home");
+						}}
+					/>
+					<Route exact path='/doctor/login' component={DoctorLogin} />
+					<Route exact path='/login' component={PatientLogin} />
+					<Route exact path='/admin/login' component={AdminLogin} />
+					<Route exact path='/signup' component={PatientSignup} />
+					<Route exact path='/home' component={Home} />
+					<Route path='/patient' component={PatientRoute} />
+					<Route path='/admin' component={AdminRoute} />
+					<Route path='/doctor' component={DoctorRoute} />
+					<Route path='/meeting' component={Meeting} />
+				</Switch>
+			</LoadingProvider>
 		</div>
 	);
 }
