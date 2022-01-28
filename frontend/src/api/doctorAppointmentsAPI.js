@@ -5,41 +5,13 @@ const doctorAppointmentsAPI = async (data) => {
 	const { token } = data;
 	//console.log(token);
 	return await axios
-		.get(
-			config.baseUrl +
-				config.doctor +
-				config.appointment +
-				(data.start_time
-					? "&start_time=" + data.start_time + "&end_time=" + data.end_time
-					: ""),
-			{
-				headers: {
-					Authorization: "Bearer " + token,
-				},
-			}
-		)
+		.get(config.baseUrl + config.getDoctorAppointments, {
+			headers: {
+				Authorization: "Bearer " + token,
+			},
+		})
 		.then((res) => {
-			if (res.status === 200) {
-				console.log(res.data.msg);
-				console.log(res.data.appointments);
-				//console.log(res.data.cases);
-				return {
-					reply: true,
-					appointments: res.data.appointments,
-				};
-			} else if (res.status === 210) {
-				console.log(res.data.msg);
-				return {
-					reply: false,
-					data: res.data,
-				};
-			} else {
-				console.log(res.data.msg);
-				return {
-					reply: false,
-					data: res.data,
-				};
-			}
+			return res.data;
 		});
 };
 export default doctorAppointmentsAPI;
