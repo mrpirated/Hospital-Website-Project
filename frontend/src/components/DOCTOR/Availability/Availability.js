@@ -105,7 +105,6 @@ function Availability() {
 				<div className='text-center' style={{ paddingTop: "2rem" }}>
 					<Button
 						variant='outline-dark'
-						block
 						size='sm'
 						className='NewCaseButton'
 						onClick={onSaveChanges}
