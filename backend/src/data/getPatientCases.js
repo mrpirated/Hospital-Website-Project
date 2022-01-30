@@ -9,7 +9,8 @@ const getPatientCases = (user_id) => {
 			}
 			connection.query(
 				"SELECT c.case_id,\
-				c.case_description\
+				c.case_description,\
+				a.start_time\
 				FROM cases c\
 				LEFT JOIN appointment a\
 				ON c.case_id = a.case_id \
