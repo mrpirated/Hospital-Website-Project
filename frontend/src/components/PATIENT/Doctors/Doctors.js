@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 //import getDoctorDetailsAPI from "../../../api/getDoctorDetailsAPI";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { setLoading } from "../../../store/auth";
 import { useHistory } from "react-router";
 import {
 	Card,
@@ -22,6 +23,7 @@ import getDoctorsAPI from "../../../api/getDoctorsAPI";
 function Doctors() {
 	const auth = useSelector((state) => state.auth);
 	//const history = useHistory();
+	const dispatch = useDispatch();
 	const [doctorDetails, setDoctorDetails] = useState([]);
 	const [displayDoctors, setDisplayDoctors] = useState([]);
 	const [specialization, setSpecialization] = useState([]);
@@ -31,7 +33,7 @@ function Doctors() {
 		pageLimit = 5;
 	useEffect(() => {
 		sessionStorage.setItem("lastPage", "/patient/doctors");
-
+		dispatch(setLoading({ loading: true }));
 		getSpecializationAPI({
 			token: auth.token,
 		}).then((res) => {
@@ -57,6 +59,7 @@ function Doctors() {
 			} else {
 				console.log("No Doctors Recieved.");
 			}
+			dispatch(setLoading({ loading: false }));
 		});
 	}, []);
 

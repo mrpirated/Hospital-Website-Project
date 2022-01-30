@@ -20,10 +20,17 @@
 
 	--boxShadow: rgba(187, 187, 187, 0.2);
 }
+html,
+body,
+#root,
+.App {
+	height: 100%;
+}
 body {
 	background: var(--bgColor1);
 	font-family: "work sans";
 }
+
 .navbar {
 	background-color: var(--bgColor2);
 	/* position: sticky; */
