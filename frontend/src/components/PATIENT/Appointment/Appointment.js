@@ -4,7 +4,7 @@ import { Switch, useHistory } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoading } from "../../../store/auth";
 import patientCaseAPI from "../../../api/patientCaseAPI";
-import { Card, Table } from "react-bootstrap";
+import { Card, Table, Button } from "react-bootstrap";
 import moment from "moment";
 //import "./Appointment.css";
 
@@ -40,6 +40,16 @@ export default function Appointment(props) {
 
 	return (
 		<div>
+			<div style={{ padding: "10px" }} className='text-center'>
+				<Button
+					variant='outline-dark'
+					onClick={() => {
+						history.push("/patient/new-case");
+					}}
+				>
+					New Case
+				</Button>
+			</div>
 			<Table striped bordered hover responsive='lg'>
 				<thead style={{ textAlign: "center" }}>
 					<th>Case Description</th>
@@ -49,17 +59,19 @@ export default function Appointment(props) {
 					{cases.map((c) => (
 						<tr
 							key={c.case_id}
-							onClick={(e) => {
-								console.log(e.target);
+							onClick={() => {
+								history.push("/patient/myappointment", { case_details: c });
 							}}
 						>
 							<td>{c.case_description}</td>
-							<td>{moment(c.start_time).format("lll")}</td>
+							<td>
+								{c.start_time ? moment(c.start_time).format("lll") : "NA"}
+							</td>
 						</tr>
 					))}
 				</tbody>
 			</Table>
-			<div id='card'>
+			{/* <div id='card'>
 				<Card
 					className='appointment-addcard'
 					onClick={() => {
@@ -88,7 +100,7 @@ export default function Appointment(props) {
 						</Card.Body>
 					</Card>
 				</div>
-			))}
+			))} */}
 		</div>
 	);
 }
