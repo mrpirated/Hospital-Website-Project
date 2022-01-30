@@ -4,7 +4,8 @@ import { Switch, useHistory } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoading } from "../../../store/auth";
 import patientCaseAPI from "../../../api/patientCaseAPI";
-import { Card } from "react-bootstrap";
+import { Card, Table, Button } from "react-bootstrap";
+import moment from "moment";
 //import "./Appointment.css";
 
 export default function Appointment(props) {
@@ -18,15 +19,14 @@ export default function Appointment(props) {
 		// 	history.push("/home");
 		// }
 
-		const tokenNow = auth.token;
 		//console.log(tokenNow);
 		dispatch(setLoading({ loading: true }));
 		patientCaseAPI({
-			token: tokenNow,
+			token: auth.token,
 		}).then((res) => {
 			console.log(res);
 			if (res.success) {
-				//console.log(res.cases);
+				console.log(res.data.cases);
 				setCases(res.data.cases);
 			} else {
 				// alert(res.data.msg + "\nYou will be redirected to Home.");
@@ -40,7 +40,38 @@ export default function Appointment(props) {
 
 	return (
 		<div>
-			<div id='card'>
+			<div style={{ padding: "10px" }} className='text-center'>
+				<Button
+					variant='outline-dark'
+					onClick={() => {
+						history.push("/patient/new-case");
+					}}
+				>
+					New Case
+				</Button>
+			</div>
+			<Table striped bordered hover responsive='lg'>
+				<thead style={{ textAlign: "center" }}>
+					<th>Case Description</th>
+					<th>Latest Appointment</th>
+				</thead>
+				<tbody style={{ textAlign: "center" }}>
+					{cases.map((c) => (
+						<tr
+							key={c.case_id}
+							onClick={() => {
+								history.push("/patient/myappointment", { case_details: c });
+							}}
+						>
+							<td>{c.case_description}</td>
+							<td>
+								{c.start_time ? moment(c.start_time).format("lll") : "NA"}
+							</td>
+						</tr>
+					))}
+				</tbody>
+			</Table>
+			{/* <div id='card'>
 				<Card
 					className='appointment-addcard'
 					onClick={() => {
@@ -69,7 +100,7 @@ export default function Appointment(props) {
 						</Card.Body>
 					</Card>
 				</div>
-			))}
+			))} */}
 		</div>
 	);
 }

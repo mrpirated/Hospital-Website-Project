@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router";
 import { useSelector } from "react-redux";
 import moment from "moment";
-import { Card, Form, Modal, Row, Col, Button } from "react-bootstrap";
+import { Card, Form, Modal, Row, Col, Button, Table } from "react-bootstrap";
 import patientMyAppointmentAPI from "../../../api/patientMyAppointmentAPI";
 export default function MyAppointment(props) {
 	const auth = useSelector((state) => state.auth);
@@ -38,13 +38,50 @@ export default function MyAppointment(props) {
 		fetchData();
 	}, []);
 	const onSelectAppointment = async (app) => {
-		setselectedAP(app);
-		console.log(app);
-		setopenPopup(true);
+		// setselectedAP(app);
+		// console.log(app);
+		// setopenPopup(true);
 	};
 	return (
 		<div>
-			<div id='card'>
+			<div style={{ padding: "10px" }} className='text-center'>
+				<Button
+					variant='outline-dark'
+					onClick={() => {
+						history.push("/patient/new-appointment", {
+							case_details: case_details,
+						});
+					}}
+				>
+					New Appointment
+				</Button>
+			</div>
+			<Table striped bordered hover responsive='lg'>
+				<thead style={{ textAlign: "center" }}>
+					<th>Doctor</th>
+					<th>Start Time</th>
+					<th>End Time</th>
+					<th>Duration</th>
+				</thead>
+				<tbody style={{ textAlign: "center" }}>
+					{appointments.map((a) => (
+						<tr key={a.appointment_id} onClick={() => onSelectAppointment(a)}>
+							<td>{a.doctor_name}</td>
+							<td>
+								{a.start_time ? moment(a.start_time).format("lll") : "NA"}
+							</td>
+							<td>{a.end_time ? moment(a.end_time).format("lll") : "NA"}</td>
+							<td>
+								{a.end_time
+									? moment(a.end_time).diff(moment(a.start_time), "minutes") +
+									  " min"
+									: "NA"}
+							</td>
+						</tr>
+					))}
+				</tbody>
+			</Table>
+			{/* <div id='card'>
 				<Card
 					className='appointment-addcard'
 					onClick={() => {
@@ -72,7 +109,7 @@ export default function MyAppointment(props) {
 						</Card.Body>
 					</Card>
 				</div>
-			))}
+			))} */}
 
 			<Modal
 				aria-labelledby='example-custom-modal-styling-title'
