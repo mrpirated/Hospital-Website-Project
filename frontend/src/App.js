@@ -88,7 +88,7 @@ function App() {
 	//     if()
 	// },[])
 	return (
-		<div>
+		<div className='App'>
 			<LoadingProvider
 				active={auth.isloading}
 				// spinner

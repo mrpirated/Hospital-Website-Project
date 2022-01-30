@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Route } from "react-router-dom";
 import { Switch, useHistory } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
+import { setLoading } from "../../../store/auth";
 import patientCaseAPI from "../../../api/patientCaseAPI";
 import { Card } from "react-bootstrap";
 //import "./Appointment.css";
@@ -10,29 +11,31 @@ export default function Appointment(props) {
 	const auth = useSelector((state) => state.auth);
 	const history = useHistory();
 	const [cases, setCases] = useState([]);
-
+	const dispatch = useDispatch();
 	useEffect(() => {
 		sessionStorage.setItem("lastPage", "/patient/appointment");
 		// if (!(auth.isauth && auth.type === 0)) {
 		// 	history.push("/home");
 		// }
-		const patientFunc = async () => {
-			const tokenNow = auth.token;
-			//console.log(tokenNow);
-			await patientCaseAPI({
-				token: tokenNow,
-			}).then((res) => {
-				console.log(res);
-				if (res.success) {
-					//console.log(res.cases);
-					setCases(res.data.cases);
-				} else {
-					// alert(res.data.msg + "\nYou will be redirected to Home.");
-					setTimeout(history.push("/patient/appointment"), 0);
-				}
-			});
-		};
-		setTimeout(patientFunc(), 100);
+
+		const tokenNow = auth.token;
+		//console.log(tokenNow);
+		dispatch(setLoading({ loading: true }));
+		patientCaseAPI({
+			token: tokenNow,
+		}).then((res) => {
+			console.log(res);
+			if (res.success) {
+				//console.log(res.cases);
+				setCases(res.data.cases);
+			} else {
+				// alert(res.data.msg + "\nYou will be redirected to Home.");
+				setTimeout(history.push("/patient/appointment"), 0);
+			}
+			dispatch(setLoading({ loading: false }));
+		});
+
+		//setTimeout(patientFunc(), 100);
 	}, []);
 
 	return (

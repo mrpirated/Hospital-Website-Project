@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { setLoading } from "../../../store/auth";
 import DatePicker from "react-datepicker";
 import { Button, Card } from "react-bootstrap";
 import doctorAppointmentsAPI from "../../../api/doctorAppointmentsAPI";
@@ -11,14 +12,14 @@ import { columns } from "./TableColumns";
 
 export default function Appointment() {
 	const auth = useSelector((state) => state.auth);
+	const dispatch = useDispatch();
 	const history = useHistory();
-	const [data, setData] = useState([]);
 	const [past, setPast] = useState([]);
 	const [all, setAll] = useState([]);
 	const [future, setFuture] = useState([]);
-	const [isLoading, setIsLoading] = useState(false);
-	const [selecteddate, setselecteddate] = useState(new Date());
+
 	useEffect(() => {
+		dispatch(setLoading({ loading: true }));
 		doctorAppointmentsAPI({ token: auth.token }).then((response) => {
 			if (response.success) {
 				var now = new Date();
@@ -33,6 +34,7 @@ export default function Appointment() {
 				);
 				setPast(tmp2);
 				setFuture(tmp1);
+				dispatch(setLoading({ loading: false }));
 			}
 		});
 	}, []);
@@ -41,7 +43,7 @@ export default function Appointment() {
 		<div>
 			<TabComponent
 				tabList={TabNav}
-				selectedKey='future'
+				selectedKey='all'
 				all={all}
 				past={past}
 				future={future}
