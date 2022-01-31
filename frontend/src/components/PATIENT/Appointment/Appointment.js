@@ -157,32 +157,21 @@ export default function Appointment(props) {
 								}}
 							>
 								<Card.Body>
-									<Card.Title>
-										<span>{c.case_description}</span>
+									<Card.Title style={{ fontSize: "25px" }}>
+										{c.case_description}
 									</Card.Title>
 
-									<ListGroup
-										style={{
-											fontSize: "0.8rem",
-										}}
-									>
-										<ListGroupItem>
-											<b>Doctor:</b> {"Temp Data"}
-										</ListGroupItem>
-										<ListGroupItem>
-											<b>Speciality:</b> {"Temp Data"}
-										</ListGroupItem>
-										<ListGroupItem>
-											<b>Creation Date:</b> {"Temp Data"}
-										</ListGroupItem>
-									</ListGroup>
+									<Card.Text>
+										<b>Latest Appointment:</b>{" "}
+										{c.start_time ? moment(c.start_time).format("lll") : "NA"}
+									</Card.Text>
 								</Card.Body>
 							</Card>
 						</div>
 					))}
 				</div>
 				<div
-					className='pagination'
+					className='pagination fixed-bottom'
 					style={{ paddingBottom: "20px", paddingTop: "20px" }}
 				>
 					{/* previous button */}
