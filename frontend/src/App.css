@@ -409,7 +409,11 @@ html {
 	box-shadow: none;
 	color: #999;
 }
-
+#cardDiv .appointmentCard:hover {
+	transform: scale(1.05);
+	transition-duration: 0.25s;
+	cursor: pointer;
+}
 @media screen and (max-width: 700px) {
 	.findDoctorDiv {
 		padding-right: 15px;

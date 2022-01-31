@@ -4,7 +4,14 @@ import { Switch, useHistory } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoading } from "../../../store/auth";
 import patientCaseAPI from "../../../api/patientCaseAPI";
-import { Card, Table, Button,  ListGroup, ListGroupItem, Image,} from "react-bootstrap";
+import {
+	Card,
+	Table,
+	Button,
+	ListGroup,
+	ListGroupItem,
+	Image,
+} from "react-bootstrap";
 import moment from "moment";
 //import "./Appointment.css";
 
@@ -16,10 +23,11 @@ export default function Appointment(props) {
 	const [displayCases, setDisplayCases] = useState([]);
 	const [pages, setPages] = useState(1);
 	const [currentPage, setCurrentPage] = useState(1);
-	const dataLimit = 10, pageLimit = 5;
+	const dataLimit = 10,
+		pageLimit = 5;
 
 	function sleep(ms) {
-		return new Promise(resolve => setTimeout(resolve, ms));
+		return new Promise((resolve) => setTimeout(resolve, ms));
 	}
 
 	useEffect(() => {
@@ -45,7 +53,7 @@ export default function Appointment(props) {
 			}
 			sleep(1000).then(() => {
 				dispatch(setLoading({ loading: false }));
-			})
+			});
 		});
 
 		//setTimeout(patientFunc(), 100);
@@ -142,15 +150,15 @@ export default function Appointment(props) {
 				<div>
 					{getPaginatedData().map((c) => (
 						<div id='cardDiv' key={c.case_id}>
-							<Card 
-								className='appointmentCard' 
+							<Card
+								className='appointmentCard'
 								onClick={() => {
 									history.push("/patient/myappointment", { case_details: c });
 								}}
 							>
 								<Card.Body>
 									<Card.Title>
-										<span>Case Id: {c.case_id}</span>
+										<span>{c.case_description}</span>
 									</Card.Title>
 
 									<ListGroup
@@ -158,9 +166,6 @@ export default function Appointment(props) {
 											fontSize: "0.8rem",
 										}}
 									>
-										<ListGroupItem>
-											<b>Description:</b> {c.case_description}
-										</ListGroupItem>
 										<ListGroupItem>
 											<b>Doctor:</b> {"Temp Data"}
 										</ListGroupItem>
