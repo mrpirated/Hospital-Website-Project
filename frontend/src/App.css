@@ -20,12 +20,7 @@
 
 	--boxShadow: rgba(187, 187, 187, 0.2);
 }
-html,
-body,
-#root,
-.App {
-	height: 100%;
-}
+
 body {
 	background: var(--bgColor1);
 	font-family: "work sans";
@@ -392,7 +387,15 @@ html {
 	box-shadow: none;
 	color: #999;
 }
-
+.profile {
+	display: block;
+	width: 80%;
+	background: #fff;
+	margin: 15px auto 0;
+	box-shadow: 0 4px 5px 2px rgb(0 0 0 / 30%);
+	min-height: 500px;
+	position: relative;
+}
 @media screen and (max-width: 700px) {
 	.findDoctorDiv {
 		padding-right: 15px;
