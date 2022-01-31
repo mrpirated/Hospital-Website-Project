@@ -304,6 +304,23 @@ html {
 	margin-left: auto;
 }
 
+#appointmentCard {
+	width: 40%;
+	height: 150px;
+	margin: 10px auto;
+	border: rgb(150, 149, 149);
+	border-radius: 5px;
+	border-width: 2px;
+	border-style: solid;
+	cursor: pointer;
+}
+
+#appointmentCard:hover {
+	opacity: 0.9;
+	transform: scale(1.05);
+	transition-duration: 0.25s;
+}
+
 #doctorCard {
 	width: 40%;
 	height: 150px;
@@ -395,6 +412,11 @@ html {
 	box-shadow: 0 4px 5px 2px rgb(0 0 0 / 30%);
 	min-height: 500px;
 	position: relative;
+}
+#cardDiv .appointmentCard:hover {
+	transform: scale(1.05);
+	transition-duration: 0.25s;
+	cursor: pointer;
 }
 @media screen and (max-width: 700px) {
 	.findDoctorDiv {

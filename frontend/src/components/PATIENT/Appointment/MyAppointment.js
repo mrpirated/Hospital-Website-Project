@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import moment from "moment";
+import { setLoading } from "../../../store/auth";
 import { Card, Form, Modal, Row, Col, Button, Table } from "react-bootstrap";
 import patientMyAppointmentAPI from "../../../api/patientMyAppointmentAPI";
 export default function MyAppointment(props) {
@@ -11,6 +12,7 @@ export default function MyAppointment(props) {
 	const [openPopup, setopenPopup] = useState(false);
 	const [selectedAP, setselectedAP] = useState({});
 	const case_details = props.location.state.case_details;
+	const dispatch = useDispatch();
 	//console.log(props);
 	useEffect(() => {
 		if (!(auth.isauth && auth.type === "patient")) {
@@ -19,6 +21,7 @@ export default function MyAppointment(props) {
 		if (props.location.state === undefined) {
 			history.push("/home");
 		}
+		dispatch(setLoading({ loading: true }));
 		const fetchData = async () => {
 			await patientMyAppointmentAPI({
 				token: auth.token,
@@ -32,6 +35,7 @@ export default function MyAppointment(props) {
 					//alert(res.data.msg + "\nYou will be redirected to Home.");
 					setTimeout(history.push("/home"), 4000);
 				}
+				dispatch(setLoading({ loading: false }));
 			});
 		};
 
