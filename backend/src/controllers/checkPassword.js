@@ -3,18 +3,17 @@ import getToken from "./getToken";
 const checkPassword = async ({
 	user_password,
 	password,
-	user_id,
-	type,
-	user,
+	// user_id,
+	// type,
+	// user,
 }) => {
 	return new Promise((resolve, reject) => {
 		bcrypt.compare(user_password, password, (bErr, bResult) => {
 			if (bResult) {
-				const token = getToken({ user_id: user_id, type: type }, "30d");
+				//const token = getToken({ user_id: user_id, type: type }, "30d");
 				resolve({
 					success: true,
-					message: "Successfully logged In",
-					data: { token, user },
+					message: "Password is Correct",
 				});
 			} else {
 				reject({

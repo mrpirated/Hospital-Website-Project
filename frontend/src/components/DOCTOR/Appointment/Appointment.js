@@ -43,7 +43,7 @@ export default function Appointment() {
 		<div>
 			<TabComponent
 				tabList={TabNav}
-				selectedKey='all'
+				selectedKey='future'
 				all={all}
 				past={past}
 				future={future}
