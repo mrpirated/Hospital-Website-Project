@@ -33,7 +33,11 @@ function Profile() {
 				<Row style={{ flexDirection: "row" }}>
 					<Col sm={3}>
 						<div style={{ margin: "1%" }}>
-							<Nav variant='pills' className='flex-column'>
+							<Nav
+								variant='pills'
+								className='flex-column'
+								style={{ position: "absolute" }}
+							>
 								<Nav.Item>
 									<Nav.Link eventKey='profile'>Profile</Nav.Link>
 								</Nav.Item>

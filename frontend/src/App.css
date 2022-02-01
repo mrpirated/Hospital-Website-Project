@@ -408,9 +408,9 @@ html {
 	display: block;
 	width: 80%;
 	background: #fff;
-	margin: 15px auto 0;
+	margin: 15px auto 15px;
 	box-shadow: 0 4px 5px 2px rgb(0 0 0 / 30%);
-	min-height: 500px;
+	min-height: 515px;
 	position: relative;
 }
 #cardDiv .appointmentCard:hover {
