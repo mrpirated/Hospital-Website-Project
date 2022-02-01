@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Nav, Tabs, Tab, Row, Col, NavItem } from "react-bootstrap";
 import ProfileInfo from "./ProfileInfo";
+import LoginInfo from "./LoginInfo";
 //import { Link } from "react-router-dom";
 function Profile() {
 	const [key, setKey] = useState("profile");
@@ -56,7 +57,9 @@ function Profile() {
 								<Tab.Pane eventKey='profile'>
 									<ProfileInfo />
 								</Tab.Pane>
-								<Tab.Pane eventKey='login'>Here</Tab.Pane>
+								<Tab.Pane eventKey='login'>
+									<LoginInfo />
+								</Tab.Pane>
 							</Tab.Content>
 						</div>
 					</Col>
