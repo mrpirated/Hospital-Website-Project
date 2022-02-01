@@ -1,13 +1,32 @@
 import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { setLoading } from "../../../store/auth";
 import { Form } from "react-bootstrap";
+import changePasswordAPI from "../../../api/changePasswordAPI";
 function LoginInfo() {
-	const [password, setPassword] = useState();
-	const [newPassword, setNewPassword] = useState();
-	const [confirmPassword, setConfirmPassword] = useState();
+	const auth = useSelector((state) => state.auth);
+	const dispatch = useDispatch();
+	const [password, setPassword] = useState("");
+	const [newPassword, setNewPassword] = useState("");
+	const [confirmPassword, setConfirmPassword] = useState("");
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		dispatch(setLoading({ loading: true }));
+		if (newPassword === confirmPassword) {
+			changePasswordAPI({ token: auth.token, password, newPassword }).then(
+				(response) => {
+					if (response.success) {
+						alert(response.message);
+					} else alert(response.message);
+					dispatch(setLoading({ loading: false }));
+				}
+			);
+		} else alert("Passwords don't match");
+	};
 	return (
 		<div>
 			<div>
-				<Form>
+				<Form onSubmit={handleSubmit}>
 					<div
 						style={{
 							margin: "0px 10px 25px",
