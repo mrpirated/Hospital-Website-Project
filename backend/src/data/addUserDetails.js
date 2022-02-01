@@ -10,6 +10,9 @@ const addUserDetails = (val, decoded) => {
 		if (val.dob !== undefined) values.dob = val.dob;
 		if (val.gender !== undefined) values.gender = val.gender;
 		if (val.address !== undefined) values.address = val.address;
+		if (val.first_name !== undefined) values.first_name = val.first_name;
+		if (val.last_name !== undefined) values.last_name = val.last_name;
+		if (val.email !== undefined) values.email = val.email;
 		pool.getConnection((err, connection) => {
 			if (err) {
 				reject({ success: false, message: "Error In connection", error: err });
