@@ -33,5 +33,6 @@ const config = {
 	getScheduledAppointments: "/api/getScheduledAppointments",
 	getProfilePic: "/api/getProfilePic",
 	getDoctorAppointments: "/api/getDoctorAppointments",
+	addUserDetails: "/api/addUserDetails",
 };
 export default config;

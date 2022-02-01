@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { setLoading } from "../../../store/auth";
 import { Form } from "react-bootstrap";
 import DateFnsUtils from "@date-io/date-fns";
+import addUserDetailsAPI from "../../../api/addUserDetailsAPI";
+import moment from "moment";
 import {
 	MuiPickersUtilsProvider,
 	KeyboardDatePicker,
@@ -23,10 +26,32 @@ function ProfileInfo() {
 		setDob(auth.user.dob);
 		setAddress(auth.user.address);
 	}, [auth]);
-	const handleSubmit = () => {};
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		dispatch(setLoading({ loading: true }));
+		console.log(first_name);
+		console.log(last_name);
+		console.log(email);
+		console.log(gender);
+		console.log(address);
+		console.log(dob);
+		var data = {
+			token: auth.token,
+			first_name,
+			last_name,
+			dob: dob ? moment(dob).format("YYYY-MM-DD") : dob,
+			gender,
+			address,
+			email,
+		};
+		addUserDetailsAPI(data).then((response) => {
+			// alert(response.message);
+			dispatch(setLoading({ loading: false }));
+		});
+	};
 	return (
 		<div>
-			<Form>
+			<Form onSubmit={handleSubmit}>
 				<div
 					style={{
 						margin: "0px 10px 25px",
@@ -72,7 +97,6 @@ function ProfileInfo() {
 					<MuiPickersUtilsProvider utils={DateFnsUtils}>
 						<KeyboardDatePicker
 							style={{ width: "73%", alignItems: "center" }}
-							autoOk
 							variant='inline'
 							inputVariant='outlined'
 							format='dd/MM/yyyy'
