@@ -34,5 +34,6 @@ const config = {
 	getProfilePic: "/api/getProfilePic",
 	getDoctorAppointments: "/api/getDoctorAppointments",
 	addUserDetails: "/api/addUserDetails",
+	changePassword: "/api/changePassword",
 };
 export default config;
