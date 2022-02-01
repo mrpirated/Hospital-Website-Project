@@ -15,6 +15,7 @@ const getDoctorAppointments = (user_id) => {
                 c.case_description,\
                 a.start_time,\
                 a.end_time,\
+				a.preferred_date,\
                 a.state\
                 FROM\
                 appointment a\
