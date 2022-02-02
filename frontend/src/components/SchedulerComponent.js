@@ -23,7 +23,7 @@ function SchedulerComponent(props) {
 		<div>
 			{/* <ButtonComponent id='btn1' title='Click to open Editor' onClick={this.onClickButton1.bind(this)}>Click to open Editor</ButtonComponent> */}
 			<ScheduleComponent
-				currentView='Day'
+				currentView='Week'
 				eventSettings={props.localData}
 				readonly={true}
 				popupOpen={props.onPopupOpen}
