@@ -13,6 +13,7 @@ function Profile() {
 	const [profilePic, setProfilePic] = useState();
 	const [profilePicChange, setProfilePicChange] = useState(false);
 	const [key, setKey] = useState("profile");
+
 	useEffect(() => {
 		getProfilePicAPI({ token: auth.token }).then((response) => {
 			if (response.success) {
@@ -48,6 +49,11 @@ function Profile() {
 									width='100%'
 									alt='profile_pic'
 								/>
+							</div>
+							<div style={{ textAlign: "center" }}>
+								<h3>
+									{auth.user.first_name} {auth.user.last_name}
+								</h3>
 							</div>
 							<div style={{ margin: "1%" }}>
 								<Nav
