@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
-import uploadProfilePicAPI from "../../../api/uploadProfilePicAPI";
 import getProfilePicAPI from "../../../api/getProfilePicAPI";
 import { useSelector } from "react-redux";
 import { Nav, Col, Row, Tab } from "react-bootstrap";
-import styled from "styled-components";
 import doctor_image from "./doctor.jpg";
 import ProfileInfo from "./ProfileInfo";
 import LoginInfo from "./LoginInfo";
+import ChangePhone from "./ChangePhone";
 
 function Profile() {
 	const auth = useSelector((state) => state.auth);
@@ -36,41 +35,45 @@ function Profile() {
 				>
 					<Row style={{ flexDirection: "row" }}>
 						<Col sm={3}>
-							<div style={{ margin: "1%", padding: "5%" }}>
-								<img
-									src={
-										profilePic
-											? `data:image/jpeg;base64,${new Buffer.from(
-													profilePic
-											  ).toString("base64")}`
-											: doctor_image
-									}
-									position='relative'
-									width='100%'
-									alt='profile_pic'
-								/>
-							</div>
-							<div style={{ textAlign: "center" }}>
-								<h3>
-									{auth.user.first_name} {auth.user.last_name}
-								</h3>
-							</div>
-							<div style={{ margin: "1%" }}>
-								<Nav
-									variant='pills'
-									className='flex-column'
-									style={{ position: "absolute" }}
-								>
-									<Nav.Item>
-										<Nav.Link eventKey='profile'>Profile</Nav.Link>
-									</Nav.Item>
-									<Nav.Item>
-										<Nav.Link eventKey='login'>Login</Nav.Link>
-									</Nav.Item>
-									<Nav.Item>
-										<Nav.Link eventKey='phone'>Change Phone No.</Nav.Link>
-									</Nav.Item>
-								</Nav>
+							<div>
+								<div style={{ margin: "1%", padding: "5%" }}>
+									<img
+										src={
+											profilePic
+												? `data:image/jpeg;base64,${new Buffer.from(
+														profilePic
+												  ).toString("base64")}`
+												: doctor_image
+										}
+										position='relative'
+										width='100%'
+										alt='profile_pic'
+									/>
+								</div>
+								<div style={{ textAlign: "center" }}>
+									<h3>
+										{auth.user.first_name} {auth.user.last_name}
+									</h3>
+								</div>
+								<div style={{ margin: "1%" }}>
+									<Nav
+										variant='pills'
+										className='flex-column'
+										style={{ position: "absolute" }}
+									>
+										<Nav.Item>
+											<Nav.Link eventKey='profile'>Profile</Nav.Link>
+										</Nav.Item>
+										<Nav.Item>
+											<Nav.Link eventKey='login'>Login</Nav.Link>
+										</Nav.Item>
+										<Nav.Item>
+											<Nav.Link eventKey='changePhone'>
+												Change Phone No.
+											</Nav.Link>
+										</Nav.Item>
+									</Nav>
+								</div>
 							</div>
 						</Col>
 						<Col sm={9}>
@@ -84,6 +87,9 @@ function Profile() {
 									</Tab.Pane>
 									<Tab.Pane eventKey='login'>
 										<LoginInfo />
+									</Tab.Pane>
+									<Tab.Pane eventKey='changephone'>
+										<ChangePhone />
 									</Tab.Pane>
 								</Tab.Content>
 							</div>
