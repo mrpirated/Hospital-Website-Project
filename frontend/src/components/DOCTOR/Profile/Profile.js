@@ -2,82 +2,89 @@ import React, { useState, useEffect } from "react";
 import uploadProfilePicAPI from "../../../api/uploadProfilePicAPI";
 import getProfilePicAPI from "../../../api/getProfilePicAPI";
 import { useSelector } from "react-redux";
+import { Nav, Col, Row, Tab } from "react-bootstrap";
 import styled from "styled-components";
 import doctor_image from "./doctor.jpg";
-const Container = styled.div`
-	width: 100%;
-	display: flex;
-	flex-direction: column;
-`;
-const SidebarMenu = styled.nav`
-	width: 20%;
-	height: 90vh;
-	background-color: rgb(99, 226, 243);
-	position: relative;
-	top: 0;
-	float: left;
-`;
+import ProfileInfo from "./ProfileInfo";
+import LoginInfo from "./LoginInfo";
+
 function Profile() {
-	const [profilepic, setProfilepic] = useState();
 	const auth = useSelector((state) => state.auth);
 	const [profilePic, setProfilePic] = useState();
+	const [profilePicChange, setProfilePicChange] = useState(false);
+	const [key, setKey] = useState("profile");
 	useEffect(() => {
 		getProfilePicAPI({ token: auth.token }).then((response) => {
 			if (response.success) {
 				setProfilePic(response.data.image.data);
 			}
+			setProfilePicChange(false);
 		});
-	}, []);
-	const handleFileInput = (e) => {
-		setProfilepic(e.target.files[0]);
-		// var selectedFile = e.target.files[0];
-		// var reader = new FileReader();
+	}, [profilePicChange]);
 
-		// var imgtag = document.getElementById("profile_pic");
-		// imgtag.title = selectedFile.name;
-
-		// reader.onload = function (e) {
-		// 	imgtag.src = e.target.result;
-		// };
-
-		// reader.readAsDataURL(selectedFile);
-	};
-	const handleSubmit = async () => {
-		var formdata = new FormData();
-		formdata.append("avatar", profilepic);
-		await uploadProfilePicAPI({ token: auth.token, formdata: formdata }).then(
-			(res) => {
-				console.log(res.message);
-			}
-		);
-	};
 	return (
 		<div>
-			<Container>
-				<div style={{ width: "100%", overflow: "hidden" }}>
-					<SidebarMenu>
-						<div style={{ margin: "5%" }}>
-							<img
-								src={
-									profilePic
-										? `data:image/jpeg;base64,${new Buffer.from(
-												profilePic
-										  ).toString("base64")}`
-										: doctor_image
-								}
-								position='relative'
-								width='100%'
-								alt='profile_pic'
-							/>
-						</div>
-					</SidebarMenu>
-					<div style={{ float: "right", width: "80%" }}>
-						<label for='myfile'>Select a file:</label>
-						<input type='file' onChange={handleFileInput} />
-						<button onClick={handleSubmit}>Submit</button>
-					</div>
+			<div className='profile'>
+				<div style={{ textAlign: "center", padding: "20px" }}>
+					<h1>Profile</h1>
 				</div>
-			</Container>
+				<Tab.Container
+					id='left-tabs-example'
+					activeKey={key}
+					onSelect={(k) => setKey(k)}
+				>
+					<Row style={{ flexDirection: "row" }}>
+						<Col sm={3}>
+							<div style={{ margin: "1%", padding: "5%" }}>
+								<img
+									src={
+										profilePic
+											? `data:image/jpeg;base64,${new Buffer.from(
+													profilePic
+											  ).toString("base64")}`
+											: doctor_image
+									}
+									position='relative'
+									width='100%'
+									alt='profile_pic'
+								/>
+							</div>
+							<div style={{ margin: "1%" }}>
+								<Nav
+									variant='pills'
+									className='flex-column'
+									style={{ position: "absolute" }}
+								>
+									<Nav.Item>
+										<Nav.Link eventKey='profile'>Profile</Nav.Link>
+									</Nav.Item>
+									<Nav.Item>
+										<Nav.Link eventKey='login'>Login</Nav.Link>
+									</Nav.Item>
+									<Nav.Item>
+										<Nav.Link eventKey='phone'>Change Phone No.</Nav.Link>
+									</Nav.Item>
+								</Nav>
+							</div>
+						</Col>
+						<Col sm={9}>
+							<div style={{ margin: "1%" }}>
+								<Tab.Content>
+									<Tab.Pane eventKey='profile'>
+										<ProfileInfo
+											profilePicChange={profilePicChange}
+											setProfilePicChange={setProfilePicChange}
+										/>
+									</Tab.Pane>
+									<Tab.Pane eventKey='login'>
+										<LoginInfo />
+									</Tab.Pane>
+								</Tab.Content>
+							</div>
+						</Col>
+					</Row>
+				</Tab.Container>
+			</div>
 		</div>
 	);
 }
