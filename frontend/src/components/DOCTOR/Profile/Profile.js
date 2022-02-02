@@ -88,7 +88,7 @@ function Profile() {
 									<Tab.Pane eventKey='login'>
 										<LoginInfo />
 									</Tab.Pane>
-									<Tab.Pane eventKey='changephone'>
+									<Tab.Pane eventKey='changePhone'>
 										<ChangePhone />
 									</Tab.Pane>
 								</Tab.Content>

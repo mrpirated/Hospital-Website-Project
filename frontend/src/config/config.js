@@ -36,5 +36,6 @@ const config = {
 	addUserDetails: "/api/addUserDetails",
 	changePassword: "/api/changePassword",
 	getDoctorAvailability: "/api/getDoctorAvailability",
+	verifyPhone: "/api/verifyPhone",
 };
 export default config;
