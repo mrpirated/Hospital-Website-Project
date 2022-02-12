@@ -6,7 +6,7 @@ import doctor_image from "./doctor.jpg";
 import ProfileInfo from "./ProfileInfo";
 import LoginInfo from "./LoginInfo";
 import ChangePhone from "./ChangePhone";
-
+import AppointmentTime from "./AppointmentTime";
 function Profile() {
 	const auth = useSelector((state) => state.auth);
 	const [profilePic, setProfilePic] = useState();
@@ -72,6 +72,11 @@ function Profile() {
 												Change Phone No.
 											</Nav.Link>
 										</Nav.Item>
+										<Nav.Item>
+											<Nav.Link eventKey='appointmentTime'>
+												Appointment Time
+											</Nav.Link>
+										</Nav.Item>
 									</Nav>
 								</div>
 							</div>
@@ -90,6 +95,9 @@ function Profile() {
 									</Tab.Pane>
 									<Tab.Pane eventKey='changePhone'>
 										<ChangePhone />
+									</Tab.Pane>
+									<Tab.Pane eventKey='appointmentTime'>
+										<AppointmentTime />
 									</Tab.Pane>
 								</Tab.Content>
 							</div>
