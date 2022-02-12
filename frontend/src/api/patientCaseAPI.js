@@ -3,7 +3,7 @@ import config from "../config/config";
 
 const patientCaseAPI = async (data) => {
 	const { token } = data;
-	//console.log(token);
+	console.log(token);
 	return await axios
 		.get(config.baseUrl + config.getPatientCases, {
 			headers: {
