@@ -36,5 +36,8 @@ const config = {
 	addUserDetails: "/api/addUserDetails",
 	changePassword: "/api/changePassword",
 	getDoctorAvailability: "/api/getDoctorAvailability",
+	verifyPhone: "/api/verifyPhone",
+	getDoctorAppointmentDuration: "/api/getDoctorAppointmentDuration",
+	setDoctorAppointmentDuration: "/api/setDoctorAppointmentDuration",
 };
 export default config;
