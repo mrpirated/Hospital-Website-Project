@@ -10,16 +10,21 @@ function ChangePhone() {
 	const [otp, setOtp] = useState("");
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		verifyPhoneAPI({
-			token: auth.token,
-			user: { phone: phone },
-		}).then((response) => {
-			if (response.success) {
-				setOpenPopup(true);
-			} else {
-				alert(response.message);
-			}
-		});
+
+		if (auth.user.phone === phone) {
+			alert("Phone Number is same");
+		} else {
+			verifyPhoneAPI({
+				token: auth.token,
+				user: { phone: phone },
+			}).then((response) => {
+				if (response.success) {
+					setOpenPopup(true);
+				} else {
+					alert(response.message);
+				}
+			});
+		}
 	};
 	const handleOTPSubmit = () => {
 		verifyPhoneAPI({
