@@ -57,7 +57,7 @@ export default function Appointment(props) {
 		});
 
 		//setTimeout(patientFunc(), 100);
-	}, []);
+	}, [auth.isauth]);
 
 	function goToNextPage() {
 		setCurrentPage((page) => page + 1);

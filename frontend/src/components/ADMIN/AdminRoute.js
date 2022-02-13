@@ -13,16 +13,17 @@ export default function AdminRoute() {
 	const store = useStore();
 	const auth = store.getState().auth;
 	//console.log(auth);
-	const isauth = auth.isauth;
+	//const isauth = auth.isauth;
 	const type = auth.type;
 	const history = useHistory();
 	//const { path, url } = useRouteMatch();
 	//console.log(isauth);
 	useEffect(() => {
-		if (!(isauth && type === "admin")) {
-			history.push("/admin/login");
+		//if(auth.checkToken )
+		if (auth.checkToken && !(auth.isauth && type === "admin")) {
+			history.push("/home");
 		}
-	}, []);
+	}, [auth]);
 	return (
 		<div>
 			<Navigation Navitems={Navitems} />

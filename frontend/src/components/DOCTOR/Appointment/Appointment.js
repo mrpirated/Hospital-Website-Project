@@ -45,7 +45,7 @@ export default function Appointment() {
 				dispatch(setLoading({ loading: false }));
 			}
 		});
-	}, []);
+	}, [auth.isauth]);
 
 	return (
 		<div>

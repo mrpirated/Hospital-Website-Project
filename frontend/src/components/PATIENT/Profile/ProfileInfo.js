@@ -25,7 +25,7 @@ function ProfileInfo() {
 		setGender(auth.user.gender);
 		setDob(auth.user.dob);
 		setAddress(auth.user.address);
-	}, [auth]);
+	}, [auth.user]);
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		dispatch(setLoading({ loading: true }));

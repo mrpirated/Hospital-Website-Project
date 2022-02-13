@@ -2,10 +2,11 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
 	isloading: false,
 	error: "",
-	type: 0,
+	type: "",
 	user: {},
 	token: "",
 	isauth: false,
+	checkToken: false,
 };
 const slice = createSlice({
 	name: "auth",
@@ -23,6 +24,10 @@ const slice = createSlice({
 			auth.token = action.payload.token;
 			auth.isauth = true;
 			auth.type = action.payload.type;
+			auth.checkToken = true;
+		},
+		tokenChecked: (auth, action) => {
+			auth.checkToken = true;
 		},
 		loggedOut: (auth, action) => {
 			auth.user = {};
@@ -37,7 +42,12 @@ const slice = createSlice({
 	},
 });
 
-export const { loggedIn, loggedOut, loggedWithToken, setLoading } =
-	slice.actions;
+export const {
+	loggedIn,
+	loggedOut,
+	loggedWithToken,
+	setLoading,
+	tokenChecked,
+} = slice.actions;
 
 export default slice.reducer;

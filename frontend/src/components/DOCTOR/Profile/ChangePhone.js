@@ -43,7 +43,7 @@ function ChangePhone() {
 		if (auth.user.phone) {
 			setPhone(auth.user.phone);
 		}
-	}, []);
+	}, [auth.isauth]);
 	return (
 		<div>
 			<Form onSubmit={handleSubmit}>

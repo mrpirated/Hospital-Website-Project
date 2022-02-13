@@ -61,7 +61,7 @@ function Doctors() {
 			}
 			dispatch(setLoading({ loading: false }));
 		});
-	}, []);
+	}, [auth.isauth]);
 
 	const [pages, setPages] = useState(1);
 	const [currentPage, setCurrentPage] = useState(1);

@@ -14,41 +14,44 @@ import {
 	MuiPickersUtilsProvider,
 } from "@material-ui/pickers";
 function Availability() {
-	const token = useSelector((state) => state.auth.token);
+	const auth = useSelector((state) => state.auth);
 	const [availDate, setavailDate] = useState(new Date());
 	const [start_time, setstart_time] = useState(new Date());
 	const [end_time, setend_time] = useState(new Date());
 	const [openPopup, setOpenPopup] = useState(false);
 	const [calData, setCalData] = useState({});
+	console.log("at availability");
 	useEffect(() => {
-		getDoctorAvailabilityAPI({ token }).then((response) => {
-			if (response.success) {
-				var tmp = [];
-				for (let i = 0; i < response.data.availability.length; i++) {
-					// console.log(response.data.appointments[i].id, response.data.appointments[i].Subject);
-					tmp.push({
-						//Id: response.data.availability[i].appointment_id,
-						//Subject: response.data.availability[i].patient_name,
-						StartTime: response.data.availability[i].start_time,
-						EndTime: response.data.availability[i].end_time,
-						// Description:
-						// 	"DESCRIPTION: " +
-						// 	response.data.availability[i].case_description +
-						// 	", " +
-						// 	"CASE ID: " +
-						// 	response.data.availability[i].case_id +
-						// 	", " +
-						// 	"STATE: " +
-						// 	response.data.availability[i].state,
-						// StartTime: new Date(2021, 8, 21, 0,0),
-						// EndTime: new Date(2021, 8, 21, 1,0),
-					});
+		if (auth.isauth) {
+			getDoctorAvailabilityAPI({ token: auth.token }).then((response) => {
+				if (response.success) {
+					var tmp = [];
+					for (let i = 0; i < response.data.availability.length; i++) {
+						// console.log(response.data.appointments[i].id, response.data.appointments[i].Subject);
+						tmp.push({
+							//Id: response.data.availability[i].appointment_id,
+							//Subject: response.data.availability[i].patient_name,
+							StartTime: response.data.availability[i].start_time,
+							EndTime: response.data.availability[i].end_time,
+							// Description:
+							// 	"DESCRIPTION: " +
+							// 	response.data.availability[i].case_description +
+							// 	", " +
+							// 	"CASE ID: " +
+							// 	response.data.availability[i].case_id +
+							// 	", " +
+							// 	"STATE: " +
+							// 	response.data.availability[i].state,
+							// StartTime: new Date(2021, 8, 21, 0,0),
+							// EndTime: new Date(2021, 8, 21, 1,0),
+						});
+					}
+					var tmp1 = { dataSource: tmp };
+					setCalData(tmp1);
 				}
-				var tmp1 = { dataSource: tmp };
-				setCalData(tmp1);
-			}
-		});
-	}, []);
+			});
+		}
+	}, [openPopup, auth.isauth]);
 	const onSaveChanges = async () => {
 		console.log(moment(start_time).format("HH:mm"));
 		console.log(availDate);
@@ -63,8 +66,8 @@ function Availability() {
 			moment(end_time).format("HH:mm") +
 			":00";
 
-		console.log(ast);
-		console.log(aet);
+		//console.log(ast);
+		//console.log(aet);
 		var st = new Date(ast);
 		var et = new Date(aet);
 		if (st < new Date() || et < new Date() || st > et) {
@@ -74,7 +77,7 @@ function Availability() {
 			return;
 		}
 		await setAvailabilityAPI({
-			token: token,
+			token: auth.token,
 			start_time: ast,
 			end_time: aet,
 		}).then((res) => {
@@ -84,6 +87,7 @@ function Availability() {
 				alert(res.message);
 			}
 		});
+		setOpenPopup(false);
 		// setavailDate(new Date());
 		// setstart_time(new Date());
 		// setend_time(new Date());
@@ -110,6 +114,7 @@ function Availability() {
 				<SchedulerComponent localData={calData} onPopupOpen={onPopupOpen} />
 			</div>
 			<Modal show={openPopup} onHide={() => setOpenPopup(false)} centered>
+				{/* <Modal.Header closeButton></Modal.Header> */}
 				<Modal.Body>
 					<div className='availability'>
 						<h1> Give Availability </h1>
