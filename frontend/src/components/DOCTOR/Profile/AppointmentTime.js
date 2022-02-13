@@ -12,7 +12,7 @@ function AppointmentTime() {
 				setAppointmentTime(response.data.duration);
 			}
 		});
-	}, []);
+	}, [auth.isauth]);
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		setDoctorAppointmentDurationAPI({

@@ -62,7 +62,7 @@ function Calendar() {
 				}
 			});
 		}
-	}, []);
+	}, [auth.isauth]);
 
 	const onPopupOpen = (args) => {
 		//console.log(args.data);
