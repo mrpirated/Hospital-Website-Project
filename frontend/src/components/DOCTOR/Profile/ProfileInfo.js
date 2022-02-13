@@ -28,7 +28,7 @@ function ProfileInfo(props) {
 		setGender(auth.user.gender);
 		setDob(auth.user.dob);
 		setAddress(auth.user.address);
-	}, [auth]);
+	}, [auth.user]);
 
 	const handleSubmit = (e) => {
 		e.preventDefault();

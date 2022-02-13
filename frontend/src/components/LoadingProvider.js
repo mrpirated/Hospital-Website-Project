@@ -6,7 +6,7 @@ const LoadingProvider = (props) => (
 		{...props}
 		spinner={<RingLoader color='white' speedMultiplier='1.5' />}
 		//text='Loading...'
-		fadeSpeed='500'
+		fadeSpeed={500}
 		styles={{
 			overlay: (base) => ({
 				...base,

@@ -13,17 +13,18 @@ import Rooms from "./Rooms/Rooms";
 import Meeting from "./Meeting/Meeting";
 export default function PatientRoute() {
 	const auth = useSelector((state) => state.auth);
-	const isauth = auth.isauth;
+	//const isauth = auth.isauth;
 	const type = auth.type;
 	const history = useHistory();
 	//console.log(isauth);
 	console.log("at doctor route");
 	console.log(auth);
 	useEffect(() => {
-		if (!(isauth && type === "doctor")) {
-			history.push("/home");
+		//if(auth.checkToken )
+		if (auth.checkToken && !(auth.isauth && type === "doctor")) {
+			history.push("/doctor/login");
 		}
-	});
+	}, [auth]);
 
 	return (
 		<div>

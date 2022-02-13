@@ -15,16 +15,17 @@ import Rooms from "./Rooms/Rooms";
 import Meeting from "./Meeting/Meeting";
 export default function PatientRoute() {
 	const auth = useSelector((state) => state.auth);
-	const isauth = auth.isauth;
+
 	const type = auth.type;
 	const history = useHistory();
 	//const { path, url } = useRouteMatch();
 
 	useEffect(() => {
-		if (!(isauth && type === "patient")) {
+		//if(auth.checkToken )
+		if (auth.checkToken && !(auth.isauth && type === "patient")) {
 			history.push("/home");
 		}
-	});
+	}, [auth]);
 
 	return (
 		<div>
