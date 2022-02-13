@@ -40,7 +40,7 @@ export default function MyAppointment(props) {
 		};
 
 		fetchData();
-	}, []);
+	}, [auth.isauth]);
 	const onSelectAppointment = async (app) => {
 		// setselectedAP(app);
 		// console.log(app);

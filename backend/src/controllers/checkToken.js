@@ -9,7 +9,7 @@ const checkToken = (bearertoken) => {
 		const token = bearertoken.split(" ")[1];
 		jwt.verify(token, config.SECRET_KEY, (err, decoded) => {
 			if (err) {
-				reject({ success: false, message: err });
+				reject({ success: false, message: "Invalid Token" });
 			}
 			//console.log(decoded);
 			resolve({
