@@ -20,6 +20,7 @@ function Availability() {
 	const [end_time, setend_time] = useState(new Date());
 	const [openPopup, setOpenPopup] = useState(false);
 	const [calData, setCalData] = useState({});
+	console.log("at availability");
 	useEffect(() => {
 		getDoctorAvailabilityAPI({ token }).then((response) => {
 			if (response.success) {

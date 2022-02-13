@@ -27,6 +27,7 @@ function App() {
 	const dispatch = useDispatch();
 	const history = useHistory();
 	const [socket, setSocket] = useContext(SocketContext);
+	console.log("at app.js");
 	useEffect(() => {
 		const checktoken = async () => {
 			if (!auth.isauth && localStorage.getItem("token")) {
@@ -45,7 +46,7 @@ function App() {
 							dispatch(setSocketId({ socketId: id }));
 						});
 
-						if (res.data.type === "Admin") {
+						if (res.data.type === "admin") {
 							res.data.user = { ...res.data.user, first_name: res.data.type };
 						}
 						dispatch(
@@ -56,24 +57,24 @@ function App() {
 							})
 						);
 						//console.log(browserHistory.);
-						if (res.type === "patient") {
-							if (
-								sessionStorage.getItem("lastPage") &&
-								sessionStorage.getItem("lastPage").includes("/patient")
-							) {
-								console.log(sessionStorage.getItem("lastPage"));
-								history.push(sessionStorage.getItem("lastPage"));
-							} else history.push("/patient");
-						} else if (res.type === "doctor") history.push("/doctor");
-						else if (res.type === "admin") {
-							if (
-								sessionStorage.getItem("lastPage") &&
-								sessionStorage.getItem("lastPage").includes("/admin")
-							) {
-								console.log(sessionStorage.getItem("lastPage"));
-								history.push(sessionStorage.getItem("lastPage"));
-							} else history.push("/admin");
-						}
+						// if (res.type === "patient") {
+						// 	if (
+						// 		sessionStorage.getItem("lastPage") &&
+						// 		sessionStorage.getItem("lastPage").includes("/patient")
+						// 	) {
+						// 		console.log(sessionStorage.getItem("lastPage"));
+						// 		history.push(sessionStorage.getItem("lastPage"));
+						// 	} else history.push("/patient");
+						// } else if (res.type === "doctor") history.push("/doctor");
+						// else if (res.type === "admin") {
+						// 	if (
+						// 		sessionStorage.getItem("lastPage") &&
+						// 		sessionStorage.getItem("lastPage").includes("/admin")
+						// 	) {
+						// 		console.log(sessionStorage.getItem("lastPage"));
+						// 		history.push(sessionStorage.getItem("lastPage"));
+						// 	} else history.push("/admin");
+						// }
 					} else {
 						alert(res.message);
 					}

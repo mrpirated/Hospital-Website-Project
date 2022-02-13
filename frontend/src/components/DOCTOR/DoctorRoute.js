@@ -17,6 +17,8 @@ export default function PatientRoute() {
 	const type = auth.type;
 	const history = useHistory();
 	//console.log(isauth);
+	console.log("at doctor route");
+	console.log(auth);
 	useEffect(() => {
 		if (!(isauth && type === "doctor")) {
 			history.push("/home");
