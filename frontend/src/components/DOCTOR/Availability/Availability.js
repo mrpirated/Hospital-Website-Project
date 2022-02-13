@@ -48,7 +48,7 @@ function Availability() {
 				setCalData(tmp1);
 			}
 		});
-	}, []);
+	}, [openPopup]);
 	const onSaveChanges = async () => {
 		console.log(moment(start_time).format("HH:mm"));
 		console.log(availDate);
@@ -63,8 +63,8 @@ function Availability() {
 			moment(end_time).format("HH:mm") +
 			":00";
 
-		console.log(ast);
-		console.log(aet);
+		//console.log(ast);
+		//console.log(aet);
 		var st = new Date(ast);
 		var et = new Date(aet);
 		if (st < new Date() || et < new Date() || st > et) {
@@ -84,6 +84,7 @@ function Availability() {
 				alert(res.message);
 			}
 		});
+		setOpenPopup(false);
 		// setavailDate(new Date());
 		// setstart_time(new Date());
 		// setend_time(new Date());
