@@ -111,6 +111,7 @@ function Availability() {
 				<SchedulerComponent localData={calData} onPopupOpen={onPopupOpen} />
 			</div>
 			<Modal show={openPopup} onHide={() => setOpenPopup(false)} centered>
+				{/* <Modal.Header closeButton></Modal.Header> */}
 				<Modal.Body>
 					<div className='availability'>
 						<h1> Give Availability </h1>
