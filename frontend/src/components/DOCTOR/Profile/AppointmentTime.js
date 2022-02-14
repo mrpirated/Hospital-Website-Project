@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import getDoctorAppointmentDurationAPI from "../../../api/getDoctorAppointmentDurationAPI";
 import setDoctorAppointmentDurationAPI from "../../../api/setDoctorAppointmentDurationAPI";
 function AppointmentTime() {
-	const [appointmentTime, setAppointmentTime] = useState();
+	const [appointmentTime, setAppointmentTime] = useState(0);
 	const auth = useSelector((state) => state.auth);
 	useEffect(() => {
 		getDoctorAppointmentDurationAPI({ token: auth.token }).then((response) => {

@@ -19,7 +19,7 @@ function ProfileInfo(props) {
 	const [email, setEmail] = useState("");
 	const [dob, setDob] = useState();
 	const [address, setAddress] = useState("");
-	const [gender, setGender] = useState("Other");
+	const [gender, setGender] = useState("");
 	const [profilepic, setProfilepic] = useState();
 	useEffect(() => {
 		setFirstName(auth.user.first_name);
@@ -138,17 +138,15 @@ function ProfileInfo(props) {
 					</div>
 					<div className='row'>
 						<label>Gender</label>
-						<Form.Control
-							as='select'
-							custom
-							onChange={(e) => setGender(e.target.value)}
+						<Form.Select
 							style={{ width: "80%" }}
 							value={gender}
+							onChange={(e) => setGender(e.target.value)}
 						>
 							<option value='Other'>Other</option>
 							<option value='Male'>Male</option>
 							<option value='Female'>Female</option>
-						</Form.Control>
+						</Form.Select>
 					</div>
 					<div id='button' className='row'>
 						<button style={{ width: "45%", fontSize: "15px" }} type='submit'>
