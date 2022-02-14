@@ -64,7 +64,7 @@ function ChangePhone() {
 				</div>
 			</Form>
 			<Modal show={openPopup} onHide={() => setOpenPopup(false)}>
-				<Modal.Header closeButton></Modal.Header>
+				<Modal.Header closeButton />
 				<Modal.Body className='modal-body'>
 					<div className='row'>
 						<label style={{ color: "black", fontSize: "30px" }}>

@@ -20,6 +20,7 @@ function Availability() {
 	const [end_time, setend_time] = useState(new Date());
 	const [openPopup, setOpenPopup] = useState(false);
 	const [calData, setCalData] = useState({});
+	const [avaiAdded, setAvaiAdded] = useState(false);
 	console.log("at availability");
 	useEffect(() => {
 		if (auth.isauth) {
@@ -48,10 +49,15 @@ function Availability() {
 					}
 					var tmp1 = { dataSource: tmp };
 					setCalData(tmp1);
+
+					var tmp1 = { dataSource: tmp };
+					setCalData(tmp1);
+					setAvaiAdded(false);
 				}
 			});
 		}
-	}, [openPopup, auth.isauth]);
+	}, [avaiAdded, openPopup, auth.isauth]);
+
 	const onSaveChanges = async () => {
 		console.log(moment(start_time).format("HH:mm"));
 		console.log(availDate);
@@ -83,6 +89,7 @@ function Availability() {
 		}).then((res) => {
 			if (res.success) {
 				alert(res.message);
+				setAvaiAdded(true);
 			} else {
 				alert(res.message);
 			}
@@ -98,7 +105,7 @@ function Availability() {
 	};
 	return (
 		<div>
-			<div className='text-center' style={{ padding: "2rem" }}>
+			<div className='text-center' style={{ paddingTop: "2rem" }}>
 				<Button
 					variant='outline-dark'
 					size='sm'

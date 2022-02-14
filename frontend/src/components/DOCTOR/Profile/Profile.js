@@ -20,7 +20,7 @@ function Profile() {
 			}
 			setProfilePicChange(false);
 		});
-	}, [profilePicChange]);
+	}, [profilePicChange, auth.isauth]);
 
 	return (
 		<div>
@@ -35,50 +35,46 @@ function Profile() {
 				>
 					<Row style={{ flexDirection: "row" }}>
 						<Col sm={3}>
-							<div>
-								<div style={{ margin: "1%", padding: "5%" }}>
-									<img
-										src={
-											profilePic
-												? `data:image/jpeg;base64,${new Buffer.from(
-														profilePic
-												  ).toString("base64")}`
-												: doctor_image
-										}
-										position='relative'
-										width='100%'
-										alt='profile_pic'
-									/>
-								</div>
-								<div style={{ textAlign: "center" }}>
-									<h3>
+							<div className='profile-left'>
+								<img
+									src={
+										profilePic
+											? `data:image/jpeg;base64,${new Buffer.from(
+													profilePic
+											  ).toString("base64")}`
+											: doctor_image
+									}
+									position='relative'
+									width='100%'
+									alt='profile_pic'
+								/>
+
+								<div style={{ margin: "5% 0", fontSize: "1.3rem" }}>
+									<b>
 										{auth.user.first_name} {auth.user.last_name}
-									</h3>
+									</b>
 								</div>
-								<div style={{ margin: "1%" }}>
-									<Nav
-										variant='pills'
-										className='flex-column'
-										style={{ position: "absolute" }}
-									>
-										<Nav.Item>
-											<Nav.Link eventKey='profile'>Profile</Nav.Link>
-										</Nav.Item>
-										<Nav.Item>
-											<Nav.Link eventKey='login'>Login</Nav.Link>
-										</Nav.Item>
-										<Nav.Item>
-											<Nav.Link eventKey='changePhone'>
-												Change Phone No.
-											</Nav.Link>
-										</Nav.Item>
-										<Nav.Item>
-											<Nav.Link eventKey='appointmentTime'>
-												Appointment Time
-											</Nav.Link>
-										</Nav.Item>
-									</Nav>
-								</div>
+
+								<Nav
+									variant='pills'
+									className='flex-column'
+									style={{ position: "absolute" }}
+								>
+									<Nav.Item>
+										<Nav.Link eventKey='profile'>Profile</Nav.Link>
+									</Nav.Item>
+									<Nav.Item>
+										<Nav.Link eventKey='login'>Login</Nav.Link>
+									</Nav.Item>
+									<Nav.Item>
+										<Nav.Link eventKey='changePhone'>Change Phone No.</Nav.Link>
+									</Nav.Item>
+									<Nav.Item>
+										<Nav.Link eventKey='appointmentTime'>
+											Appointment Time
+										</Nav.Link>
+									</Nav.Item>
+								</Nav>
 							</div>
 						</Col>
 						<Col sm={9}>

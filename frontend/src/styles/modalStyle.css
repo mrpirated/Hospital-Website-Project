@@ -1,0 +1,7 @@
+.modal-header {
+	background-color: var(--bgColor2);
+}
+.modal-body {
+	font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+	background-color: var(--bgColor5);
+}

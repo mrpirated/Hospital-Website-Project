@@ -20,7 +20,7 @@ import {
 
 function SchedulerComponent(props) {
 	return (
-		<div>
+		<div style={{ margin: "3%" }}>
 			{/* <ButtonComponent id='btn1' title='Click to open Editor' onClick={this.onClickButton1.bind(this)}>Click to open Editor</ButtonComponent> */}
 			<ScheduleComponent
 				currentView='Week'
