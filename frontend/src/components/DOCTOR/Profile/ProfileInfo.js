@@ -69,14 +69,7 @@ function ProfileInfo(props) {
 	return (
 		<div>
 			<Form onSubmit={handleSubmit}>
-				<div
-					style={{
-						margin: "0px 10px 25px",
-						padding: "0px 10px 25px",
-						backgroundColor: "rgba(0,0,0,.1)",
-						boxShadow: "0 4px 5px 2px rgb(0 0 0 / 30%)",
-					}}
-				>
+				<div className='inprofile'>
 					<h3 id='headerTitle'>Personal Information</h3>
 
 					<div style={{ width: "100%", overflow: "hidden" }}>
@@ -116,17 +109,19 @@ function ProfileInfo(props) {
 					<div className='row'>
 						<label>Date Of Birth</label>
 					</div>
-					<MuiPickersUtilsProvider utils={DateFnsUtils}>
-						<KeyboardDatePicker
-							style={{ width: "73%", alignItems: "center" }}
-							variant='inline'
-							inputVariant='outlined'
-							format='dd/MM/yyyy'
-							value={dob}
-							onChange={(date) => setDob(date)}
-							InputAdornmentProps={{ position: "start" }}
-						/>
-					</MuiPickersUtilsProvider>
+					<div className='row'>
+						<MuiPickersUtilsProvider utils={DateFnsUtils}>
+							<KeyboardDatePicker
+								style={{ width: "80%" }}
+								variant='inline'
+								inputVariant='outlined'
+								format='dd/MM/yyyy'
+								value={dob}
+								onChange={(date) => setDob(date)}
+								InputAdornmentProps={{ position: "start" }}
+							/>
+						</MuiPickersUtilsProvider>
+					</div>
 					<div className='row'>
 						<label>Address</label>
 						<input
@@ -138,15 +133,11 @@ function ProfileInfo(props) {
 					</div>
 					<div className='row'>
 						<label>Gender</label>
-						<Form.Select
-							style={{ width: "80%" }}
-							value={gender}
-							onChange={(e) => setGender(e.target.value)}
-						>
+						<select value={gender} onChange={(e) => setGender(e.target.value)}>
 							<option value='Other'>Other</option>
 							<option value='Male'>Male</option>
 							<option value='Female'>Female</option>
-						</Form.Select>
+						</select>
 					</div>
 					<div id='button' className='row'>
 						<button style={{ width: "45%", fontSize: "15px" }} type='submit'>

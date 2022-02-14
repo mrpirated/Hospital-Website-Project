@@ -1,4 +1,6 @@
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:600|Work+Sans:400,500,600,700&display=swap");
+@import "./styles/modalStyle.css";
+@import "./styles/rowStyle.css";
 :root {
 	--color1: #420516;
 	--color2: #7d1935;
@@ -8,16 +10,14 @@
 	--bgColor1: #ddf8ea;
 	/* --bgColor1: rgb(180, 232, 233); */
 	--bgColor2: #12864c;
-	--bgColor3: #04009a;
-	--bgColor4: rgb(99, 226, 243);
-	--bgColor5: rgb(164, 231, 240);
+	--bgColor4: #084e2b;
+	--bgColor5: rgba(181, 238, 221, 0.5);
 	--bgColor6: #04009a;
-	--bgColor7: #04009a;
-	--bgColor8: rgb(34, 193, 195);
-	--bgColor9: rgba(34, 193, 195, 1);
-	--bgColor10: rgba(253, 187, 45, 1);
-	--bgColor11: #d3e0ea;
-
+	--bgColor7: black;
+	--bgColor8: #d5f7e5;
+	--bgColor9: rgba(192, 238, 224, 0.3);
+	--bgColor10: rgb(161, 216, 199);
+	--bgColor11: rgb(158, 236, 213);
 	--boxShadow: rgba(187, 187, 187, 0.2);
 }
 
@@ -39,12 +39,12 @@ body {
 	display: inline-block;
 }
 #card .doctor {
-	background-color: var(--bgColor3);
+	background-color: var(--bgColor2);
 }
 #card .appointment-addcard {
 	height: 10rem;
 	font-size: 75%;
-	background-color: var(--bgColor3);
+	background-color: var(--bgColor2);
 	color: black;
 	/* display: inline-block; */
 
@@ -59,7 +59,7 @@ body {
 #card .appointment {
 	height: 10rem;
 	font-size: 75%;
-	background-color: var(--bgColor3);
+	background-color: var(--bgColor2);
 	color: black;
 	/* display: inline-block; */
 
@@ -83,13 +83,6 @@ body {
 .card-header {
 	font-size: 20px;
 }
-.modal-header {
-	background-color: var(--bgColor4);
-}
-.modal-body {
-	font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-	background-color: var(--bgColor5);
-}
 .availability {
 	margin: auto;
 	text-align: center;
@@ -98,68 +91,6 @@ body {
 	margin: 0;
 	font-size: 2rem;
 }
-
-.row {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	padding-top: 2rem;
-	max-width: 100%;
-}
-
-.row input {
-	width: 80%;
-	box-sizing: border-box;
-	border: black 1px;
-	font-size: 1.3rem;
-	padding-left: 1.5rem;
-	padding-bottom: 1rem;
-	box-shadow: inset -2px -2px 0px 0px var(--bgColor1);
-	transition: box-shadow 0.2s ease-in;
-	background-color: var(--bgColor11);
-}
-.row label {
-	font-size: 18px;
-	font-weight: 100;
-}
-.row input:focus {
-	box-shadow: inset -3px -3px 0px 0px var(--bgColor2);
-	outline: none;
-}
-
-.row input::-webkit-input-placeholder {
-	opacity: 1;
-	transition: opacity 0.25s ease-out;
-}
-
-.row input:focus::-webkit-input-placeholder {
-	opacity: 0;
-}
-
-.row label {
-	align-self: start;
-	padding-left: 4.5rem;
-	padding-bottom: 0.5rem;
-	color: var(--bgColor7);
-}
-
-.row button {
-	border-radius: 25px;
-	width: 80%;
-	height: 45px;
-	font-size: 1.3rem;
-	color: white;
-	font-weight: 700;
-	background: var(--bgColor3);
-	border: 0px;
-	cursor: pointer;
-	transition: opacity 0.25s ease-out;
-}
-
-.row button:hover {
-	opacity: 0.8;
-}
-
 .availability form {
 	margin: 0 auto;
 	max-width: 320px;
@@ -187,10 +118,10 @@ html {
 	width: 70%;
 	background-color: #ffffff;
 	border-radius: 25px;
-	border-width: 10px;
+	border-width: 7px;
 	border-style: solid;
 	padding: 20px;
-	border-color: #030149;
+	border-color: var(--bgColor4);
 	overflow: auto;
 }
 
@@ -211,12 +142,12 @@ html {
 	height: 550px;
 	margin: 3% auto;
 	width: 70%;
-	background-color: #ffffff;
+	background-color: var(--bgColor5);
 	border-radius: 25px;
-	border-width: 10px;
+	border-width: 7px;
 	border-style: solid;
 	padding: 20px;
-	border-color: #030149;
+	border-color: var(--bgColor4);
 
 	overflow: auto;
 }
@@ -407,11 +338,42 @@ html {
 .profile {
 	display: block;
 	width: 80%;
-	background: #fff;
+	background-color: var(--bgColor8);
 	margin: 15px auto 15px;
-	box-shadow: 0 4px 5px 2px rgb(0 0 0 / 30%);
+	box-shadow: 0 4px 5px 2px rgb(0 0 0 / 50%);
 	min-height: 515px;
 	position: relative;
+}
+.profile-left {
+	text-align: center;
+	margin: 5%;
+	align-items: center;
+	justify-content: center;
+}
+
+.profile-left > .nav > .nav-item:hover {
+	cursor: pointer;
+}
+.profile-left > .nav > .nav-item > a.active {
+	background-color: var(--bgColor2);
+	color: #fff;
+}
+.profile-left > .nav > .nav-item > a {
+	color: black;
+}
+.profile-left img {
+	display: block;
+	margin: 0% 10%;
+	border: 1px solid;
+	border-radius: 0.5rem;
+	box-shadow: 0 4px 5px 2px rgb(0 0 0 / 50%);
+}
+
+.inprofile {
+	margin: 0px 10px 25px;
+	padding: 0px 10px 25px;
+	background-color: var(--bgColor9);
+	box-shadow: 0 4px 5px 2px rgb(0 0 0 / 50%);
 }
 #cardDiv .appointmentCard:hover {
 	transform: scale(1.05);
