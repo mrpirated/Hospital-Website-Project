@@ -135,7 +135,20 @@ html {
 	margin: 0;
 	font-size: 2rem;
 }
+#forgotform {
+	min-height: auto;
+	height: 100%;
+	margin: 3% auto;
+	width: 70%;
+	background-color: var(--bgColor5);
+	border-radius: 25px;
+	border-width: 7px;
+	border-style: solid;
+	padding: 20px;
+	border-color: var(--bgColor4);
 
+	overflow: auto;
+}
 #loginform {
 	/* max-width: 500px;
 	min-width: 300px;

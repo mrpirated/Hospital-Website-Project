@@ -39,5 +39,6 @@ const config = {
 	verifyPhone: "/api/verifyPhone",
 	getDoctorAppointmentDuration: "/api/getDoctorAppointmentDuration",
 	setDoctorAppointmentDuration: "/api/setDoctorAppointmentDuration",
+	forgotPassword: "/api/forgotPassword",
 };
 export default config;
