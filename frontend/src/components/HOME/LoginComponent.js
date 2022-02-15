@@ -67,7 +67,7 @@ function LoginComponent(props) {
 							<label>Email</label>
 							<input
 								autoFocus
-								type='text'
+								type='email'
 								// placeholder='Enter your email'
 								value={email}
 								onChange={(e) => setEmail(e.target.value)}
