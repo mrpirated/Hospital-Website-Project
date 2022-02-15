@@ -19,7 +19,7 @@ function Rooms() {
 				alert(response.message);
 			}
 		});
-	}, []);
+	}, [auth.isauth]);
 	return (
 		<div>
 			{appointments.map((app) => (

@@ -37,7 +37,7 @@ export default function PatientRoute() {
 				<Route path='/patient/doctors' component={Doctors} />
 				<Route path='/patient/new-case' component={NewCase} />
 				<Route path='/patient/new-appointment' component={NewAppointment} />
-				{/* <Route path='/patient/rooms' component={Rooms} /> */}
+				<Route path='/patient/rooms' component={Rooms} />
 				<Route path='/patient/profile' component={Profile} />
 				<Route path='/patient/meeting' component={Meeting} />
 			</Switch>

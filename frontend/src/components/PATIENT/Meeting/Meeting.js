@@ -34,6 +34,7 @@ function Meeting(props) {
 	const [doctorSignal, setDoctorSignal] = useState();
 	const patientVideo = useRef();
 	const doctorVideo = useRef();
+	//console.log(socket);
 	console.log(props.location.state);
 	if (!props.location.state.app) {
 		history.push("/home");
