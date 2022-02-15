@@ -3,8 +3,9 @@ import PhoneInput from "react-phone-number-input";
 import { Form, Modal, Alert } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { alertAdded } from "../../../store/alert";
-import { setLoading } from "../../../store/auth";
+import { setLoading, userUpdated } from "../../../store/auth";
 import verifyPhoneAPI from "../../../api/verifyPhoneAPI";
+import tokenAPI from "../../../api/tokenAPI";
 function ChangePhone() {
 	const auth = useSelector((state) => state.auth);
 	const alert = useSelector((state) => state.alert);
@@ -48,17 +49,26 @@ function ChangePhone() {
 			.then((response) => {
 				if (response.success) {
 					setOpenPopup(false);
+					//alert("Phone no updated successfully");
 					dispatch(
 						alertAdded({
 							variant: "success",
 							message: "Phone no updated successfully",
 						})
 					);
+					return tokenAPI(auth.token);
 				} else {
-					dispatch(
-						alertAdded({ variant: "danger", message: response.message })
-					);
+					return Promise.reject(response);
 				}
+			})
+			.then((response) => {
+				if (response.success) {
+					dispatch(userUpdated({ user: response.data.user }));
+				} else return Promise.reject(response);
+			})
+			.catch((err) => {
+				dispatch(alertAdded({ variant: "danger", message: err.message }));
+				console.log(err);
 			})
 			.finally(() => {
 				dispatch(setLoading({ loading: false }));
