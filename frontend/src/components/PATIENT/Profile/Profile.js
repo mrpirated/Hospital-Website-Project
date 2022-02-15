@@ -33,7 +33,7 @@ function Profile() {
 			>
 				<Row style={{ flexDirection: "row" }}>
 					<Col sm={3}>
-						<div style={{ margin: "1%" }}>
+						<div className='profile-left'>
 							<Nav
 								variant='pills'
 								className='flex-column'
@@ -45,9 +45,9 @@ function Profile() {
 								<Nav.Item>
 									<Nav.Link eventKey='login'>Login</Nav.Link>
 								</Nav.Item>
-								<Nav.Item>
+								{/* <Nav.Item>
 									<Nav.Link eventKey='phone'>Change Phone No.</Nav.Link>
-								</Nav.Item>
+								</Nav.Item> */}
 							</Nav>
 						</div>
 					</Col>

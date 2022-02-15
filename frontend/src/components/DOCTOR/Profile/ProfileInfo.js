@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setLoading } from "../../../store/auth";
+import { setLoading, userUpdated } from "../../../store/auth";
 import { Form } from "react-bootstrap";
 import DateFnsUtils from "@date-io/date-fns";
 import addUserDetailsAPI from "../../../api/addUserDetailsAPI";
 import uploadProfilePicAPI from "../../../api/uploadProfilePicAPI";
+import tokenAPI from "../../../api/tokenAPI";
 import getProfilePicAPI from "../../../api/getProfilePicAPI";
 import moment from "moment";
 import {
@@ -33,12 +34,7 @@ function ProfileInfo(props) {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		dispatch(setLoading({ loading: true }));
-		console.log(first_name);
-		console.log(last_name);
-		console.log(email);
-		console.log(gender);
-		console.log(address);
-		console.log(dob);
+
 		var data = {
 			token: auth.token,
 			first_name,
@@ -48,10 +44,22 @@ function ProfileInfo(props) {
 			address,
 			email,
 		};
-		addUserDetailsAPI(data).then((response) => {
-			// alert(response.message);
-			dispatch(setLoading({ loading: false }));
-		});
+		addUserDetailsAPI(data)
+			.then((response) => {
+				// alert(response.message);
+
+				if (response.success) {
+					return tokenAPI(auth.token);
+				}
+			})
+			.then((response) => {
+				if (response.success) {
+					dispatch(userUpdated({ user: response.data.user }));
+				}
+			})
+			.finally(() => {
+				dispatch(setLoading({ loading: false }));
+			});
 		if (profilepic) {
 			var formdata = new FormData();
 			formdata.append("avatar", profilepic);

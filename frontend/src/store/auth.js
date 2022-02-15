@@ -29,6 +29,9 @@ const slice = createSlice({
 		tokenChecked: (auth, action) => {
 			auth.checkToken = true;
 		},
+		userUpdated: (auth, action) => {
+			auth.user = action.payload.user;
+		},
 		loggedOut: (auth, action) => {
 			auth.user = {};
 			auth.token = "";
@@ -48,6 +51,7 @@ export const {
 	loggedWithToken,
 	setLoading,
 	tokenChecked,
+	userUpdated,
 } = slice.actions;
 
 export default slice.reducer;
