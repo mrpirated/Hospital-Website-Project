@@ -3,15 +3,16 @@ import { useHistory } from "react-router";
 import Form from "react-bootstrap/Form";
 import loginAPI from "../../api/loginAPI";
 import { loggedIn } from "../../store/auth";
-import { useDispatch } from "react-redux";
-
+import { useDispatch, useSelector } from "react-redux";
+import { Alert } from "react-bootstrap";
+import { alertAdded, alertRemoved } from "../../store/alert";
 function LoginComponent(props) {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const dispatch = useDispatch();
 	const history = useHistory();
 	const type = props.type;
-
+	const alert = useSelector((state) => state.alert);
 	function validateForm() {
 		return email.length > 0 && password.length > 0;
 	}
@@ -36,13 +37,18 @@ function LoginComponent(props) {
 				else if (type === "DOCTOR") history.push("/doctor");
 				else history.push("/admin");
 			} else {
-				alert(res.message);
+				dispatch(alertAdded({ variant: "danger", message: res.message }));
 			}
 		});
 	}
 
 	return (
-		<div id='loginform'>
+		<div
+			id='loginform'
+			onClick={() => {
+				dispatch(alertRemoved());
+			}}
+		>
 			<div id='left'>
 				<img
 					style={{ height: "120%", width: "100%", margin: "auto" }}
@@ -54,6 +60,9 @@ function LoginComponent(props) {
 				<Form onSubmit={handleSubmit}>
 					<div>
 						<h2 id='headerTitle'>Login</h2>
+						<Alert show={alert.show} variant={alert.variant}>
+							{alert.message}
+						</Alert>
 						<div className='row'>
 							<label>Email</label>
 							<input
