@@ -1,26 +1,47 @@
 import React, { useState, useEffect } from "react";
 import { Form } from "react-bootstrap";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { alertAdded } from "../../../store/alert";
+import { setLoading } from "../../../store/auth";
 import getDoctorAppointmentDurationAPI from "../../../api/getDoctorAppointmentDurationAPI";
 import setDoctorAppointmentDurationAPI from "../../../api/setDoctorAppointmentDurationAPI";
 function AppointmentTime() {
 	const [appointmentTime, setAppointmentTime] = useState(0);
+	const dispatch = useDispatch();
 	const auth = useSelector((state) => state.auth);
 	useEffect(() => {
-		getDoctorAppointmentDurationAPI({ token: auth.token }).then((response) => {
-			if (response.success) {
-				setAppointmentTime(response.data.duration);
-			}
-		});
+		dispatch(setLoading({ loading: true }));
+		getDoctorAppointmentDurationAPI({ token: auth.token })
+			.then((response) => {
+				if (response.success) {
+					setAppointmentTime(response.data.duration);
+				}
+			})
+			.finally(() => {
+				dispatch(setLoading({ loading: false }));
+			});
 	}, [auth.isauth]);
 	const handleSubmit = (e) => {
 		e.preventDefault();
+		dispatch(setLoading({ loading: true }));
 		setDoctorAppointmentDurationAPI({
 			token: auth.token,
 			duration: appointmentTime,
-		}).then((response) => {
-			alert(response.message);
-		});
+		})
+			.then((response) => {
+				if (response.success) {
+					dispatch(
+						alertAdded({ variant: "success", message: response.message })
+					);
+				} else {
+					dispatch(
+						alertAdded({ variant: "danger", message: response.message })
+					);
+				}
+			})
+			.finally(() => {
+				dispatch(setLoading({ loading: false }));
+			});
 	};
 
 	return (

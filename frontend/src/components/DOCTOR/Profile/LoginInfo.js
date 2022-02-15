@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setLoading } from "../../../store/auth";
 import { Form } from "react-bootstrap";
+import { alertAdded } from "../../../store/alert";
 import changePasswordAPI from "../../../api/changePasswordAPI";
 function LoginInfo() {
 	const auth = useSelector((state) => state.auth);
@@ -13,15 +14,25 @@ function LoginInfo() {
 		e.preventDefault();
 		dispatch(setLoading({ loading: true }));
 		if (newPassword === confirmPassword) {
-			changePasswordAPI({ token: auth.token, password, newPassword }).then(
-				(response) => {
+			changePasswordAPI({ token: auth.token, password, newPassword })
+				.then((response) => {
 					if (response.success) {
-						alert(response.message);
-					} else alert(response.message);
+						dispatch(
+							alertAdded({ variant: "success", message: "Password Updated" })
+						);
+					} else
+						dispatch(
+							alertAdded({ variant: "danger", message: response.message })
+						);
+				})
+				.finally(() => {
 					dispatch(setLoading({ loading: false }));
-				}
+				});
+		} else {
+			dispatch(
+				alertAdded({ variant: "danger", message: "Passwords Don't match" })
 			);
-		} else alert("Passwords don't match");
+		}
 	};
 	return (
 		<div>

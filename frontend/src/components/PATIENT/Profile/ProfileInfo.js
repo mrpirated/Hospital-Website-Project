@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setLoading, userUpdated } from "../../../store/auth";
-import { alertAdded, alertRemoved } from "../../../store/alert";
+import { alertAdded } from "../../../store/alert";
 import { Form } from "react-bootstrap";
 import DateFnsUtils from "@date-io/date-fns";
 import addUserDetailsAPI from "../../../api/addUserDetailsAPI";
