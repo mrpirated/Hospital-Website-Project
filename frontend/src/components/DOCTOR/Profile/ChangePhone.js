@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 import PhoneInput from "react-phone-number-input";
 import { Form, Modal } from "react-bootstrap";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { setLoading, userUpdated } from "../../../store/auth";
 import verifyPhoneAPI from "../../../api/verifyPhoneAPI";
+import tokenAPI from "../../../api/tokenAPI";
 function ChangePhone() {
 	const auth = useSelector((state) => state.auth);
+	const dispatch = useDispatch();
 	const [openPopup, setOpenPopup] = useState(false);
 	const [phone, setPhone] = useState();
 	const [otp, setOtp] = useState("");
@@ -14,30 +17,51 @@ function ChangePhone() {
 		if (auth.user.phone === phone) {
 			alert("Phone Number is same");
 		} else {
+			dispatch(setLoading({ loading: true }));
 			verifyPhoneAPI({
 				token: auth.token,
 				user: { phone: phone },
-			}).then((response) => {
-				if (response.success) {
-					setOpenPopup(true);
-				} else {
-					alert(response.message);
-				}
-			});
+			})
+				.then((response) => {
+					if (response.success) {
+						setOpenPopup(true);
+					} else {
+						alert(response.message);
+					}
+				})
+				.finally(() => {
+					dispatch(setLoading({ loading: false }));
+				});
 		}
 	};
 	const handleOTPSubmit = () => {
+		dispatch(setLoading({ loading: true }));
 		verifyPhoneAPI({
 			token: auth.token,
 			user: { phone: phone, otp: otp },
-		}).then((response) => {
-			if (response.success) {
-				setOpenPopup(false);
-				alert("Phone no updated successfully");
-			} else {
-				alert(response.message);
-			}
-		});
+		})
+			.then((response) => {
+				if (response.success) {
+					setOpenPopup(false);
+					//alert("Phone no updated successfully");
+
+					return tokenAPI(auth.token);
+				} else {
+					alert(response.message);
+					return Promise.reject(response);
+				}
+			})
+			.then((response) => {
+				if (response.success) {
+					dispatch(userUpdated({ user: response.data.user }));
+				} else return Promise.reject(response);
+			})
+			.catch((err) => {
+				console.log(err);
+			})
+			.finally(() => {
+				dispatch(setLoading({ loading: false }));
+			});
 	};
 	useEffect(() => {
 		if (auth.user.phone) {
