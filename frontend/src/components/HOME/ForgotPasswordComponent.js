@@ -31,6 +31,13 @@ function ForgotPasswordComponent(props) {
 			.then((response) => {
 				if (response.success) {
 					if (!gotOtp) {
+						//console.log(response);
+						dispatch(
+							alertAdded({
+								variant: "warning",
+								message: `Account Connected belongs to ${response.data.user.first_name} ${response.data.user.last_name} with email ${response.data.user.email}`,
+							})
+						);
 						setGotOtp(true);
 					} else {
 						dispatch(
