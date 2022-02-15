@@ -46,23 +46,26 @@ function ChangePhone() {
 	}, [auth.isauth]);
 	return (
 		<div>
-			<Form onSubmit={handleSubmit}>
-				<div className='row'>
-					<label>Phone Number</label>
-					<PhoneInput
-						// placeholder="Enter phone number"
-						defaultCountry='IN'
-						value={phone}
-						style={{ width: "85%" }}
-						onChange={setPhone}
-					/>
-				</div>
-				<div id='button' className='row'>
-					<button style={{ width: "45%", fontSize: "15px" }} type='submit'>
-						Get Otp
-					</button>
-				</div>
-			</Form>
+			<div className='inprofile'>
+				<h2 id='headerTitle'>Change Phone Number</h2>
+				<Form onSubmit={handleSubmit}>
+					<div className='row'>
+						<label>Phone Number</label>
+						<PhoneInput
+							// placeholder="Enter phone number"
+							defaultCountry='IN'
+							value={phone}
+							style={{ width: "85%" }}
+							onChange={setPhone}
+						/>
+					</div>
+					<div id='button' className='row'>
+						<button style={{ width: "45%", fontSize: "15px" }} type='submit'>
+							Get Otp
+						</button>
+					</div>
+				</Form>
+			</div>
 			<Modal show={openPopup} onHide={() => setOpenPopup(false)}>
 				<Modal.Header closeButton />
 				<Modal.Body className='modal-body'>

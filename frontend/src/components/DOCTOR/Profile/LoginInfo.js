@@ -27,14 +27,7 @@ function LoginInfo() {
 		<div>
 			<div>
 				<Form onSubmit={handleSubmit}>
-					<div
-						style={{
-							margin: "0px 10px 25px",
-							padding: "0px 10px 25px",
-							backgroundColor: "rgba(0,0,0,.1)",
-							boxShadow: "0 4px 5px 2px rgb(0 0 0 / 30%)",
-						}}
-					>
+					<div className='inprofile'>
 						<h2 id='headerTitle'>Change Password</h2>
 						<div className='row'>
 							<label>Current Password</label>
