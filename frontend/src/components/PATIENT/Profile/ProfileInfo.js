@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setLoading } from "../../../store/auth";
+import { setLoading, userUpdated } from "../../../store/auth";
 import { Form } from "react-bootstrap";
 import DateFnsUtils from "@date-io/date-fns";
 import addUserDetailsAPI from "../../../api/addUserDetailsAPI";
+import tokenAPI from "../../../api/tokenAPI";
 import moment from "moment";
 import {
 	MuiPickersUtilsProvider,
@@ -29,12 +30,7 @@ function ProfileInfo() {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		dispatch(setLoading({ loading: true }));
-		console.log(first_name);
-		console.log(last_name);
-		console.log(email);
-		console.log(gender);
-		console.log(address);
-		console.log(dob);
+
 		var data = {
 			token: auth.token,
 			first_name,
@@ -44,10 +40,24 @@ function ProfileInfo() {
 			address,
 			email,
 		};
-		addUserDetailsAPI(data).then((response) => {
-			// alert(response.message);
-			dispatch(setLoading({ loading: false }));
-		});
+		addUserDetailsAPI(data)
+			.then((response) => {
+				// alert(response.message);
+				if (response.success) {
+					return tokenAPI(auth.token);
+				} else return Promise.reject(response);
+			})
+			.then((response) => {
+				if (response.success) {
+					dispatch(userUpdated({ user: response.data.user }));
+				} else return Promise.reject(response);
+			})
+			.catch((err) => {
+				console.log(err);
+			})
+			.finally(() => {
+				dispatch(setLoading({ loading: false }));
+			});
 	};
 	return (
 		<div>

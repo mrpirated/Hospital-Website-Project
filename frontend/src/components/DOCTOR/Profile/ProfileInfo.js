@@ -6,7 +6,6 @@ import DateFnsUtils from "@date-io/date-fns";
 import addUserDetailsAPI from "../../../api/addUserDetailsAPI";
 import uploadProfilePicAPI from "../../../api/uploadProfilePicAPI";
 import tokenAPI from "../../../api/tokenAPI";
-import getProfilePicAPI from "../../../api/getProfilePicAPI";
 import moment from "moment";
 import {
 	MuiPickersUtilsProvider,
@@ -50,12 +49,15 @@ function ProfileInfo(props) {
 
 				if (response.success) {
 					return tokenAPI(auth.token);
-				}
+				} else return Promise.reject(response);
 			})
 			.then((response) => {
 				if (response.success) {
 					dispatch(userUpdated({ user: response.data.user }));
-				}
+				} else return Promise.reject(response);
+			})
+			.catch((err) => {
+				console.log(err);
 			})
 			.finally(() => {
 				dispatch(setLoading({ loading: false }));
