@@ -11,6 +11,8 @@ import PatientRoute from "./components/PATIENT/PatientRoute";
 import DoctorRoute from "./components/DOCTOR/DoctorRoute";
 import AdminRoute from "./components/ADMIN/AdminRoute";
 import Meeting from "./components/Meeting/Meeting";
+import PatientForgot from "./components/PATIENT/ForgotPassword/ForgotPassword";
+import DoctorForgot from "./components/DOCTOR/ForgotPassword/ForgotPassword";
 import Home from "./components/HOME/Home";
 import LoadingProvider from "./components/LoadingProvider";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -114,6 +116,8 @@ function App() {
 						}}
 					/>
 					<Route exact path='/doctor/login' component={DoctorLogin} />
+					<Route exact path='/patient/forgot' component={PatientForgot} />
+					<Route exact path='/doctor/forgot' component={DoctorForgot} />
 					<Route exact path='/login' component={PatientLogin} />
 					<Route exact path='/admin/login' component={AdminLogin} />
 					<Route exact path='/signup' component={PatientSignup} />

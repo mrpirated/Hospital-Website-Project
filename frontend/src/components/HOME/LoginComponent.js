@@ -6,6 +6,8 @@ import { loggedIn } from "../../store/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { Alert } from "react-bootstrap";
 import { alertAdded, alertRemoved } from "../../store/alert";
+import { setLoading } from "../../store/auth";
+import { Link } from "react-router-dom";
 function LoginComponent(props) {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
@@ -81,6 +83,9 @@ function LoginComponent(props) {
 								value={password}
 								onChange={(e) => setPassword(e.target.value)}
 							/>
+						</div>
+						<div className='row'>
+							<Link to={`/${type}/forgot`}>Forgot Password</Link>
 						</div>
 						<div id='button' className='row'>
 							<button type='submit' disabled={!validateForm()}>
