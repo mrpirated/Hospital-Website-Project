@@ -235,7 +235,7 @@ function Doctors() {
 					))}
 				</div>
 				<div
-					className='pagination fixed-bottom'
+					className='pagination'
 					style={{ paddingBottom: "20px", paddingTop: "20px" }}
 				>
 					{/* previous button */}

@@ -20,7 +20,10 @@
 	--bgColor11: rgb(158, 236, 213);
 	--boxShadow: rgba(187, 187, 187, 0.2);
 }
-
+html,
+body {
+	height: 100%;
+}
 body {
 	background: var(--bgColor1);
 	font-family: "work sans";
@@ -291,10 +294,13 @@ html {
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	position: relative;
+	bottom: 0;
 }
 
 .paginationItem {
-	background: #030149;
+	background: var(--bgColor11);
+	color: black;
 	border: 2px solid #666;
 	padding: 10px 15px;
 	border-radius: 50%;
@@ -314,26 +320,26 @@ html {
 
 .prev,
 .next {
-	background: #030149;
-	border: none;
+	background: var(--bgColor11);
+	border: 2px solid black;
+	border-radius: 10px;
 	padding: 10px;
-	color: #d3e0ea;
+	color: black;
 	box-shadow: 0 0 3px rgba(0, 0, 0, 0.4);
 	margin: 0 10px;
 	cursor: pointer;
 }
 
 .paginationItem.active {
-	border: 1px solid #888;
-	color: rgb(131, 177, 207);
+	border: 2px solid rgb(26, 24, 24);
 	pointer-events: none;
 }
 
 .prev.disabled,
 .next.disabled {
 	pointer-events: none;
+	border: 2px solid #666;
 	box-shadow: none;
-	color: #999;
 }
 .profile {
 	display: block;
