@@ -1,22 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router";
 import { useSelector } from "react-redux";
-import { Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import {
-	Inject,
-	ScheduleComponent,
-	Day,
-	Week,
-	WorkWeek,
-	Month,
-	Agenda,
-	EventSettingsModel,
-	ViewsDirective,
-	ViewDirective,
-	ResourcesDirective,
-	ResourceDirective,
-} from "@syncfusion/ej2-react-schedule";
 import doctorAppointmentsAPI from "../../../api/doctorAppointmentsAPI";
 import SchedulerComponent from "../../SchedulerComponent";
 

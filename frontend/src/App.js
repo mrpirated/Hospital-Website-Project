@@ -21,7 +21,6 @@ import { loggedWithToken, setLoading, tokenChecked } from "./store/auth";
 import { setSocketId } from "./store/socket";
 import { useSelector } from "react-redux";
 import io from "socket.io-client";
-import LoadingOverlay from "react-loading-overlay";
 import config from "./config/config";
 import "./App.css";
 function App() {
