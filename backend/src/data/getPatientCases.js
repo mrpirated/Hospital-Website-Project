@@ -10,13 +10,13 @@ const getPatientCases = (user_id) => {
 			connection.query(
 				"SELECT c.case_id,\
 				c.case_description,\
-				a.start_time\
+				MAX(a.start_time) as start_time\
 				FROM cases c\
 				LEFT JOIN appointment a\
 				ON c.case_id = a.case_id \
 				WHERE c.patient_id = ? \
 				GROUP BY c.case_id ORDER \
-				BY a.start_time DESC",
+				BY MAX(a.start_time) DESC",
 				[user_id],
 				(err, result) => {
 					if (err) {
