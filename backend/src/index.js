@@ -27,6 +27,7 @@ import changePassword from "./routes/changePassword";
 import getDoctorAvailability from "./routes/getDoctorAvailability";
 import getDoctorAppointmentDuration from "./routes/getDoctorAppointmentDuration";
 import getDoctorProfilePics from "./routes/getDoctorProfilePics";
+import getAllPatientAppointments from "./routes/getAllPatientAppointments";
 import fs from "fs";
 import path from "path";
 import https from "https";
@@ -95,7 +96,8 @@ app.use(
 	changePassword,
 	getDoctorAvailability,
 	getDoctorAppointmentDuration,
-	getDoctorProfilePics
+	getDoctorProfilePics,
+	getAllPatientAppointments
 );
 app.use("/", (req, res) => {
 	res.send("Server is Running");
