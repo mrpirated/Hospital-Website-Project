@@ -16,11 +16,18 @@ const checkIfUserExistsPhone = async ({ type, phone }) => {
 						reject({ success: false, message: err });
 					} else {
 						//debug(result);
-						resolve({
-							success: true,
-							message: "User Found",
-							data: { user: result[0] },
-						});
+						if (result.length > 0) {
+							resolve({
+								success: true,
+								message: "User Found",
+								data: { user: result[0] },
+							});
+						} else {
+							reject({
+								success: false,
+								message: "No Account found with phone number: " + phone,
+							});
+						}
 					}
 				}
 			);

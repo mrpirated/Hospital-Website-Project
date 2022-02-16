@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setLoading, userUpdated } from "../../../store/auth";
 import { Form } from "react-bootstrap";
+import { alertAdded } from "../../../store/alert";
 import DateFnsUtils from "@date-io/date-fns";
 import addUserDetailsAPI from "../../../api/addUserDetailsAPI";
 import uploadProfilePicAPI from "../../../api/uploadProfilePicAPI";
@@ -48,15 +49,20 @@ function ProfileInfo(props) {
 				// alert(response.message);
 
 				if (response.success) {
+					dispatch(
+						alertAdded({ variant: "success", message: response.message })
+					);
 					return tokenAPI(auth.token);
 				} else return Promise.reject(response);
 			})
 			.then((response) => {
 				if (response.success) {
 					dispatch(userUpdated({ user: response.data.user }));
+					dispatch(alertAdded({ variant: "success", message: "User Updated" }));
 				} else return Promise.reject(response);
 			})
 			.catch((err) => {
+				dispatch(alertAdded({ variant: "danger", message: err.message }));
 				console.log(err);
 			})
 			.finally(() => {
