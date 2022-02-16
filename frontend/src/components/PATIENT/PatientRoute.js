@@ -3,6 +3,7 @@ import { Route } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Switch, useHistory } from "react-router";
 import Cases from "./Cases/Cases";
+import Appointment from "./Appointment/Appointment";
 import MyAppointment from "./Cases/MyAppointment";
 import Navitems from "./Navbar/Navitems";
 import Navigation from "../Navigation";
@@ -33,6 +34,7 @@ export default function PatientRoute() {
 			<Navigation Navitems={Navitems} />
 			<Switch>
 				<Route path='/patient/cases' component={Cases} />
+				<Route path='/patient/appointment' component={Appointment} />
 				<Route path='/patient/records' component={Records} />
 				<Route path='/patient/myappointment' component={MyAppointment} />
 				<Route path='/patient/doctors' component={Doctors} />
