@@ -40,5 +40,6 @@ const config = {
 	getDoctorAppointmentDuration: "/api/getDoctorAppointmentDuration",
 	setDoctorAppointmentDuration: "/api/setDoctorAppointmentDuration",
 	forgotPassword: "/api/forgotPassword",
+	getDoctorProfilePics: "/api/getDoctorProfilePics",
 };
 export default config;
