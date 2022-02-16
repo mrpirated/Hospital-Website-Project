@@ -2,13 +2,13 @@ import React, { useEffect } from "react";
 import { Route } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Switch, useHistory } from "react-router";
-import Appointment from "./Appointment/Appointment";
-import MyAppointment from "./Appointment/MyAppointment";
+import Cases from "./Cases/Cases";
+import MyAppointment from "./Cases/MyAppointment";
 import Navitems from "./Navbar/Navitems";
 import Navigation from "../Navigation";
 import Doctors from "./Doctors/Doctors";
-import NewCase from "./Appointment/NewCase";
-import NewAppointment from "./Appointment/NewAppointment";
+import NewCase from "./Cases/NewCase";
+import NewAppointment from "./Cases/NewAppointment";
 import Records from "./Records/Records";
 import Profile from "./Profile/Profile";
 import Rooms from "./Rooms/Rooms";
@@ -32,7 +32,7 @@ export default function PatientRoute() {
 		<div>
 			<Navigation Navitems={Navitems} />
 			<Switch>
-				<Route path='/patient/appointment' component={Appointment} />
+				<Route path='/patient/cases' component={Cases} />
 				<Route path='/patient/records' component={Records} />
 				<Route path='/patient/myappointment' component={MyAppointment} />
 				<Route path='/patient/doctors' component={Doctors} />
