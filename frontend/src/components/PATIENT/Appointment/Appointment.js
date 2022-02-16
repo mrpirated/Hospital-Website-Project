@@ -151,7 +151,7 @@ export default function Appointment(props) {
 					{getPaginatedData().map((c) => (
 						<div id='cardDiv' key={c.case_id}>
 							<Card
-								className='appointmentCard'
+								className='appointment-card'
 								onClick={() => {
 									history.push("/patient/myappointment", { case_details: c });
 								}}
