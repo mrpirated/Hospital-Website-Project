@@ -5,12 +5,7 @@ function TabComponent(props) {
 	const [key, setKey] = useState(props.selectedKey);
 	return (
 		<div>
-			<Tabs
-				id='tab'
-				activeKey={key}
-				onSelect={(k) => setKey(k)}
-				className='mb-3'
-			>
+			<Tabs activeKey={key} onSelect={(k) => setKey(k)} className='mb-3'>
 				{props.tabList.map((item) => (
 					<Tab eventKey={item.eventKey} title={item.title}>
 						<Table striped bordered hover responsive='lg'>

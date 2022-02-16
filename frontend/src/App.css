@@ -371,15 +371,26 @@ html {
 	align-items: center;
 	justify-content: center;
 }
-
-.profile-left > .nav > .nav-item:hover {
-	cursor: pointer;
-}
-.profile-left > .nav > .nav-item > a.active {
+.nav-tabs > .nav-item > button.active {
 	background-color: var(--bgColor2);
 	color: #fff;
 }
-.profile-left > .nav > .nav-item > a {
+.nav-tabs > .nav-item > button {
+	border-radius: 30px;
+	color: black;
+}
+.nav-tabs > .nav-item:hover {
+	cursor: pointer;
+}
+.nav > .nav-item:hover {
+	cursor: pointer;
+}
+.nav > .nav-item > a.active {
+	background-color: var(--bgColor2);
+	color: #fff;
+}
+.nav > .nav-item > a {
+	border-radius: 30px;
 	color: black;
 }
 .profile-left img {
