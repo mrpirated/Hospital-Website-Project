@@ -15,7 +15,7 @@ import {
 import moment from "moment";
 //import "./Appointment.css";
 
-export default function Appointment(props) {
+export default function Cases(props) {
 	const auth = useSelector((state) => state.auth);
 	const dispatch = useDispatch();
 	const history = useHistory();
@@ -49,7 +49,7 @@ export default function Appointment(props) {
 				setPages(Math.ceil(res.data.cases.length / dataLimit));
 			} else {
 				// alert(res.data.msg + "\nYou will be redirected to Home.");
-				setTimeout(history.push("/patient/appointment"), 0);
+				setTimeout(history.push("/patient/cases"), 0);
 			}
 			sleep(1000).then(() => {
 				dispatch(setLoading({ loading: false }));
