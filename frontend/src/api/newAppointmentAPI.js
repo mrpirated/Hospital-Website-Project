@@ -2,7 +2,7 @@ import axios from "axios";
 import config from "../config/config";
 
 const newAppointmentAPI = async (data) => {
-	const { token, case_id, doctor_id, preferred_date } = data;
+	const { token, case_id, doctor_id, preferred_date, patient_id } = data;
 
 	return await axios
 		.post(
@@ -11,6 +11,7 @@ const newAppointmentAPI = async (data) => {
 				case_id: case_id,
 				doctor_id: doctor_id,
 				preferred_date: preferred_date,
+				patient_id: patient_id,
 			},
 			{
 				headers: {
