@@ -23,6 +23,7 @@ const changePassword = (type, user_id, password) => {
 					}
 				}
 			);
+			connection.release();
 		});
 	});
 };

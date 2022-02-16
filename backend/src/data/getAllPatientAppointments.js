@@ -41,6 +41,7 @@ const getAllPatientAppointments = (user_id) => {
 					}
 				}
 			);
+			connection.release();
 		});
 	});
 };

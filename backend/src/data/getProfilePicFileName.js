@@ -23,6 +23,7 @@ const getProfilePicFileName = (type, user_id) => {
 					}
 				}
 			);
+			connection.release();
 		});
 	});
 };
