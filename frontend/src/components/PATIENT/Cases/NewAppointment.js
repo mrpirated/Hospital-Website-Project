@@ -68,6 +68,7 @@ export default function NewAppointment(props) {
 			case_id: caseDetails.case_id,
 			doctor_id: doctorId,
 			preferred_date: format(dateOfAppointment, "yyyy-MM-dd"),
+			patient_id: auth.user.patient_id,
 		}).then((res) => {
 			if (res.success) {
 				alert(res.message);

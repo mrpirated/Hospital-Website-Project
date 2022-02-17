@@ -10,12 +10,13 @@ function TabComponent(props) {
 					<Tab eventKey={item.eventKey} title={item.title}>
 						<Table striped bordered hover responsive='lg'>
 							<thead style={{ textAlign: "center" }}>
-								<th>Patient Name</th>
+								<th>Doctor Name</th>
 								<th>Case Description</th>
 								<th>Date</th>
 								<th>Start Time</th>
 								<th>End Time</th>
 								<th>Duration</th>
+								<th>Preferred Date</th>
 							</thead>
 							<tbody style={{ textAlign: "center" }}>
 								{(item.eventKey === "all"
@@ -25,7 +26,7 @@ function TabComponent(props) {
 									: props.past
 								).map((c) => (
 									<tr key={c.appointment_id}>
-										<td>{c.patient_name}</td>
+										<td>{c.doctor_name}</td>
 										<td>{c.case_description}</td>
 										<td>{moment(c.start_time).format("ll")}</td>
 										<td>{moment(c.start_time).format("HH:mm A")}</td>
@@ -34,6 +35,7 @@ function TabComponent(props) {
 											{moment(c.end_time).diff(moment(c.start_time), "minutes")}{" "}
 											min
 										</td>
+										<td>{moment(c.preferred_date).format("ll")}</td>
 									</tr>
 								))}
 							</tbody>
@@ -43,14 +45,14 @@ function TabComponent(props) {
 				<Tab eventKey='unset' title='Pending Appointment'>
 					<Table striped bordered hover responsive='lg'>
 						<thead style={{ textAlign: "center" }}>
-							<th>Patient Name</th>
+							<th>Doctor Name</th>
 							<th>Case Description</th>
 							<th>Preferred Date</th>
 						</thead>
 						<tbody style={{ textAlign: "center" }}>
 							{props.unset.map((c) => (
 								<tr key={c.appointment_id}>
-									<td>{c.patient_name}</td>
+									<td>{c.doctor_name}</td>
 									<td>{c.case_description}</td>
 									<td>{moment(c.preferred_date).format("ll")}</td>
 								</tr>

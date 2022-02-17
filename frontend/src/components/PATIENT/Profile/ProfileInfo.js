@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setLoading, userUpdated } from "../../../store/auth";
+import { alertAdded } from "../../../store/alert";
 import { Form } from "react-bootstrap";
 import DateFnsUtils from "@date-io/date-fns";
 import addUserDetailsAPI from "../../../api/addUserDetailsAPI";
@@ -43,16 +44,22 @@ function ProfileInfo() {
 		addUserDetailsAPI(data)
 			.then((response) => {
 				// alert(response.message);
+
 				if (response.success) {
+					dispatch(
+						alertAdded({ variant: "success", message: response.message })
+					);
 					return tokenAPI(auth.token);
 				} else return Promise.reject(response);
 			})
 			.then((response) => {
 				if (response.success) {
 					dispatch(userUpdated({ user: response.data.user }));
+					dispatch(alertAdded({ variant: "success", message: "User Updated" }));
 				} else return Promise.reject(response);
 			})
 			.catch((err) => {
+				dispatch(alertAdded({ variant: "danger", message: err.message }));
 				console.log(err);
 			})
 			.finally(() => {
@@ -62,14 +69,7 @@ function ProfileInfo() {
 	return (
 		<div>
 			<Form onSubmit={handleSubmit}>
-				<div
-					style={{
-						margin: "0px 10px 25px",
-						padding: "0px 10px 25px",
-						backgroundColor: "rgba(0,0,0,.1)",
-						boxShadow: "0 4px 5px 2px rgb(0 0 0 / 30%)",
-					}}
-				>
+				<div className='inprofile'>
 					<h3 id='headerTitle'>Personal Information</h3>
 					<div style={{ width: "100%", overflow: "hidden" }}>
 						<div className='row' style={{ width: "50%", float: "left" }}>

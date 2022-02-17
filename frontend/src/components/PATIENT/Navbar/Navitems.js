@@ -5,6 +5,11 @@ const Navitems = [
 		url: "/patient",
 	},
 	{
+		name: "Cases",
+		path: "cases",
+		url: "/patient",
+	},
+	{
 		name: "Appointment",
 		path: "appointment",
 		url: "/patient",
@@ -14,6 +19,16 @@ const Navitems = [
 		path: "rooms",
 		url: "/patient",
 	},
+	{
+		name: "Calender",
+		path: "calender",
+		url: "/patient",
+	},
+	// {
+	// 	name: "Rooms",
+	// 	path: "rooms",
+	// 	url: "/patient",
+	// },
 	// {
 	// 	name: "Records",
 	// 	path: "records",

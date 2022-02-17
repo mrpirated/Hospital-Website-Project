@@ -1,3 +1,6 @@
+import dbg from "debug";
+const debug = dbg("controller:getAppointmentTime");
+
 const getAvailableTime = (sch, app) => {
 	sch = sch.map((dt) => {
 		return {
@@ -57,10 +60,67 @@ const getAvailableTime = (sch, app) => {
 	//console.log(ret);
 	return ret;
 };
-
-const getAppointmentTime = (schedule, appointment, duration) => {
+export const removePatientTime = (avai, pat) => {
+	pat = pat.map((dt) => {
+		return {
+			start_time: Date.parse(dt.start_time),
+			end_time: Date.parse(dt.end_time),
+		};
+	});
+	// debug(avai);
+	// debug(pat);
+	var i = 0;
+	var j = 0;
+	while (i < avai.length && j < pat.length) {
+		if (pat[j].end_time <= avai[i].start_time) {
+			j++;
+			continue;
+		}
+		if (
+			pat[j].start_time <= avai[i].start_time &&
+			pat[j].end_time > avai[i].start_time
+		) {
+			if (pat[j].end_time >= avai[i].end_time) {
+				avai.splice(i, 1);
+			} else {
+				avai[i].start_time = pat[j].end_time;
+				j++;
+			}
+		} else if (
+			pat[j].start_time > avai[i].start_time &&
+			pat[j].end_time < avai[i].end_time
+		) {
+			var st = avai[i].start_time,
+				et = pat[j].start_time;
+			avai[i].start_time = pat[j].end_time;
+			avai.splice(i, 0, { start_time: st, end_time: et });
+			j++;
+		} else if (
+			pat[j].start_time > avai[i].start_time &&
+			pat[j].start_time < avai[i].end_time &&
+			pat[j].end_time >= avai[i].end_time
+		) {
+			avai[i].end_time = pat[j].start_time;
+			i++;
+		} else break;
+	}
+	return avai;
+};
+const getAppointmentTime = (
+	schedule,
+	docappointment,
+	patappointment,
+	duration
+) => {
 	return new Promise((resolve, reject) => {
-		var availability = getAvailableTime(schedule, appointment);
+		var availability = getAvailableTime(schedule, docappointment);
+		if (patappointment.length)
+			availability = removePatientTime(availability, patappointment);
+		// debug(docappointment);
+		// debug("pat");
+		// debug(patappointment);
+		// debug("avai");
+		//debug(availability);
 		var n = availability.length;
 		var ans = {
 			start_time: null,
@@ -83,7 +143,6 @@ const getAppointmentTime = (schedule, appointment, duration) => {
 			resolve({
 				success: false,
 				message: "Doctor is not available right now",
-				data: { appointment_time: ans },
 			});
 		}
 	});

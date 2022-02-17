@@ -1,24 +1,18 @@
 import React, { useState } from "react";
-import { Form, Modal } from "react-bootstrap";
+import { Form, Modal, Alert } from "react-bootstrap";
 import signupAPI from "../../../api/signupAPI";
-//import verifyAPI from "../../../api/verifyAPI";
 import { useHistory } from "react-router";
-//import DatePicker from "react-datepicker";
-//import DateFnsUtils from "@date-io/date-fns";
 import "react-datepicker/dist/react-datepicker.css";
-
 import PhoneInput from "react-phone-number-input";
 import "react-phone-number-input/style.css";
 import Navigation from "../../Navigation";
 import doctorLogo from "../Login/undraw_doctor_kw-5-l.svg";
-//import doctorLogo1 from "../Login/undraw_medical_care_movn.svg";
-
+import { useDispatch, useSelector } from "react-redux";
+import { alertAdded, alertRemoved } from "../../../store/alert";
 function Signup(props) {
 	const [first_name, setFirstName] = useState("");
 	const [last_name, setLastName] = useState("");
-	//const [dob, setDob] = useState(new Date());
-	// const [gender, setGender] = useState("Other");
-	// const [address, setAddress] = useState("");
+	const dispatch = useDispatch();
 	const [email, setEmail] = useState("");
 	const [phone, setPhone] = useState("");
 	const [password, setPassword] = useState("");
@@ -26,7 +20,7 @@ function Signup(props) {
 	const [code, setCode] = useState("");
 	const [openPopup, setopenPopup] = useState(props.openPopup);
 	const handleClose = () => setopenPopup(false);
-	//const handleShow = () => setopenPopup(true);
+	const alert = useSelector((state) => state.alert);
 	const type = "patient";
 	const history = useHistory();
 	const validateForm = () => {
@@ -56,7 +50,12 @@ function Signup(props) {
 				}
 			});
 		} else if (password !== confirmPassword) {
-			alert("Password and Confirm Password should match.");
+			dispatch(
+				alertAdded({
+					variant: "warning",
+					message: "Password and Confirm Password should match.",
+				})
+			);
 		}
 	};
 
@@ -78,14 +77,20 @@ function Signup(props) {
 				console.log(res);
 				if (res.success) {
 					setopenPopup(false);
-					alert("Registered Successfully!");
+					alertAdded({
+						variant: "success",
+						message: "Registered Successfully",
+					});
 					history.push("/login");
 				} else {
 					alert(res.message);
 				}
 			});
 		} else if (password !== confirmPassword) {
-			alert("Password and Confirm Password should match.");
+			alertAdded({
+				variant: "warning",
+				message: "Password and Confirm Password should match.",
+			});
 		}
 	};
 
@@ -94,7 +99,9 @@ function Signup(props) {
 			<Navigation />
 			<div
 				id='signupform'
-				style={{ backgroundColor: "#D3E0EA", marginBottom: "20px" }}
+				onClick={() => {
+					dispatch(alertRemoved());
+				}}
 			>
 				<div id='right-signup'>
 					<img
@@ -107,6 +114,9 @@ function Signup(props) {
 					<Form onSubmit={handleSubmit} className='signup'>
 						<div>
 							<h2 id='headerTitle'>Signup</h2>
+							<Alert show={alert.show} variant={alert.variant}>
+								{alert.message}
+							</Alert>
 							<div style={{ width: "100%", overflow: "hidden" }}>
 								<div className='row' style={{ width: "50%", float: "left" }}>
 									<label>First Name</label>
@@ -165,43 +175,7 @@ function Signup(props) {
 									onChange={(e) => setConfirmPassword(e.target.value)}
 								/>
 							</div>
-							{/* <div className='row'>
-									<label>Date Of Birth</label>
-								</div>
-								<MuiPickersUtilsProvider utils={DateFnsUtils}>
-									<KeyboardDatePicker
-										style={{ width: "73%", alignItems: "center" }}
-										autoOk
-										variant='inline'
-										inputVariant='outlined'
-										format='dd/MM/yyyy'
-										value={dob}
-										onChange={(date) => setDob(date)}
-										InputAdornmentProps={{ position: "start" }}
-									/>
-								</MuiPickersUtilsProvider>
-								<div className='row'>
-									<label>Gender</label>
-									<Form.Control
-										as='select'
-										custom
-										onChange={(e) => setGender(e.target.value)}
-										style={{ width: "80%" }}
-									>
-										<option value='PreferNotToSay'>Prefer Not To Say</option>
-										<option value='Male'>Male</option>
-										<option value='Female'>Female</option>
-									</Form.Control>
-								</div>
-								<div className='row'>
-									<label>Address</label>
-									<input
-										// placeholder="Enter your Last Name"
-										type='text'
-										value={address}
-										onChange={(e) => setAddress(e.target.value)}
-									/>
-								</div> */}
+
 							<div id='button' class='row'>
 								<button
 									style={{ width: "45%", fontSize: "15px" }}

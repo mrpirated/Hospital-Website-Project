@@ -16,9 +16,9 @@ const getDoctorsService = async (token) => {
 		.then((decoded) => {
 			return getDoctors();
 		})
-		.then((response) => {
-			return getDoctorProfilePic(response.data.doctor);
-		})
+		// .then((response) => {
+		// 	return getDoctorProfilePic(response.data.doctor);
+		// })
 		.then((response) => {
 			//debug(response);
 			if (response.success) {
