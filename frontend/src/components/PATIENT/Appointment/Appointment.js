@@ -7,6 +7,7 @@ import getAllPatientAppointmentsAPI from "../../../api/getAllPatientAppointments
 function Appointment() {
 	const auth = useSelector((state) => state.auth);
 	const dispatch = useDispatch();
+	const [appChange, setAppChange] = useState(false);
 	const [past, setPast] = useState([]);
 	const [all, setAll] = useState([]);
 	const [future, setFuture] = useState([]);
@@ -41,8 +42,9 @@ function Appointment() {
 			})
 			.finally(() => {
 				dispatch(setLoading({ loading: false }));
+				setAppChange(false);
 			});
-	}, [auth.isauth]);
+	}, [auth.isauth, appChange]);
 	return (
 		<div>
 			<TabComponent
@@ -52,6 +54,7 @@ function Appointment() {
 				past={past}
 				future={future}
 				unset={unset}
+				setAppChange={setAppChange}
 			/>
 		</div>
 	);
