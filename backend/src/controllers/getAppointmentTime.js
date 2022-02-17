@@ -114,7 +114,8 @@ const getAppointmentTime = (
 ) => {
 	return new Promise((resolve, reject) => {
 		var availability = getAvailableTime(schedule, docappointment);
-		availability = removePatientTime(availability, patappointment);
+		if (patappointment.length)
+			availability = removePatientTime(availability, patappointment);
 		// debug(docappointment);
 		// debug("pat");
 		// debug(patappointment);

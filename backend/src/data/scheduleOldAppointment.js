@@ -4,12 +4,15 @@ import getSchedule from "./getSchedule";
 import getFutureAppointments from "./getFutureAppointments";
 import getDoctorDuration from "./getDoctorDuration";
 import getAppointmentTime from "../controllers/getAppointmentTime";
-import setAppointmentTime from "../data/setAppointmentTime";
+import setAppointmentTime from "./setAppointmentTime";
+import getFuturePatientAppointments from "./getFuturePatientAppointments";
 const scheduleAppointment = async (doctor_id, app) => {
 	var schedule;
-	var appointment;
+	var docappointment;
+	var patappointment;
 	var duration;
 	var pd = app.preferred_date;
+
 	if (pd == null || new Date(pd) < new Date()) {
 		pd = new Date().toISOString();
 	}
@@ -19,13 +22,23 @@ const scheduleAppointment = async (doctor_id, app) => {
 			return getFutureAppointments(doctor_id, pd);
 		})
 		.then((response) => {
-			appointment = response.data.appointment;
+			docappointment = response.data.appointment;
+			//debug(appointment);
+			return getFuturePatientAppointments(app.patient_id, pd);
+		})
+		.then((response) => {
+			patappointment = response.data.appointment;
 			return getDoctorDuration(doctor_id);
 		})
 		.then((response) => {
 			//debug(response);
 			duration = response.data.duration;
-			return getAppointmentTime(schedule, appointment, duration * 60 * 1000);
+			return getAppointmentTime(
+				schedule,
+				docappointment,
+				patappointment,
+				duration * 60 * 1000
+			);
 		})
 		.then((response) => {
 			if (response.success) {
