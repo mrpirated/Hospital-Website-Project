@@ -66,6 +66,7 @@ export default function MyAppointment(props) {
 					<th>Start Time</th>
 					<th>End Time</th>
 					<th>Duration</th>
+					<th>Preferred Date</th>
 				</thead>
 				<tbody style={{ textAlign: "center" }}>
 					{appointments.map((a) => (
@@ -81,6 +82,7 @@ export default function MyAppointment(props) {
 									  " min"
 									: "NA"}
 							</td>
+							<td>{moment(a.preferred_date).format("ll")}</td>
 						</tr>
 					))}
 				</tbody>
