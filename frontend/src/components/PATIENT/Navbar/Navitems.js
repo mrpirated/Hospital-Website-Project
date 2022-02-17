@@ -5,6 +5,11 @@ const Navitems = [
 		url: "/patient",
 	},
 	{
+		name: "Cases",
+		path: "cases",
+		url: "/patient",
+	},
+	{
 		name: "Appointment",
 		path: "appointment",
 		url: "/patient",
