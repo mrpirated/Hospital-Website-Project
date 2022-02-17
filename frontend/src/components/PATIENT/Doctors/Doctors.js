@@ -191,7 +191,7 @@ function Doctors() {
 				<div>
 					{getPaginatedData().map((d) => (
 						<div id='cardDiv' key={d.doctor_id}>
-							<Card className='doctorCard'>
+							<Card className='doctor-card'>
 								<Card.Body>
 									<Card.Title>
 										<span>
@@ -204,7 +204,6 @@ function Doctors() {
 														: doctor_image
 												}
 												variant='left'
-												width='50'
 												roundedCircle
 											/>{" "}
 										</span>
