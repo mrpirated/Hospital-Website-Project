@@ -19,6 +19,7 @@ import "./Doctors.css";
 //import doctorLogo from "./doctor.jpg";
 import getSpecializationAPI from "../../../api/getSpecializationAPI";
 import getDoctorsAPI from "../../../api/getDoctorsAPI";
+import getDoctorProfilePicsAPI from "../../../api/getDoctorProfilePicsAPI";
 
 function Doctors() {
 	const auth = useSelector((state) => state.auth);
@@ -27,40 +28,66 @@ function Doctors() {
 	const [doctorDetails, setDoctorDetails] = useState([]);
 	const [displayDoctors, setDisplayDoctors] = useState([]);
 	const [specialization, setSpecialization] = useState([]);
+	const [profilePics, setProfilePics] = useState({});
 	const [speciality, setSpeciality] = useState("All");
 	const [doctorName, setDoctorName] = useState("");
 	const dataLimit = 10,
 		pageLimit = 5;
 	useEffect(() => {
-		sessionStorage.setItem("lastPage", "/patient/doctors");
+		//sessionStorage.setItem("lastPage", "/patient/doctors");
 		dispatch(setLoading({ loading: true }));
 		getSpecializationAPI({
 			token: auth.token,
-		}).then((res) => {
-			console.log(res);
-			if (res.success) {
-				console.log(res.data.specialization);
-				setSpecialization(res.data.specialization);
-			} else {
-				console.log("No Specialization Recieved.");
-			}
-		});
+		})
+			.then((res) => {
+				console.log(res);
+				if (res.success) {
+					console.log(res.data.specialization);
+					setSpecialization(res.data.specialization);
+				} else {
+					console.log("No Specialization Recieved.");
+				}
+				return getDoctorsAPI({
+					token: auth.token,
+				});
+			})
+			.then((res) => {
+				if (res.success) {
+					console.log(res.data.doctor);
+					setDoctorDetails(res.data.doctor);
+					setDisplayDoctors(res.data.doctor);
+					setPages(Math.ceil(res.data.doctor.length / dataLimit));
+					console.log(Math.ceil(res.data.doctor.length / dataLimit));
+				}
+				dispatch(setLoading({ loading: false }));
+				return getDoctorProfilePicsAPI({ token: auth.token });
+			})
+			.then((res) => {
+				if (res.success) {
+					console.log(res.data.doctor);
+					var tp = {};
+					res.data.doctor.forEach((d) => {
+						if (d.image) tp[d.doctor_id] = d.image;
+					});
+					setProfilePics(tp);
+				}
+			});
 
-		getDoctorsAPI({
-			token: auth.token,
-		}).then((res) => {
-			if (res.success) {
-				console.log(res.data.doctor);
+		// getDoctorsAPI({
+		// 	token: auth.token,
+		// }).then((res) => {
+		// 	if (res.success) {
+		// 		console.log(res.data.doctor);
 
-				setDoctorDetails(res.data.doctor);
-				setDisplayDoctors(res.data.doctor);
-				setPages(Math.ceil(res.data.doctor.length / dataLimit));
-				console.log(Math.ceil(res.data.doctor.length / dataLimit));
-			} else {
-				console.log("No Doctors Recieved.");
-			}
-			dispatch(setLoading({ loading: false }));
-		});
+		// 		setDoctorDetails(res.data.doctor);
+		// 		setDisplayDoctors(res.data.doctor);
+		// 		setPages(Math.ceil(res.data.doctor.length / dataLimit));
+		// 		console.log(Math.ceil(res.data.doctor.length / dataLimit));
+		// 	} else {
+		// 		console.log("No Doctors Recieved.");
+		// 	}
+		// 	dispatch(setLoading({ loading: false }));
+		// });
 	}, [auth.isauth]);
 
 	const [pages, setPages] = useState(1);
@@ -170,9 +197,9 @@ function Doctors() {
 										<span>
 											<Image
 												src={
-													d.image
+													profilePics[d.doctor_id]
 														? `data:image/jpeg;base64,${new Buffer.from(
-																d.image.data
+																profilePics[d.doctor_id].data
 														  ).toString("base64")}`
 														: doctor_image
 												}
