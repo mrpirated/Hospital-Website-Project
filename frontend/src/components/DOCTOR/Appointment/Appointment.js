@@ -14,6 +14,7 @@ export default function Appointment() {
 	const auth = useSelector((state) => state.auth);
 	const dispatch = useDispatch();
 	const history = useHistory();
+	const [appChange, setAppChange] = useState(false);
 	const [past, setPast] = useState([]);
 	const [all, setAll] = useState([]);
 	const [future, setFuture] = useState([]);
@@ -49,8 +50,9 @@ export default function Appointment() {
 			})
 			.finally(() => {
 				dispatch(setLoading({ loading: false }));
+				setAppChange(false);
 			});
-	}, [auth.isauth]);
+	}, [auth.isauth, appChange]);
 
 	return (
 		<div>
@@ -61,6 +63,7 @@ export default function Appointment() {
 				past={past}
 				future={future}
 				unset={unset}
+				setAppChange={setAppChange}
 			/>
 			{/* <h5 style={{ margin: "2rem 2rem" }}>
 				{"Date: " + selecteddate.toString().slice(0, 10)}
