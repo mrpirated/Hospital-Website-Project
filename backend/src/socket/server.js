@@ -46,7 +46,7 @@ const socketServer = (io) => {
 		});
 		socket.on("callDoctor", (data) => {
 			debug("callDoctor");
-			debug(data);
+			// debug(data);
 			io.to(data.userToCall).emit("patientCalling", {
 				signal: data.signalData,
 				from: data.from,
@@ -54,7 +54,7 @@ const socketServer = (io) => {
 		});
 		socket.on("callPatient", (data) => {
 			debug("callPatient");
-			debug(data);
+			// debug(data);
 			io.to(data.userToCall).emit("doctorCalling", {
 				signal: data.signalData,
 				from: data.from,
@@ -62,18 +62,18 @@ const socketServer = (io) => {
 		});
 		socket.on("doctorAccept", (data) => {
 			debug("doctorAccept");
-			debug(data);
+			// debug(data);
 			io.to(data.to).emit("doctorHere", data.signal);
 		});
 		socket.on("patientAccept", (data) => {
 			debug("patientAccept");
-			debug(data);
+			// debug(data);
 			io.to(data.to).emit("patientHere", data.signal);
 		});
 
 		socket.on("callUser", (data) => {
 			debug("callUser");
-			debug(data);
+			// debug(data);
 			io.to(data.userToCall).emit("hey", {
 				signal: data.signalData,
 				from: data.from,
@@ -82,7 +82,7 @@ const socketServer = (io) => {
 
 		socket.on("acceptCall", (data) => {
 			debug("acceptCall");
-			debug(data);
+			// debug(data);
 			io.to(data.to).emit("callAccepted", data.signal);
 		});
 	});
