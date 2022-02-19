@@ -34,9 +34,11 @@ import https from "https";
 import http from "http";
 import dbg from "debug";
 import socketio from "socket.io";
+import sendSMS from "./controllers/sendSMS";
 dbg.log = console.info.bind(console);
 const debug = dbg("http");
 
+//sendSMS("Ayurveda", "917066715904", "Test Messsage");
 // const logfile = fs.createWriteStream(__dirname + "/logs/info.log", {
 // 	flags: "w",
 // });
