@@ -38,7 +38,11 @@ import socketio from "socket.io";
 dbg.log = console.info.bind(console);
 const debug = dbg("http");
 
-//sendMail();
+// sendMail({
+// 	subject: "new Subject",
+// 	to: ["deepeshadf@gmail.com"],
+// 	text: "new mail",
+// });
 // const logfile = fs.createWriteStream(__dirname + "/logs/info.log", {
 // 	flags: "w",
 // });

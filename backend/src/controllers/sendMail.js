@@ -2,7 +2,7 @@ import dbg from "debug";
 const debug = dbg("controller:sendMail");
 import nodemailer from "nodemailer";
 
-const sendMail = async () => {
+const sendMail = async ({ to, subject, text }) => {
 	const testAccount = await nodemailer.createTestAccount();
 
 	const transporter = nodemailer.createTransport({
@@ -10,18 +10,17 @@ const sendMail = async () => {
 		port: 587,
 		secure: false, // true for 465, false for other ports
 		auth: {
-			user: testAccount.user, // generated ethereal user
-			pass: testAccount.pass, // generated ethereal password
+			user: "tracy.brown12@ethereal.email", // generated ethereal user
+			pass: "SV7G98Qwc69sEgWRqE", // generated ethereal password
 		},
 	});
 	const info = await transporter.sendMail({
 		from: '"Ayurveda " <support@periwalmanavseva.com>',
-		to: "deepeshrathi9@gmail.com",
-		subject: "Test Mail",
-		text: "Temp text",
-		html: "<b>Hello world?</b>",
+		to: to,
+		subject: subject,
+		text: text,
 	});
-	debug("Message sent: %s", info.messageId);
-	debug("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+	//debug("Message sent: %s", info.messageId);
+	//debug("Preview URL: %s", nodemailer.getTestMessageUrl(info));
 };
 export default sendMail;
