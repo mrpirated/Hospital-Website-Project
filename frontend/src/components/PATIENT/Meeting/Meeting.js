@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef, useContext } from "react";
 import { SocketContext } from "../../../context/SocketContext";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router";
+import VideoComponent from "../../HOME/VideoComponent";
 import Peer from "simple-peer";
 import styled from "styled-components";
 const Container = styled.div`
@@ -151,7 +152,7 @@ function Meeting(props) {
 	}
 	let DoctorVideo;
 	if (doctorPresent) {
-		DoctorVideo = <Video playsInline muted ref={doctorVideo} autoPlay />;
+		DoctorVideo = <Video playsInline ref={doctorVideo} autoPlay />;
 	}
 	return (
 		// <div>
@@ -165,8 +166,8 @@ function Meeting(props) {
 		// </div>
 		<Container>
 			<Row>
-				{PatientVideo}
-				{DoctorVideo}
+				<VideoComponent muted={true} videoRef={patientVideo} />
+				<VideoComponent muted={true} videoRef={doctorVideo} />
 			</Row>
 			{doctorPresent && <div>Doctor is present</div>}
 		</Container>

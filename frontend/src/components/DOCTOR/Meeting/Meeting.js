@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef, useContext } from "react";
 import { SocketContext } from "../../../context/SocketContext";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router";
+import VideoComponent from "../../HOME/VideoComponent";
 import Peer from "simple-peer";
 import styled from "styled-components";
 const Container = styled.div`
@@ -177,8 +178,8 @@ function Meeting(props) {
 		// </div>
 		<Container>
 			<Row>
-				{DoctorVideo}
-				{PatientVideo}
+				<VideoComponent muted={true} videoRef={doctorVideo} />
+				<VideoComponent muted={true} videoRef={patientVideo} />
 			</Row>
 		</Container>
 	);
