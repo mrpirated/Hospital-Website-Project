@@ -23,6 +23,7 @@ const getDoctorAvailability = (user_id) => {
 					}
 				}
 			);
+			connection.release();
 		});
 	});
 };

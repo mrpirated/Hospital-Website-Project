@@ -34,6 +34,7 @@ const getFuturePatientAppointments = (patient_id, preferred_date) => {
 					}
 				}
 			);
+			connection.release();
 		});
 	});
 };

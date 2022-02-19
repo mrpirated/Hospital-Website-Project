@@ -1,8 +1,24 @@
 import React, { useState } from "react";
 import { Tabs, Tab, Table, Modal } from "react-bootstrap";
+import { useSelector, useDispatch } from "react-redux";
+import cancelAppointmentAPI from "../../../api/cancelAppointmentAPI";
 import moment from "moment";
 function TabComponent(props) {
 	const [key, setKey] = useState(props.selectedKey);
+	const auth = useSelector((state) => state.auth);
+	const setAppChange = props.setAppChange;
+	const onCancelAppointment = (appointment) => {
+		console.log(appointment);
+		cancelAppointmentAPI({
+			token: auth.token,
+			appointment_id: appointment.appointment_id,
+		}).then((response) => {
+			if (response.success) {
+				setAppChange(true);
+			}
+			console.log(response);
+		});
+	};
 	return (
 		<div>
 			<Tabs activeKey={key} onSelect={(k) => setKey(k)} className='mb-3'>
@@ -17,6 +33,7 @@ function TabComponent(props) {
 								<th>End Time</th>
 								<th>Duration</th>
 								<th>Preferred Date</th>
+								{item.eventKey === "future" && <th>Cancel</th>}
 							</thead>
 							<tbody style={{ textAlign: "center" }}>
 								{(item.eventKey === "all"
@@ -36,6 +53,17 @@ function TabComponent(props) {
 											min
 										</td>
 										<td>{moment(c.preferred_date).format("ll")}</td>
+										{item.eventKey === "future" && (
+											<td>
+												<button
+													onClick={() => {
+														onCancelAppointment(c);
+													}}
+												>
+													Cancel
+												</button>
+											</td>
+										)}
 									</tr>
 								))}
 							</tbody>

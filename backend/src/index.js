@@ -29,6 +29,7 @@ import getDoctorAppointmentDuration from "./routes/getDoctorAppointmentDuration"
 import sendMail from "./controllers/sendMail";
 import getDoctorProfilePics from "./routes/getDoctorProfilePics";
 import getAllPatientAppointments from "./routes/getAllPatientAppointments";
+import cancelAppointment from "./routes/cancelAppointment";
 import fs from "fs";
 import path from "path";
 import https from "https";
@@ -103,7 +104,8 @@ app.use(
 	getDoctorAvailability,
 	getDoctorAppointmentDuration,
 	getDoctorProfilePics,
-	getAllPatientAppointments
+	getAllPatientAppointments,
+	cancelAppointment
 );
 app.use("/", (req, res) => {
 	res.send("Server is Running");
