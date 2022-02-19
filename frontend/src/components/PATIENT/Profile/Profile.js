@@ -1,30 +1,26 @@
 import React, { useState } from "react";
-import { Nav, Tabs, Tab, Row, Col, NavItem } from "react-bootstrap";
+import { Nav, Tabs, Tab, Row, Col, NavItem, Alert } from "react-bootstrap";
+import { useSelector, useDispatch } from "react-redux";
+import { alertRemoved } from "../../../store/alert";
 import ProfileInfo from "./ProfileInfo";
 import LoginInfo from "./LoginInfo";
 //import { Link } from "react-router-dom";
 function Profile() {
 	const [key, setKey] = useState("profile");
+	const alert = useSelector((state) => state.alert);
+	const dispatch = useDispatch();
 	return (
-		<div className='profile'>
-			{/* <div>
-				<Tabs
-					id='tab'
-					activeKey={key}
-					onSelect={(k) => setKey(k)}
-					className='mb-3'
-					style={{ flexDirection: "column" }}
-				>
-					<Tab eventKey='profile' title='Profile'>
-						Profile
-					</Tab>
-					<Tab eventKey='profile2' title='profile2'>
-						New Tab
-					</Tab>
-				</Tabs>
-			</div> */}
+		<div
+			className='profile'
+			onClick={() => {
+				dispatch(alertRemoved());
+			}}
+		>
 			<div style={{ textAlign: "center", padding: "20px" }}>
 				<h1>Profile</h1>
+				<Alert show={alert.show} variant={alert.variant}>
+					{alert.message}
+				</Alert>
 			</div>
 			<Tab.Container
 				id='left-tabs-example'
@@ -33,7 +29,7 @@ function Profile() {
 			>
 				<Row style={{ flexDirection: "row" }}>
 					<Col sm={3}>
-						<div style={{ margin: "1%" }}>
+						<div className='profile-left'>
 							<Nav
 								variant='pills'
 								className='flex-column'
@@ -45,9 +41,9 @@ function Profile() {
 								<Nav.Item>
 									<Nav.Link eventKey='login'>Login</Nav.Link>
 								</Nav.Item>
-								<Nav.Item>
+								{/* <Nav.Item>
 									<Nav.Link eventKey='phone'>Change Phone No.</Nav.Link>
-								</Nav.Item>
+								</Nav.Item> */}
 							</Nav>
 						</div>
 					</Col>

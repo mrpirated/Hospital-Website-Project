@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import getProfilePicAPI from "../../../api/getProfilePicAPI";
-import { useSelector } from "react-redux";
-import { Nav, Col, Row, Tab } from "react-bootstrap";
+import { useSelector, useDispatch } from "react-redux";
+import { alertRemoved } from "../../../store/alert";
+import { Nav, Col, Row, Tab, Alert } from "react-bootstrap";
 import doctor_image from "./doctor.jpg";
 import ProfileInfo from "./ProfileInfo";
 import LoginInfo from "./LoginInfo";
@@ -9,6 +10,8 @@ import ChangePhone from "./ChangePhone";
 import AppointmentTime from "./AppointmentTime";
 function Profile() {
 	const auth = useSelector((state) => state.auth);
+	const alert = useSelector((state) => state.alert);
+	const dispatch = useDispatch();
 	const [profilePic, setProfilePic] = useState();
 	const [profilePicChange, setProfilePicChange] = useState(false);
 	const [key, setKey] = useState("profile");
@@ -24,9 +27,17 @@ function Profile() {
 
 	return (
 		<div>
-			<div className='profile'>
+			<div
+				className='profile'
+				onClick={() => {
+					dispatch(alertRemoved());
+				}}
+			>
 				<div style={{ textAlign: "center", padding: "20px" }}>
 					<h1>Profile</h1>
+					<Alert show={alert.show} variant={alert.variant}>
+						{alert.message}
+					</Alert>
 				</div>
 				<Tab.Container
 					id='left-tabs-example'

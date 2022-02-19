@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setLoading } from "../../../store/auth";
+import { setLoading, userUpdated } from "../../../store/auth";
 import { Form } from "react-bootstrap";
+import { alertAdded } from "../../../store/alert";
 import DateFnsUtils from "@date-io/date-fns";
 import addUserDetailsAPI from "../../../api/addUserDetailsAPI";
 import uploadProfilePicAPI from "../../../api/uploadProfilePicAPI";
-import getProfilePicAPI from "../../../api/getProfilePicAPI";
+import tokenAPI from "../../../api/tokenAPI";
 import moment from "moment";
 import {
 	MuiPickersUtilsProvider,
@@ -33,12 +34,7 @@ function ProfileInfo(props) {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		dispatch(setLoading({ loading: true }));
-		console.log(first_name);
-		console.log(last_name);
-		console.log(email);
-		console.log(gender);
-		console.log(address);
-		console.log(dob);
+
 		var data = {
 			token: auth.token,
 			first_name,
@@ -48,10 +44,30 @@ function ProfileInfo(props) {
 			address,
 			email,
 		};
-		addUserDetailsAPI(data).then((response) => {
-			// alert(response.message);
-			dispatch(setLoading({ loading: false }));
-		});
+		addUserDetailsAPI(data)
+			.then((response) => {
+				// alert(response.message);
+
+				if (response.success) {
+					dispatch(
+						alertAdded({ variant: "success", message: response.message })
+					);
+					return tokenAPI(auth.token);
+				} else return Promise.reject(response);
+			})
+			.then((response) => {
+				if (response.success) {
+					dispatch(userUpdated({ user: response.data.user }));
+					dispatch(alertAdded({ variant: "success", message: "User Updated" }));
+				} else return Promise.reject(response);
+			})
+			.catch((err) => {
+				dispatch(alertAdded({ variant: "danger", message: err.message }));
+				console.log(err);
+			})
+			.finally(() => {
+				dispatch(setLoading({ loading: false }));
+			});
 		if (profilepic) {
 			var formdata = new FormData();
 			formdata.append("avatar", profilepic);

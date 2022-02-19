@@ -1,7 +1,7 @@
 import dbg from "debug";
-const debug = dbg("data:getDoctorAppointments");
+const debug = dbg("data:getAllPatientAppointments");
 import pool from "../dbconn/db";
-const getDoctorAppointments = (user_id) => {
+const getAllPatientAppointments = (user_id) => {
 	return new Promise((resolve, reject) => {
 		pool.getConnection((err, connection) => {
 			if (err) {
@@ -11,11 +11,11 @@ const getDoctorAppointments = (user_id) => {
 				'SELECT\
                 a.appointment_id,\
                 a.case_id,\
-                CONCAT(p.first_name, " ", p.last_name) AS patient_name,\
+                CONCAT(d.first_name, " ", d.last_name) AS doctor_name,\
                 c.case_description,\
                 a.start_time,\
                 a.end_time,\
-				a.preferred_date,\
+                a.preferred_date,\
                 a.state\
                 FROM\
                 appointment a\
@@ -23,7 +23,7 @@ const getDoctorAppointments = (user_id) => {
                 JOIN doctor d ON a.doctor_id = d.doctor_id\
                 JOIN patient p ON c.patient_id = p.patient_id\
                 WHERE\
-                a.doctor_id = ?\
+                c.patient_id = ?\
                 ORDER BY\
                 a.start_time DESC,a.preferred_date ASC\
                 ',
@@ -41,8 +41,7 @@ const getDoctorAppointments = (user_id) => {
 					}
 				}
 			);
-			connection.release();
 		});
 	});
 };
-export default getDoctorAppointments;
+export default getAllPatientAppointments;

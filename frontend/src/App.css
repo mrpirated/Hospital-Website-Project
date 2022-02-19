@@ -1,6 +1,7 @@
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:600|Work+Sans:400,500,600,700&display=swap");
 @import "./styles/modalStyle.css";
 @import "./styles/rowStyle.css";
+@import "./styles/cardStyle.css";
 :root {
 	--color1: #420516;
 	--color2: #7d1935;
@@ -20,7 +21,10 @@
 	--bgColor11: rgb(158, 236, 213);
 	--boxShadow: rgba(187, 187, 187, 0.2);
 }
-
+html,
+body {
+	height: 100%;
+}
 body {
 	background: var(--bgColor1);
 	font-family: "work sans";
@@ -33,56 +37,7 @@ body {
 	min-height: 70px;
 	height: 10vh;
 }
-#card {
-	width: 18rem;
-	margin: 1.5rem;
-	display: inline-block;
-}
-#card .doctor {
-	background-color: var(--bgColor2);
-}
-#card .appointment-addcard {
-	height: 10rem;
-	font-size: 75%;
-	background-color: var(--bgColor2);
-	color: black;
-	/* display: inline-block; */
 
-	cursor: pointer;
-	opacity: 0.9;
-}
-#card .appointment-addcard:hover {
-	opacity: 1;
-	transform: scale(1.12);
-	transition-duration: 0.25s;
-}
-#card .appointment {
-	height: 10rem;
-	font-size: 75%;
-	background-color: var(--bgColor2);
-	color: black;
-	/* display: inline-block; */
-
-	cursor: pointer;
-	opacity: 0.8;
-}
-#card .appointment:hover {
-	opacity: 0.9;
-	transform: scale(1.05);
-	transition-duration: 0.25s;
-}
-#card .records {
-	background-color: rgb(123, 228, 241);
-}
-#card .records:hover {
-	transform: scale(1.05);
-}
-.card-text {
-	font-size: 16px;
-}
-.card-header {
-	font-size: 20px;
-}
 .availability {
 	margin: auto;
 	text-align: center;
@@ -132,7 +87,20 @@ html {
 	margin: 0;
 	font-size: 2rem;
 }
+#forgotform {
+	min-height: auto;
+	height: 100%;
+	margin: 3% auto;
+	width: 70%;
+	background-color: var(--bgColor5);
+	border-radius: 25px;
+	border-width: 7px;
+	border-style: solid;
+	padding: 20px;
+	border-color: var(--bgColor4);
 
+	overflow: auto;
+}
 #loginform {
 	/* max-width: 500px;
 	min-width: 300px;
@@ -291,10 +259,13 @@ html {
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	position: relative;
+	bottom: 0;
 }
 
 .paginationItem {
-	background: #030149;
+	background: var(--bgColor11);
+	color: black;
 	border: 2px solid #666;
 	padding: 10px 15px;
 	border-radius: 50%;
@@ -314,26 +285,26 @@ html {
 
 .prev,
 .next {
-	background: #030149;
-	border: none;
+	background: var(--bgColor11);
+	border: 2px solid black;
+	border-radius: 10px;
 	padding: 10px;
-	color: #d3e0ea;
+	color: black;
 	box-shadow: 0 0 3px rgba(0, 0, 0, 0.4);
 	margin: 0 10px;
 	cursor: pointer;
 }
 
 .paginationItem.active {
-	border: 1px solid #888;
-	color: rgb(131, 177, 207);
+	border: 2px solid rgb(26, 24, 24);
 	pointer-events: none;
 }
 
 .prev.disabled,
 .next.disabled {
 	pointer-events: none;
+	border: 2px solid #666;
 	box-shadow: none;
-	color: #999;
 }
 .profile {
 	display: block;
@@ -345,25 +316,38 @@ html {
 	position: relative;
 }
 .profile-left {
+	display: block;
+	width: 100%;
 	text-align: center;
 	margin: 5%;
 	align-items: center;
 	justify-content: center;
 }
-
-.profile-left > .nav > .nav-item:hover {
-	cursor: pointer;
-}
-.profile-left > .nav > .nav-item > a.active {
+.nav-tabs > .nav-item > button.active {
 	background-color: var(--bgColor2);
 	color: #fff;
 }
-.profile-left > .nav > .nav-item > a {
+.nav-tabs > .nav-item > button {
+	border-radius: 30px;
+	color: black;
+}
+.nav-tabs > .nav-item:hover {
+	cursor: pointer;
+}
+.nav > .nav-item:hover {
+	cursor: pointer;
+}
+.nav > .nav-item > a.active {
+	background-color: var(--bgColor2);
+	color: #fff;
+}
+.nav > .nav-item > a {
+	border-radius: 30px;
 	color: black;
 }
 .profile-left img {
 	display: block;
-	margin: 0% 10%;
+	margin: 0% 5%;
 	border: 1px solid;
 	border-radius: 0.5rem;
 	box-shadow: 0 4px 5px 2px rgb(0 0 0 / 50%);
