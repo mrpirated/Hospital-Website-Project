@@ -6,7 +6,11 @@ import addUser from "./helpers/addUser";
 import removeUser from "./helpers/removeUser";
 import findInAppointment from "./helpers/findInAppointments";
 import addAppointments from "./helpers/addAppointments";
-
+import onStartAppointments from "./helpers/onStartAppointments";
+debug("appointments added initially");
+onStartAppointments(currentAppointments).then(() => {
+	debug(currentAppointments);
+});
 setInterval(() => {
 	debug("appointments added");
 	addAppointments(currentAppointments).then(() => {

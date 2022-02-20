@@ -1,8 +1,8 @@
 import dbg from "debug";
-const debug = dbg("socket:addAppointments");
+const debug = dbg("socket:onStartAppointments");
 import getNextAppointments from "../../data/getNextAppointments";
-const addAppointments = async (currentAppointments) => {
-	return await getNextAppointments(false).then((response) => {
+const onStartAppointments = async (currentAppointments) => {
+	return await getNextAppointments(true).then((response) => {
 		if (response.success) {
 			//debug(response.data.appointments);
 			if (response.data.appointments.length > 0) {
@@ -21,4 +21,4 @@ const addAppointments = async (currentAppointments) => {
 		}
 	});
 };
-export default addAppointments;
+export default onStartAppointments;
