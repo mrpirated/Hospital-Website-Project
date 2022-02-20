@@ -3,10 +3,11 @@ import { Route } from "react-router-dom";
 import { Switch, useHistory } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoading } from "../../../store/auth";
+import { alertRemoved } from "../../../store/alert";
 import patientCaseAPI from "../../../api/patientCaseAPI";
 import {
 	Card,
-	Table,
+	Alert,
 	Button,
 	ListGroup,
 	ListGroupItem,
@@ -17,6 +18,7 @@ import moment from "moment";
 
 export default function Cases(props) {
 	const auth = useSelector((state) => state.auth);
+	const alert = useSelector((state) => state.alert);
 	const dispatch = useDispatch();
 	const history = useHistory();
 	const [cases, setCases] = useState([]);
@@ -84,7 +86,14 @@ export default function Cases(props) {
 	};
 
 	return (
-		<div>
+		<div
+			onClick={() => {
+				dispatch(alertRemoved());
+			}}
+		>
+			<Alert show={alert.show} variant={alert.variant}>
+				{alert.message}
+			</Alert>
 			<div style={{ padding: "10px" }} className='text-center'>
 				<Button
 					variant='outline-dark'

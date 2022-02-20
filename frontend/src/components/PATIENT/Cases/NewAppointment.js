@@ -2,11 +2,12 @@ import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoading } from "../../../store/auth";
+import { alertAdded, alertRemoved } from "../../../store/alert";
 import moment from "moment";
 import {
 	Form,
 	Button,
-	Row,
+	Alert,
 	Col,
 	DropdownButton,
 	Dropdown,
@@ -22,11 +23,10 @@ import getDoctorsAPI from "../../../api/getDoctorsAPI";
 
 export default function NewAppointment(props) {
 	const auth = useSelector((state) => state.auth);
+	const alert = useSelector((state) => state.alert);
 	const history = useHistory();
 	const case_details = props.location.state.case_details;
 	const [dateOfAppointment, setDateOfAppointment] = useState(new Date());
-	const [startTime, setStartTime] = useState("00:00");
-	const [endTime, setEndTime] = useState("00:00");
 	const [doctorId, setDoctorId] = useState(undefined);
 	const [selectedDoctor, setSelectedDoctor] = useState("SELECT DOCTOR");
 	const [doctorDetails, setDoctorDetails] = useState([]);
@@ -53,28 +53,45 @@ export default function NewAppointment(props) {
 		// 	format(dateOfAppointment, "yyyy-MM-dd") + " " + startTime + ":00";
 		// const end_time =
 		// 	format(dateOfAppointment, "yyyy-MM-dd") + " " + endTime + ":00";
-		console.log(dateOfAppointment);
+		dispatch(setLoading({ loading: true }));
+
 		newAppointmentAPI({
 			token: auth.token,
 			case_id: case_details.case_id,
 			doctor_id: doctorId,
-			preferred_date: moment(dateOfAppointment).format("yyyy-MM-dd"),
+			preferred_date: moment(dateOfAppointment).format("YYYY-MM-DD"),
 			patient_id: auth.user.patient_id,
-		}).then((res) => {
-			if (res.success) {
-				alert(res.message);
-				history.push("/patient");
-			} else {
-				alert(res.data.msg);
-			}
-		});
+		})
+			.then((res) => {
+				if (res.success) {
+					dispatch(alertAdded({ variant: "success", message: res.message }));
+				} else {
+					dispatch(alertAdded({ variant: "danger", message: res.message }));
+				}
+				history.goBack();
+			})
+			.catch((err) => {
+				dispatch(alertAdded({ variant: "danger", message: err.message }));
+				console.log(err);
+			})
+			.finally(() => {
+				dispatch(setLoading({ loading: false }));
+			});
 		// console.log(start_time);
 		// console.log(end_time);
 	}
 
 	return (
 		<div>
-			<div className='NewCase'>
+			<div
+				className='NewCase'
+				onClick={() => {
+					dispatch(alertRemoved());
+				}}
+			>
+				<Alert show={alert.show} variant={alert.variant}>
+					{alert.message}
+				</Alert>
 				<h3 className='FormHeading'>Enter Details For Appointment</h3>
 				<Form onSubmit={handleSubmit}>
 					<Form.Group className='mb-3' controlId='exampleForm.ControlInput1'>
