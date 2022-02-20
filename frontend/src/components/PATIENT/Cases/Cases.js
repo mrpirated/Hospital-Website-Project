@@ -42,21 +42,22 @@ export default function Cases(props) {
 		dispatch(setLoading({ loading: true }));
 		patientCaseAPI({
 			token: auth.token,
-		}).then((res) => {
-			console.log(res);
-			if (res.success) {
-				console.log(res.data.cases);
-				setCases(res.data.cases);
-				setDisplayCases(res.data.cases);
-				setPages(Math.ceil(res.data.cases.length / dataLimit));
-			} else {
-				// alert(res.data.msg + "\nYou will be redirected to Home.");
-				setTimeout(history.push("/patient/cases"), 0);
-			}
-			sleep(1000).then(() => {
+		})
+			.then((res) => {
+				console.log(res);
+				if (res.success) {
+					console.log(res.data.cases);
+					setCases(res.data.cases);
+					setDisplayCases(res.data.cases);
+					setPages(Math.ceil(res.data.cases.length / dataLimit));
+				} else {
+					// alert(res.data.msg + "\nYou will be redirected to Home.");
+					//setTimeout(history.push("/patient/cases"), 0);
+				}
+			})
+			.finally(() => {
 				dispatch(setLoading({ loading: false }));
 			});
-		});
 
 		//setTimeout(patientFunc(), 100);
 	}, [auth.isauth]);
