@@ -6,14 +6,18 @@ import addUser from "./helpers/addUser";
 import removeUser from "./helpers/removeUser";
 import findInAppointment from "./helpers/findInAppointments";
 import addAppointments from "./helpers/addAppointments";
+import removeAppointments from "./helpers/removeAppointments";
 import onStartAppointments from "./helpers/onStartAppointments";
 debug("appointments added initially");
 onStartAppointments(currentAppointments).then(() => {
 	debug(currentAppointments);
 });
 setInterval(() => {
-	debug("appointments added");
+	debug("appointments added and removed");
 	addAppointments(currentAppointments).then(() => {
+		debug(currentAppointments);
+	});
+	removeAppointments(currentAppointments).then(() => {
 		debug(currentAppointments);
 	});
 }, 1000 * 60);
