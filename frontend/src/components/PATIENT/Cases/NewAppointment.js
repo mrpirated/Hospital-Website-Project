@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
+import { setLoading } from "../../../store/auth";
 import moment from "moment";
 import {
 	Form,
@@ -10,10 +11,7 @@ import {
 	DropdownButton,
 	Dropdown,
 } from "react-bootstrap";
-import "./NewCase.css";
-import "react-datepicker/dist/react-datepicker.css";
-import TimePicker from "react-time-picker";
-import format from "date-fns/format";
+
 import newAppointmentAPI from "../../../api/newAppointmentAPI";
 import DateFnsUtils from "@date-io/date-fns";
 import {
@@ -25,36 +23,29 @@ import getDoctorsAPI from "../../../api/getDoctorsAPI";
 export default function NewAppointment(props) {
 	const auth = useSelector((state) => state.auth);
 	const history = useHistory();
-	const [caseDetails, setCaseDetails] = useState({});
+	const case_details = props.location.state.case_details;
 	const [dateOfAppointment, setDateOfAppointment] = useState(new Date());
 	const [startTime, setStartTime] = useState("00:00");
 	const [endTime, setEndTime] = useState("00:00");
 	const [doctorId, setDoctorId] = useState(undefined);
 	const [selectedDoctor, setSelectedDoctor] = useState("SELECT DOCTOR");
 	const [doctorDetails, setDoctorDetails] = useState([]);
+	const dispatch = useDispatch();
 	useEffect(() => {
-		if (
-			props.location.state !== undefined &&
-			props.location.state.case_details !== undefined
-		) {
-			setCaseDetails(props.location.state.case_details);
-		} else if (props.case_details !== undefined) {
-			setCaseDetails(props.case_details);
-		} else {
-			history.push("/home");
-		}
+		dispatch(setLoading({ loading: true }));
 
 		getDoctorsAPI({
 			token: auth.token,
-		}).then((res) => {
-			if (res.success) {
-				setDoctorDetails(res.data.doctor);
-			} else {
-				// alert(res.data.msg + "\nYou will be redirected to Home.");
-				setTimeout(history.push("/patient/appointment"), 0);
-			}
-		});
-	}, []);
+		})
+			.then((res) => {
+				if (res.success) {
+					setDoctorDetails(res.data.doctor);
+				}
+			})
+			.finally(() => {
+				dispatch(setLoading({ loading: false }));
+			});
+	}, [auth.isauth]);
 
 	function handleSubmit(event) {
 		event.preventDefault();
@@ -65,9 +56,9 @@ export default function NewAppointment(props) {
 		console.log(dateOfAppointment);
 		newAppointmentAPI({
 			token: auth.token,
-			case_id: caseDetails.case_id,
+			case_id: case_details.case_id,
 			doctor_id: doctorId,
-			preferred_date: format(dateOfAppointment, "yyyy-MM-dd"),
+			preferred_date: moment(dateOfAppointment).format("yyyy-MM-dd"),
 			patient_id: auth.user.patient_id,
 		}).then((res) => {
 			if (res.success) {
@@ -90,7 +81,7 @@ export default function NewAppointment(props) {
 						<Form.Label>Case ID</Form.Label>
 						<Form.Control
 							type='text'
-							value={caseDetails.case_id}
+							value={case_details.case_id}
 							disabled={true}
 						/>
 					</Form.Group>
@@ -145,7 +136,6 @@ export default function NewAppointment(props) {
 					<div className='text-center' style={{ paddingTop: "2rem" }}>
 						<Button
 							variant='outline-dark'
-							block
 							size='sm'
 							className='NewCaseButton'
 							type='submit'

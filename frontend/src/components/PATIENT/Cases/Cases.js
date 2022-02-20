@@ -31,7 +31,7 @@ export default function Cases(props) {
 	}
 
 	useEffect(() => {
-		sessionStorage.setItem("lastPage", "/patient/appointment");
+		//sessionStorage.setItem("lastPage", "/patient/appointment");
 		// if (!(auth.isauth && auth.type === 0)) {
 		// 	history.push("/home");
 		// }
