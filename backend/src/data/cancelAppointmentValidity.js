@@ -12,7 +12,8 @@ const cancelAppointmentValidity = (type, user_id, appointment_id) => {
 				q =
 					"SELECT appointment_id,\
                     start_time,\
-                    end_time\
+                    end_time,\
+					state\
                     FROM appointment\
                     WHERE doctor_id = ?\
                     AND appointment_id = ?";
@@ -20,7 +21,8 @@ const cancelAppointmentValidity = (type, user_id, appointment_id) => {
 				q =
 					"SELECT a.appointment_id, \
                     a.start_time, \
-                    a.end_time\
+                    a.end_time,\
+					a.state\
                     FROM appointment a \
                     JOIN cases c ON a.case_id=c.case_id \
                     WHERE c.patient_id = ? AND \
@@ -35,7 +37,10 @@ const cancelAppointmentValidity = (type, user_id, appointment_id) => {
 					if (result.length > 0) {
 						//var dt = new Date();
 
-						if (new Date(result[0].start_time) > new Date())
+						if (
+							result[0].state === "pending" ||
+							new Date(result[0].start_time) > new Date()
+						)
 							resolve({ success: true });
 						else {
 							reject({
