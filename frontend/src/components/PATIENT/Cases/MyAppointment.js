@@ -3,10 +3,12 @@ import { useHistory } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
 import moment from "moment";
 import { setLoading } from "../../../store/auth";
-import { Card, Form, Modal, Row, Col, Button, Table } from "react-bootstrap";
+import { alertRemoved } from "../../../store/alert";
+import { Card, Alert, Modal, Row, Col, Button, Table } from "react-bootstrap";
 import patientMyAppointmentAPI from "../../../api/patientMyAppointmentAPI";
 export default function MyAppointment(props) {
 	const auth = useSelector((state) => state.auth);
+	const alert = useSelector((state) => state.alert);
 	const history = useHistory();
 	const [appointments, setAppointments] = useState([]);
 	const [openPopup, setopenPopup] = useState(false);
@@ -34,7 +36,14 @@ export default function MyAppointment(props) {
 	}, [auth.isauth]);
 	const onSelectAppointment = async (app) => {};
 	return (
-		<div>
+		<div
+			onClick={() => {
+				dispatch(alertRemoved());
+			}}
+		>
+			<Alert show={alert.show} variant={alert.variant}>
+				{alert.message}
+			</Alert>
 			<div style={{ padding: "10px" }} className='text-center'>
 				<Button
 					variant='outline-dark'
