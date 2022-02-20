@@ -1,19 +1,18 @@
 import dbg from "debug";
 const debug = dbg("socket:server");
 const users = [];
-const users1 = {};
-const currentAppointments = [
-	{
-		appointment_id: 4,
-		patient_id: 1,
-		doctor_id: 1,
-		patient_socketId: null,
-		doctor_socketId: null,
-	},
-];
+const currentAppointments = [];
 import addUser from "./helpers/addUser";
 import removeUser from "./helpers/removeUser";
 import findInAppointment from "./helpers/findInAppointments";
+import addAppointments from "./helpers/addAppointments";
+
+setInterval(() => {
+	debug("appointments added");
+	addAppointments(currentAppointments).then(() => {
+		debug(currentAppointments);
+	});
+}, 1000 * 60);
 const socketServer = (io) => {
 	io.on("connection", async (socket) => {
 		debug("a user connected! ID :- " + socket.id);
@@ -21,13 +20,10 @@ const socketServer = (io) => {
 		await addUser(socket.handshake.query.token, users, socket).catch((err) => {
 			debug(err);
 		});
-		if (!users1[socket.id]) {
-			users1[socket.id] = socket.id;
-		}
+
 		socket.emit("yourID", socket.id);
-		io.sockets.emit("allUsers", users1);
+
 		socket.on("disconnect", () => {
-			delete users1[socket.id];
 			removeUser(users, currentAppointments, socket);
 			//debug(users);
 		});
