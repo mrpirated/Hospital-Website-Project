@@ -74,6 +74,7 @@ function TabComponent(props) {
 							<th>Patient Name</th>
 							<th>Case Description</th>
 							<th>Preferred Date</th>
+							<th>Cancel</th>
 						</thead>
 						<tbody style={{ textAlign: "center" }}>
 							{props.unset.map((c) => (
@@ -81,6 +82,15 @@ function TabComponent(props) {
 									<td>{c.patient_name}</td>
 									<td>{c.case_description}</td>
 									<td>{moment(c.preferred_date).format("ll")}</td>
+									<td>
+										<button
+											onClick={() => {
+												onCancelAppointment(c);
+											}}
+										>
+											Cancel
+										</button>
+									</td>
 								</tr>
 							))}
 						</tbody>
