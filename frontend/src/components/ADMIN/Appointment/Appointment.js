@@ -16,7 +16,7 @@ import {
 import { useSelector } from "react-redux";
 import DataTable from "../../DataTable";
 import "./Appointment.css";
-import { Route, Switch, useRouteMatch, useHistory } from "react-router";
+import { Route, Switch, useNavigate } from "react-router";
 function Appointment() {
 	const token = useSelector((state) => state.auth.token);
 	const [appointments, setappointments] = useState([]);
@@ -36,23 +36,23 @@ function Appointment() {
 		},
 	];
 	//console.log(token);
-	const history = useHistory();
-	const { path, url } = useRouteMatch();
+	const navigate = useNavigate();
+
 	useEffect(() => {
 		sessionStorage.setItem("lastPage", "/admin/appointment");
-		
+
 		const fetchData = async () => {
 			await remaining_appointmentAPI(token).then((res) => {
-				if(res !== false){
+				if (res !== false) {
 					setappointments(res);
-				} else{
-					setTimeout(history.push("/admin/appointment"), 0);
+				} else {
+					setTimeout(navigate("/admin/appointment"), 0);
 				}
 				//console.log(res);
 			});
 		};
 		fetchData();
-	}, [])
+	}, []);
 	useEffect(() => {
 		setselectedtime("Select Time");
 

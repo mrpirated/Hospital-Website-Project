@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Form, Modal, Alert } from "react-bootstrap";
 import signupAPI from "../../../api/signupAPI";
-import { useHistory } from "react-router";
+import { useNavigate } from "react-router";
 import "react-datepicker/dist/react-datepicker.css";
 import PhoneInput from "react-phone-number-input";
 import "react-phone-number-input/style.css";
@@ -22,7 +22,7 @@ function Signup(props) {
 	const handleClose = () => setopenPopup(false);
 	const alert = useSelector((state) => state.alert);
 	const type = "patient";
-	const history = useHistory();
+	const navigate = useNavigate();
 	const validateForm = () => {
 		return first_name.length > 0 && email.length > 0 && password.length > 0;
 	};
@@ -81,7 +81,7 @@ function Signup(props) {
 						variant: "success",
 						message: "Registered Successfully",
 					});
-					history.push("/login");
+					navigate("/login");
 				} else {
 					alert(res.message);
 				}

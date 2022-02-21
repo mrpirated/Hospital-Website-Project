@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router";
+import { useNavigate } from "react-router";
 import { useSelector } from "react-redux";
 import { TabNav } from "./TabNav";
 import TabComponent from "./TabComponent";
@@ -7,7 +7,7 @@ import patientAllAppointmentsAPI from "../../../api/patientAllAppointmentsAPI";
 
 export default function Records() {
 	const auth = useSelector((state) => state.auth);
-	const history = useHistory();
+	const navigate = useNavigate();
 	const [past, setPast] = useState([]);
 	const [all, setAll] = useState([]);
 	const [future, setFuture] = useState([]);
@@ -16,7 +16,7 @@ export default function Records() {
 		sessionStorage.setItem("lastPage", "/patient/records");
 
 		if (!(auth.isauth && auth.type === 0)) {
-			history.push("/home");
+			navigate("/home");
 		} else {
 			patientAllAppointmentsAPI({
 				token: auth.token,
@@ -38,7 +38,7 @@ export default function Records() {
 					setAll(res.appointments);
 				} else {
 					alert(res.data.msg + "\nYou will be redirected to Home.");
-					setTimeout(history.push("/home"), 4000);
+					setTimeout(navigate("/home"), 4000);
 				}
 			});
 		}
