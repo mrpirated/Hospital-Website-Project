@@ -41,7 +41,7 @@ const debug = dbg("http");
 
 // sendMail({
 // 	subject: "new Subject",
-// 	to: ["deepeshadf@gmail.com"],
+// 	to: ["deepeshrathi9@gmail.com"],
 // 	text: "new mail",
 // });
 // const logfile = fs.createWriteStream(__dirname + "/logs/info.log", {
