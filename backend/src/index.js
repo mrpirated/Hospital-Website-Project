@@ -30,6 +30,7 @@ import sendMail from "./controllers/sendMail";
 import getDoctorProfilePics from "./routes/getDoctorProfilePics";
 import getAllPatientAppointments from "./routes/getAllPatientAppointments";
 import cancelAppointment from "./routes/cancelAppointment";
+import rescheduleAppointment from "./routes/rescheduleAppointment";
 import fs from "fs";
 import path from "path";
 import https from "https";
@@ -105,7 +106,8 @@ app.use(
 	getDoctorAppointmentDuration,
 	getDoctorProfilePics,
 	getAllPatientAppointments,
-	cancelAppointment
+	cancelAppointment,
+	rescheduleAppointment
 );
 app.use("/", (req, res) => {
 	res.send("Server is Running");

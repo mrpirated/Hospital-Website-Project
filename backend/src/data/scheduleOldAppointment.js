@@ -6,6 +6,7 @@ import getDoctorDuration from "./getDoctorDuration";
 import getAppointmentTime from "../controllers/getAppointmentTime";
 import setAppointmentTime from "./setAppointmentTime";
 import getFuturePatientAppointments from "./getFuturePatientAppointments";
+import moment from "moment";
 const scheduleAppointment = async (doctor_id, app) => {
 	var schedule;
 	var docappointment;
@@ -14,7 +15,7 @@ const scheduleAppointment = async (doctor_id, app) => {
 	var pd = app.preferred_date;
 
 	if (pd == null || new Date(pd) < new Date()) {
-		pd = new Date().toISOString();
+		pd = moment().add(1, "hour").format("YYYY-MM-DD HH:mm:ss");
 	}
 	return await getSchedule(doctor_id, pd)
 		.then((response) => {

@@ -1,12 +1,12 @@
 import dbg from "debug";
 const debug = dbg("service:cancelAppointment");
 import checkToken from "../controllers/checkToken";
-import cancelAppointmentValidity from "../data/cancelAppointmentValidity";
+import appointmentValidity from "../data/appointmentValidity";
 import cancelAppointment from "../data/cancelAppointment";
 const cancelAppointmentService = async (token, { appointment_id }) => {
 	return await checkToken(token)
 		.then((response) => {
-			return cancelAppointmentValidity(
+			return appointmentValidity(
 				response.data.decoded.type,
 				response.data.decoded.user_id,
 				appointment_id

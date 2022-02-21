@@ -1,41 +1,55 @@
 import dbg from "debug";
-const debug = dbg("service:newAppointment");
+const debug = dbg("service:rescheduleAppointment");
 import checkToken from "../controllers/checkToken";
+import appointmentValidity from "../data/appointmentValidity";
+import setPreferredDate from "../data/setPreferredDate";
 import getSchedule from "../data/getSchedule";
 import getFutureAppointments from "../data/getFutureAppointments";
 import getFuturePatientAppointments from "../data/getFuturePatientAppointments";
 import getDoctorDuration from "../data/getDoctorDuration";
 import getAppointmentTime from "../controllers/getAppointmentTime";
-import setAppointment from "../data/setAppointment";
+import updateAppointmentTime from "../data/updateAppointmentTime";
+import resetAppointmentTime from "../data/resetAppointmentTime";
 import moment from "moment";
-const newAppointmentService = async (
+const rescheduleAppointmentService = async (
 	token,
-	{ doctor_id, preferred_date, case_id, patient_id }
+	{ appointment_id, preferred_date }
 ) => {
+	var doctor_id, case_id, patient_id;
 	var schedule;
 	var docappointment;
 	var patappointment;
 	var duration;
 	var pd = preferred_date;
 	if (pd == null || new Date(pd) < new Date()) {
-		pd = moment().format("YYYY-MM-DD HH:mm:ss");
+		pd = moment().add(1, "hour").format("YYYY-MM-DD HH:mm:ss");
 	}
 	return await checkToken(token)
 		.then((response) => {
-			if (response.success && response.data.decoded.type === "patient") {
-				return response.data.decoded;
-			} else {
-				if (response.success) {
-					return Promise.reject({ success: false, message: "Not Authorized" });
-				} else return Promise.reject(response);
+			return appointmentValidity(
+				response.data.decoded.type,
+				response.data.decoded.user_id,
+				appointment_id
+			);
+		})
+		.then((response) => {
+			if (response.success) {
+				doctor_id = response.data.appointment.doctor_id;
+				case_id = response.data.appointment.case_id;
+				patient_id = response.data.appointment.patient_id;
+				return setPreferredDate(appointment_id, preferred_date);
 			}
 		})
 		.then((response) => {
-			//debug(pd);
+			debug(response.message);
+			return resetAppointmentTime(appointment_id);
+		})
+		.then((response) => {
+			debug(pd);
+			debug(response.message);
 			return getSchedule(doctor_id, pd);
 		})
 		.then((response) => {
-			//debug(response);
 			schedule = response.data.schedule;
 			debug(schedule);
 			return getFutureAppointments(doctor_id, pd);
@@ -60,11 +74,13 @@ const newAppointmentService = async (
 			);
 		})
 		.then((response) => {
-			return setAppointment(case_id, preferred_date, doctor_id, response);
+			return updateAppointmentTime(appointment_id, response);
 		})
+
 		.catch((err) => {
 			debug(err);
 			return err;
 		});
 };
-export default newAppointmentService;
+
+export default rescheduleAppointmentService;

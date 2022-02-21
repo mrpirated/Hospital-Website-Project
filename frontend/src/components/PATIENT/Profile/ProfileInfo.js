@@ -103,18 +103,19 @@ function ProfileInfo() {
 					</div>
 					<div className='row'>
 						<label>Date Of Birth</label>
+						<MuiPickersUtilsProvider utils={DateFnsUtils}>
+							<KeyboardDatePicker
+								style={{ width: "73%", alignItems: "center" }}
+								variant='inline'
+								inputVariant='outlined'
+								format='dd/MM/yyyy'
+								value={dob}
+								onChange={(date) => setDob(date)}
+								InputAdornmentProps={{ position: "start" }}
+							/>
+						</MuiPickersUtilsProvider>
 					</div>
-					<MuiPickersUtilsProvider utils={DateFnsUtils}>
-						<KeyboardDatePicker
-							style={{ width: "73%", alignItems: "center" }}
-							variant='inline'
-							inputVariant='outlined'
-							format='dd/MM/yyyy'
-							value={dob}
-							onChange={(date) => setDob(date)}
-							InputAdornmentProps={{ position: "start" }}
-						/>
-					</MuiPickersUtilsProvider>
+
 					<div className='row'>
 						<label>Address</label>
 						<input
