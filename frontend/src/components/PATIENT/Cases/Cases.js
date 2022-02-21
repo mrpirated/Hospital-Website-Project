@@ -162,7 +162,9 @@ export default function Cases(props) {
 							<Card
 								className='cases-card'
 								onClick={() => {
-									navigate("/patient/myappointment", { case_details: c });
+									navigate("/patient/myappointment", {
+										state: { case_details: c },
+									});
 								}}
 							>
 								<Card.Body>

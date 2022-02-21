@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef, useContext } from "react";
 import { SocketContext } from "../../../context/SocketContext";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router";
+import { useNavigate, useLocation } from "react-router";
 import VideoComponent from "../../HOME/VideoComponent";
 import Peer from "simple-peer";
 import styled from "styled-components";
@@ -25,6 +25,7 @@ const Video = styled.video`
 function Meeting(props) {
 	const [socket, setSocket] = useContext(SocketContext);
 	const navigate = useNavigate();
+	const location = useLocation();
 	const auth = useSelector((state) => state.auth);
 	const socketData = useSelector((state) => state.socket);
 	const [stream, setStream] = useState();
@@ -35,11 +36,12 @@ function Meeting(props) {
 	const [patientSignal, setPatientSignal] = useState();
 	const patientVideo = useRef();
 	const doctorVideo = useRef();
-	console.log(props.location.state);
-	if (!props.location.state.app) {
+	const appDetails = location.app;
+	//console.log(props.location.state);
+	if (!appDetails) {
 		navigate("/home");
 	}
-	const appDetails = props.location.state.app;
+
 	// useEffect(() => {
 	// 	if (foundApp) {
 	// 		navigator.mediaDevices

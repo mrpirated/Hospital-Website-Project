@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router";
+import { useNavigate, useLocation } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoading } from "../../../store/auth";
 import { alertAdded, alertRemoved } from "../../../store/alert";
@@ -21,11 +21,13 @@ import {
 } from "@material-ui/pickers";
 import getDoctorsAPI from "../../../api/getDoctorsAPI";
 
-export default function NewAppointment(props) {
+export default function NewAppointment() {
 	const auth = useSelector((state) => state.auth);
 	const alert = useSelector((state) => state.alert);
 	const navigate = useNavigate();
-	const case_details = props.location.state.case_details;
+	const location = useLocation();
+	const { case_details } = location.state;
+
 	const [dateOfAppointment, setDateOfAppointment] = useState(new Date());
 	const [doctorId, setDoctorId] = useState(undefined);
 	const [selectedDoctor, setSelectedDoctor] = useState("SELECT DOCTOR");
@@ -68,7 +70,7 @@ export default function NewAppointment(props) {
 				} else {
 					dispatch(alertAdded({ variant: "danger", message: res.message }));
 				}
-				navigate(-1);
+				navigate(-2);
 			})
 			.catch((err) => {
 				dispatch(alertAdded({ variant: "danger", message: err.message }));
