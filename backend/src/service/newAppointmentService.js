@@ -7,7 +7,7 @@ import getFuturePatientAppointments from "../data/getFuturePatientAppointments";
 import getDoctorDuration from "../data/getDoctorDuration";
 import getAppointmentTime from "../controllers/getAppointmentTime";
 import setAppointment from "../data/setAppointment";
-
+import moment from "moment";
 const newAppointmentService = async (
 	token,
 	{ doctor_id, preferred_date, case_id, patient_id }
@@ -18,7 +18,7 @@ const newAppointmentService = async (
 	var duration;
 	var pd = preferred_date;
 	if (pd == null || new Date(pd) < new Date()) {
-		pd = new Date().toISOString();
+		pd = moment().format("YYYY-MM-DD HH:mm:ss");
 	}
 	return await checkToken(token)
 		.then((response) => {
@@ -31,7 +31,7 @@ const newAppointmentService = async (
 			}
 		})
 		.then((response) => {
-			debug(pd);
+			//debug(pd);
 			return getSchedule(doctor_id, pd);
 		})
 		.then((response) => {

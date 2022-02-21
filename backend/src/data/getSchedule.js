@@ -7,9 +7,10 @@ const getSchedule = (user_id, preferred_date) => {
 			if (err) {
 				reject({ success: false, message: "Error In connection", error: err });
 			}
+			debug(preferred_date);
 			connection.query(
 				"SELECT \
-				start_time, \
+				GREATEST(start_time, ?) AS start_time, \
 				end_time \
 				FROM \
 				schedule \
@@ -17,7 +18,7 @@ const getSchedule = (user_id, preferred_date) => {
 				doctor_id = ? \
 				AND end_time > ?\
 				ORDER BY start_time",
-				[user_id, preferred_date],
+				[preferred_date, user_id, preferred_date],
 				(err, result) => {
 					if (err) {
 						debug(err);

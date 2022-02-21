@@ -10,7 +10,7 @@ const getFutureAppointments = (user_id, preferred_date) => {
 			}
 			connection.query(
 				'SELECT \
-				start_time, \
+				GREATEST(start_time, ?) AS start_time, \
 				end_time \
 				FROM \
 				appointment \
@@ -19,7 +19,7 @@ const getFutureAppointments = (user_id, preferred_date) => {
 				AND state != "pending"\
 				AND end_time > ?\
 				ORDER BY start_time',
-				[user_id, preferred_date],
+				[preferred_date, user_id, preferred_date],
 				(err, result) => {
 					if (err) {
 						debug(err);

@@ -6,6 +6,7 @@ import mergeAvailability from "../controllers/mergeAvailability";
 import setAvailability from "../data/setAvailability";
 import getUnscheduledAppointment from "../data/getUnscheduledAppointment";
 import scheduleOldAppointment from "../data/scheduleOldAppointment";
+import moment from "moment";
 const setAvailabilityService = async (token, { start_time, end_time }) => {
 	start_time = new Date(start_time);
 	end_time = new Date(end_time);
@@ -29,7 +30,10 @@ const setAvailabilityService = async (token, { start_time, end_time }) => {
 		})
 		.then((decoded) => {
 			user_id = decoded.user_id;
-			return getSchedule(decoded.user_id, new Date().toISOString());
+			return getSchedule(
+				decoded.user_id,
+				moment().format("YYYY-MM-DD HH:mm:ss")
+			);
 		})
 		.then((response) => {
 			debug(response.data.schedule);
