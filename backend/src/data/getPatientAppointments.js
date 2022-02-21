@@ -14,7 +14,8 @@ const getPatientAppointments = (case_id) => {
 				a.doctor_id,\
 				CONCAT(d.first_name," ", d.last_name) AS doctor_name,\
 				a.end_time,\
-				a.start_time\
+				a.start_time,\
+				a.preferred_date\
 		  		FROM\
 				appointment a\
 				JOIN doctor d ON a.doctor_id = d.doctor_id\

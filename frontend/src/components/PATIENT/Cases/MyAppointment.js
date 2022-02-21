@@ -1,58 +1,54 @@
 import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router";
+import { useNavigate } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
 import moment from "moment";
 import { setLoading } from "../../../store/auth";
-import { Card, Form, Modal, Row, Col, Button, Table } from "react-bootstrap";
+import { alertRemoved } from "../../../store/alert";
+import { Card, Alert, Modal, Row, Col, Button, Table } from "react-bootstrap";
 import patientMyAppointmentAPI from "../../../api/patientMyAppointmentAPI";
 export default function MyAppointment(props) {
 	const auth = useSelector((state) => state.auth);
-	const history = useHistory();
+	const alert = useSelector((state) => state.alert);
+	const navigate = useNavigate();
 	const [appointments, setAppointments] = useState([]);
 	const [openPopup, setopenPopup] = useState(false);
 	const [selectedAP, setselectedAP] = useState({});
 	const case_details = props.location.state.case_details;
 	const dispatch = useDispatch();
-	//console.log(props);
+
 	useEffect(() => {
-		if (!(auth.isauth && auth.type === "patient")) {
-			history.push("/home");
-		}
-		if (props.location.state === undefined) {
-			history.push("/home");
-		}
 		dispatch(setLoading({ loading: true }));
-		const fetchData = async () => {
-			await patientMyAppointmentAPI({
-				token: auth.token,
-				case_id: case_details.case_id,
-			}).then((res) => {
+		console.log(case_details);
+		patientMyAppointmentAPI({
+			token: auth.token,
+			case_id: case_details.case_id,
+		})
+			.then((res) => {
 				console.log(res);
 				if (res.success) {
 					console.log(res.data.appointments);
 					setAppointments(res.data.appointments);
-				} else {
-					//alert(res.data.msg + "\nYou will be redirected to Home.");
-					setTimeout(history.push("/home"), 4000);
 				}
+			})
+			.finally(() => {
 				dispatch(setLoading({ loading: false }));
 			});
-		};
-
-		fetchData();
 	}, [auth.isauth]);
-	const onSelectAppointment = async (app) => {
-		// setselectedAP(app);
-		// console.log(app);
-		// setopenPopup(true);
-	};
+	const onSelectAppointment = async (app) => {};
 	return (
-		<div>
+		<div
+			onClick={() => {
+				dispatch(alertRemoved());
+			}}
+		>
+			<Alert show={alert.show} variant={alert.variant}>
+				{alert.message}
+			</Alert>
 			<div style={{ padding: "10px" }} className='text-center'>
 				<Button
 					variant='outline-dark'
 					onClick={() => {
-						history.push("/patient/new-appointment", {
+						navigate("/patient/new-appointment", {
 							case_details: case_details,
 						});
 					}}
@@ -66,6 +62,7 @@ export default function MyAppointment(props) {
 					<th>Start Time</th>
 					<th>End Time</th>
 					<th>Duration</th>
+					<th>Preferred Date</th>
 				</thead>
 				<tbody style={{ textAlign: "center" }}>
 					{appointments.map((a) => (
@@ -81,6 +78,7 @@ export default function MyAppointment(props) {
 									  " min"
 									: "NA"}
 							</td>
+							<td>{moment(a.preferred_date).format("ll")}</td>
 						</tr>
 					))}
 				</tbody>

@@ -2,12 +2,12 @@ import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import getScheduledAppointmentsAPI from "../../../api/getScheduledAppointmentsAPI";
 import { Card, Button } from "react-bootstrap";
-import { useHistory } from "react-router";
+import { useNavigate } from "react-router";
 import moment from "moment";
 function Rooms() {
 	const auth = useSelector((state) => state.auth);
 	const [appointments, setAppointments] = useState([]);
-	const history = useHistory();
+	const navigate = useNavigate();
 	useEffect(() => {
 		console.log(auth.token);
 		getScheduledAppointmentsAPI({ token: auth.token }).then((response) => {
@@ -19,7 +19,7 @@ function Rooms() {
 				alert(response.message);
 			}
 		});
-	}, []);
+	}, [auth.isauth]);
 	return (
 		<div>
 			{appointments.map((app) => (
@@ -42,7 +42,7 @@ function Rooms() {
 								<span style={{ float: "right" }}>
 									<Button
 										onClick={() => {
-											history.push("/patient/meeting", { app });
+											navigate("/patient/meeting", { app });
 										}}
 									>
 										Room

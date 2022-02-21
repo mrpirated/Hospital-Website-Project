@@ -26,6 +26,7 @@ import getDoctorAppointments from "./routes/getDoctorAppointments";
 import changePassword from "./routes/changePassword";
 import getDoctorAvailability from "./routes/getDoctorAvailability";
 import getDoctorAppointmentDuration from "./routes/getDoctorAppointmentDuration";
+import sendMail from "./controllers/sendMail";
 import getDoctorProfilePics from "./routes/getDoctorProfilePics";
 import getAllPatientAppointments from "./routes/getAllPatientAppointments";
 import cancelAppointment from "./routes/cancelAppointment";
@@ -39,6 +40,11 @@ import socketio from "socket.io";
 dbg.log = console.info.bind(console);
 const debug = dbg("http");
 
+// sendMail({
+// 	subject: "new Subject",
+// 	to: ["deepeshadf@gmail.com"],
+// 	text: "new mail",
+// });
 // const logfile = fs.createWriteStream(__dirname + "/logs/info.log", {
 // 	flags: "w",
 // });

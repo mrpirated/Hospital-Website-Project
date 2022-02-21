@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router";
+import { useNavigate } from "react-router";
 import { useSelector } from "react-redux";
 import doctorAppointmentsAPI from "../../../api/doctorAppointmentsAPI";
 import SchedulerComponent from "../../SchedulerComponent";
 
 function Calendar() {
 	const auth = useSelector((state) => state.auth);
-	const history = useHistory();
+	const navigate = useNavigate();
 	const [localData, setLocalData] = useState({});
 	useEffect(() => {
 		doctorAppointmentsAPI({

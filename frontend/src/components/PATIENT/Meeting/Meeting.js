@@ -1,7 +1,8 @@
 import React, { useEffect, useState, useRef, useContext } from "react";
 import { SocketContext } from "../../../context/SocketContext";
 import { useSelector } from "react-redux";
-import { useHistory } from "react-router";
+import { useNavigate } from "react-router";
+import VideoComponent from "../../HOME/VideoComponent";
 import Peer from "simple-peer";
 import styled from "styled-components";
 const Container = styled.div`
@@ -23,7 +24,7 @@ const Video = styled.video`
 `;
 function Meeting(props) {
 	const [socket, setSocket] = useContext(SocketContext);
-	const history = useHistory();
+	const navigate = useNavigate();
 	const auth = useSelector((state) => state.auth);
 	const socketData = useSelector((state) => state.socket);
 	const [stream, setStream] = useState();
@@ -34,9 +35,10 @@ function Meeting(props) {
 	const [doctorSignal, setDoctorSignal] = useState();
 	const patientVideo = useRef();
 	const doctorVideo = useRef();
+	//console.log(socket);
 	console.log(props.location.state);
 	if (!props.location.state.app) {
-		history.push("/home");
+		navigate("/home");
 	}
 	const appDetails = props.location.state.app;
 	// useEffect(() => {
@@ -87,7 +89,7 @@ function Meeting(props) {
 					});
 			} else {
 				alert(response.message);
-				setTimeout(history.push("/patient"), 1000);
+				setTimeout(navigate("/patient"), 1000);
 				//tracks[0].stop();
 			}
 		});
@@ -150,7 +152,7 @@ function Meeting(props) {
 	}
 	let DoctorVideo;
 	if (doctorPresent) {
-		DoctorVideo = <Video playsInline muted ref={doctorVideo} autoPlay />;
+		DoctorVideo = <Video playsInline ref={doctorVideo} autoPlay />;
 	}
 	return (
 		// <div>
@@ -164,8 +166,8 @@ function Meeting(props) {
 		// </div>
 		<Container>
 			<Row>
-				{PatientVideo}
-				{DoctorVideo}
+				<VideoComponent muted={true} videoRef={patientVideo} />
+				<VideoComponent muted={true} videoRef={doctorVideo} />
 			</Row>
 			{doctorPresent && <div>Doctor is present</div>}
 		</Container>

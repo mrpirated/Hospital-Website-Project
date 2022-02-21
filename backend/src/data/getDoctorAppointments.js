@@ -25,7 +25,7 @@ const getDoctorAppointments = (user_id) => {
                 WHERE\
                 a.doctor_id = ?\
                 ORDER BY\
-                a.start_time ASC\
+                a.start_time DESC,a.preferred_date ASC\
                 ',
 				[user_id],
 				(err, result) => {

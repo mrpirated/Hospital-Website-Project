@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
-import { Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { Switch, useHistory } from "react-router";
+import { useNavigate } from "react-router";
 import Navitems from "./Navbar/Navitems";
 import Navigation from "../Navigation";
 import Calendar from "./Calendar/Calendar";
@@ -15,33 +15,30 @@ export default function PatientRoute() {
 	const auth = useSelector((state) => state.auth);
 	//const isauth = auth.isauth;
 	const type = auth.type;
-	const history = useHistory();
+	const navigate = useNavigate();
 	//console.log(isauth);
 	// console.log("at doctor route");
 	console.log(auth);
 	useEffect(() => {
 		//if(auth.checkToken )
 		if (auth.checkToken && !(auth.isauth && type === "doctor")) {
-			history.push("/doctor/login");
+			navigate("login");
 		}
 	}, [auth]);
 
 	return (
 		<div>
 			<Navigation Navitems={Navitems} />
-			<Switch>
-				<Route path='/doctor/calendar' component={Calendar} />
-				<Route path='/doctor/appointment' component={Appointment} />
-				<Route
-					path='/doctor/appointment-details'
-					component={AppointmentDetails}
-				/>
-				<Route path='/doctor/availability' component={Availability} />
-				<Route path='/doctor/profile' component={Profile} />
-				{/* <Route path='/doctor/rooms' component={Rooms} /> */}
-				<Route path='/doctor/meeting' component={Meeting} />
-				{/* <Route path='/doctor/doctors' component={Doctors} /> */}
-			</Switch>
+			<Routes>
+				<Route path='calendar' element={<Calendar />} />
+				<Route path='appointment' element={<Appointment />} />
+				<Route path='appointment-details' element={<AppointmentDetails />} />
+				<Route path='availability' element={<Availability />} />
+				<Route path='profile' element={<Profile />} />
+				<Route path='rooms' element={<Rooms />} />
+				<Route path='meeting' element={<Meeting />} />
+				{/* <Route path='doctors' element={Doctors} /> */}
+			</Routes>
 		</div>
 	);
 }

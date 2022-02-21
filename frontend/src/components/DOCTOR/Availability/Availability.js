@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Form, Button, Modal } from "react-bootstrap";
+import { Form, Button, Modal, Alert } from "react-bootstrap";
 
 //import TimePicker from "react-time-picker";
 import DateFnsUtils from "@date-io/date-fns";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { setLoading } from "../../../store/auth";
+import { alertAdded, alertRemoved } from "../../../store/alert";
 import moment from "moment";
 import setAvailabilityAPI from "../../../api/setAvailabilityAPI";
 import getDoctorAvailabilityAPI from "../../../api/getDoctorAvailabilityAPI";
@@ -15,16 +17,19 @@ import {
 } from "@material-ui/pickers";
 function Availability() {
 	const auth = useSelector((state) => state.auth);
+	const alert = useSelector((state) => state.alert);
+	const dispatch = useDispatch();
 	const [availDate, setavailDate] = useState(new Date());
 	const [start_time, setstart_time] = useState(new Date());
 	const [end_time, setend_time] = useState(new Date());
 	const [openPopup, setOpenPopup] = useState(false);
 	const [calData, setCalData] = useState({});
 	const [avaiAdded, setAvaiAdded] = useState(false);
-	console.log("at availability");
+
 	useEffect(() => {
-		if (auth.isauth) {
-			getDoctorAvailabilityAPI({ token: auth.token }).then((response) => {
+		dispatch(setLoading({ loading: true }));
+		getDoctorAvailabilityAPI({ token: auth.token })
+			.then((response) => {
 				if (response.success) {
 					var tmp = [];
 					for (let i = 0; i < response.data.availability.length; i++) {
@@ -50,17 +55,17 @@ function Availability() {
 					var tmp1 = { dataSource: tmp };
 					setCalData(tmp1);
 
-					var tmp1 = { dataSource: tmp };
-					setCalData(tmp1);
+					// var tmp1 = { dataSource: tmp };
+					// setCalData(tmp1);
 					setAvaiAdded(false);
 				}
+			})
+			.finally(() => {
+				dispatch(setLoading({ loading: false }));
 			});
-		}
 	}, [avaiAdded, openPopup, auth.isauth]);
 
-	const onSaveChanges = async () => {
-		console.log(moment(start_time).format("HH:mm"));
-		console.log(availDate);
+	const onSaveChanges = () => {
 		var ast =
 			moment(availDate).format("yyyy-MM-DD") +
 			" " +
@@ -76,24 +81,38 @@ function Availability() {
 		//console.log(aet);
 		var st = new Date(ast);
 		var et = new Date(aet);
-		if (st < new Date() || et < new Date() || st > et) {
-			alert(
-				"Enter date and time after the current time and make sure start time is not greater than end time"
+		if (st < new Date() || et < new Date() || st >= et) {
+			dispatch(
+				alertAdded({
+					variant: "warning",
+					message:
+						"Enter date and time after the current time and make sure start time is not greater than end time",
+				})
 			);
+
 			return;
 		}
-		await setAvailabilityAPI({
+		dispatch(setLoading({ loading: true }));
+		setAvailabilityAPI({
 			token: auth.token,
 			start_time: ast,
 			end_time: aet,
-		}).then((res) => {
-			if (res.success) {
-				alert(res.message);
-				setAvaiAdded(true);
-			} else {
-				alert(res.message);
-			}
-		});
+		})
+			.then((res) => {
+				if (res.success) {
+					dispatch(alertAdded({ variant: "success", message: res.message }));
+					setAvaiAdded(true);
+				} else {
+					dispatch(alertAdded({ variant: "danger", message: res.message }));
+				}
+			})
+			.catch((err) => {
+				dispatch(alertAdded({ variant: "danger", message: err.message }));
+				console.log(err);
+			})
+			.finally(() => {
+				dispatch(setLoading({ loading: false }));
+			});
 		setOpenPopup(false);
 		// setavailDate(new Date());
 		// setstart_time(new Date());
@@ -105,24 +124,36 @@ function Availability() {
 	};
 	return (
 		<div>
-			<div className='text-center' style={{ paddingTop: "2rem" }}>
-				<Button
-					variant='outline-dark'
-					size='sm'
-					className='NewCaseButton'
-					onClick={() => {
-						setOpenPopup(true);
-					}}
-				>
-					Give Availability
-				</Button>
-			</div>
-			<div>
-				<SchedulerComponent localData={calData} onPopupOpen={onPopupOpen} />
+			<div
+				onClick={() => {
+					dispatch(alertRemoved());
+				}}
+			>
+				<Alert show={alert.show} variant={alert.variant}>
+					{alert.message}
+				</Alert>
+				<div className='text-center' style={{ paddingTop: "2rem" }}>
+					<Button
+						variant='outline-dark'
+						size='sm'
+						className='NewCaseButton'
+						onClick={() => {
+							setOpenPopup(true);
+						}}
+					>
+						Give Availability
+					</Button>
+				</div>
+				<div>
+					<SchedulerComponent localData={calData} onPopupOpen={onPopupOpen} />
+				</div>
 			</div>
 			<Modal show={openPopup} onHide={() => setOpenPopup(false)} centered>
 				{/* <Modal.Header closeButton></Modal.Header> */}
 				<Modal.Body>
+					<Alert show={alert.show} variant={alert.variant}>
+						{alert.message}
+					</Alert>
 					<div className='availability'>
 						<h1> Give Availability </h1>
 						<Form>

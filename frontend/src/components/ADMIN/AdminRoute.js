@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
-import { Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { useStore } from "react-redux";
-import { Switch, useHistory, useRouteMatch } from "react-router";
+import { useNavigate, useRouteMatch } from "react-router";
 import Navitems from "./Navitems";
 import Navigation from "../Navigation";
 import Appointment from "./Appointment/Appointment";
@@ -15,24 +15,24 @@ export default function AdminRoute() {
 	//console.log(auth);
 	//const isauth = auth.isauth;
 	const type = auth.type;
-	const history = useHistory();
+	const navigate = useNavigate();
 	//const { path, url } = useRouteMatch();
 	//console.log(isauth);
 	useEffect(() => {
 		//if(auth.checkToken )
 		if (auth.checkToken && !(auth.isauth && type === "admin")) {
-			history.push("/home");
+			navigate("/home");
 		}
 	}, [auth]);
 	return (
 		<div>
 			<Navigation Navitems={Navitems} />
-			<Switch>
-				<Route path='/admin/appointment' component={Appointment} />
-				<Route path='/admin/doctors' component={Doctors} />
-				<Route path='/admin/setappointment' component={SetAppointment} />
-				<Route path='/admin/add-doctor' component={AddDoctor} />
-			</Switch>
+			<Routes>
+				<Route path='appointment' element={<Appointment />} />
+				<Route path='doctors' element={<Doctors />} />
+				<Route path='setappointment' element={<SetAppointment />} />
+				<Route path='add-doctor' element={<AddDoctor />} />
+			</Routes>
 		</div>
 	);
 }

@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Route } from "react-router-dom";
-import { Switch, useHistory } from "react-router";
+import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoading } from "../../../store/auth";
+import { alertRemoved } from "../../../store/alert";
 import patientCaseAPI from "../../../api/patientCaseAPI";
 import {
 	Card,
-	Table,
+	Alert,
 	Button,
 	ListGroup,
 	ListGroupItem,
@@ -17,8 +17,9 @@ import moment from "moment";
 
 export default function Cases(props) {
 	const auth = useSelector((state) => state.auth);
+	const alert = useSelector((state) => state.alert);
 	const dispatch = useDispatch();
-	const history = useHistory();
+	const navigate = useNavigate();
 	const [cases, setCases] = useState([]);
 	const [displayCases, setDisplayCases] = useState([]);
 	const [pages, setPages] = useState(1);
@@ -31,7 +32,7 @@ export default function Cases(props) {
 	}
 
 	useEffect(() => {
-		sessionStorage.setItem("lastPage", "/patient/appointment");
+		//sessionStorage.setItem("lastPage", "/patient/appointment");
 		// if (!(auth.isauth && auth.type === 0)) {
 		// 	history.push("/home");
 		// }
@@ -40,21 +41,22 @@ export default function Cases(props) {
 		dispatch(setLoading({ loading: true }));
 		patientCaseAPI({
 			token: auth.token,
-		}).then((res) => {
-			console.log(res);
-			if (res.success) {
-				console.log(res.data.cases);
-				setCases(res.data.cases);
-				setDisplayCases(res.data.cases);
-				setPages(Math.ceil(res.data.cases.length / dataLimit));
-			} else {
-				// alert(res.data.msg + "\nYou will be redirected to Home.");
-				setTimeout(history.push("/patient/cases"), 0);
-			}
-			sleep(1000).then(() => {
+		})
+			.then((res) => {
+				console.log(res);
+				if (res.success) {
+					console.log(res.data.cases);
+					setCases(res.data.cases);
+					setDisplayCases(res.data.cases);
+					setPages(Math.ceil(res.data.cases.length / dataLimit));
+				} else {
+					// alert(res.data.msg + "\nYou will be redirected to Home.");
+					//setTimeout(history.push("/patient/cases"), 0);
+				}
+			})
+			.finally(() => {
 				dispatch(setLoading({ loading: false }));
 			});
-		});
 
 		//setTimeout(patientFunc(), 100);
 	}, [auth.isauth]);
@@ -84,12 +86,19 @@ export default function Cases(props) {
 	};
 
 	return (
-		<div>
+		<div
+			onClick={() => {
+				dispatch(alertRemoved());
+			}}
+		>
+			<Alert show={alert.show} variant={alert.variant}>
+				{alert.message}
+			</Alert>
 			<div style={{ padding: "10px" }} className='text-center'>
 				<Button
 					variant='outline-dark'
 					onClick={() => {
-						history.push("/patient/new-case");
+						navigate("/patient/new-case");
 					}}
 				>
 					New Case
@@ -153,7 +162,7 @@ export default function Cases(props) {
 							<Card
 								className='cases-card'
 								onClick={() => {
-									history.push("/patient/myappointment", { case_details: c });
+									navigate("/patient/myappointment", { case_details: c });
 								}}
 							>
 								<Card.Body>

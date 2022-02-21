@@ -23,7 +23,7 @@ function TabComponent(props) {
 		<div>
 			<Tabs activeKey={key} onSelect={(k) => setKey(k)} className='mb-3'>
 				{props.tabList.map((item) => (
-					<Tab eventKey={item.eventKey} title={item.title}>
+					<Tab eventKey={item.eventKey} title={item.title} key={item.eventKey}>
 						<Table striped bordered hover responsive='lg'>
 							<thead style={{ textAlign: "center" }}>
 								<th>Doctor Name</th>
