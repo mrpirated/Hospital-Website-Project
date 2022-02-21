@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router";
+import { useNavigate } from "react-router";
 import Form from "react-bootstrap/Form";
 import loginAPI from "../../api/loginAPI";
 import { loggedIn } from "../../store/auth";
@@ -12,7 +12,7 @@ function LoginComponent(props) {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const dispatch = useDispatch();
-	const history = useHistory();
+	const navigate = useNavigate();
 	const type = props.type;
 	const alert = useSelector((state) => state.alert);
 	function validateForm() {
@@ -35,9 +35,9 @@ function LoginComponent(props) {
 						type: type,
 					})
 				);
-				if (type === "PATIENT") history.push("/patient");
-				else if (type === "DOCTOR") history.push("/doctor");
-				else history.push("/admin");
+				if (type === "PATIENT") navigate("/patient");
+				else if (type === "DOCTOR") navigate("/doctor");
+				else navigate("/admin");
 			} else {
 				dispatch(alertAdded({ variant: "danger", message: res.message }));
 			}

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Form, Alert } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { alertAdded, alertRemoved } from "../../store/alert";
-import { useHistory } from "react-router";
+import { useNavigate } from "react-router";
 import { setLoading } from "../../store/auth";
 import forgotPasswordAPI from "../../api/forgotPasswordAPI";
 import PhoneInput from "react-phone-number-input";
@@ -10,7 +10,7 @@ import { Redirect } from "react-router-dom";
 function ForgotPasswordComponent(props) {
 	const type = props.type;
 	const alert = useSelector((state) => state.alert);
-	const history = useHistory();
+	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const [otp, setOtp] = useState("");
 	const [phone, setPhone] = useState();
@@ -46,7 +46,7 @@ function ForgotPasswordComponent(props) {
 						setTimeout(() => {
 							var rdto = "/login";
 							if (type === "doctor") rdto = "/doctor/login";
-							history.push(rdto);
+							navigate(rdto);
 						}, 1000);
 					}
 				} else {

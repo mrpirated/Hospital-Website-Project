@@ -1,6 +1,6 @@
 import React, { useEffect, useContext, Suspense } from "react";
-import { Route, Switch } from "react-router-dom";
-import { useHistory } from "react-router";
+import { Route, Routes } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
 import { SocketContext } from "./context/SocketContext";
 import PatientLogin from "./components/PATIENT/Login/Login";
@@ -26,7 +26,7 @@ import "./App.css";
 function App() {
 	const auth = useSelector((state) => state.auth);
 	const dispatch = useDispatch();
-	const history = useHistory();
+	const navigate = useNavigate();
 	const [socket, setSocket] = useContext(SocketContext);
 	console.log("at app.js");
 	useEffect(() => {
@@ -109,28 +109,22 @@ function App() {
 				// 	}),
 				// }}
 			>
-				<Switch>
-					<Route
-						exact
-						path='/'
-						render={() => {
-							history.push("/home");
-						}}
-					/>
-					<Route exact path='/doctor/login' component={DoctorLogin} />
-					<Route exact path='/patient/forgot' component={PatientForgot} />
-					<Route exact path='/doctor/forgot' component={DoctorForgot} />
-					<Route exact path='/login' component={PatientLogin} />
-					<Route exact path='/admin/login' component={AdminLogin} />
-					<Route exact path='/signup' component={PatientSignup} />
-					<Route exact path='/home' component={Home} />
-					<Route path='/patient' component={PatientRoute} />
-					<Route path='/admin' component={AdminRoute} />
+				<Routes>
+					<Route exact path='/' element={<Home />} />
+					<Route exact path='/doctor/login' element={<DoctorLogin />} />
+					<Route exact path='/patient/forgot' element={<PatientForgot />} />
+					<Route exact path='/doctor/forgot' element={<DoctorForgot />} />
+					<Route exact path='/login' element={<PatientLogin />} />
+					<Route exact path='/admin/login' element={<AdminLogin />} />
+					<Route exact path='/signup' element={<PatientSignup />} />
+					<Route exact path='/home' element={<Home />} />
+					<Route path='/patient/*' element={<PatientRoute />} />
+					<Route path='/admin/*' element={<AdminRoute />} />
 
-					<Route path='/doctor' component={DoctorRoute} />
+					<Route path='/doctor/*' element={<DoctorRoute />} />
 
-					<Route path='/meeting' component={Meeting} />
-				</Switch>
+					<Route path='/meeting' element={<Meeting />} />
+				</Routes>
 			</LoadingProvider>
 		</div>
 	);

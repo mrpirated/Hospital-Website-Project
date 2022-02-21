@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Form } from "react-bootstrap";
-import { useHistory } from "react-router";
+import { useNavigate } from "react-router";
 import "react-datepicker/dist/react-datepicker.css";
 import signupAPI from "../../../api/signupAPI";
 import { useSelector } from "react-redux";
@@ -17,7 +17,7 @@ function AddDoctor() {
 	const [password, setPassword] = useState("");
 	const [confirmPassword, setConfirmPassword] = useState("");
 	const [flag, setFlag] = useState(false);
-	const history = useHistory();
+	const navigate = useNavigate();
 	const auth = useSelector((state) => state.auth);
 	const type = "doctor";
 	const validateForm = () => {
@@ -40,7 +40,7 @@ function AddDoctor() {
 				console.log(res);
 				if (res.success) {
 					alert("Doctor Added Successfully!");
-					history.push("/home");
+					navigate("/home");
 				} else {
 					alert(res.data.message);
 				}
