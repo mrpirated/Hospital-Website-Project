@@ -1,5 +1,6 @@
 import dbg from "debug";
-const debug = dbg("service:verifyPhone");
+const debug = dbg("service:verifyEmail");
+import checkToken from "../controllers/checkToken";
 import { v4 as uuidv4 } from "uuid";
 import sendMail from "../controllers/sendMail";
 const codes = {};
@@ -10,8 +11,8 @@ const getNewOtp = () => {
 	}
 	return str;
 };
-const verifyEmailService = async ({ email, otp, code }) => {
-	return new Promise((resolve, reject) => {
+const verifyEmailService = async (token, { email, otp, code }) => {
+	return await checkToken(token).then((response) => {
 		if (!otp || !code) {
 			const newOtp = getNewOtp();
 			debug(newOtp);
@@ -23,18 +24,21 @@ const verifyEmailService = async ({ email, otp, code }) => {
 				text: "Your OTP for Verification is " + newOtp,
 			});
 			debug(codes);
-			resolve({
+			return Promise.resolve({
 				success: true,
 				message: "OTP sent successfully",
 				data: { code: code },
 			});
 		} else {
 			if (codes[code] === otp) {
-				resolve({ success: true, message: "Email Verified Successfully" });
 				delete codes[code];
 				debug(codes);
+				return Promise.resolve({
+					success: true,
+					message: "Email Verified Successfully",
+				});
 			} else {
-				resolve({ success: false, message: "Invalid OTP" });
+				return Promise.resolve({ success: false, message: "Invalid OTP" });
 			}
 		}
 	});

@@ -1,10 +1,10 @@
 import { Router } from "express";
 const router = Router();
 import dbg from "debug";
-const debug = dbg("api:verifyEmail");
-import verifyEmailService from "../service/verifyEmailService";
-router.post("/verifyEmail", async (req, res) => {
-	await verifyEmailService(req.headers.authorization, req.body)
+const debug = dbg("api:updateEmail");
+import updateEmailService from "../service/updateEmailService";
+router.post("/updateEmail", async (req, res) => {
+	await updateEmailService(req.headers.authorization, req.body)
 		.then((response) => {
 			res.send(response);
 		})

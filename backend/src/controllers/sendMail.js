@@ -2,21 +2,20 @@ import dbg from "debug";
 const debug = dbg("controller:sendMail");
 import config from "../config";
 import nodemailer from "nodemailer";
-
 const sendMail = async ({ to, subject, text }) => {
-	const testAccount = await nodemailer.createTestAccount();
-
 	const transporter = nodemailer.createTransport({
-		host: config.WEB_MAIL_HOST,
-		port: config.WEB_MAIL_PORT,
+		host: config.WEBMAIL_HOST,
+		port: config.WEBMAIL_PORT,
+		secure: true,
 		auth: {
-			user: config.WEB_MAIL_USER,
-			pass: config.WEB_MAIL_PASSWORD,
+			user: config.WEBMAIL_USER,
+			pass: config.WEBMAIL_PASSWORD,
 		},
 	});
-	const info = await transporter
+	//debug(transporter);
+	await transporter
 		.sendMail({
-			from: '"Ayurveda " <support@periwalmanavseva.com>',
+			from: '"PeriwalManavSeva " <support@periwalmanavseva.com>',
 			to: to,
 			subject: subject,
 			text: text,
