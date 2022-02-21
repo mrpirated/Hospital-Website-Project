@@ -14,12 +14,16 @@ const sendMail = async ({ to, subject, text }) => {
 			pass: "SV7G98Qwc69sEgWRqE", // generated ethereal password
 		},
 	});
-	const info = await transporter.sendMail({
-		from: '"Ayurveda " <support@periwalmanavseva.com>',
-		to: to,
-		subject: subject,
-		text: text,
-	});
+	const info = await transporter
+		.sendMail({
+			from: '"Ayurveda " <support@periwalmanavseva.com>',
+			to: to,
+			subject: subject,
+			text: text,
+		})
+		.then((response) => {
+			debug(response);
+		});
 	//debug("Message sent: %s", info.messageId);
 	//debug("Preview URL: %s", nodemailer.getTestMessageUrl(info));
 };

@@ -31,6 +31,7 @@ import getDoctorProfilePics from "./routes/getDoctorProfilePics";
 import getAllPatientAppointments from "./routes/getAllPatientAppointments";
 import cancelAppointment from "./routes/cancelAppointment";
 import rescheduleAppointment from "./routes/rescheduleAppointment";
+import verifyEmail from "./routes/verifyEmail";
 import fs from "fs";
 import path from "path";
 import https from "https";
@@ -107,7 +108,8 @@ app.use(
 	getDoctorProfilePics,
 	getAllPatientAppointments,
 	cancelAppointment,
-	rescheduleAppointment
+	rescheduleAppointment,
+	verifyEmail
 );
 app.use("/", (req, res) => {
 	res.send("Server is Running");
