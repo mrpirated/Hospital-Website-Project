@@ -50,7 +50,7 @@ export default function MyAppointment() {
 					variant='outline-dark'
 					onClick={() => {
 						navigate("/patient/new-appointment", {
-							case_details: case_details,
+							state: { case_details: case_details },
 						});
 					}}
 				>
