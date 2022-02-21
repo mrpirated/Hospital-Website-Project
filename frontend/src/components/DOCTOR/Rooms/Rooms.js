@@ -15,7 +15,7 @@ function Rooms() {
 			if (response.success) {
 				setAppointments(response.data.appointments);
 			} else {
-				console.loh(response);
+				console.log(response);
 				alert(response.message);
 			}
 		});
