@@ -42,7 +42,7 @@ function Rooms() {
 								<span style={{ float: "right" }}>
 									<Button
 										onClick={() => {
-											navigate("/patient/meeting", { app });
+											navigate("/patient/meeting", { state: { app } });
 										}}
 									>
 										Room

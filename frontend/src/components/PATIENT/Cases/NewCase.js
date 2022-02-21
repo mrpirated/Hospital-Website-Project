@@ -23,7 +23,9 @@ export default function NewCase() {
 			if (res.success) {
 				const case_id = res.data.case_id;
 				navigate("/patient/new-appointment", {
-					case_details: { case_id, case_description },
+					state: {
+						case_details: { case_id, case_description },
+					},
 				});
 			} else {
 				alert(res.data.msg);
