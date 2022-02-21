@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
-import { Route } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { Switch, useHistory } from "react-router";
+import { useHistory } from "react-router";
 import Cases from "./Cases/Cases";
 import Appointment from "./Appointment/Appointment";
 import MyAppointment from "./Cases/MyAppointment";

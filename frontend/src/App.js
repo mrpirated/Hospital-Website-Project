@@ -1,6 +1,6 @@
 import React, { useEffect, useContext, Suspense } from "react";
 import { Route, Switch } from "react-router-dom";
-import { useHistory } from "react-router";
+import { useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
 import { SocketContext } from "./context/SocketContext";
 import PatientLogin from "./components/PATIENT/Login/Login";
