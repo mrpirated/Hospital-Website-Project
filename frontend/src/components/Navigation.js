@@ -48,12 +48,12 @@ function Navigation(props) {
 						</Nav>
 						<Nav className='ml-auto'>
 							{!isauth && (
-								<Nav.Link style={{ color: "#FFFFFF" }} as={Link} to='login'>
+								<Nav.Link style={{ color: "#FFFFFF" }} as={Link} to='/login'>
 									Login
 								</Nav.Link>
 							)}
 							{!isauth && (
-								<Nav.Link style={{ color: "#FFFFFF" }} as={Link} to='signup'>
+								<Nav.Link style={{ color: "#FFFFFF" }} as={Link} to='/signup'>
 									Signup
 								</Nav.Link>
 							)}

@@ -17,7 +17,12 @@ import Home from "./components/HOME/Home";
 import LoadingProvider from "./components/LoadingProvider";
 import "bootstrap/dist/css/bootstrap.min.css";
 import tokenAPI from "./api/tokenAPI";
-import { loggedWithToken, setLoading, tokenChecked } from "./store/auth";
+import {
+	loggedWithToken,
+	setLoading,
+	tokenChecked,
+	userUpdated,
+} from "./store/auth";
 import { setSocketId } from "./store/socket";
 import { useSelector } from "react-redux";
 import io from "socket.io-client";
@@ -91,7 +96,13 @@ function App() {
 			dispatch(setLoading({ loading: false }));
 		}
 	}, []);
-
+	useEffect(() => {
+		if (auth.updateUser) {
+			tokenAPI(auth.token).then((response) => {
+				dispatch(userUpdated({ user: response.data.user }));
+			});
+		}
+	}, [auth.updateUser]);
 	// useEffect(()=>{
 	//     if()
 	// },[])

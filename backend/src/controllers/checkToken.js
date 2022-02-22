@@ -6,6 +6,9 @@ const checkToken = (bearertoken) => {
 	//console.log(token);
 	return new Promise((resolve, reject) => {
 		//debug(bearertoken);
+		if (!bearertoken) {
+			reject({ success: false, message: "No token found" });
+		}
 		const token = bearertoken.split(" ")[1];
 		jwt.verify(token, config.SECRET_KEY, (err, decoded) => {
 			if (err) {

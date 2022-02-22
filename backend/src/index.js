@@ -31,6 +31,8 @@ import getDoctorProfilePics from "./routes/getDoctorProfilePics";
 import getAllPatientAppointments from "./routes/getAllPatientAppointments";
 import cancelAppointment from "./routes/cancelAppointment";
 import rescheduleAppointment from "./routes/rescheduleAppointment";
+import verifyEmail from "./routes/verifyEmail";
+import updateEmail from "./routes/updateEmail";
 import fs from "fs";
 import path from "path";
 import https from "https";
@@ -42,7 +44,7 @@ const debug = dbg("http");
 
 // sendMail({
 // 	subject: "new Subject",
-// 	to: ["deepeshadf@gmail.com"],
+// 	to: ["deepeshrathi9@gmail.com"],
 // 	text: "new mail",
 // });
 // const logfile = fs.createWriteStream(__dirname + "/logs/info.log", {
@@ -107,7 +109,9 @@ app.use(
 	getDoctorProfilePics,
 	getAllPatientAppointments,
 	cancelAppointment,
-	rescheduleAppointment
+	rescheduleAppointment,
+	verifyEmail,
+	updateEmail
 );
 app.use("/", (req, res) => {
 	res.send("Server is Running");

@@ -44,5 +44,7 @@ const config = {
 	getAllPatientAppointments: "/api/getAllPatientAppointments",
 	cancelAppointment: "/api/cancelAppointment",
 	rescheduleAppointment: "/api/rescheduleAppointment",
+	verifyEmail: "/api/verifyEmail",
+	updateEmail: "/api/updateEmail",
 };
 export default config;

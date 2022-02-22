@@ -11,7 +11,7 @@ const signupService = async (user) => {
 		return await checkIfUserExists(user)
 			.then((response) => {
 				//debug(response.length);
-				if (response.length > 0) {
+				if (response.success) {
 					return Promise.reject({
 						success: false,
 						message: "User Already Exists",
@@ -33,7 +33,7 @@ const signupService = async (user) => {
 		var password = user.password;
 		return await checkIfUserExists(user)
 			.then((response) => {
-				if (response.length > 0) {
+				if (response.success) {
 					return Promise.reject({
 						success: false,
 						message: "User Already Exists",

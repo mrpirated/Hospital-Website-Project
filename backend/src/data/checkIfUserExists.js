@@ -16,7 +16,19 @@ const checkIfUserExists = async ({ type, email }) => {
 						reject({ success: false, message: err });
 					} else {
 						//debug(result);
-						resolve(result);
+
+						if (result.length > 0) {
+							resolve({
+								success: true,
+								message: "User Found",
+								data: { user: result[0] },
+							});
+						} else {
+							resolve({
+								success: false,
+								message: "No Account found with email: " + email,
+							});
+						}
 					}
 				}
 			);
