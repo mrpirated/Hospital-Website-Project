@@ -71,9 +71,6 @@ function Profile() {
 									variant='pills'
 									className='flex-column'
 									style={{ position: "absolute" }}
-									onSelect={(k) => {
-										setEventKey(k);
-									}}
 								>
 									<Nav.Item>
 										<Nav.Link eventKey='profile'>Profile</Nav.Link>
