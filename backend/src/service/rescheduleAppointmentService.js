@@ -21,8 +21,8 @@ const rescheduleAppointmentService = async (
 	var patappointment;
 	var duration;
 	var pd = preferred_date;
-	if (pd == null || new Date(pd) < new Date()) {
-		pd = moment().add(1, "hour").format("YYYY-MM-DD HH:mm:ss");
+	if (pd == null || moment(pd) < moment()) {
+		pd = moment().add(1, "hour").format("YYYY-MM-DD HH:mm");
 	}
 	return await checkToken(token)
 		.then((response) => {

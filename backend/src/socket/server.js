@@ -1,13 +1,16 @@
 import dbg from "debug";
-const debug = dbg("socket:server");
-const users = [];
-const currentAppointments = [];
 import addUser from "./helpers/addUser";
 import removeUser from "./helpers/removeUser";
 import findInAppointment from "./helpers/findInAppointments";
 import addAppointments from "./helpers/addAppointments";
 import removeAppointments from "./helpers/removeAppointments";
 import onStartAppointments from "./helpers/onStartAppointments";
+import findUserAppointments from "./helpers/findUserAppointments";
+import getMultipleAppointments from "../data/getMultipleAppointments";
+import e from "cors";
+const debug = dbg("socket:server");
+const users = [];
+const currentAppointments = [];
 debug("appointments added initially");
 onStartAppointments(currentAppointments).then(() => {
 	debug(currentAppointments);
@@ -48,6 +51,27 @@ const socketServer = (io) => {
 				socket.emit("roomStatus", response);
 			});
 		});
+		socket.on("getAppointments", (data) => {
+			debug("getAppointments");
+			findUserAppointments(data.token, currentAppointments)
+				.then((response) => {
+					debug(response.data);
+					if (response.data.appointments.length == 0) {
+						return {
+							success: true,
+							message: "Appointments Found Successfully",
+							data: { appointments: [] },
+						};
+					} else return getMultipleAppointments(response.data.appointments);
+				})
+				.then((response) => {
+					//debug(response.data);
+					socket.emit("appointments", response);
+				})
+				.catch((err) => {
+					debug(err);
+				});
+		});
 		socket.on("callDoctor", (data) => {
 			debug("callDoctor");
 			// debug(data);
@@ -73,21 +97,6 @@ const socketServer = (io) => {
 			debug("patientAccept");
 			// debug(data);
 			io.to(data.to).emit("patientHere", data.signal);
-		});
-
-		socket.on("callUser", (data) => {
-			debug("callUser");
-			// debug(data);
-			io.to(data.userToCall).emit("hey", {
-				signal: data.signalData,
-				from: data.from,
-			});
-		});
-
-		socket.on("acceptCall", (data) => {
-			debug("acceptCall");
-			// debug(data);
-			io.to(data.to).emit("callAccepted", data.signal);
 		});
 	});
 };

@@ -12,6 +12,15 @@ const pool = mysql.createPool({
 	connectionLimit: 10,
 });
 debug("mysql pool created");
+pool.on("enqueue", function () {
+	debug("Waiting for available connection slot");
+});
+pool.on("release", function (connection) {
+	debug("Connection %d released", connection.threadId);
+});
+pool.on("acquire", function (connection) {
+	debug("Connection %d acquired", connection.threadId);
+});
 // connection.connect(function (err) {
 // 	if (err) {
 // 		debug("Database connection failed: " + err.stack);
