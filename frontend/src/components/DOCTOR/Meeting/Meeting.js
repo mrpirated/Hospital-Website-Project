@@ -5,24 +5,8 @@ import { useNavigate, useLocation } from "react-router";
 import VideoComponent from "../../HOME/VideoComponent";
 import Peer from "simple-peer";
 import styled from "styled-components";
-const Container = styled.div`
-	height: 100vh;
-	width: 100%;
-	display: flex;
-	flex-direction: column;
-`;
 
-const Row = styled.div`
-	display: flex;
-	width: 100%;
-`;
-
-const Video = styled.video`
-	border: 1px solid blue;
-	width: 50%;
-	height: 50%;
-`;
-function Meeting(props) {
+function Meeting() {
 	const [socket, setSocket] = useContext(SocketContext);
 	const navigate = useNavigate();
 	const location = useLocation();
@@ -36,7 +20,7 @@ function Meeting(props) {
 	const [patientSignal, setPatientSignal] = useState();
 	const patientVideo = useRef();
 	const doctorVideo = useRef();
-	const appDetails = location.app;
+	const appDetails = location.state.app;
 	//console.log(props.location.state);
 	if (!appDetails) {
 		navigate("/home");
@@ -62,49 +46,54 @@ function Meeting(props) {
 	// }, [foundApp]);
 	useEffect(() => {
 		//console.log(appDetails);
-		console.log(socketData);
-		socket.emit("getRoom", {
-			token: "Bearer " + auth.token,
-			appointment_id: appDetails.appointment_id,
-			socketId: socketData.socketId,
-		});
-		socket.on("roomStatus", (response) => {
-			console.log(response);
-			if (response.success) {
-				//setFoundApp(true);
-				var streamtp;
-				navigator.mediaDevices
-					.getUserMedia({ video: true, audio: true })
-					.then((stream) => {
-						setStream(stream);
-						streamtp = stream;
-						console.log(stream);
-						setTracks(stream.getTracks());
-						console.log(stream.getTracks());
-						console.log(doctorVideo.current);
-						if (doctorVideo.current) doctorVideo.current.srcObject = stream;
-						if (response.data.appointment.patient_socketId) {
-							console.log(response.data.appointment.patient_socketId);
-							setPatientSocketId(response.data.appointment.patient_socketId);
-							setPatientPresent(true);
-							console.log(streamtp);
-							callPatient(response.data.appointment.patient_socketId, streamtp);
-						} else {
-							socket.on("patientCalling", (data) => {
-								console.log(data);
-								setPatientSocketId(data.from);
-								setPatientSignal(data.signal);
-								waitForPatient(data.from, data.signal, streamtp);
-							});
-						}
-					});
-			} else {
-				alert(response.message);
-				setTimeout(navigate("/doctor"), 1000);
-				//tracks[0].stop();
-			}
-		});
-	}, []);
+		if (socket) {
+			console.log(socketData);
+			socket.emit("getRoom", {
+				token: "Bearer " + auth.token,
+				appointment_id: appDetails.appointment_id,
+				socketId: socketData.socketId,
+			});
+			socket.on("roomStatus", (response) => {
+				console.log(response);
+				if (response.success) {
+					//setFoundApp(true);
+					var streamtp;
+					navigator.mediaDevices
+						.getUserMedia({ video: true, audio: true })
+						.then((stream) => {
+							setStream(stream);
+							streamtp = stream;
+							console.log(stream);
+							setTracks(stream.getTracks());
+							console.log(stream.getTracks());
+							console.log(doctorVideo.current);
+							if (doctorVideo.current) doctorVideo.current.srcObject = stream;
+							if (response.data.appointment.patient_socketId) {
+								console.log(response.data.appointment.patient_socketId);
+								setPatientSocketId(response.data.appointment.patient_socketId);
+								setPatientPresent(true);
+								console.log(streamtp);
+								callPatient(
+									response.data.appointment.patient_socketId,
+									streamtp
+								);
+							} else {
+								socket.on("patientCalling", (data) => {
+									console.log(data);
+									setPatientSocketId(data.from);
+									setPatientSignal(data.signal);
+									waitForPatient(data.from, data.signal, streamtp);
+								});
+							}
+						});
+				} else {
+					// alert(response.message);
+					// setTimeout(navigate("/doctor"), 1000);
+					//tracks[0].stop();
+				}
+			});
+		}
+	}, [socket, auth.isauth]);
 
 	const callPatient = (id, stream) => {
 		console.log(stream);
@@ -158,15 +147,15 @@ function Meeting(props) {
 		});
 		peer.signal(patientSignal);
 	};
-	let DoctorVideo;
-	if (stream) {
-		console.log(stream);
-		DoctorVideo = <Video playsInline muted ref={doctorVideo} autoPlay />;
-	}
-	let PatientVideo;
-	if (patientPresent) {
-		PatientVideo = <Video playsInline muted ref={patientVideo} autoPlay />;
-	}
+	// let DoctorVideo;
+	// if (stream) {
+	// 	console.log(stream);
+	// 	DoctorVideo = <Video playsInline muted ref={doctorVideo} autoPlay />;
+	// }
+	// let PatientVideo;
+	// if (patientPresent) {
+	// 	PatientVideo = <Video playsInline muted ref={patientVideo} autoPlay />;
+	// }
 
 	return (
 		// <div>
@@ -178,12 +167,10 @@ function Meeting(props) {
 		// 		stop video
 		// 	</button>
 		// </div>
-		<Container>
-			<Row>
-				<VideoComponent muted={true} videoRef={doctorVideo} />
-				<VideoComponent muted={true} videoRef={patientVideo} />
-			</Row>
-		</Container>
+		<div>
+			<VideoComponent muted={true} videoRef={doctorVideo} />
+			<VideoComponent muted={true} videoRef={patientVideo} />
+		</div>
 	);
 }
 

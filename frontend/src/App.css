@@ -2,6 +2,7 @@
 @import "./styles/modalStyle.css";
 @import "./styles/rowStyle.css";
 @import "./styles/cardStyle.css";
+@import "./styles/meetingStyle.css";
 :root {
 	--color1: #420516;
 	--color2: #7d1935;

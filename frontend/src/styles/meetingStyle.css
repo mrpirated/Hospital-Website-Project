@@ -1,0 +1,26 @@
+.meeting {
+	display: inline-flex;
+	justify-content: flex-end;
+}
+
+.big-video {
+	margin: 1% auto;
+	height: 80%;
+	width: 80%;
+}
+.big-video > video {
+	border-radius: 5%;
+	height: 100%;
+	width: 100%;
+}
+.small-video {
+	margin: 1% auto;
+	height: 15%;
+	width: 15%;
+}
+.small-video > video {
+	border-radius: 5%;
+	float: right;
+	height: 100%;
+	width: 100%;
+}
