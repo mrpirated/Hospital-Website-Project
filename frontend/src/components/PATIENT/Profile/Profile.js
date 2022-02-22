@@ -4,9 +4,10 @@ import { useSelector, useDispatch } from "react-redux";
 import { alertRemoved } from "../../../store/alert";
 import ProfileInfo from "./ProfileInfo";
 import LoginInfo from "./LoginInfo";
+import VerifyEmail from "./VerifyEmail";
 //import { Link } from "react-router-dom";
 function Profile() {
-	const [key, setKey] = useState("profile");
+	const [eventKey, setEventKey] = useState("profile");
 	const alert = useSelector((state) => state.alert);
 	const dispatch = useDispatch();
 	return (
@@ -24,8 +25,8 @@ function Profile() {
 			</div>
 			<Tab.Container
 				id='left-tabs-example'
-				activeKey={key}
-				onSelect={(k) => setKey(k)}
+				activeKey={eventKey}
+				onSelect={(k) => setEventKey(k)}
 			>
 				<Row style={{ flexDirection: "row" }}>
 					<Col sm={3}>
@@ -41,6 +42,9 @@ function Profile() {
 								<Nav.Item>
 									<Nav.Link eventKey='login'>Login</Nav.Link>
 								</Nav.Item>
+								<Nav.Item>
+									<Nav.Link eventKey='verifyEmail'>Verify Email</Nav.Link>
+								</Nav.Item>
 								{/* <Nav.Item>
 									<Nav.Link eventKey='phone'>Change Phone No.</Nav.Link>
 								</Nav.Item> */}
@@ -55,6 +59,9 @@ function Profile() {
 								</Tab.Pane>
 								<Tab.Pane eventKey='login'>
 									<LoginInfo />
+								</Tab.Pane>
+								<Tab.Pane eventKey='verifyEmail'>
+									<VerifyEmail eventKey={eventKey} />
 								</Tab.Pane>
 							</Tab.Content>
 						</div>

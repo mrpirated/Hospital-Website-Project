@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router";
+import { useNavigate } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
 import { setLoading } from "../../../store/auth";
 import DatePicker from "react-datepicker";
@@ -13,7 +13,7 @@ import { columns } from "./TableColumns";
 export default function Appointment() {
 	const auth = useSelector((state) => state.auth);
 	const dispatch = useDispatch();
-	const history = useHistory();
+	const navigate = useNavigate();
 	const [appChange, setAppChange] = useState(false);
 	const [past, setPast] = useState([]);
 	const [all, setAll] = useState([]);

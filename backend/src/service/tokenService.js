@@ -33,6 +33,7 @@ const tokenService = async (token) => {
 						address,
 						email,
 						phone,
+						email_verified,
 					},
 				},
 			}) => ({
@@ -51,6 +52,7 @@ const tokenService = async (token) => {
 						address,
 						email,
 						phone,
+						email_verified,
 					},
 				},
 			})

@@ -1,10 +1,10 @@
 import React from "react";
 import { Table, Button } from "react-bootstrap";
-import { useHistory } from "react-router";
+import { useNavigate } from "react-router";
 import moment from "moment";
 export default function DataTable(props) {
 	var idx = 1;
-	const history = useHistory();
+	const navigate = useNavigate();
 
 	return (
 		<div>
@@ -33,7 +33,7 @@ export default function DataTable(props) {
 										type='submit'
 										id={d.appointment_id}
 										onClick={(e) => {
-											history.push(props.onclicklink, { id: e.target.id });
+											navigate(props.onclicklink, { id: e.target.id });
 										}}
 									>
 										+

@@ -8,13 +8,14 @@ import ProfileInfo from "./ProfileInfo";
 import LoginInfo from "./LoginInfo";
 import ChangePhone from "./ChangePhone";
 import AppointmentTime from "./AppointmentTime";
+import VerifyEmail from "./VerifyEmail";
 function Profile() {
 	const auth = useSelector((state) => state.auth);
 	const alert = useSelector((state) => state.alert);
 	const dispatch = useDispatch();
 	const [profilePic, setProfilePic] = useState();
 	const [profilePicChange, setProfilePicChange] = useState(false);
-	const [key, setKey] = useState("profile");
+	const [eventKey, setEventKey] = useState("profile");
 
 	useEffect(() => {
 		getProfilePicAPI({ token: auth.token }).then((response) => {
@@ -41,8 +42,8 @@ function Profile() {
 				</div>
 				<Tab.Container
 					id='left-tabs-example'
-					activeKey={key}
-					onSelect={(k) => setKey(k)}
+					activeKey={eventKey}
+					onSelect={(k) => setEventKey(k)}
 				>
 					<Row style={{ flexDirection: "row" }}>
 						<Col sm={3}>
@@ -85,6 +86,9 @@ function Profile() {
 											Appointment Time
 										</Nav.Link>
 									</Nav.Item>
+									<Nav.Item>
+										<Nav.Link eventKey='verifyEmail'>Verify Email</Nav.Link>
+									</Nav.Item>
 								</Nav>
 							</div>
 						</Col>
@@ -105,6 +109,9 @@ function Profile() {
 									</Tab.Pane>
 									<Tab.Pane eventKey='appointmentTime'>
 										<AppointmentTime />
+									</Tab.Pane>
+									<Tab.Pane eventKey='verifyEmail'>
+										<VerifyEmail eventKey={eventKey} />
 									</Tab.Pane>
 								</Tab.Content>
 							</div>

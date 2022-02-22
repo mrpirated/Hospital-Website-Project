@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
-import { Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { Switch, useHistory } from "react-router";
+import { useNavigate } from "react-router";
 import Cases from "./Cases/Cases";
 import Appointment from "./Appointment/Appointment";
 import MyAppointment from "./Cases/MyAppointment";
@@ -19,33 +19,33 @@ export default function PatientRoute() {
 	const auth = useSelector((state) => state.auth);
 
 	const type = auth.type;
-	const history = useHistory();
+	const navigate = useNavigate();
 	//const { path, url } = useRouteMatch();
 
 	useEffect(() => {
 		//if(auth.checkToken )
 		if (auth.checkToken && !(auth.isauth && type === "patient")) {
-			history.push("/home");
+			navigate("/home");
 		}
 	}, [auth]);
 
 	return (
 		<div>
 			<Navigation Navitems={Navitems} />
-			<Switch>
-				<Route path='/patient/cases' component={Cases} />
-				<Route path='/patient/appointment' component={Appointment} />
-				<Route path='/patient/records' component={Records} />
-				<Route path='/patient/myappointment' component={MyAppointment} />
-				<Route path='/patient/doctors' component={Doctors} />
-				<Route path='/patient/new-case' component={NewCase} />
-				<Route path='/patient/new-appointment' component={NewAppointment} />
-				<Route path='/patient/rooms' component={Rooms} />
-				{/* <Route path='/patient/rooms' component={Rooms} /> */}
-				<Route path='/patient/calender' component={Calender} />
-				<Route path='/patient/profile' component={Profile} />
-				<Route path='/patient/meeting' component={Meeting} />
-			</Switch>
+			<Routes>
+				<Route path='cases' element={<Cases />} />
+				<Route path='appointment' element={<Appointment />} />
+				<Route path='records' element={<Records />} />
+				<Route path='myappointment' element={<MyAppointment />} />
+				<Route path='doctors' element={<Doctors />} />
+				<Route path='new-case' element={<NewCase />} />
+				<Route path='new-appointment' element={<NewAppointment />} />
+				<Route path='rooms' element={<Rooms />} />
+				{/* <Route path='rooms' element={Rooms} /> */}
+				<Route path='calender' element={<Calender />} />
+				<Route path='profile' element={<Profile />} />
+				<Route path='meeting' element={<Meeting />} />
+			</Routes>
 		</div>
 	);
 }

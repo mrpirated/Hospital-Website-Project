@@ -1,19 +1,20 @@
 import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router";
+import { useNavigate, useLocation } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
 import moment from "moment";
 import { setLoading } from "../../../store/auth";
 import { alertRemoved } from "../../../store/alert";
 import { Card, Alert, Modal, Row, Col, Button, Table } from "react-bootstrap";
 import patientMyAppointmentAPI from "../../../api/patientMyAppointmentAPI";
-export default function MyAppointment(props) {
+export default function MyAppointment() {
 	const auth = useSelector((state) => state.auth);
 	const alert = useSelector((state) => state.alert);
-	const history = useHistory();
+	const navigate = useNavigate();
+	const location = useLocation();
 	const [appointments, setAppointments] = useState([]);
 	const [openPopup, setopenPopup] = useState(false);
 	const [selectedAP, setselectedAP] = useState({});
-	const case_details = props.location.state.case_details;
+	const { case_details } = location.state;
 	const dispatch = useDispatch();
 
 	useEffect(() => {
@@ -48,8 +49,8 @@ export default function MyAppointment(props) {
 				<Button
 					variant='outline-dark'
 					onClick={() => {
-						history.push("/patient/new-appointment", {
-							case_details: case_details,
+						navigate("/patient/new-appointment", {
+							state: { case_details: case_details },
 						});
 					}}
 				>

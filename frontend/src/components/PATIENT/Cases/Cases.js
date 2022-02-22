@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Route } from "react-router-dom";
-import { Switch, useHistory } from "react-router";
+import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoading } from "../../../store/auth";
 import { alertRemoved } from "../../../store/alert";
@@ -20,7 +19,7 @@ export default function Cases(props) {
 	const auth = useSelector((state) => state.auth);
 	const alert = useSelector((state) => state.alert);
 	const dispatch = useDispatch();
-	const history = useHistory();
+	const navigate = useNavigate();
 	const [cases, setCases] = useState([]);
 	const [displayCases, setDisplayCases] = useState([]);
 	const [pages, setPages] = useState(1);
@@ -99,7 +98,7 @@ export default function Cases(props) {
 				<Button
 					variant='outline-dark'
 					onClick={() => {
-						history.push("/patient/new-case");
+						navigate("/patient/new-case");
 					}}
 				>
 					New Case
@@ -163,7 +162,9 @@ export default function Cases(props) {
 							<Card
 								className='cases-card'
 								onClick={() => {
-									history.push("/patient/myappointment", { case_details: c });
+									navigate("/patient/myappointment", {
+										state: { case_details: c },
+									});
 								}}
 							>
 								<Card.Body>

@@ -12,20 +12,20 @@ const loginService = async ({ type, email, password }) => {
 		.then((response) => {
 			//debug(type, email, password);
 			//debug(response);
-			if (response.length > 0) {
-				return response[0];
+			if (response.success) {
+				return response;
 			}
 			return Promise.reject({
 				success: false,
 				message: "User Dosen't exists",
 			});
 		})
-		.then((user) => {
+		.then((response) => {
 			//debug(user);
 
-			if (type == "patient") user_id = user.patient_id;
-			else if (type == "doctor") user_id = user.doctor_id;
-			else if (type == "admin") user_id = user.admin_id;
+			if (type == "patient") user_id = response.data.user.patient_id;
+			else if (type == "doctor") user_id = response.data.user.doctor_id;
+			else if (type == "admin") user_id = response.data.user.admin_id;
 			userDetails = (({
 				patient_id,
 				doctor_id,
@@ -37,6 +37,7 @@ const loginService = async ({ type, email, password }) => {
 				address,
 				email,
 				phone,
+				email_verified,
 			}) => ({
 				patient_id,
 				doctor_id,
@@ -48,10 +49,11 @@ const loginService = async ({ type, email, password }) => {
 				address,
 				email,
 				phone,
-			}))(user);
+				email_verified,
+			}))(response.data.user);
 			return {
 				user_password: password,
-				password: user.password,
+				password: response.data.user.password,
 				// user_id: user_id,
 				// type: type,
 				// user: (({

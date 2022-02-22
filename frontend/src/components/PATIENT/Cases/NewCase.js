@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router";
+import { useNavigate } from "react-router";
 import { useSelector } from "react-redux";
 import { Form, Button } from "react-bootstrap";
 import "./NewCase.css";
@@ -7,7 +7,7 @@ import newCaseAPI from "../../../api/newCaseAPI";
 
 export default function NewCase() {
 	const auth = useSelector((state) => state.auth);
-	const history = useHistory();
+	const navigate = useNavigate();
 	const [case_description, setCase_description] = useState("");
 	function validateForm() {
 		return true;
@@ -22,8 +22,10 @@ export default function NewCase() {
 		}).then((res) => {
 			if (res.success) {
 				const case_id = res.data.case_id;
-				history.push("/patient/new-appointment", {
-					case_details: { case_id, case_description },
+				navigate("/patient/new-appointment", {
+					state: {
+						case_details: { case_id, case_description },
+					},
 				});
 			} else {
 				alert(res.data.msg);

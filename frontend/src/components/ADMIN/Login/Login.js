@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useHistory } from "react-router";
+import { useNavigate } from "react-router";
 import "./Login.css";
 import { useSelector } from "react-redux";
 import doctorLogo from "../../PATIENT/Login/undraw_doctors_hwty.svg";
@@ -8,21 +8,19 @@ import config from "../../../config/config";
 
 export default function Login(props) {
 	const auth = useSelector((state) => state.auth);
-	const history = useHistory();
-	
+	const navigate = useNavigate();
+
 	useEffect(() => {
 		if (auth.isauth) {
 			if (auth.type === "patient") {
-				history.push("/patient");
+				navigate("/patient");
 			} else if (auth.type === "doctor") {
-				history.push("/doctor");
+				navigate("/doctor");
 			} else if (auth.type === "admin") {
-				history.push("/admin");
+				navigate("/admin");
 			}
 		}
 	});
-	
-	return (
-		<LoginComponent type={config.ADMIN} doctorLogo={doctorLogo}/>
-	);
+
+	return <LoginComponent type={config.ADMIN} doctorLogo={doctorLogo} />;
 }
