@@ -52,6 +52,7 @@ function VerifyEmail(props) {
 							alertAdded({ variant: "success", message: response.message })
 						);
 						dispatch(setUpdateUser());
+						setGotOtp(false);
 					}
 				} else {
 					dispatch(
