@@ -3,7 +3,7 @@ import PhoneInput from "react-phone-number-input";
 import { Form, Modal, Alert } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { alertAdded } from "../../../store/alert";
-import { setLoading, userUpdated } from "../../../store/auth";
+import { setLoading, setUpdateUser } from "../../../store/auth";
 import verifyPhoneAPI from "../../../api/verifyPhoneAPI";
 import tokenAPI from "../../../api/tokenAPI";
 function ChangePhone() {
@@ -56,16 +56,16 @@ function ChangePhone() {
 							message: "Phone no updated successfully",
 						})
 					);
-					return tokenAPI(auth.token);
+					dispatch(setUpdateUser());
 				} else {
 					return Promise.reject(response);
 				}
 			})
-			.then((response) => {
-				if (response.success) {
-					dispatch(userUpdated({ user: response.data.user }));
-				} else return Promise.reject(response);
-			})
+			// .then((response) => {
+			// 	if (response.success) {
+			// 		dispatch(userUpdated({ user: response.data.user }));
+			// 	} else return Promise.reject(response);
+			// })
 			.catch((err) => {
 				dispatch(alertAdded({ variant: "danger", message: err.message }));
 				console.log(err);

@@ -5,6 +5,7 @@ const initialState = {
 	type: "",
 	user: {},
 	token: "",
+	updateUser: false,
 	isauth: false,
 	checkToken: false,
 };
@@ -31,6 +32,7 @@ const slice = createSlice({
 		},
 		userUpdated: (auth, action) => {
 			auth.user = action.payload.user;
+			auth.updateUser = false;
 		},
 		loggedOut: (auth, action) => {
 			auth.user = {};
@@ -42,6 +44,9 @@ const slice = createSlice({
 		setLoading: (auth, action) => {
 			auth.isloading = action.payload.loading;
 		},
+		setUpdateUser: (auth, action) => {
+			auth.updateUser = true;
+		},
 	},
 });
 
@@ -52,6 +57,7 @@ export const {
 	setLoading,
 	tokenChecked,
 	userUpdated,
+	setUpdateUser,
 } = slice.actions;
 
 export default slice.reducer;
