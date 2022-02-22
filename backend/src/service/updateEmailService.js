@@ -13,7 +13,7 @@ const updateEmailService = async (token, { user }) => {
 			return checkIfUserExists({ type: response.data.decoded.type, email });
 		})
 		.then((response) => {
-			if (response.success) {
+			if (response.success && response.data.user.email_verified) {
 				return Promise.reject({
 					success: false,
 					message: "User Already Exists",
