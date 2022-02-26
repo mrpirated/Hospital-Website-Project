@@ -66,8 +66,9 @@ function Meeting() {
 							console.log(stream);
 							setTracks(stream.getTracks());
 							console.log(stream.getTracks());
-							console.log(doctorVideo.current);
+
 							if (doctorVideo.current) doctorVideo.current.srcObject = stream;
+							console.log(doctorVideo);
 							if (response.data.appointment.patient_socketId) {
 								console.log(response.data.appointment.patient_socketId);
 								setPatientSocketId(response.data.appointment.patient_socketId);
@@ -168,8 +169,33 @@ function Meeting() {
 		// 	</button>
 		// </div>
 		<div>
-			<VideoComponent muted={true} videoRef={doctorVideo} />
-			<VideoComponent muted={true} videoRef={patientVideo} />
+			<div className='meeting'>
+				<VideoComponent muted={true} videoRef={patientVideo} type='big' />
+				<VideoComponent muted={true} videoRef={doctorVideo} type='small' />
+			</div>
+			<div>
+				<button
+					onClick={() => {
+						console.log(tracks);
+						tracks.forEach((track) => track.stop());
+					}}
+				>
+					Camera off
+				</button>
+				<button
+					onClick={() => {
+						navigator.mediaDevices
+							.getUserMedia({ video: true, audio: true })
+							.then((stream) => {
+								setStream(stream);
+								setTracks(stream.getTracks());
+								if (doctorVideo.current) doctorVideo.current.srcObject = stream;
+							});
+					}}
+				>
+					Camera on
+				</button>
+			</div>
 		</div>
 	);
 }

@@ -12,7 +12,7 @@ function Meeting(props) {
 	const auth = useSelector((state) => state.auth);
 	const socketData = useSelector((state) => state.socket);
 	const [stream, setStream] = useState();
-	const [tracks, setTracks] = useState();
+	const [tracks, setTracks] = useState([]);
 	const [foundApp, setFoundApp] = useState(false);
 	const [doctorPresent, setDoctorPresent] = useState(false);
 	const [doctorSocketId, setDoctorSocketId] = useState(null);
@@ -57,21 +57,21 @@ function Meeting(props) {
 							//console.log(stream);
 							setTracks(stream.getTracks());
 							//console.log(stream.getTracks());
-							// if (patientVideo.current) patientVideo.current.srcObject = stream;
-							if (doctorVideo.current) doctorVideo.current.srcObject = stream;
-							console.log(patientVideo);
-							console.log(doctorVideo);
+							if (patientVideo.current) patientVideo.current.srcObject = stream;
+							//if (doctorVideo.current) doctorVideo.current.srcObject = stream;
+							// console.log(patientVideo);
+							// console.log(doctorVideo);
 							if (response.data.appointment.doctor_socketId) {
 								setDoctorSocketId(response.data.appointment.doctor_socketId);
 								setDoctorPresent(true);
-								//callDoctor(response.data.appointment.doctor_socketId, streamtp);
+								callDoctor(response.data.appointment.doctor_socketId, streamtp);
 							} else {
 								socket.on("doctorCalling", (data) => {
 									console.log(data);
 									console.log("dc");
 									setDoctorSocketId(data.from);
 									setDoctorSignal(data.signal);
-									//waitForDoctor(data.from, data.signal, streamtp);
+									waitForDoctor(data.from, data.signal, streamtp);
 								});
 							}
 						});
@@ -82,6 +82,11 @@ function Meeting(props) {
 				}
 			});
 		}
+		return () => {
+			tracks.forEach((track) => {
+				track.stop();
+			});
+		};
 	}, [socket, auth.isauth]);
 	//useEffect(() => {}, []);
 	const callDoctor = (id, stream) => {
@@ -146,8 +151,9 @@ function Meeting(props) {
 		// 		stop video
 		// 	</button>
 		// </div>
-		<div className='meeting'>
-			<div className='big-video video'>
+		<div>
+			<div className='meeting'>
+				{/* <div className='big-video video'>
 				{patientVideo !== undefined ? (
 					<video playsInline muted={true} ref={patientVideo} autoPlay />
 				) : (
@@ -160,10 +166,35 @@ function Meeting(props) {
 				) : (
 					<img src={user_pic} />
 				)}
-			</div>
-			{/* <VideoComponent muted={true} videoRef={patientVideo} />
+			</div> */}
 
-			<VideoComponent muted={true} videoRef={doctorVideo} /> */}
+				<VideoComponent muted={true} videoRef={patientVideo} type='big' />
+				<VideoComponent muted={true} videoRef={doctorVideo} type='small' />
+			</div>
+			<div>
+				<button
+					onClick={() => {
+						console.log(tracks);
+						tracks.forEach((track) => track.stop());
+					}}
+				>
+					Camera off
+				</button>
+				<button
+					onClick={() => {
+						navigator.mediaDevices
+							.getUserMedia({ video: true, audio: true })
+							.then((stream) => {
+								setStream(stream);
+								setTracks(stream.getTracks());
+								if (patientVideo.current)
+									patientVideo.current.srcObject = stream;
+							});
+					}}
+				>
+					Camera on
+				</button>
+			</div>
 		</div>
 	);
 }
