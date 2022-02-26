@@ -17,9 +17,10 @@ const newAppointmentService = async (
 	var patappointment;
 	var duration;
 	var pd = preferred_date;
-	if (pd == null || new Date(pd) < new Date()) {
-		pd = moment().format("YYYY-MM-DD HH:mm:ss");
+	if (pd == null || moment(pd) < moment()) {
+		pd = moment().add(5, "minutes").format("YYYY-MM-DD HH:mm");
 	}
+
 	return await checkToken(token)
 		.then((response) => {
 			if (response.success && response.data.decoded.type === "patient") {
@@ -35,18 +36,19 @@ const newAppointmentService = async (
 			return getSchedule(doctor_id, pd);
 		})
 		.then((response) => {
-			//debug(response);
+			// debug(response);
 			schedule = response.data.schedule;
-			debug(schedule);
+			// debug(schedule);
 			return getFutureAppointments(doctor_id, pd);
 		})
 		.then((response) => {
 			docappointment = response.data.appointment;
-			//debug(appointment);
+			// debug(docappointment);
 			return getFuturePatientAppointments(patient_id, pd);
 		})
 		.then((response) => {
 			patappointment = response.data.appointment;
+			// debug(patappointment);
 			return getDoctorDuration(doctor_id);
 		})
 		.then((response) => {
@@ -60,6 +62,7 @@ const newAppointmentService = async (
 			);
 		})
 		.then((response) => {
+			// debug(response);
 			return setAppointment(case_id, preferred_date, doctor_id, response);
 		})
 		.catch((err) => {

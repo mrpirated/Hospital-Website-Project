@@ -1,19 +1,36 @@
 import dbg from "debug";
+import addUser from "./helpers/addUser";
+import removeUser from "./helpers/removeUser";
+import findInAppointment from "./helpers/findInAppointments";
+import addAppointments from "./helpers/addAppointments";
+import removeAppointments from "./helpers/removeAppointments";
+import onStartAppointments from "./helpers/onStartAppointments";
+import findUserAppointments from "./helpers/findUserAppointments";
+import getMultipleAppointments from "../data/getMultipleAppointments";
 const debug = dbg("socket:server");
 const users = [];
-const users1 = {};
 const currentAppointments = [
 	{
-		appointment_id: 4,
+		appointment_id: 35,
 		patient_id: 1,
 		doctor_id: 1,
 		patient_socketId: null,
 		doctor_socketId: null,
 	},
 ];
-import addUser from "./helpers/addUser";
-import removeUser from "./helpers/removeUser";
-import findInAppointment from "./helpers/findInAppointments";
+//debug("appointments added initially");
+// onStartAppointments(currentAppointments).then(() => {
+// 	debug(currentAppointments);
+// });
+// setInterval(() => {
+// 	debug("appointments added and removed");
+// 	addAppointments(currentAppointments).then(() => {
+// 		debug(currentAppointments);
+// 	});
+// 	removeAppointments(currentAppointments).then(() => {
+// 		debug(currentAppointments);
+// 	});
+// }, 1000 * 60);
 const socketServer = (io) => {
 	io.on("connection", async (socket) => {
 		debug("a user connected! ID :- " + socket.id);
@@ -21,13 +38,10 @@ const socketServer = (io) => {
 		await addUser(socket.handshake.query.token, users, socket).catch((err) => {
 			debug(err);
 		});
-		if (!users1[socket.id]) {
-			users1[socket.id] = socket.id;
-		}
+
 		socket.emit("yourID", socket.id);
-		io.sockets.emit("allUsers", users1);
+
 		socket.on("disconnect", () => {
-			delete users1[socket.id];
 			removeUser(users, currentAppointments, socket);
 			//debug(users);
 		});
@@ -43,6 +57,27 @@ const socketServer = (io) => {
 				//debug(currentAppointments);
 				socket.emit("roomStatus", response);
 			});
+		});
+		socket.on("getAppointments", (data) => {
+			debug("getAppointments");
+			findUserAppointments(data.token, currentAppointments)
+				.then((response) => {
+					debug(response.data);
+					if (response.data.appointments.length == 0) {
+						return {
+							success: true,
+							message: "Appointments Found Successfully",
+							data: { appointments: [] },
+						};
+					} else return getMultipleAppointments(response.data.appointments);
+				})
+				.then((response) => {
+					//debug(response.data);
+					socket.emit("appointments", response);
+				})
+				.catch((err) => {
+					debug(err);
+				});
 		});
 		socket.on("callDoctor", (data) => {
 			debug("callDoctor");
@@ -69,21 +104,6 @@ const socketServer = (io) => {
 			debug("patientAccept");
 			// debug(data);
 			io.to(data.to).emit("patientHere", data.signal);
-		});
-
-		socket.on("callUser", (data) => {
-			debug("callUser");
-			// debug(data);
-			io.to(data.userToCall).emit("hey", {
-				signal: data.signalData,
-				from: data.from,
-			});
-		});
-
-		socket.on("acceptCall", (data) => {
-			debug("acceptCall");
-			// debug(data);
-			io.to(data.to).emit("callAccepted", data.signal);
 		});
 	});
 };

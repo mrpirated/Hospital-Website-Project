@@ -1,0 +1,43 @@
+.meeting {
+	display: inline-flex;
+	justify-content: flex-end;
+}
+.video {
+	margin: 1% auto;
+	border: 2px solid;
+	border-radius: 5%;
+	/* height: 80%;
+	width: 80%; */
+}
+
+.big-video {
+	width: 60%;
+}
+.big-video > video {
+	border-radius: 5%;
+	display: block;
+	margin: 1% auto;
+}
+.big-video > img {
+	border-radius: 5%;
+	float: right;
+	height: 100%;
+	width: 100%;
+}
+.small-video {
+	height: 15%;
+	width: 15%;
+	float: right;
+}
+.small-video > video {
+	border-radius: 5%;
+	float: right;
+	height: 100%;
+	width: 100%;
+}
+.small-video > img {
+	border-radius: 5%;
+	float: right;
+	height: 100%;
+	width: 100%;
+}
