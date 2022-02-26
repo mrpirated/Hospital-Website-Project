@@ -16,6 +16,7 @@ function Rooms() {
 		if (socketId) {
 			socket.emit("getAppointments", { token: "Bearer " + auth.token });
 			socket.on("appointments", (response) => {
+				//console.log(response);
 				if (response.success) {
 					setAppointments(response.data.appointments);
 				}

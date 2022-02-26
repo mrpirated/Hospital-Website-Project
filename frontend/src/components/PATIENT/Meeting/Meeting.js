@@ -57,8 +57,10 @@ function Meeting(props) {
 							//console.log(stream);
 							setTracks(stream.getTracks());
 							//console.log(stream.getTracks());
-							if (patientVideo.current) patientVideo.current.srcObject = stream;
+							// if (patientVideo.current) patientVideo.current.srcObject = stream;
 							if (doctorVideo.current) doctorVideo.current.srcObject = stream;
+							console.log(patientVideo);
+							console.log(doctorVideo);
 							if (response.data.appointment.doctor_socketId) {
 								setDoctorSocketId(response.data.appointment.doctor_socketId);
 								setDoctorPresent(true);
@@ -145,14 +147,14 @@ function Meeting(props) {
 		// 	</button>
 		// </div>
 		<div className='meeting'>
-			<div className='big-video'>
+			<div className='big-video video'>
 				{patientVideo !== undefined ? (
 					<video playsInline muted={true} ref={patientVideo} autoPlay />
 				) : (
 					<img src={user_pic} />
 				)}
 			</div>
-			<div className='small-video'>
+			<div className='small-video video'>
 				{doctorVideo !== undefined ? (
 					<video playsInline muted={true} ref={doctorVideo} autoPlay />
 				) : (
