@@ -14,7 +14,7 @@ const findUserAppointments = async (token, currentAppointments) => {
 					(app) => app.doctor_id === response.data.decoded.user_id
 				);
 			}
-			debug(apps);
+			//debug(apps);
 			return {
 				success: true,
 				data: {
