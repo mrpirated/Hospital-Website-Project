@@ -8,6 +8,7 @@ const initialState = {
 	updateUser: false,
 	isauth: false,
 	checkToken: false,
+	peer: undefined,
 };
 const slice = createSlice({
 	name: "auth",
@@ -47,6 +48,9 @@ const slice = createSlice({
 		setUpdateUser: (auth, action) => {
 			auth.updateUser = true;
 		},
+		setPeer: (auth, action) => {
+			auth.peer = action.payload.peer;
+		},
 	},
 });
 
@@ -58,6 +62,7 @@ export const {
 	tokenChecked,
 	userUpdated,
 	setUpdateUser,
+	setPeer,
 } = slice.actions;
 
 export default slice.reducer;
