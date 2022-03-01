@@ -42,11 +42,17 @@ const socketServer = (io) => {
 		socket.emit("yourID", socket.id);
 
 		socket.on("disconnect", () => {
-			removeUser(users, currentAppointments, socket);
+			removeUser(users, currentAppointments, socket).then((response) => {
+				debug(response);
+				if (response.success) {
+					io.to(response.data.peerSocketId).emit("peerDisconnected");
+				}
+			});
 			//debug(users);
 		});
 		socket.on("getRoom", (data) => {
 			debug("getRoom");
+			debug(data);
 			findInAppointment(
 				data.token,
 				data.appointment_id,
@@ -54,7 +60,7 @@ const socketServer = (io) => {
 				currentAppointments
 			).then((response) => {
 				//debug(response);
-				//debug(currentAppointments);
+				debug(currentAppointments);
 				socket.emit("roomStatus", response);
 			});
 		});
@@ -79,10 +85,10 @@ const socketServer = (io) => {
 					debug(err);
 				});
 		});
-		socket.on("callDoctor", (data) => {
-			debug("callDoctor");
+		socket.on("callPeer", (data) => {
+			debug("callPeer");
 			// debug(data);
-			io.to(data.userToCall).emit("patientCalling", {
+			io.to(data.userToCall).emit("peerCalling", {
 				signal: data.signalData,
 				from: data.from,
 			});
@@ -95,10 +101,10 @@ const socketServer = (io) => {
 				from: data.from,
 			});
 		});
-		socket.on("doctorAccept", (data) => {
-			debug("doctorAccept");
+		socket.on("peerAccept", (data) => {
+			debug("peerAccept");
 			// debug(data);
-			io.to(data.to).emit("doctorHere", data.signal);
+			io.to(data.to).emit("peerHere", data.signal);
 		});
 		socket.on("patientAccept", (data) => {
 			debug("patientAccept");

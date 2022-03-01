@@ -17,6 +17,7 @@ const findInAppointment = async (
 						app.appointment_id === appId &&
 						app.patient_id === response.data.decoded.user_id
 				);
+				debug(theapp);
 				if (theapp && theapp.patient_socketId == null) {
 					theapp.patient_socketId = socketId;
 					currentAppointments.find(
@@ -35,7 +36,7 @@ const findInAppointment = async (
 				theapp = currentAppointments.find(
 					(app) =>
 						app.appointment_id === appId &&
-						app.patient_id === response.data.decoded.user_id
+						app.doctor_id === response.data.decoded.user_id
 				);
 				if (theapp && theapp.doctor_socketId == null) {
 					theapp.doctor_socketId = socketId;

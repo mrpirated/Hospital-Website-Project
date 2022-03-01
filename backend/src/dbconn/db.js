@@ -17,9 +17,13 @@ pool.on("enqueue", function () {
 });
 pool.on("release", function (connection) {
 	debug("Connection %d released", connection.threadId);
+	// debug("all connections: ", pool._allConnections.length);
+	// debug("free connections: ", pool._freeConnections.length);
 });
 pool.on("acquire", function (connection) {
 	debug("Connection %d acquired", connection.threadId);
+	// debug("all connections: ", pool._allConnections.length);
+	// debug("free connections: ", pool._freeConnections.length);
 });
 // connection.connect(function (err) {
 // 	if (err) {
