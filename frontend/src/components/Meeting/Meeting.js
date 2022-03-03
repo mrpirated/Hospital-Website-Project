@@ -23,7 +23,7 @@ function Meeting() {
 	const [tracks, setTracks] = useState([]);
 	const patientVideo = useRef();
 	const doctorVideo = useRef();
-
+	const peerInstance = useRef();
 	//const appDetails = location.state.app;
 	console.log(appDetails);
 	//console.log(location);
@@ -42,6 +42,20 @@ function Meeting() {
 				setTracks(stream.getTracks());
 				return stream;
 			});
+	};
+	const initPeer = () => {
+		const peer = new Peer({
+			initiator: true,
+			trickle: false,
+		});
+		return peer;
+	};
+	const nonInitPeer = () => {
+		const peer = new Peer({
+			initiator: false,
+			trickle: false,
+		});
+		return peer;
 	};
 	useEffect(() => {
 		console.log(auth.peer);
@@ -71,49 +85,37 @@ function Meeting() {
 
 							if (response.data.appointment.doctor_socketId) {
 								setPeerId(response.data.appointment.doctor_socketId);
-								const peer = new Peer({
-									initiator: true,
-									trickle: false,
-									stream: stream,
-								});
+								const peer = initPeer();
+								peer.addStream(stream);
 								callPeer(peer, response.data.appointment.doctor_socketId);
+								peerInstance.current = peer;
 								dispatch(setPeer({ peer }));
 							} else {
-								const peer = new Peer({
-									initiator: false,
-									trickle: false,
-									stream: stream,
-								});
+								const peer = nonInitPeer();
+								peer.addStream(stream);
 								// console.log(peer);
+								peerInstance.current = peer;
 								dispatch(setPeer({ peer }));
-								socket.on("peerCalling", (data) => {
-									console.log(data);
-									waitPeer(peer, data.from, data.signal);
-								});
 							}
 						} else if (auth.type === "doctor") {
 							doctorVideo.current.srcObject = stream;
 							setDoctorVideoOn(true);
 							if (response.data.appointment.patient_socketId) {
 								setPeerId(response.data.appointment.patient_socketId);
-								const peer = new Peer({
-									initiator: true,
-									trickle: false,
-									stream: stream,
-								});
+								const peer = initPeer();
+								peer.addStream(stream);
 								callPeer(peer, response.data.appointment.patient_socketId);
+								peerInstance.current = peer;
 								dispatch(setPeer({ peer }));
 							} else {
-								const peer = new Peer({
-									initiator: false,
-									trickle: false,
-									stream: stream,
-								});
+								const peer = nonInitPeer();
+								peer.addStream(stream);
+								peerInstance.current = peer;
 								dispatch(setPeer({ peer }));
-								socket.on("peerCalling", (data) => {
-									console.log(data);
-									waitPeer(peer, data.from, data.signal);
-								});
+								// socket.on("peerCalling", (data) => {
+								// 	console.log(data);
+								// 	waitPeer(peer, data.from, data.signal);
+								// });
 							}
 						}
 						//console.log(patientVideo);
@@ -123,8 +125,35 @@ function Meeting() {
 					});
 				}
 			});
-			socket.on("peerDisconnected", () => {});
+			socket.on("peerCalling", (data) => {
+				console.log(data);
+				waitPeer(peerInstance.current, data.from, data.signal);
+			});
+			socket.on("peerDisconnected", () => {
+				console.log("disconencted");
+				//auth.peer.destroy();
+				console.log(auth.peer);
+				const peer = nonInitPeer();
+				if (stream) peer.addStream(stream);
+				peerInstance.current = peer;
+				dispatch(setPeer({ peer }));
+				// socket.on("peerCalling", (data) => {
+				// 	console.log(data);
+				// 	waitPeer(peer, data.from, data.signal);
+				// });
+				if (auth.type === "patient") {
+					setDoctorVideoOn(false);
+				} else if (auth.type === "doctor") {
+					setPatientVideoOn(false);
+				}
+			});
 		}
+		return () => {
+			if (auth.peer) auth.peer.destroy();
+			tracks.forEach((track) => {
+				track.stop();
+			});
+		};
 	}, [socket, auth.isauth, socketData.socketId, appDetails]);
 
 	const callPeer = (peer, peerId) => {
@@ -150,8 +179,11 @@ function Meeting() {
 				setDoctorVideoOn(true);
 			}
 		});
+		peer.on("data", (data) => {
+			console.log(data);
+		});
 		socket.on("peerHere", (signal) => {
-			console.log(signal);
+			//console.log(signal);
 			//setPatientPresent(true);
 			peer.signal(signal);
 			//console.log("signal sent");
@@ -163,6 +195,9 @@ function Meeting() {
 		});
 		peer.on("signal", (data) => {
 			socket.emit("peerAccept", { signal: data, to: peerId });
+		});
+		peer.on("data", (data) => {
+			console.log(data);
 		});
 		peer.on("stream", (stream) => {
 			console.log(stream);
@@ -219,6 +254,11 @@ function Meeting() {
 				<button
 					onClick={() => {
 						console.log(tracks);
+						// peerInstance.current.removeTrack(tracks[1], stream);
+						peerInstance.current.send({
+							type: "string",
+							data: "video removed",
+						});
 						tracks[1].stop();
 						setPatientVideoOn(false);
 					}}
@@ -233,6 +273,7 @@ function Meeting() {
 								setStream(stream);
 								setPatientVideoOn(true);
 								setTracks(stream.getTracks());
+								peerInstance.current.replaceTrack(tracks[1], stream);
 								if (auth.type === "patient")
 									patientVideo.current.srcObject = stream;
 								else if (auth.type === "doctor")
