@@ -35,6 +35,7 @@ const removeUser = (users, currentAppointments, socket) => {
 						};
 					} else return { success: false };
 				}
+				return { success: false };
 			}
 		})
 		.catch((err) => {
