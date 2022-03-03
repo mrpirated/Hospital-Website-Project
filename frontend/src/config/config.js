@@ -46,5 +46,6 @@ const config = {
 	rescheduleAppointment: "/api/rescheduleAppointment",
 	verifyEmail: "/api/verifyEmail",
 	updateEmail: "/api/updateEmail",
+	getDoctorSpecialization: "/api/getDoctorSpecialization",
 };
 export default config;

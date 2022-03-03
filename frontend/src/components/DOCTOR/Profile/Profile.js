@@ -9,13 +9,14 @@ import LoginInfo from "./LoginInfo";
 import ChangePhone from "./ChangePhone";
 import AppointmentTime from "./AppointmentTime";
 import VerifyEmail from "./VerifyEmail";
+import AddSpecialization from "./AddSpecialization";
 function Profile() {
 	const auth = useSelector((state) => state.auth);
 	const alert = useSelector((state) => state.alert);
 	const dispatch = useDispatch();
 	const [profilePic, setProfilePic] = useState();
 	const [profilePicChange, setProfilePicChange] = useState(false);
-	const [eventKey, setEventKey] = useState("profile");
+	const [eventKey, setEventKey] = useState("addSpecialization");
 
 	useEffect(() => {
 		getProfilePicAPI({ token: auth.token }).then((response) => {
@@ -89,6 +90,11 @@ function Profile() {
 									<Nav.Item>
 										<Nav.Link eventKey='verifyEmail'>Verify Email</Nav.Link>
 									</Nav.Item>
+									<Nav.Item>
+										<Nav.Link eventKey='addSpecialization'>
+											Add Specialization
+										</Nav.Link>
+									</Nav.Item>
 								</Nav>
 							</div>
 						</Col>
@@ -112,6 +118,9 @@ function Profile() {
 									</Tab.Pane>
 									<Tab.Pane eventKey='verifyEmail'>
 										<VerifyEmail eventKey={eventKey} />
+									</Tab.Pane>
+									<Tab.Pane eventKey='addSpecialization'>
+										<AddSpecialization eventKey={eventKey} />
 									</Tab.Pane>
 								</Tab.Content>
 							</div>

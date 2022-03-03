@@ -11,6 +11,7 @@ const getDoctorSpecialization = (doctor_id) => {
 			}
 			connection.query(
 				"SELECT\
+                s.specialization_id\
 				s.name\
 				FROM\
 				specialization s\

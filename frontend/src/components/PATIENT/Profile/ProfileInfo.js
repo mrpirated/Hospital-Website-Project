@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setLoading, userUpdated } from "../../../store/auth";
+import { setLoading, setUpdateUser } from "../../../store/auth";
 import { alertAdded } from "../../../store/alert";
 import { Form } from "react-bootstrap";
 import DateFnsUtils from "@date-io/date-fns";
@@ -49,15 +49,16 @@ function ProfileInfo() {
 					dispatch(
 						alertAdded({ variant: "success", message: response.message })
 					);
-					return tokenAPI(auth.token);
-				} else return Promise.reject(response);
-			})
-			.then((response) => {
-				if (response.success) {
-					dispatch(userUpdated({ user: response.data.user }));
+					dispatch(setUpdateUser());
 					dispatch(alertAdded({ variant: "success", message: "User Updated" }));
 				} else return Promise.reject(response);
 			})
+			// .then((response) => {
+			// 	if (response.success) {
+			// 		dispatch(userUpdated({ user: response.data.user }));
+			// 		dispatch(alertAdded({ variant: "success", message: "User Updated" }));
+			// 	} else return Promise.reject(response);
+			// })
 			.catch((err) => {
 				dispatch(alertAdded({ variant: "danger", message: err.message }));
 				console.log(err);
@@ -105,7 +106,7 @@ function ProfileInfo() {
 						<label>Date Of Birth</label>
 						<MuiPickersUtilsProvider utils={DateFnsUtils}>
 							<KeyboardDatePicker
-								style={{ width: "73%", alignItems: "center" }}
+								style={{ width: "80%" }}
 								variant='inline'
 								inputVariant='outlined'
 								format='dd/MM/yyyy'
@@ -127,17 +128,11 @@ function ProfileInfo() {
 					</div>
 					<div className='row'>
 						<label>Gender</label>
-						<Form.Control
-							as='select'
-							custom
-							onChange={(e) => setGender(e.target.value)}
-							style={{ width: "80%" }}
-							value={gender}
-						>
+						<select value={gender} onChange={(e) => setGender(e.target.value)}>
 							<option value='Other'>Other</option>
 							<option value='Male'>Male</option>
 							<option value='Female'>Female</option>
-						</Form.Control>
+						</select>
 					</div>
 					<div id='button' className='row'>
 						<button style={{ width: "45%", fontSize: "15px" }} type='submit'>
