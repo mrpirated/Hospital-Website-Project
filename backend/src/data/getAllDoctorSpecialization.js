@@ -1,9 +1,8 @@
 import pool from "../dbconn/db";
 import dbg from "debug";
 
-const debug = dbg("data:getDoctorSpecialization");
-
-const getDoctorSpecialization = (doctor_id) => {
+const debug = dbg("data:getAllDoctorSpecialization");
+const helper = (doctor_id) => {
 	return new Promise((resolve, reject) => {
 		pool.getConnection((err, connection) => {
 			if (err) {
@@ -35,4 +34,29 @@ const getDoctorSpecialization = (doctor_id) => {
 		});
 	});
 };
-export default getDoctorSpecialization;
+const getAllDoctorSpecialization = (doctor) => {
+	return new Promise((resolve, reject) => {
+		var alldocs = [];
+		doctor.forEach((doc) => {
+			var doctor_id = doc.doctor_id;
+			alldocs.push(helper(doctor_id));
+		});
+		Promise.all(alldocs)
+			.then((response) => {
+				//debug(response);
+				var n = response.length;
+				for (var i = 0; i < n; i++) {
+					doctor[i].specialization = response[i].data.specialization;
+				}
+				resolve({
+					success: true,
+					message: "Doctors Returned Successfully",
+					data: { doctor: doctor },
+				});
+			})
+			.catch((err) => {
+				reject({ success: false, message: err });
+			});
+	});
+};
+export default getAllDoctorSpecialization;
