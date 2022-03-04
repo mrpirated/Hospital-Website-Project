@@ -3,6 +3,7 @@
 @import "./styles/rowStyle.css";
 @import "./styles/cardStyle.css";
 @import "./styles/meetingStyle.css";
+@import "./styles/loadingStyle.css";
 :root {
 	--color1: #420516;
 	--color2: #7d1935;
