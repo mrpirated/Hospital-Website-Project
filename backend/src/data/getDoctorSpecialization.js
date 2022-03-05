@@ -11,12 +11,12 @@ const getDoctorSpecialization = (doctor_id) => {
 			}
 			connection.query(
 				"SELECT\
-                s.specialization_id\
+				s.specialization_id,\
 				s.name\
-				FROM\
+			  	FROM\
 				specialization s\
-				LEFT JOIN doctor_specialization ds ON ds.specialization_id = s.specialization_id\
-				WHERE\
+				JOIN doctor_specialization ds ON ds.specialization_id = s.specialization_id\
+			  	WHERE\
 				ds.doctor_id = ?\
 			  ",
 				[doctor_id],
@@ -24,11 +24,11 @@ const getDoctorSpecialization = (doctor_id) => {
 					if (err) {
 						reject({ success: false, message: err });
 					} else {
-						var specialization = [];
-						result.forEach((spec) => {
-							specialization.push(spec.name);
-						});
-						resolve({ success: true, data: { specialization } });
+						// var specialization = [];
+						// result.forEach((spec) => {
+						// 	specialization.push(spec.name);
+						// });
+						resolve({ success: true, data: { specialization: result } });
 					}
 				}
 			);

@@ -1,13 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import {
-	Form,
-	InputGroup,
-	Dropdown,
-	DropdownButton,
-	FormControl,
-} from "react-bootstrap";
-
+import { Form, Icon } from "react-bootstrap";
+import { FaTrash } from "react-icons/fa";
 import getDoctorSpecializationAPI from "../../../api/getDoctorSpecializationAPI";
 import getSpecializationAPI from "../../../api/getSpecializationAPI";
 function AddSpecialization() {
@@ -41,10 +35,24 @@ function AddSpecialization() {
 					<h3 id='headerTitle'>Specialization</h3>
 					{specialization.map((spec) => (
 						<div className='row' key={spec.specialization_id}>
-							<div style={{ textAlign: "center", fontSize: "1.3rem" }}>
-								{spec.name}
+							<div
+								style={{
+									textAlign: "center",
+									fontSize: "1.3rem",
+									alignItems: "center",
+								}}
+							>
+								<span>{spec.name}</span>
+								<button
+									onClick={() => {
+										console.log("here");
+									}}
+								>
+									delete
+								</button>
 							</div>
-							<button></button>
+
+							{/* <button></button> */}
 						</div>
 					))}
 					<div className='row'>

@@ -26,7 +26,7 @@
 		"react-redux": "^7.2.4",
 		"react-router": "^6.2.1",
 		"react-router-dom": "^6.2.1",
-		"react-scripts": "^5.0.0",
+		"react-scripts": "^3.0.1",
 		"react-spinners": "^0.11.0",
 		"react-time-picker": "^4.4.1",
 		"redux": "^4.1.1",
@@ -37,19 +37,6 @@
 		"util": "^0.12.4",
 		"uuid": "^8.3.2",
 		"web-vitals": "^2.1.4"
-	},
-	"resolve.fallback": {
-		"buffer": false,
-		"fs": false
-	},
-	"browser": {
-		"crypto": false,
-		"fs": false,
-		"path": false,
-		"os": false,
-		"net": false,
-		"stream": false,
-		"tls": false
 	},
 	"scripts": {
 		"start": "react-scripts --max-old-space-size=4096 start",

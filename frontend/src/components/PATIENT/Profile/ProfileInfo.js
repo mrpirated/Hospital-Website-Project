@@ -104,6 +104,8 @@ function ProfileInfo() {
 					</div>
 					<div className='row'>
 						<label>Date Of Birth</label>
+					</div>
+					<div className='row'>
 						<MuiPickersUtilsProvider utils={DateFnsUtils}>
 							<KeyboardDatePicker
 								style={{ width: "80%" }}
