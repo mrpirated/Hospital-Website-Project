@@ -28,6 +28,7 @@ function Doctors() {
 	const [doctorDetails, setDoctorDetails] = useState([]);
 	const [displayDoctors, setDisplayDoctors] = useState([]);
 	const [specialization, setSpecialization] = useState([]);
+	const [qualification, setQualification] = useState([]);
 	const [profilePics, setProfilePics] = useState({});
 	const [speciality, setSpeciality] = useState("All");
 	const [doctorName, setDoctorName] = useState("");

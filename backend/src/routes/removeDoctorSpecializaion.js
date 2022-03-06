@@ -1,7 +1,7 @@
 import { Router } from "express";
 const router = Router();
 import dbg from "debug";
-const debug = dbg("api:addSpecialization");
+const debug = dbg("api:removeDoctorSpecialization");
 import removeDoctorSpecializationService from "../service/removeDoctorSpecializationService";
 router.post("/removeDoctorSpecialization", async (req, res) => {
 	await removeDoctorSpecializationService(req.headers.authorization, req.body)
