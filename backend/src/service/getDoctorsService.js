@@ -2,7 +2,7 @@ import dbg from "debug";
 const debug = dbg("service:getDoctorsService");
 import checkToken from "../controllers/checkToken";
 import getDoctors from "../data/getDoctors";
-import getDoctorSpecialization from "../data/getDoctorSpecialization";
+import getAllDoctorSpecialization from "../data/getAllDoctorSpecialization";
 import getDoctorProfilePic from "../controllers/getDoctorProfilePic";
 const getDoctorsService = async (token) => {
 	return await checkToken(token)
@@ -22,7 +22,7 @@ const getDoctorsService = async (token) => {
 		.then((response) => {
 			//debug(response);
 			if (response.success) {
-				return getDoctorSpecialization(response.data.doctor);
+				return getAllDoctorSpecialization(response.data.doctor);
 			} else return response;
 		})
 		.catch((error) => {

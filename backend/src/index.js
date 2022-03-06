@@ -33,6 +33,8 @@ import cancelAppointment from "./routes/cancelAppointment";
 import rescheduleAppointment from "./routes/rescheduleAppointment";
 import verifyEmail from "./routes/verifyEmail";
 import updateEmail from "./routes/updateEmail";
+import getDoctorSpecialization from "./routes/getDoctorSpecialization";
+import removeDoctorSpecialization from "./routes/removeDoctorSpecializaion";
 import fs from "fs";
 import path from "path";
 import https from "https";
@@ -111,7 +113,9 @@ app.use(
 	cancelAppointment,
 	rescheduleAppointment,
 	verifyEmail,
-	updateEmail
+	updateEmail,
+	getDoctorSpecialization,
+	removeDoctorSpecialization
 );
 app.use("/", (req, res) => {
 	res.send("Server is Running");
