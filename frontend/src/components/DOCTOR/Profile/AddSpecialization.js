@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Form, Icon } from "react-bootstrap";
+import { Form, Table, Dropdown } from "react-bootstrap";
 import { FaTrash } from "react-icons/fa";
 import getDoctorSpecializationAPI from "../../../api/getDoctorSpecializationAPI";
 import getSpecializationAPI from "../../../api/getSpecializationAPI";
+import addSpecializationAPI from "../../../api/addSpecializationAPI";
 function AddSpecialization() {
 	const [specialization, setSpecialization] = useState([]);
 	const [allSpecializations, setAllSpecializations] = useState([]);
+	const [selSpec, setSelSpec] = useState(1);
+	const [newSpec, setNewSpec] = useState("");
+	const [specChange, setSpecChange] = useState(false);
 	const dispatch = useDispatch();
 	const auth = useSelector((state) => state.auth);
 	useEffect(() => {
@@ -23,43 +27,88 @@ function AddSpecialization() {
 				console.log(response.data);
 			}
 		});
-	}, [auth.isauth]);
+		setSpecChange(false);
+	}, [auth.isauth, specChange]);
 	// useState(() => {
 	// 	console.log(auth.token);
 
 	// }, [auth.isauth]);
+	const addSpecialization = () => {
+		console.log(newSpec);
+		var spec = selSpec == 0 ? newSpec : allSpecializations[selSpec - 1].name;
+		addSpecializationAPI({
+			token: auth.token,
+			specialization: spec,
+		})
+			.then((response) => {
+				console.log(response);
+				if (response.success) {
+					setSpecChange(true);
+					setSelSpec(1);
+				}
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+	};
+	useEffect(() => {
+		console.log(selSpec);
+	}, [selSpec]);
 	return (
 		<div>
-			<Form>
-				<div className='inprofile'>
-					<h3 id='headerTitle'>Specialization</h3>
+			<h2>Add Specialization</h2>
+			{selSpec == 0 ? (
+				<input
+					type='text'
+					value={newSpec}
+					onChange={(e) => setNewSpec(e.target.value)}
+				/>
+			) : (
+				<select value={selSpec} onChange={(e) => setSelSpec(e.target.value)}>
+					<option value={0}>Add new</option>
+					{allSpecializations.map((spec) => (
+						<option
+							value={spec.specialization_id}
+							// onSelect={() => {
+							// 	setSpecId(spec.specialization_id);
+							// }}
+						>
+							{spec.name}
+						</option>
+					))}
+				</select>
+			)}
+			<button
+				onClick={() => {
+					addSpecialization();
+				}}
+			>
+				Add
+			</button>
+			<Table striped bordered hover responsive='lg'>
+				<thead style={{ textAlign: "center" }}>
+					<tr>
+						<th>Specialization</th>
+						<th>Delete</th>
+					</tr>
+				</thead>
+				<tbody style={{ textAlign: "center" }}>
 					{specialization.map((spec) => (
-						<div className='row' key={spec.specialization_id}>
-							<div
-								style={{
-									textAlign: "center",
-									fontSize: "1.3rem",
-									alignItems: "center",
-								}}
-							>
-								<span>{spec.name}</span>
+						<tr key={spec.specialization_id}>
+							<td>{spec.name}</td>
+							<td>
 								<button
 									onClick={() => {
-										console.log("here");
+										console.log(spec.name);
 									}}
 								>
-									delete
+									<FaTrash />
 								</button>
-							</div>
-
-							{/* <button></button> */}
-						</div>
+							</td>
+						</tr>
 					))}
-					<div className='row'>
-						<input type='text' />
-					</div>
-				</div>
-			</Form>
+				</tbody>
+			</Table>
 		</div>
 	);
 }

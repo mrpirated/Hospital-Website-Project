@@ -47,5 +47,6 @@ const config = {
 	verifyEmail: "/api/verifyEmail",
 	updateEmail: "/api/updateEmail",
 	getDoctorSpecialization: "/api/getDoctorSpecialization",
+	addSpecialization: "/api/addSpecialization",
 };
 export default config;
