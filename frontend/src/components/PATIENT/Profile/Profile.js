@@ -34,7 +34,7 @@ function Profile() {
 							<Nav
 								variant='pills'
 								className='flex-column'
-								style={{ position: "absolute" }}
+								style={{ position: "relative" }}
 							>
 								<Nav.Item>
 									<Nav.Link eventKey='profile'>Profile</Nav.Link>
