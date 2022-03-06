@@ -5,6 +5,7 @@ import { FaTrash } from "react-icons/fa";
 import getDoctorSpecializationAPI from "../../../api/getDoctorSpecializationAPI";
 import getSpecializationAPI from "../../../api/getSpecializationAPI";
 import addSpecializationAPI from "../../../api/addSpecializationAPI";
+import removeDoctorSpecializationAPI from "../../../api/removeDoctorSpecializationAPI";
 function AddSpecialization() {
 	const [specialization, setSpecialization] = useState([]);
 	const [allSpecializations, setAllSpecializations] = useState([]);
@@ -45,6 +46,23 @@ function AddSpecialization() {
 				if (response.success) {
 					setSpecChange(true);
 					setSelSpec(1);
+				}
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+	};
+	const removeSpecialization = (spec) => {
+		console.log(spec);
+		removeDoctorSpecializationAPI({
+			token: auth.token,
+			specialization_id: spec.specialization_id,
+		})
+			.then((response) => {
+				console.log(response);
+				if (response.success) {
+					setSpecChange(true);
+					//setSelSpec(1);
 				}
 			})
 			.catch((err) => {
@@ -99,7 +117,7 @@ function AddSpecialization() {
 							<td>
 								<button
 									onClick={() => {
-										console.log(spec.name);
+										removeSpecialization(spec);
 									}}
 								>
 									<FaTrash />
