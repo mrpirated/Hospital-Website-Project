@@ -37,7 +37,7 @@ import getDoctorSpecialization from "./routes/getDoctorSpecialization";
 import removeDoctorSpecialization from "./routes/removeDoctorSpecializaion";
 import getDoctorQualification from "./routes/getDoctorQualification";
 import removeDoctorQualification from "./routes/removeDoctorQualification";
-import addQualification from "./routes/addSpecialization";
+import addQualification from "./routes/addQualification";
 import getQualification from "./routes/getQualification";
 
 import fs from "fs";
