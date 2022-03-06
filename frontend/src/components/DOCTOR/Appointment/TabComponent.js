@@ -26,13 +26,15 @@ function TabComponent(props) {
 					<Tab eventKey={item.eventKey} title={item.title}>
 						<Table striped bordered hover responsive='lg'>
 							<thead style={{ textAlign: "center" }}>
-								<th>Patient Name</th>
-								<th>Case Description</th>
-								<th>Date</th>
-								<th>Start Time</th>
-								<th>End Time</th>
-								<th>Duration</th>
-								{item.eventKey === "future" && <th>Cancel</th>}
+								<tr>
+									<th>Patient Name</th>
+									<th>Case Description</th>
+									<th>Date</th>
+									<th>Start Time</th>
+									<th>End Time</th>
+									<th>Duration</th>
+									{item.eventKey === "future" && <th>Cancel</th>}
+								</tr>
 							</thead>
 							<tbody style={{ textAlign: "center" }}>
 								{(item.eventKey === "all"
@@ -71,10 +73,12 @@ function TabComponent(props) {
 				<Tab eventKey='unset' title='Pending Appointment'>
 					<Table striped bordered hover responsive='lg'>
 						<thead style={{ textAlign: "center" }}>
-							<th>Patient Name</th>
-							<th>Case Description</th>
-							<th>Preferred Date</th>
-							<th>Cancel</th>
+							<tr>
+								<th>Patient Name</th>
+								<th>Case Description</th>
+								<th>Preferred Date</th>
+								<th>Cancel</th>
+							</tr>
 						</thead>
 						<tbody style={{ textAlign: "center" }}>
 							{props.unset.map((c) => (

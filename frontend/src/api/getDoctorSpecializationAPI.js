@@ -1,20 +1,15 @@
 import axios from "axios";
 import config from "../config/config";
 
-const getSpecializationAPI = async (data) => {
+const getDoctorSpecializationAPI = async (data) => {
 	const { token } = data;
-	// console.log(config.baseUrl + config.getSpecialization +
-	//     "?" +
-	//     "token=" +
-	//     token);
 	return await axios
-		.get(config.baseUrl + config.getSpecialization, {
+		.get(config.baseUrl + config.getDoctorSpecialization, {
 			headers: {
 				Authorization: "Bearer " + token,
 			},
 		})
 		.then((res) => {
-			//console.log(res.data);
 			return res.data;
 		})
 		.catch((err) => {
@@ -23,4 +18,4 @@ const getSpecializationAPI = async (data) => {
 		});
 };
 
-export default getSpecializationAPI;
+export default getDoctorSpecializationAPI;
