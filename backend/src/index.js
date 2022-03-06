@@ -35,6 +35,11 @@ import verifyEmail from "./routes/verifyEmail";
 import updateEmail from "./routes/updateEmail";
 import getDoctorSpecialization from "./routes/getDoctorSpecialization";
 import removeDoctorSpecialization from "./routes/removeDoctorSpecializaion";
+import getDoctorQualification from "./routes/getDoctorQualification";
+import removeDoctorQualification from "./routes/removeDoctorQualification";
+import addQualification from "./routes/addSpecialization";
+import getQualification from "./routes/getQualification";
+
 import fs from "fs";
 import path from "path";
 import https from "https";
@@ -115,7 +120,11 @@ app.use(
 	verifyEmail,
 	updateEmail,
 	getDoctorSpecialization,
-	removeDoctorSpecialization
+	removeDoctorSpecialization,
+	getDoctorQualification,
+	removeDoctorQualification,
+	addQualification,
+	getQualification
 );
 app.use("/", (req, res) => {
 	res.send("Server is Running");
