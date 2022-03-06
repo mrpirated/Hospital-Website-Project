@@ -17,7 +17,7 @@ function Profile() {
 	const dispatch = useDispatch();
 	const [profilePic, setProfilePic] = useState();
 	const [profilePicChange, setProfilePicChange] = useState(false);
-	const [eventKey, setEventKey] = useState("addQualification");
+	const [eventKey, setEventKey] = useState("profile");
 
 	useEffect(() => {
 		getProfilePicAPI({ token: auth.token }).then((response) => {
