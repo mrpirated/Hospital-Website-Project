@@ -10,27 +10,27 @@ import getMultipleAppointments from "../data/getMultipleAppointments";
 const debug = dbg("socket:server");
 const users = [];
 const currentAppointments = [
-	{
-		appointment_id: 35,
-		patient_id: 1,
-		doctor_id: 1,
-		patient_socketId: null,
-		doctor_socketId: null,
-	},
+	// {
+	// 	appointment_id: 35,
+	// 	patient_id: 1,
+	// 	doctor_id: 1,
+	// 	patient_socketId: null,
+	// 	doctor_socketId: null,
+	// },
 ];
-//debug("appointments added initially");
-// onStartAppointments(currentAppointments).then(() => {
-// 	debug(currentAppointments);
-// });
-// setInterval(() => {
-// 	debug("appointments added and removed");
-// 	addAppointments(currentAppointments).then(() => {
-// 		debug(currentAppointments);
-// 	});
-// 	removeAppointments(currentAppointments).then(() => {
-// 		debug(currentAppointments);
-// 	});
-// }, 1000 * 60);
+debug("appointments added initially");
+onStartAppointments(currentAppointments).then(() => {
+	debug(currentAppointments);
+});
+setInterval(() => {
+	debug("appointments added and removed");
+	addAppointments(currentAppointments).then(() => {
+		debug(currentAppointments);
+	});
+	removeAppointments(currentAppointments).then(() => {
+		debug(currentAppointments);
+	});
+}, 1000 * 60);
 const socketServer = (io) => {
 	io.on("connection", async (socket) => {
 		debug("a user connected! ID :- " + socket.id);
