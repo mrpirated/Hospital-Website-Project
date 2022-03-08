@@ -37,13 +37,17 @@ const setAppointment = (case_id, preferred_date, doctor_id, response) => {
 							resolve({
 								success: true,
 								message: "Appointment set successfully",
-								data: { appointment_time: response.data.appointment_time },
+								data: {
+									appointment_time: response.data.appointment_time,
+									appointment_id: result.insertId,
+								},
 							});
 						} else {
 							resolve({
 								success: true,
 								message:
 									"Doctor is not free right now your appointment is in pending state",
+								data: { appointment_id: result.insertId },
 							});
 						}
 					}

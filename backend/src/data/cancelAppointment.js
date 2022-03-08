@@ -10,7 +10,7 @@ const cancelAppointment = (appointment_id) => {
 			}
 			connection.query(
 				"UPDATE appointment\
-				SET state = 'canceled'\
+				SET state = 'cancelled'\
                 WHERE appointment_id=?",
 				[appointment_id],
 				(err, result) => {
