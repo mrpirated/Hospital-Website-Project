@@ -7,7 +7,6 @@ import { Button, Card } from "react-bootstrap";
 import doctorAppointmentsAPI from "../../../api/doctorAppointmentsAPI";
 import { TabNav } from "./TabNav";
 import TabComponent from "./TabComponent";
-import { columns } from "./TableColumns";
 // import DataTable from "../../DataTable";
 
 export default function Appointment() {
@@ -19,6 +18,7 @@ export default function Appointment() {
 	const [all, setAll] = useState([]);
 	const [future, setFuture] = useState([]);
 	const [unset, setUnset] = useState([]);
+	const [cancelled, setCancelled] = useState([]);
 	useEffect(() => {
 		dispatch(setLoading({ loading: true }));
 		doctorAppointmentsAPI({ token: auth.token })
@@ -29,23 +29,31 @@ export default function Appointment() {
 
 					var tmp1 = response.data.appointments.filter(
 						(item) =>
-							item.start_time !== null && new Date(item.start_time) >= now
+							item.state !== "cancelled" &&
+							item.start_time !== null &&
+							new Date(item.start_time) >= now
 					);
 					//console.log(tmp1);
 					var tmp2 = response.data.appointments.filter(
 						(item) =>
-							item.start_time !== null && new Date(item.start_time) < now
+							item.state !== "cancelled" &&
+							item.start_time !== null &&
+							new Date(item.start_time) < now
 					);
 					var tmp3 = response.data.appointments.filter(
-						(item) => item.start_time === null
+						(item) => item.state !== "cancelled" && item.start_time === null
 					);
 					var tmp4 = response.data.appointments.filter(
-						(item) => item.start_time !== null
+						(item) => item.state !== "cancelled" && item.start_time !== null
+					);
+					var tmp5 = response.data.appointments.filter(
+						(item) => item.state === "cancelled"
 					);
 					setPast(tmp2);
 					setFuture(tmp1);
 					setUnset(tmp3);
 					setAll(tmp4);
+					setCancelled(tmp5);
 				}
 			})
 			.finally(() => {
@@ -63,6 +71,7 @@ export default function Appointment() {
 				past={past}
 				future={future}
 				unset={unset}
+				cancelled={cancelled}
 				setAppChange={setAppChange}
 			/>
 			{/* <h5 style={{ margin: "2rem 2rem" }}>
