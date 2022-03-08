@@ -11,6 +11,7 @@ import Availability from "./Availability/Availability";
 import Profile from "./Profile/Profile";
 import Rooms from "./Rooms/Rooms";
 import Meeting from "./Meeting/Meeting";
+import Doctors from "./Doctors/Doctors";
 export default function PatientRoute() {
 	const auth = useSelector((state) => state.auth);
 	//const isauth = auth.isauth;
@@ -30,6 +31,7 @@ export default function PatientRoute() {
 		<div>
 			<Navigation Navitems={Navitems} />
 			<Routes>
+				<Route path='doctors' element={<Doctors />} />
 				<Route path='calendar' element={<Calendar />} />
 				<Route path='appointment' element={<Appointment />} />
 				<Route path='appointment-details' element={<AppointmentDetails />} />

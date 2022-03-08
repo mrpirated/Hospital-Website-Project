@@ -161,7 +161,7 @@ html {
 	min-height: 300px;
 	padding: 50px 0;
 	width: 100%;
-	background-image: url(./components/PATIENT/Doctors/doctorColorizedBanner.png);
+	background-image: url(./images/doctorColorizedBanner.png);
 	background-repeat: no-repeat;
 	background-size: cover;
 }
