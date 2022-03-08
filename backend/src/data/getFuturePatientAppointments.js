@@ -18,6 +18,7 @@ const getFuturePatientAppointments = (patient_id, preferred_date) => {
                 WHERE \
                 c.patient_id = ? \
                 AND state != "pending"\
+				AND state != "cancelled"\
                 AND end_time > ?\
                 ORDER BY start_time',
 				[preferred_date, patient_id, preferred_date],
