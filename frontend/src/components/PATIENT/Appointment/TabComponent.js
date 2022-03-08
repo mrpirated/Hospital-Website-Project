@@ -66,14 +66,16 @@ function TabComponent(props) {
 					<Tab eventKey={item.eventKey} title={item.title} key={item.eventKey}>
 						<Table striped bordered hover responsive='lg'>
 							<thead style={{ textAlign: "center" }}>
-								<th>Doctor Name</th>
-								<th>Case Description</th>
-								<th>Date</th>
-								<th>From</th>
-								<th>To</th>
-								<th>Duration</th>
-								<th>Preferred Date</th>
-								{item.eventKey === "future" && <th>Edit</th>}
+								<tr>
+									<th>Doctor Name</th>
+									<th>Case Description</th>
+									<th>Date</th>
+									<th>From</th>
+									<th>To</th>
+									<th>Duration</th>
+									<th>Preferred Date</th>
+									{item.eventKey === "future" && <th>Edit</th>}
+								</tr>
 							</thead>
 							<tbody style={{ textAlign: "center" }}>
 								{(item.eventKey === "all"
@@ -113,10 +115,12 @@ function TabComponent(props) {
 				<Tab eventKey='unset' title='Pending Appointment'>
 					<Table striped bordered hover responsive='lg'>
 						<thead style={{ textAlign: "center" }}>
-							<th>Doctor Name</th>
-							<th>Case Description</th>
-							<th>Preferred Date</th>
-							<th>Edit</th>
+							<tr>
+								<th>Doctor Name</th>
+								<th>Case Description</th>
+								<th>Preferred Date</th>
+								<th>Edit</th>
+							</tr>
 						</thead>
 						<tbody style={{ textAlign: "center" }}>
 							{props.unset.map((c) => (
@@ -133,6 +137,49 @@ function TabComponent(props) {
 											Edit
 										</button>
 									</td>
+								</tr>
+							))}
+						</tbody>
+					</Table>
+				</Tab>
+				<Tab eventKey='cancelled' title='Cancelled Appointment'>
+					<Table striped bordered hover responsive='lg'>
+						<thead style={{ textAlign: "center" }}>
+							<tr>
+								<th>Doctor Name</th>
+								<th>Case Description</th>
+								<th>Date</th>
+								<th>From</th>
+								<th>To</th>
+								<th>Duration</th>
+								<th>Preferred Date</th>
+							</tr>
+						</thead>
+						<tbody style={{ textAlign: "center" }}>
+							{props.cancelled.map((c) => (
+								<tr key={c.appointment_id}>
+									<td>{c.doctor_name}</td>
+									<td>{c.case_description}</td>
+									<td>
+										{c.start_time ? moment(c.start_time).format("ll") : "NA"}
+									</td>
+									<td>
+										{c.start_time
+											? moment(c.start_time).format("hh:mm A")
+											: "NA"}
+									</td>
+									<td>
+										{c.end_time ? moment(c.end_time).format("hh:mm A") : "NA"}
+									</td>
+									<td>
+										{c.start_time
+											? moment(c.end_time).diff(
+													moment(c.start_time),
+													"minutes"
+											  ) + " min"
+											: "NA"}
+									</td>
+									<td>{moment(c.preferred_date).format("ll")}</td>
 								</tr>
 							))}
 						</tbody>

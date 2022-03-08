@@ -17,7 +17,8 @@ const getAppointmentUsers = (appointment_id) => {
                 c.case_description,\
                 a.state,\
                 a.start_time,\
-                a.end_time\
+                a.end_time,\
+				a.preferred_date\
                 FROM\
                 appointment a\
                 JOIN doctor d ON d.doctor_id = a.doctor_id\

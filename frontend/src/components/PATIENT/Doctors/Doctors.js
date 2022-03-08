@@ -256,7 +256,7 @@ function Doctors() {
 											))}
 										</ListGroupItem>
 										<ListGroupItem>
-											<b>Email: </b>
+											<b>Email:</b>
 											<p>{d.email}</p>
 											{/* <ListGroup
 												style={{ marginTop: "3%", fontSize: "0.6rem" }}
