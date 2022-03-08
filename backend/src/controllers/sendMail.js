@@ -13,7 +13,7 @@ const sendMail = async ({ to, subject, text }) => {
 		},
 	});
 	//debug(transporter);
-	await transporter
+	return await transporter
 		.sendMail({
 			from: '"PeriwalManavSeva " <support@periwalmanavseva.com>',
 			to: to,
@@ -22,6 +22,7 @@ const sendMail = async ({ to, subject, text }) => {
 		})
 		.then((response) => {
 			debug(response);
+			return response;
 		})
 		.catch((err) => debug(err));
 	//debug("Message sent: %s", info.messageId);

@@ -1,0 +1,15 @@
+.list-group-doctor {
+	font-size: 0.8rem;
+}
+.list-group-doctor > .list-group-item {
+	background-color: var(--bgColor12);
+	border-radius: 8px;
+}
+.list-group-doctor > .list-group-item p {
+	display: inline-block;
+	padding: 5px;
+	background-color: var(--bgColor2);
+	margin-left: 5px;
+	border-radius: 8px;
+	color: #fff;
+}

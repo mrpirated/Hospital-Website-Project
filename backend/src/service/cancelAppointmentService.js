@@ -3,9 +3,18 @@ const debug = dbg("service:cancelAppointment");
 import checkToken from "../controllers/checkToken";
 import appointmentValidity from "../data/appointmentValidity";
 import cancelAppointment from "../data/cancelAppointment";
+import getUserEmail from "../data/getUserEmail";
+import sendMail from "../controllers/sendMail";
+import getAppointmentUsers from "../data/getAppointmentUsers";
+import moment from "moment";
 const cancelAppointmentService = async (token, { appointment_id }) => {
+	var decoded;
+	var resp;
+	var doctor_email, patient_email;
+	var appointment_details;
 	return await checkToken(token)
 		.then((response) => {
+			decoded = response.data.decoded;
 			return appointmentValidity(
 				response.data.decoded.type,
 				response.data.decoded.user_id,
@@ -16,6 +25,76 @@ const cancelAppointmentService = async (token, { appointment_id }) => {
 			if (response.success) {
 				return cancelAppointment(appointment_id);
 			}
+		})
+		.then((response) => {
+			resp = response;
+			return getAppointmentUsers(appointment_id);
+		})
+		.then((response) => {
+			appointment_details = response.data.appointment_details;
+			return getUserEmail([
+				{ user_id: appointment_details.doctor_id, type: "doctor" },
+			]);
+		})
+		.then((response) => {
+			doctor_email = response.data.emails[0];
+			return getUserEmail([
+				{ user_id: appointment_details.patient_id, type: "patient" },
+			]);
+		})
+		.then((response) => {
+			patient_email = response.data.emails[0];
+			var txt =
+				"Appointment with Patient " +
+				appointment_details.patient_name +
+				"\n" +
+				"Cancelled on " +
+				moment().format("LLLL") +
+				"\n" +
+				"Appointment Details: \n" +
+				"\tCase: " +
+				appointment_details.case_description +
+				"\n";
+			if (appointment_details.start_time) {
+				txt +=
+					"\tFrom: " +
+					moment(appointment_details.start_time).format("hh:mm A") +
+					"\n" +
+					"\tTo:   " +
+					moment(appointment_details.end_time).format("hh:mm A") +
+					"\n";
+			}
+			sendMail({
+				to: doctor_email,
+				subject: "Appointment Cancelled",
+				text: txt,
+			});
+			txt =
+				"Appointment with Doctor " +
+				appointment_details.doctor_name +
+				"\n" +
+				"Cancelled on " +
+				moment().format("LLLL") +
+				"\n" +
+				"Appointment Details: \n" +
+				"\tCase: " +
+				appointment_details.case_description +
+				"\n";
+			if (appointment_details.start_time) {
+				txt +=
+					"\tFrom: " +
+					moment(appointment_details.start_time).format("hh:mm A") +
+					"\n" +
+					"\tTo:   " +
+					moment(appointment_details.end_time).format("hh:mm A") +
+					"\n";
+			}
+			sendMail({
+				to: patient_email,
+				subject: "Appointment Cancelled",
+				text: txt,
+			});
+			return resp;
 		})
 		.catch((err) => {
 			debug(err);

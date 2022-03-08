@@ -9,7 +9,8 @@ const cancelAppointment = (appointment_id) => {
 				reject({ success: false, message: "Error In connection", error: err });
 			}
 			connection.query(
-				"DELETE FROM appointment\
+				"UPDATE appointment\
+				SET state = 'canceled'\
                 WHERE appointment_id=?",
 				[appointment_id],
 				(err, result) => {
