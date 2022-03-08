@@ -11,6 +11,7 @@ export const TabNav = [
 		eventKey: "all",
 		title: "All Appointments",
 	},
+
 	// {
 	// 	eventKey: "unset",
 	// 	title: "Pending Appointments",
