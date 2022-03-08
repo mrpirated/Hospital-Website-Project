@@ -70,8 +70,6 @@ const newAppointmentService = async (
 			return setAppointment(case_id, preferred_date, doctor_id, response);
 		})
 		.then((response) => {
-			debug(response);
-
 			resp = response;
 			return getAppointmentUsers(response.data.appointment_id);
 		})

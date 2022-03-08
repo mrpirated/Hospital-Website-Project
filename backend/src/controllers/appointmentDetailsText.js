@@ -11,6 +11,7 @@ const appointmentDetailsText = (appointment_details) => {
 		txt +=
 			"\tOn:     " +
 			moment(appointment_details.start_time).format("LL") +
+			"\n" +
 			"\tFrom: " +
 			moment(appointment_details.start_time).format("hh:mm A") +
 			"\n" +
