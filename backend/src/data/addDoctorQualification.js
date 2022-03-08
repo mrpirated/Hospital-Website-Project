@@ -53,7 +53,7 @@ const addDoctorQualification = (user_id, qualification) => {
 								}
 							);
 						} else {
-							values.Qualification_id = result[0].Qualification_id;
+							values.qualification_id = result[0].qualification_id;
 							debug(values);
 							connection.query(
 								"INSERT INTO doctor_qualification SET ?",
