@@ -15,7 +15,7 @@ const appointmentDetailsText = (appointment_details) => {
 			"\tFrom: " +
 			moment(appointment_details.start_time).format("hh:mm A") +
 			"\n" +
-			"\tTo:     " +
+			"\tTo:      " +
 			moment(appointment_details.end_time).format("hh:mm A") +
 			"\n";
 	} else {
