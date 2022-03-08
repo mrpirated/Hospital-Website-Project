@@ -38,7 +38,14 @@ function AddQualification() {
 	// }, [auth.isauth]);
 	const addQualification = () => {
 		console.log(newSpec);
-		var spec = selSpec == 0 ? newSpec : allQualifications[selSpec - 1].name;
+		console.log(allQualifications);
+		console.log(selSpec);
+		var spec =
+			selSpec == 0
+				? newSpec
+				: allQualifications.find((qual) => qual.qualification_id == selSpec)
+						.name;
+		console.log(spec);
 		addQualificationAPI({
 			token: auth.token,
 			qualification: spec,

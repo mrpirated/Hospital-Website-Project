@@ -38,7 +38,11 @@ function AddSpecialization() {
 	// }, [auth.isauth]);
 	const addSpecialization = () => {
 		console.log(newSpec);
-		var spec = selSpec == 0 ? newSpec : allSpecializations[selSpec - 1].name;
+		var spec =
+			selSpec == 0
+				? newSpec
+				: allSpecializations.find((spec) => spec.specialization_id == selSpec)
+						.name;
 		addSpecializationAPI({
 			token: auth.token,
 			specialization: spec,

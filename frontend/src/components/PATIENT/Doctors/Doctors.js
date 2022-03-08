@@ -212,24 +212,25 @@ function Doctors() {
 									</Card.Title>
 
 									<ListGroup
-										style={{
-											fontSize: "0.8rem",
-										}}
+										// style={{
+										// 	fontSize: "0.8rem",
+										// }}
+										className='list-group-doctor'
 									>
 										<ListGroupItem>
 											<b>Specialization: </b>
 											{/* <ListGroup style={{ marginTop: "3%", fontSize: "0.6rem" }}> */}
 											{d.specialization.map((s) => (
 												<p
-													style={{
-														display: "inline-block",
-														margin: "0",
-														padding: "5px",
-														marginLeft: "5px",
-														backgroundColor: "black",
-														color: "white",
-														borderRadius: "8px",
-													}}
+												// style={{
+												// 	display: "inline-block",
+												// 	margin: "0",
+												// 	padding: "5px",
+												// 	marginLeft: "5px",
+												// 	backgroundColor: "black",
+												// 	color: "white",
+												// 	borderRadius: "8px",
+												// }}
 												>
 													{s}
 												</p>
@@ -237,11 +238,27 @@ function Doctors() {
 											{/* </ListGroup> */}
 										</ListGroupItem>
 										<ListGroupItem>
-											<b>Qualifications:</b> {"Temp Data"}
+											<b>Qualifications: </b>
+											{d.qualification.map((s) => (
+												<p
+												// style={{
+												// 	display: "inline-block",
+												// 	margin: "0",
+												// 	padding: "5px",
+												// 	marginLeft: "5px",
+												// 	backgroundColor: "black",
+												// 	color: "white",
+												// 	borderRadius: "8px",
+												// }}
+												>
+													{s}
+												</p>
+											))}
 										</ListGroupItem>
 										<ListGroupItem>
-											<b>Contact Details:</b>
-											<ListGroup
+											<b>Email: </b>
+											<p>{d.email}</p>
+											{/* <ListGroup
 												style={{ marginTop: "3%", fontSize: "0.6rem" }}
 											>
 												<ListGroupItem>
@@ -253,7 +270,7 @@ function Doctors() {
 												<ListGroupItem>
 													<b>Email ID:</b> {d.email}
 												</ListGroupItem>
-											</ListGroup>
+											</ListGroup> */}
 										</ListGroupItem>
 									</ListGroup>
 								</Card.Body>

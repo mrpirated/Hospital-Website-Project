@@ -4,6 +4,7 @@
 @import "./styles/cardStyle.css";
 @import "./styles/meetingStyle.css";
 @import "./styles/loadingStyle.css";
+@import "./styles/listgroupStyle.css";
 :root {
 	--color1: #420516;
 	--color2: #7d1935;
@@ -21,6 +22,7 @@
 	--bgColor9: rgba(192, 238, 224, 0.3);
 	--bgColor10: rgb(161, 216, 199);
 	--bgColor11: rgb(158, 236, 213);
+	--bgColor12: rgb(189, 247, 229);
 	--boxShadow: rgba(187, 187, 187, 0.2);
 }
 html,
