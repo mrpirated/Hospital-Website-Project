@@ -9,6 +9,8 @@ import LoginInfo from "./LoginInfo";
 import ChangePhone from "./ChangePhone";
 import AppointmentTime from "./AppointmentTime";
 import VerifyEmail from "./VerifyEmail";
+import AddSpecialization from "./AddSpecialization";
+import AddQualification from "./AddQualification";
 function Profile() {
 	const auth = useSelector((state) => state.auth);
 	const alert = useSelector((state) => state.alert);
@@ -70,7 +72,7 @@ function Profile() {
 								<Nav
 									variant='pills'
 									className='flex-column'
-									style={{ position: "absolute" }}
+									style={{ position: "relative" }}
 								>
 									<Nav.Item>
 										<Nav.Link eventKey='profile'>Profile</Nav.Link>
@@ -88,6 +90,16 @@ function Profile() {
 									</Nav.Item>
 									<Nav.Item>
 										<Nav.Link eventKey='verifyEmail'>Verify Email</Nav.Link>
+									</Nav.Item>
+									<Nav.Item>
+										<Nav.Link eventKey='addSpecialization'>
+											Add Specialization
+										</Nav.Link>
+									</Nav.Item>
+									<Nav.Item>
+										<Nav.Link eventKey='addQualification'>
+											Add Qualification
+										</Nav.Link>
 									</Nav.Item>
 								</Nav>
 							</div>
@@ -112,6 +124,12 @@ function Profile() {
 									</Tab.Pane>
 									<Tab.Pane eventKey='verifyEmail'>
 										<VerifyEmail eventKey={eventKey} />
+									</Tab.Pane>
+									<Tab.Pane eventKey='addSpecialization'>
+										<AddSpecialization eventKey={eventKey} />
+									</Tab.Pane>
+									<Tab.Pane eventKey='addQualification'>
+										<AddQualification eventKey={eventKey} />
 									</Tab.Pane>
 								</Tab.Content>
 							</div>

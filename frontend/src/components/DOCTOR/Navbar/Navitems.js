@@ -1,9 +1,9 @@
 const Navitems = [
-	// {
-	// 	name: "Doctors",
-	// 	path: "doctors",
-	// 	url: "/doctor",
-	// },
+	{
+		name: "Doctors",
+		path: "doctors",
+		url: "/doctor",
+	},
 	{
 		name: "Appointment",
 		path: "appointment",

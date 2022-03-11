@@ -4,6 +4,8 @@ const initialState = {
 	error: "",
 	type: "",
 	user: {},
+	specialization: [],
+	qualification: [],
 	token: "",
 	updateUser: false,
 	isauth: false,
@@ -51,6 +53,12 @@ const slice = createSlice({
 		setPeer: (auth, action) => {
 			auth.peer = action.payload.peer;
 		},
+		setSpecialization: (auth, action) => {
+			auth.specialization = action.payload.specialization;
+		},
+		setQualification: (auth, action) => {
+			auth.qualification = action.payload.qualification;
+		},
 	},
 });
 
@@ -63,6 +71,8 @@ export const {
 	userUpdated,
 	setUpdateUser,
 	setPeer,
+	setSpecialization,
+	setQualification,
 } = slice.actions;
 
 export default slice.reducer;

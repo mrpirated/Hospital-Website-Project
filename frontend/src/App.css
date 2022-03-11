@@ -3,6 +3,8 @@
 @import "./styles/rowStyle.css";
 @import "./styles/cardStyle.css";
 @import "./styles/meetingStyle.css";
+@import "./styles/loadingStyle.css";
+@import "./styles/listgroupStyle.css";
 :root {
 	--color1: #420516;
 	--color2: #7d1935;
@@ -20,6 +22,7 @@
 	--bgColor9: rgba(192, 238, 224, 0.3);
 	--bgColor10: rgb(161, 216, 199);
 	--bgColor11: rgb(158, 236, 213);
+	--bgColor12: rgb(189, 247, 229);
 	--boxShadow: rgba(187, 187, 187, 0.2);
 }
 html,
@@ -158,7 +161,7 @@ html {
 	min-height: 300px;
 	padding: 50px 0;
 	width: 100%;
-	background-image: url(./components/PATIENT/Doctors/doctorColorizedBanner.png);
+	background-image: url(./images/doctorColorizedBanner.png);
 	background-repeat: no-repeat;
 	background-size: cover;
 }
@@ -319,6 +322,7 @@ html {
 .profile-left {
 	display: block;
 	width: 100%;
+	height: 100%;
 	text-align: center;
 	margin: 5%;
 	align-items: center;

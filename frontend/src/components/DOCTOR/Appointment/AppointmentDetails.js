@@ -6,7 +6,6 @@ import { Form, Button, Row, Col } from "react-bootstrap";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import TimePicker from "react-time-picker";
-import "./AppointmentDetails.css";
 
 export default function AppointmentDetails(props) {
 	const auth = useSelector((state) => state.auth);

@@ -12,6 +12,7 @@ function Calender() {
 				console.log(response.data);
 				for (let i = 0; i < response.data.appointments.length; i++) {
 					// console.log(response.data.appointments[i].id, response.data.appointments[i].Subject);
+					if (response.data.appointments[i].state === "cancelled") continue;
 					tmp.push({
 						Id: response.data.appointments[i].appointment_id,
 						Subject: response.data.appointments[i].doctor_name,
