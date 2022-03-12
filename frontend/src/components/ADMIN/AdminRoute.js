@@ -9,6 +9,8 @@ import SetAppointment from "./SetAppointment/SetAppointment";
 import Doctors from "./Doctors/Doctors";
 import AddDoctor from "./AddDoctor/AddDoctor";
 import Profile from "./Profile/Profile";
+import Home from "./Home/Home";
+import EditDoctor from "./EditDoctor/EditDoctor";
 export default function AdminRoute() {
 	const store = useStore();
 	const auth = store.getState().auth;
@@ -33,6 +35,8 @@ export default function AdminRoute() {
 				{/* <Route path='setappointment' element={<SetAppointment />} /> */}
 				<Route path='profile' element={<Profile />} />
 				<Route path='add-doctor' element={<AddDoctor />} />
+				<Route path='home' element={<Home />} />
+				<Route path='edit-doctor' element={<EditDoctor />} />
 			</Routes>
 		</div>
 	);
