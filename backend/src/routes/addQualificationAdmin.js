@@ -3,7 +3,7 @@ const router = Router();
 import dbg from "debug";
 const debug = dbg("api:addQualificationAdmin");
 import addQualificationAdminService from "../service/addQualificationAdminService";
-router.post("/addQualification", async (req, res) => {
+router.post("/addQualificationAdmin", async (req, res) => {
 	await addQualificationAdminService(req.headers.authorization, req.body)
 		.then((response) => {
 			//debug(response);

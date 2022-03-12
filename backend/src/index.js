@@ -41,6 +41,7 @@ import addQualification from "./routes/addQualification";
 import getQualification from "./routes/getQualification";
 import getProfilePicAdmin from "./routes/getProfilePicAdmin";
 import addQualificationAdmin from "./routes/addQualificationAdmin";
+import getDoctorQualificationAdmin from "./routes/getDoctorQualificationAdmin";
 import fs from "fs";
 import path from "path";
 import https from "https";
@@ -127,7 +128,8 @@ app.use(
 	addQualification,
 	getQualification,
 	getProfilePicAdmin,
-	addQualificationAdmin
+	addQualificationAdmin,
+	getDoctorQualificationAdmin
 );
 app.use("/", (req, res) => {
 	res.send("Server is Running");
