@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import { useNavigate } from "react-router";
 import { Navbar, Container, Nav } from "react-bootstrap";
 import { useStore } from "react-redux";
 import { loggedOut } from "../store/auth";
@@ -7,12 +7,13 @@ import { Link } from "react-router-dom";
 function Navigation(props) {
 	const store = useStore();
 	//console.log(store);
-
+	const navigate = useNavigate();
 	const [isauth, setisauth] = useState(store.getState().auth.isauth);
 	store.subscribe(() => setisauth(store.getState().auth.isauth));
 	const logout = () => {
-		sessionStorage.setItem("lastPage", "/home");
+		//sessionStorage.setItem("lastPage", "/home");
 		store.dispatch(loggedOut());
+		navigate("home");
 	};
 	const account_type = store.getState().auth.type;
 
@@ -22,6 +23,9 @@ function Navigation(props) {
 				<Container>
 					<Navbar.Brand
 						style={{ color: "#FFFFFF", fontWeight: "bold", fontSize: "2rem" }}
+						onClick={() => {
+							navigate("home");
+						}}
 					>
 						Ayurveda
 					</Navbar.Brand>
@@ -69,7 +73,7 @@ function Navigation(props) {
 							{isauth && (
 								<Nav.Link
 									style={{ color: "#FFFFFF" }}
-									href='/home'
+									// href='/home'
 									onClick={logout}
 								>
 									Logout

@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import Navigation from "../Navigation";
 import { useNavigate } from "react-router";
+import Doctors from "./Doctors/Doctors";
 function Home() {
 	const auth = useSelector((state) => state.auth);
 	const navigate = useNavigate();
@@ -21,7 +22,7 @@ function Home() {
 	return (
 		<div>
 			<Navigation />
-			Welcome Home
+			<Doctors />
 		</div>
 	);
 }
