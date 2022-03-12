@@ -8,7 +8,7 @@ const addSpecializationService = async (
 ) => {
 	return await checkToken(token)
 		.then((response) => {
-			if (response.success && response.data.decoded.type === "adminr") {
+			if (response.success && response.data.decoded.type === "admin") {
 				return response.data.decoded;
 			} else {
 				return Promise.reject({ success: false, message: "Not Authorized" });
