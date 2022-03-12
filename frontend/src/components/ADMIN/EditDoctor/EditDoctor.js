@@ -5,6 +5,7 @@ import { alertRemoved } from "../../../store/alert";
 import { Nav, Col, Row, Tab, Alert } from "react-bootstrap";
 import doctor_image from "../../../images/doctor.jpg";
 import { useLocation, useNavigate } from "react-router";
+import AddQualification from "./AddQualification";
 import { Navigate } from "react-router";
 function EditDoctor() {
 	const auth = useSelector((state) => state.auth);
@@ -103,6 +104,18 @@ function EditDoctor() {
 										</Nav.Link>
 									</Nav.Item>
 								</Nav>
+							</div>
+						</Col>
+						<Col sm={9}>
+							<div style={{ margin: "1%" }}>
+								<Tab.Content>
+									<Tab.Pane eventKey='addQualification'>
+										<AddQualification
+											eventKey={eventKey}
+											doctor_id={doctorDetails.doctor_id}
+										/>
+									</Tab.Pane>
+								</Tab.Content>
 							</div>
 						</Col>
 					</Row>
