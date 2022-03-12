@@ -1,8 +1,8 @@
 import dbg from "debug";
-const debug = dbg("service:getDoctorQualification");
-import checkToken from "../controllers/checkToken";
-import getDoctorQualification from "../data/getDoctorQualification";
-const getDoctorQualificationAdminService = async (token, { doctor_id }) => {
+const debug = dbg("service:admin/getDoctorQualification");
+import checkToken from "../../controllers/checkToken";
+import getDoctorQualification from "../../data/getDoctorQualification";
+const getDoctorQualificationService = async (token, { doctor_id }) => {
 	return await checkToken(token)
 		.then((response) => {
 			if (response.data.decoded.type !== "admin") {
@@ -18,4 +18,4 @@ const getDoctorQualificationAdminService = async (token, { doctor_id }) => {
 		});
 };
 
-export default getDoctorQualificationAdminService;
+export default getDoctorQualificationService;

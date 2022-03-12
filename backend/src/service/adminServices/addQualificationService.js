@@ -1,11 +1,8 @@
-import checkToken from "../controllers/checkToken";
+import checkToken from "../../controllers/checkToken";
 import dbg from "debug";
-const debug = dbg("service:addQualificationAdmin");
-import addDoctorQualification from "../data/addDoctorQualification";
-const addQualificationAdminService = async (
-	token,
-	{ qualification, doctor_id }
-) => {
+const debug = dbg("service:addQualification");
+import addDoctorQualification from "../../data/addDoctorQualification";
+const addQualificationService = async (token, { qualification, doctor_id }) => {
 	return await checkToken(token)
 		.then((response) => {
 			if (response.success && response.data.decoded.type === "admin") {
@@ -22,4 +19,4 @@ const addQualificationAdminService = async (
 			return error;
 		});
 };
-export default addQualificationAdminService;
+export default addQualificationService;
