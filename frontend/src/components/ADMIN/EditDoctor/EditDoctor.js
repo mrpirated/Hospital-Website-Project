@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import getProfilePicAPI from "../../../api/getProfilePicAPI";
+import getProfilePicAdminAPI from "../../../api/getProfilePicAdminAPI";
 import { useSelector, useDispatch } from "react-redux";
 import { alertRemoved } from "../../../store/alert";
 import { Nav, Col, Row, Tab, Alert } from "react-bootstrap";
@@ -15,9 +15,14 @@ function EditDoctor() {
 	const [eventKey, setEventKey] = useState("profile");
 	const location = useLocation();
 	const navigate = useNavigate();
+	const { doctorDetails } = location.state;
 	useEffect(() => {
-		getProfilePicAPI({ token: auth.token }).then((response) => {
+		getProfilePicAdminAPI({
+			token: auth.token,
+			doctor_id: doctorDetails.doctor_id,
+		}).then((response) => {
 			if (response.success) {
+				console.log(response);
 				setProfilePic(response.data.image.data);
 			}
 			setProfilePicChange(false);
@@ -26,11 +31,85 @@ function EditDoctor() {
 
 	// console.log(location);
 	// console.log(doctorDetails);
-	if (location.state === null || !location.state.doctorDetails) {
-		return <Navigate to='/admin/home' />;
-	}
-	const { doctorDetails } = location.state;
-	return <div>EditDoctor</div>;
+	// if (location.state === null || !location.state.doctorDetails) {
+	// 	return <Navigate to='/admin/home' />;
+	// }
+
+	return (
+		<div>
+			<div
+				className='profile'
+				onClick={() => {
+					dispatch(alertRemoved());
+				}}
+			>
+				<div style={{ textAlign: "center", padding: "20px" }}>
+					<h1>Doctor Profile</h1>
+					<Alert show={alert.show} variant={alert.variant}>
+						{alert.message}
+					</Alert>
+				</div>
+				<Tab.Container
+					id='left-tabs-example'
+					activeKey={eventKey}
+					onSelect={(k) => setEventKey(k)}
+				>
+					<Row style={{ flexDirection: "row" }}>
+						<Col sm={3}>
+							<div className='profile-left'>
+								<img
+									src={
+										profilePic
+											? `data:image/jpeg;base64,${new Buffer.from(
+													profilePic
+											  ).toString("base64")}`
+											: doctor_image
+									}
+									position='relative'
+									width='100%'
+									alt='profile_pic'
+								/>
+
+								<div style={{ margin: "5% 0", fontSize: "1.3rem" }}>
+									<b>
+										{auth.user.first_name} {auth.user.last_name}
+									</b>
+								</div>
+
+								<Nav
+									variant='pills'
+									className='flex-column'
+									style={{ position: "relative" }}
+								>
+									<Nav.Item>
+										<Nav.Link eventKey='profile'>Profile</Nav.Link>
+									</Nav.Item>
+									<Nav.Item>
+										<Nav.Link eventKey='changePhone'>Change Phone No.</Nav.Link>
+									</Nav.Item>
+									<Nav.Item>
+										<Nav.Link eventKey='appointmentTime'>
+											Appointment Time
+										</Nav.Link>
+									</Nav.Item>
+									<Nav.Item>
+										<Nav.Link eventKey='addSpecialization'>
+											Add Specialization
+										</Nav.Link>
+									</Nav.Item>
+									<Nav.Item>
+										<Nav.Link eventKey='addQualification'>
+											Add Qualification
+										</Nav.Link>
+									</Nav.Item>
+								</Nav>
+							</div>
+						</Col>
+					</Row>
+				</Tab.Container>
+			</div>
+		</div>
+	);
 }
 
 export default EditDoctor;

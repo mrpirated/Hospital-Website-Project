@@ -53,5 +53,6 @@ const config = {
 	addQualification: "/api/addQualification",
 	getDoctorQualification: "/api/getDoctorQualification",
 	getQualification: "/api/getQualification",
+	getProfilePicAdmin: "/api/getProfilePicAdmin",
 };
 export default config;
