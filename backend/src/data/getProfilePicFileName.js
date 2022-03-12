@@ -15,6 +15,7 @@ const getProfilePicFileName = (type, user_id) => {
 						debug(err);
 						reject({ success: false, message: err });
 					} else {
+						debug(result);
 						resolve({
 							success: true,
 							message: "Name Found Successfully",
