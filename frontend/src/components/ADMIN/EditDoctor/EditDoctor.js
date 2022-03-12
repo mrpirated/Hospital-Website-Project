@@ -6,6 +6,7 @@ import { Nav, Col, Row, Tab, Alert } from "react-bootstrap";
 import doctor_image from "../../../images/doctor.jpg";
 import { useLocation, useNavigate } from "react-router";
 import AddQualification from "./AddQualification";
+import AddSpecialization from "./AddSpecialization";
 import { Navigate } from "react-router";
 function EditDoctor() {
 	const auth = useSelector((state) => state.auth);
@@ -111,6 +112,12 @@ function EditDoctor() {
 								<Tab.Content>
 									<Tab.Pane eventKey='addQualification'>
 										<AddQualification
+											eventKey={eventKey}
+											doctor_id={doctorDetails.doctor_id}
+										/>
+									</Tab.Pane>
+									<Tab.Pane eventKey='addSpecialization'>
+										<AddSpecialization
 											eventKey={eventKey}
 											doctor_id={doctorDetails.doctor_id}
 										/>
