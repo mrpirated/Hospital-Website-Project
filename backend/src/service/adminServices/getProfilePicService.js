@@ -1,9 +1,9 @@
 import dbg from "debug";
-const debug = dbg("service:getProfilePicAdmin");
-import checkToken from "../controllers/checkToken";
-import getProfilePicFileName from "../data/getProfilePicFileName";
-import getProfilePic from "../controllers/getProfilePic";
-const getProfilePicAdminSevice = async (token, { doctor_id }) => {
+const debug = dbg("service:admin/getProfilePic");
+import checkToken from "../../controllers/checkToken";
+import getProfilePicFileName from "../../data/getProfilePicFileName";
+import getProfilePic from "../../controllers/getProfilePic";
+const getProfilePicSevice = async (token, { doctor_id }) => {
 	return await checkToken(token)
 		.then((response) => {
 			if (response.data.decoded.type !== "admin") {
@@ -19,4 +19,4 @@ const getProfilePicAdminSevice = async (token, { doctor_id }) => {
 			return err;
 		});
 };
-export default getProfilePicAdminSevice;
+export default getProfilePicSevice;

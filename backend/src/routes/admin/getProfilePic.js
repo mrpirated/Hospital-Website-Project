@@ -1,11 +1,11 @@
 import { Router } from "express";
 const router = Router();
 import dbg from "debug";
-const debug = dbg("api:getProfilePicAdmin");
-import getProfilePicAdminService from "../service/getProfilePicAdminService";
-router.get("/getProfilePicAdmin", async (req, res) => {
+const debug = dbg("api:admin/getProfilePicAdmin");
+import getProfilePicService from "../../service/adminServices/getProfilePicService";
+router.get("/getProfilePic", async (req, res) => {
 	debug(req.query);
-	await getProfilePicAdminService(req.headers.authorization, req.query)
+	await getProfilePicService(req.headers.authorization, req.query)
 		.then((response) => {
 			res.send(response);
 		})

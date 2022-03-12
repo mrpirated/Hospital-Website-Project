@@ -1,4 +1,5 @@
 import mergeAvailability from "../mergeAvailability";
+import divideAvailability from "../divideAvailability";
 import { removePatientTime } from "../getAppointmentTime";
 const randomschedule = () => {
 	var n = Math.floor(Math.random() * 100 + 1);
@@ -49,12 +50,38 @@ const checkfunc = (sch1, sch2) => {
 	}
 	return true;
 };
-test("testing remove patient time", () => {
-	var sch1 = randomschedule();
-	var sch2 = randomschedule();
-	console.log(sch1);
-	console.log(sch2);
-	sch1 = removePatientTime(sch1, sch2);
-	console.log(sch1);
-	expect(checkfunc(sch1, sch2)).toBe(true);
+// test("testing remove patient time", () => {
+// 	var sch1 = randomschedule();
+// 	var sch2 = randomschedule();
+// 	console.log(sch1);
+// 	console.log(sch2);
+// 	sch1 = removePatientTime(sch1, sch2);
+// 	console.log(sch1);
+// 	expect(checkfunc(sch1, sch2)).toBe(true);
+// });
+const checkfunc2 = (sch1, sch2) => {
+	var i = 0,
+		j = 0;
+	while (i < sch1.length && j < sch2.length) {
+		if (sch1.start_time >= sch2.start_time && sch1.start_time < sch2.end_time)
+			return false;
+		if (sch1.end_time <= sch2.end_time && sch1.end_time > sch2.start_time)
+			return false;
+		if (sch1.start_time < sch2.start_time) i++;
+		else j++;
+	}
+	return true;
+};
+test("no overlapping", () => {
+	var st = Math.floor(Math.random() * 1000 + 1);
+	var et = Math.floor(Math.random() * 1000 + 1);
+	var sch = randomschedule();
+	console.log(st);
+	console.log(et);
+	console.log(sch);
+
+	divideAvailability(sch, st, et).then((response) => {
+		console.log(response.data.slotsadd);
+		expect(checkfunc2(response.data.slotsadd, sch)).toBe(true);
+	});
 });

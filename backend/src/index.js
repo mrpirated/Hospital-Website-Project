@@ -4,7 +4,6 @@ import socketServer from "./socket/server";
 import admin from "./routes/admin/admin";
 import patient from "./routes/patient/patient";
 import doctor from "./routes/doctor/doctor";
-import zoommeeting from "./routes/admin/zoommeeting";
 import login from "./routes/login";
 import signup from "./routes/signup";
 import setAvailability from "./routes/setAvailability";
@@ -39,7 +38,6 @@ import getDoctorQualification from "./routes/getDoctorQualification";
 import removeDoctorQualification from "./routes/removeDoctorQualification";
 import addQualification from "./routes/addQualification";
 import getQualification from "./routes/getQualification";
-import getProfilePicAdmin from "./routes/getProfilePicAdmin";
 import fs from "fs";
 import path from "path";
 import https from "https";
@@ -91,7 +89,6 @@ app.use(
 	doctor,
 	admin,
 	token,
-	zoommeeting,
 	login,
 	signup,
 	setAvailability,
@@ -124,8 +121,7 @@ app.use(
 	getDoctorQualification,
 	removeDoctorQualification,
 	addQualification,
-	getQualification,
-	getProfilePicAdmin
+	getQualification
 );
 app.use("/", (req, res) => {
 	res.send("Server is Running");
