@@ -12,6 +12,10 @@ const pool = mysql.createPool({
 	connectionLimit: 10,
 });
 debug("mysql pool created");
+pool.on("connection", function (connection) {
+	//connection.query("SET SESSION auto_increment_increment=1");
+	debug("database pool connected");
+});
 pool.on("enqueue", function () {
 	debug("Waiting for available connection slot");
 });
