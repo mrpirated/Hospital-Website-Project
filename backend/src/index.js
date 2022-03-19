@@ -33,7 +33,7 @@ import rescheduleAppointment from "./routes/rescheduleAppointment";
 import verifyEmail from "./routes/verifyEmail";
 import updateEmail from "./routes/updateEmail";
 import getDoctorSpecialization from "./routes/getDoctorSpecialization";
-import removeDoctorSpecialization from "./routes/removeDoctorSpecializaion";
+import removeDoctorSpecialization from "./routes/removeDoctorSpecialization";
 import getDoctorQualification from "./routes/getDoctorQualification";
 import removeDoctorQualification from "./routes/removeDoctorQualification";
 import addQualification from "./routes/addQualification";

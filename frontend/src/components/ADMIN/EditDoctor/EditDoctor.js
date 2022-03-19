@@ -7,6 +7,7 @@ import doctor_image from "../../../images/doctor.jpg";
 import { useLocation, useNavigate } from "react-router";
 import AddQualification from "./AddQualification";
 import AppointmentTime from "./AppointmentTime";
+import AddSpecialization from "./AddSpecialization";
 import { Navigate } from "react-router";
 function EditDoctor() {
 	const auth = useSelector((state) => state.auth);
@@ -118,6 +119,12 @@ function EditDoctor() {
 									</Tab.Pane>
 									<Tab.Pane eventKey='appointmentTime'>
 										<AppointmentTime
+											eventKey={eventKey}
+											doctor_id={doctorDetails.doctor_id}
+										/>
+									</Tab.Pane>
+									<Tab.Pane eventKey='addSpecialization'>
+										<AddSpecialization
 											eventKey={eventKey}
 											doctor_id={doctorDetails.doctor_id}
 										/>
