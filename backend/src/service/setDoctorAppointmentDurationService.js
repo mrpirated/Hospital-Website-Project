@@ -1,5 +1,5 @@
 import dbg from "debug";
-const debug = dbg("service:setAvailability");
+const debug = dbg("service:setDoctorAppointmentDuration");
 import checkToken from "../controllers/checkToken";
 import setDoctorAppointmentDuration from "../data/setDoctorAppointmentDuration";
 const setDoctorAppointmentDurationService = async (token, { duration }) => {
