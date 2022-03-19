@@ -16,11 +16,13 @@ const getDoctorDuration = (user_id) => {
 						reject({ success: false, message: err });
 					} else {
 						//debug(result);
-						resolve({
-							success: true,
-							message: "Duration Found",
-							data: { duration: result[0].appointment_duration },
-						});
+						if (result.length > 0) {
+							resolve({
+								success: true,
+								message: "Duration Found",
+								data: { duration: result[0].appointment_duration },
+							});
+						} else reject({ success: false, message: "doctor not found" });
 					}
 				}
 			);
