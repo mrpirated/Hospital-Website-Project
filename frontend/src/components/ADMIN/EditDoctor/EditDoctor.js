@@ -75,7 +75,7 @@ function EditDoctor() {
 
 								<div style={{ margin: "5% 0", fontSize: "1.3rem" }}>
 									<b>
-										{auth.user.first_name} {auth.user.last_name}
+										{doctorDetails.first_name} {doctorDetails.last_name}
 									</b>
 								</div>
 
