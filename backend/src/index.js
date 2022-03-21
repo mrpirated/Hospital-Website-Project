@@ -38,6 +38,7 @@ import getDoctorQualification from "./routes/getDoctorQualification";
 import removeDoctorQualification from "./routes/removeDoctorQualification";
 import addQualification from "./routes/addQualification";
 import getQualification from "./routes/getQualification";
+import getDoctorDaySlots from "./routes/getDoctorDaySlots";
 import fs from "fs";
 import path from "path";
 import https from "https";
@@ -121,7 +122,8 @@ app.use(
 	getDoctorQualification,
 	removeDoctorQualification,
 	addQualification,
-	getQualification
+	getQualification,
+	getDoctorDaySlots
 );
 app.use("/", (req, res) => {
 	res.send("Server is Running");
