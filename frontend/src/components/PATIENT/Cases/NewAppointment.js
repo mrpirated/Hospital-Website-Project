@@ -20,18 +20,19 @@ import {
 	MuiPickersUtilsProvider,
 } from "@material-ui/pickers";
 import getDoctorsAPI from "../../../api/getDoctorsAPI";
-
+import getDoctorDaySlotsAPI from "../../../api/getDoctorDaySlotsAPI";
 export default function NewAppointment() {
 	const auth = useSelector((state) => state.auth);
 	const alert = useSelector((state) => state.alert);
 	const navigate = useNavigate();
 	const location = useLocation();
 	const { case_details } = location.state;
-
+	const [slots, setSlots] = useState([]);
 	const [dateOfAppointment, setDateOfAppointment] = useState(new Date());
 	const [doctorId, setDoctorId] = useState(undefined);
 	const [selectedDoctor, setSelectedDoctor] = useState("SELECT DOCTOR");
 	const [doctorDetails, setDoctorDetails] = useState([]);
+	const [selectedSlot, setSelectedSlot] = useState();
 	const dispatch = useDispatch();
 	useEffect(() => {
 		dispatch(setLoading({ loading: true }));
@@ -48,7 +49,18 @@ export default function NewAppointment() {
 				dispatch(setLoading({ loading: false }));
 			});
 	}, [auth.isauth]);
-
+	useEffect(() => {
+		getDoctorDaySlotsAPI({
+			token: auth.token,
+			doctor_id: doctorId,
+			date: moment(dateOfAppointment).format("YYYY-MM-DD"),
+		}).then((response) => {
+			console.log(response);
+			if (response.success) {
+				setSlots(response.data.slots);
+			}
+		});
+	}, [auth.isauth, doctorId, dateOfAppointment]);
 	function handleSubmit(event) {
 		event.preventDefault();
 		// const start_time =
@@ -96,15 +108,6 @@ export default function NewAppointment() {
 				</Alert>
 				<h3 className='FormHeading'>Enter Details For Appointment</h3>
 				<Form onSubmit={handleSubmit}>
-					<Form.Group className='mb-3' controlId='exampleForm.ControlInput1'>
-						<Form.Label>Case ID</Form.Label>
-						<Form.Control
-							type='text'
-							value={case_details.case_id}
-							disabled={true}
-						/>
-					</Form.Group>
-
 					<Form.Group className='mb-3' controlId='exampleForm.ControlTextarea1'>
 						<Form.Label>Select Doctor</Form.Label>
 						<DropdownButton
@@ -143,7 +146,7 @@ export default function NewAppointment() {
 								value={dateOfAppointment}
 								onChange={(date) => setDateOfAppointment(date)}
 								InputAdornmentProps={{ position: "start" }}
-								minDate={new Date()}
+								// minDate={new Date()}
 							/>
 						</MuiPickersUtilsProvider>
 						{/* <ReactDatePicker
@@ -152,6 +155,19 @@ export default function NewAppointment() {
 							minDate={new Date()}
 						/> */}
 					</Form.Group>
+					{slots.map((s) => (
+						<Form.Check
+							inline
+							label={moment(s.start_time).format("hh:mm A")}
+							type='radio'
+							checked={selectedSlot == s.slot_id ? true : false}
+							id={s.slot_id}
+							onChange={() => {
+								console.log(s.slot_id);
+								setSelectedSlot(s.slot_id);
+							}}
+						/>
+					))}
 					<div className='text-center' style={{ paddingTop: "2rem" }}>
 						<Button
 							variant='outline-dark'

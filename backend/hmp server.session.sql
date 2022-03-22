@@ -1,6 +1,2 @@
-SELECT slot_id,
-    start_time,
-    end_time
-FROM slots
-WHERE doctor_id = 1
-    AND DATE(start_time) = DATE("2022-03-15");
+ALTER TABLE slots
+ADD FOREIGN KEY (appointment_id) REFERENCES appointment (appointment_id)

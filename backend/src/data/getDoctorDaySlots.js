@@ -11,7 +11,9 @@ const getDoctorDaySlots = (doctor_id, date) => {
 			connection.query(
 				"SELECT slot_id,\
                 start_time,\
-                end_time FROM slots WHERE doctor_id=? AND DATE(start_time) = ?",
+                end_time,\
+                appointment_id\
+                FROM slots WHERE doctor_id=? AND DATE(start_time) = ?",
 				[doctor_id, date],
 				(err, result) => {
 					if (err) {

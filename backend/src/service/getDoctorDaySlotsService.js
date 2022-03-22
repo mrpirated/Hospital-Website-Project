@@ -3,6 +3,8 @@ const debug = dbg("service:getDoctorDaySlots");
 import checkToken from "../controllers/checkToken";
 import getDoctorDaySlots from "../data/getDoctorDaySlots";
 const getDoctorDaySlotsService = async (token, { doctor_id, date }) => {
+	debug(doctor_id);
+	debug(date);
 	return await checkToken(token)
 		.then((response) => {
 			// if (response.data.decoded.type !== "patient") {
