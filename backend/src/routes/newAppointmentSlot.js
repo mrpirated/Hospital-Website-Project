@@ -4,7 +4,7 @@ import dbg from "debug";
 const debug = dbg("api:newAppointmentSlot");
 import newAppointmentSlotService from "../service/newAppointmentSlotService";
 router.post("/newAppointmentSlot", async (req, res) => {
-	await newAppointmentService(req.headers.authorization, req.body)
+	await newAppointmentSlotService(req.headers.authorization, req.body)
 		.then((response) => {
 			//debug(response);
 			res.send(response);

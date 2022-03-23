@@ -17,6 +17,7 @@ const newAppointmentSlotService = async (
 	{ doctor_id, slot_id, preferred_date, case_id }
 ) => {
 	var pd = preferred_date;
+	var appointment_id;
 	if (pd == null || moment(pd) < moment()) {
 		pd = moment().add(5, "minutes").format("YYYY-MM-DD HH:mm");
 	}
@@ -39,11 +40,12 @@ const newAppointmentSlotService = async (
 			return insertNewAppointment(case_id, preferred_date, doctor_id);
 		})
 		.then((response) => {
+			appointment_id = response.data.appointment_id;
 			return setAppointmentSlot(slot_id, response.data.appointment_id);
 		})
 		.then((response) => {
 			resp = response;
-			return getAppointmentUsers(response.data.appointment_id);
+			return getAppointmentUsers(appointment_id);
 		})
 		.then((response) => {
 			appointment_details = response.data.appointment_details;

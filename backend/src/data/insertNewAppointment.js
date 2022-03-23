@@ -15,7 +15,7 @@ const insertNewAppointment = (case_id, preferred_date, doctor_id) => {
 				end_time: null,
 				preferred_date: preferred_date,
 				doctor_id: doctor_id,
-				state: "pending",
+				state: "scheduled",
 			};
 			connection.query(
 				"INSERT INTO appointment SET ?",

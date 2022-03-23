@@ -16,14 +16,15 @@ const getAppointmentUsers = (appointment_id) => {
                 p.patient_id,\
                 c.case_description,\
                 a.state,\
-                a.start_time,\
-                a.end_time,\
+                s.start_time,\
+                s.end_time,\
 				a.preferred_date\
                 FROM\
                 appointment a\
                 JOIN doctor d ON d.doctor_id = a.doctor_id\
                 JOIN cases c ON c.case_id = a.case_id\
                 JOIN patient p ON p.patient_id = c.patient_id\
+				JOIN slots s ON s.appointment_id=a.appointment_id\
                 WHERE\
                 a.appointment_id = ?\
                 ',
