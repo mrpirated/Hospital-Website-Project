@@ -54,5 +54,6 @@ const config = {
 	getDoctorQualification: "/getDoctorQualification",
 	getQualification: "/getQualification",
 	getDoctorDaySlots: "/getDoctorDaySlots",
+	newAppointmentSlot: "/newAppointmentSlot",
 };
 export default config;
