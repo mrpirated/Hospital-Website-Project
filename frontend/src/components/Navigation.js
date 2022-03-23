@@ -58,7 +58,7 @@ function Navigation(props) {
 							)}
 							{!isauth && (
 								<Nav.Link style={{ color: "#FFFFFF" }} as={Link} to='/signup'>
-									Signup
+									Register
 								</Nav.Link>
 							)}
 							{isauth && (

@@ -113,7 +113,7 @@ function Signup(props) {
 				<div id='left-signup'>
 					<Form onSubmit={handleSubmit} className='signup'>
 						<div>
-							<h2 id='headerTitle'>Signup</h2>
+							<h2 id='headerTitle'>Register</h2>
 							<Alert show={alert.show} variant={alert.variant}>
 								{alert.message}
 							</Alert>
