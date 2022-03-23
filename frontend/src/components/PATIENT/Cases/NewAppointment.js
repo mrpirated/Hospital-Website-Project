@@ -155,19 +155,21 @@ export default function NewAppointment() {
 							minDate={new Date()}
 						/> */}
 					</Form.Group>
-					{slots.map((s) => (
-						<Form.Check
-							inline
-							label={moment(s.start_time).format("hh:mm A")}
-							type='radio'
-							checked={selectedSlot == s.slot_id ? true : false}
-							id={s.slot_id}
-							onChange={() => {
-								console.log(s.slot_id);
-								setSelectedSlot(s.slot_id);
-							}}
-						/>
-					))}
+					{slots.length > 0
+						? slots.map((s) => (
+								<Form.Check
+									inline
+									label={moment(s.start_time).format("hh:mm A")}
+									type='radio'
+									checked={selectedSlot == s.slot_id ? true : false}
+									id={s.slot_id}
+									onChange={() => {
+										console.log(s.slot_id);
+										setSelectedSlot(s.slot_id);
+									}}
+								/>
+						  ))
+						: "No slots Available"}
 					<div className='text-center' style={{ paddingTop: "2rem" }}>
 						<Button
 							variant='outline-dark'
