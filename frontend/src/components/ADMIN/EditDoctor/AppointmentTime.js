@@ -51,7 +51,7 @@ function AppointmentTime(props) {
 		<div>
 			<Form onSubmit={handleSubmit}>
 				<div className='row'>
-					<label>Appointment Time</label>
+					<h2 id='headerTitle'>Appointment Time</h2>
 					Enter Duration in minutes
 					<input
 						type='number'

@@ -91,7 +91,7 @@ function AddQualification(props) {
 	}, [selSpec]);
 	return (
 		<div>
-			<h2>Add Qualification</h2>
+			<h2 id='headerTitle'>Add Qualification</h2>
 			{selSpec == 0 ? (
 				<input
 					type='text'

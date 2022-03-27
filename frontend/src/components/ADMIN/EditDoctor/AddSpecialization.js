@@ -84,7 +84,7 @@ function AddSpecialization(props) {
 
 	return (
 		<div>
-			<h2>Add Specialization</h2>
+			<h2 id='headerTitle'>Add Specialization</h2>
 			{selSpec == 0 ? (
 				<input
 					type='text'
