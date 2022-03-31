@@ -8,6 +8,7 @@ import { useLocation, useNavigate } from "react-router";
 import AddQualification from "./AddQualification";
 import AppointmentTime from "./AppointmentTime";
 import AddSpecialization from "./AddSpecialization";
+import AddAvailability from "./AddAvailability";
 import { Navigate } from "react-router";
 function EditDoctor() {
 	const auth = useSelector((state) => state.auth);
@@ -105,6 +106,11 @@ function EditDoctor() {
 											Add Qualification
 										</Nav.Link>
 									</Nav.Item>
+									<Nav.Item>
+										<Nav.Link eventKey='addAvailability'>
+											Add Availability
+										</Nav.Link>
+									</Nav.Item>
 								</Nav>
 							</div>
 						</Col>
@@ -125,6 +131,12 @@ function EditDoctor() {
 									</Tab.Pane>
 									<Tab.Pane eventKey='addSpecialization'>
 										<AddSpecialization
+											eventKey={eventKey}
+											doctor_id={doctorDetails.doctor_id}
+										/>
+									</Tab.Pane>
+									<Tab.Pane eventKey='addAvailability'>
+										<AddAvailability
 											eventKey={eventKey}
 											doctor_id={doctorDetails.doctor_id}
 										/>
