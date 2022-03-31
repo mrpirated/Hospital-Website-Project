@@ -38,7 +38,7 @@ export default function PatientRoute() {
 				<Route path='availability' element={<Availability />} />
 				<Route path='profile' element={<Profile />} />
 				<Route path='rooms' element={<Rooms />} />
-				<Route path='meeting' element={<Meeting />} />
+				{/* <Route path='meeting' element={<Meeting />} /> */}
 				{/* <Route path='doctors' element={Doctors} /> */}
 			</Routes>
 		</div>

@@ -70,16 +70,16 @@ function ProfileInfo(props) {
 			.finally(() => {
 				dispatch(setLoading({ loading: false }));
 			});
-		if (profilepic) {
-			var formdata = new FormData();
-			formdata.append("avatar", profilepic);
-			uploadProfilePicAPI({ token: auth.token, formdata: formdata }).then(
-				(res) => {
-					console.log(res.message);
-					props.setProfilePicChange(true);
-				}
-			);
-		}
+		// if (profilepic) {
+		// 	var formdata = new FormData();
+		// 	formdata.append("avatar", profilepic);
+		// 	uploadProfilePicAPI({ token: auth.token, formdata: formdata }).then(
+		// 		(res) => {
+		// 			console.log(res.message);
+		// 			props.setProfilePicChange(true);
+		// 		}
+		// 	);
+		// }
 	};
 	const handleFileInput = (e) => {
 		setProfilepic(e.target.files[0]);
@@ -91,10 +91,10 @@ function ProfileInfo(props) {
 					<h3 id='headerTitle'>Personal Information</h3>
 
 					<div style={{ width: "100%", overflow: "hidden" }}>
-						<div className='row'>
+						{/* <div className='row'>
 							<label>Change Profile Pic</label>
 							<input type='file' onChange={handleFileInput} />
-						</div>
+						</div> */}
 						<div className='row' style={{ width: "50%", float: "left" }}>
 							<label>First Name</label>
 							<input

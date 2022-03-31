@@ -80,18 +80,18 @@ function Profile() {
 									<Nav.Item>
 										<Nav.Link eventKey='login'>Login</Nav.Link>
 									</Nav.Item>
-									<Nav.Item>
+									{/* <Nav.Item>
 										<Nav.Link eventKey='changePhone'>Change Phone No.</Nav.Link>
 									</Nav.Item>
 									<Nav.Item>
 										<Nav.Link eventKey='appointmentTime'>
 											Appointment Time
 										</Nav.Link>
-									</Nav.Item>
+									</Nav.Item> */}
 									<Nav.Item>
 										<Nav.Link eventKey='verifyEmail'>Verify Email</Nav.Link>
 									</Nav.Item>
-									<Nav.Item>
+									{/* <Nav.Item>
 										<Nav.Link eventKey='addSpecialization'>
 											Add Specialization
 										</Nav.Link>
@@ -100,7 +100,7 @@ function Profile() {
 										<Nav.Link eventKey='addQualification'>
 											Add Qualification
 										</Nav.Link>
-									</Nav.Item>
+									</Nav.Item> */}
 								</Nav>
 							</div>
 						</Col>
@@ -116,21 +116,21 @@ function Profile() {
 									<Tab.Pane eventKey='login'>
 										<LoginInfo />
 									</Tab.Pane>
-									<Tab.Pane eventKey='changePhone'>
+									{/* <Tab.Pane eventKey='changePhone'>
 										<ChangePhone />
 									</Tab.Pane>
 									<Tab.Pane eventKey='appointmentTime'>
 										<AppointmentTime />
-									</Tab.Pane>
+									</Tab.Pane> */}
 									<Tab.Pane eventKey='verifyEmail'>
 										<VerifyEmail eventKey={eventKey} />
 									</Tab.Pane>
-									<Tab.Pane eventKey='addSpecialization'>
+									{/* <Tab.Pane eventKey='addSpecialization'>
 										<AddSpecialization eventKey={eventKey} />
 									</Tab.Pane>
 									<Tab.Pane eventKey='addQualification'>
 										<AddQualification eventKey={eventKey} />
-									</Tab.Pane>
+									</Tab.Pane> */}
 								</Tab.Content>
 							</div>
 						</Col>
