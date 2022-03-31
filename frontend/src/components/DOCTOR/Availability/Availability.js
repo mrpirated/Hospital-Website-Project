@@ -132,7 +132,7 @@ function Availability() {
 				<Alert show={alert.show} variant={alert.variant}>
 					{alert.message}
 				</Alert>
-				<div className='text-center' style={{ paddingTop: "2rem" }}>
+				{/* <div className='text-center' style={{ paddingTop: "2rem" }}>
 					<Button
 						variant='outline-dark'
 						size='sm'
@@ -143,7 +143,7 @@ function Availability() {
 					>
 						Give Availability
 					</Button>
-				</div>
+				</div> */}
 				<div>
 					<SchedulerComponent localData={calData} onPopupOpen={onPopupOpen} />
 				</div>
