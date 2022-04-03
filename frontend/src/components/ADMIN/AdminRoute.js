@@ -11,6 +11,7 @@ import AddDoctor from "./AddDoctor/AddDoctor";
 import Profile from "./Profile/Profile";
 import Home from "./Home/Home";
 import EditDoctor from "./EditDoctor/EditDoctor";
+import Patients from "./Patients/Patients";
 export default function AdminRoute() {
 	const store = useStore();
 	const auth = store.getState().auth;
@@ -37,6 +38,7 @@ export default function AdminRoute() {
 				<Route path='add-doctor' element={<AddDoctor />} />
 				<Route path='home' element={<Home />} />
 				<Route path='edit-doctor' element={<EditDoctor />} />
+				<Route path='patients' element={<Patients />} />
 			</Routes>
 		</div>
 	);

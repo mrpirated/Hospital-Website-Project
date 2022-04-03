@@ -14,5 +14,10 @@ const Navitems = [
 		path: "add-doctor",
 		url: "/admin",
 	},
+	{
+		name: "Patients",
+		path: "patients",
+		url: "/admin",
+	},
 ];
 export default Navitems;
