@@ -26,13 +26,10 @@ router.use(
 	addSpecialization,
 	getDoctorSpecialization,
 	removeDoctorSpecialization,
-<<<<<<< HEAD
-	getPatients
-=======
+	getPatients,
 	profilePicUpload,
 	getAllDoctorInfo,
 	addUserDetails
->>>>>>> mrpirated/issue102
 );
 
 export default router;
