@@ -10,6 +10,7 @@ import getDoctorAppointmentDuration from "./getDoctorAppointmentDuration";
 import addSpecialization from "./addSpecialization";
 import getDoctorSpecialization from "./getDoctorSpecialization";
 import removeDoctorSpecialization from "./removeDoctorSpecialization";
+import getPatients from "./getPatients";
 router.use(
 	"/admin",
 	getProfilePic,
@@ -21,7 +22,8 @@ router.use(
 	getDoctorAppointmentDuration,
 	addSpecialization,
 	getDoctorSpecialization,
-	removeDoctorSpecialization
+	removeDoctorSpecialization,
+	getPatients
 );
 
 export default router;
