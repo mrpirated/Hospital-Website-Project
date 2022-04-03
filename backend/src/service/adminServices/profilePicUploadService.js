@@ -13,7 +13,7 @@ const profilePicUploadService = async (req, res) => {
 				//debug(response);
 				type = response.data.decoded.type;
 				//debug(req.headers);
-				user_id = req.headers.user_id;
+				user_id = req.headers.doctor_id;
 				if (type !== "admin") {
 					return Promise.reject({
 						success: false,

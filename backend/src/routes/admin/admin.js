@@ -11,6 +11,8 @@ import addSpecialization from "./addSpecialization";
 import getDoctorSpecialization from "./getDoctorSpecialization";
 import removeDoctorSpecialization from "./removeDoctorSpecialization";
 import profilePicUpload from "./profilePicUpload";
+import getAllDoctorInfo from "./getAllDoctorInfo";
+import addUserDetails from "./addUserDetails";
 router.use(
 	"/admin",
 	getProfilePic,
@@ -23,7 +25,9 @@ router.use(
 	addSpecialization,
 	getDoctorSpecialization,
 	removeDoctorSpecialization,
-	profilePicUpload
+	profilePicUpload,
+	getAllDoctorInfo,
+	addUserDetails
 );
 
 export default router;
