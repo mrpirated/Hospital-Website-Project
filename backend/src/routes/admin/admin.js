@@ -11,6 +11,9 @@ import addSpecialization from "./addSpecialization";
 import getDoctorSpecialization from "./getDoctorSpecialization";
 import removeDoctorSpecialization from "./removeDoctorSpecialization";
 import getPatients from "./getPatients";
+import profilePicUpload from "./profilePicUpload";
+import getAllDoctorInfo from "./getAllDoctorInfo";
+import addUserDetails from "./addUserDetails";
 router.use(
 	"/admin",
 	getProfilePic,
@@ -23,7 +26,13 @@ router.use(
 	addSpecialization,
 	getDoctorSpecialization,
 	removeDoctorSpecialization,
+<<<<<<< HEAD
 	getPatients
+=======
+	profilePicUpload,
+	getAllDoctorInfo,
+	addUserDetails
+>>>>>>> mrpirated/issue102
 );
 
 export default router;
