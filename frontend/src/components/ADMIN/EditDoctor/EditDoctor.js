@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import getProfilePicAdminAPI from "../../../api/getProfilePicAdminAPI";
+import getProfilePicAPI from "../../../api/adminAPI/getProfilePicAPI";
 import { useSelector, useDispatch } from "react-redux";
 import { alertRemoved } from "../../../store/alert";
 import { Nav, Col, Row, Tab, Alert } from "react-bootstrap";
@@ -9,6 +9,7 @@ import AddQualification from "./AddQualification";
 import AppointmentTime from "./AppointmentTime";
 import AddSpecialization from "./AddSpecialization";
 import AddAvailability from "./AddAvailability";
+import Profile from "./Profile";
 import { Navigate } from "react-router";
 function EditDoctor() {
 	const auth = useSelector((state) => state.auth);
@@ -21,7 +22,7 @@ function EditDoctor() {
 	const navigate = useNavigate();
 	const { doctorDetails } = location.state;
 	useEffect(() => {
-		getProfilePicAdminAPI({
+		getProfilePicAPI({
 			token: auth.token,
 			doctor_id: doctorDetails.doctor_id,
 		}).then((response) => {
@@ -117,6 +118,13 @@ function EditDoctor() {
 						<Col sm={9}>
 							<div style={{ margin: "1%" }}>
 								<Tab.Content>
+									<Tab.Pane eventKey='profile'>
+										<Profile
+											eventKey={eventKey}
+											doctor_id={doctorDetails.doctor_id}
+											setProfilePicChange={setProfilePicChange}
+										/>
+									</Tab.Pane>
 									<Tab.Pane eventKey='addQualification'>
 										<AddQualification
 											eventKey={eventKey}

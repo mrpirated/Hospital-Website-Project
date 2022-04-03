@@ -56,5 +56,6 @@ const config = {
 	getDoctorDaySlots: "/getDoctorDaySlots",
 	newAppointmentSlot: "/newAppointmentSlot",
 	addAvailability: "/addAvailability",
+	getAllDoctorInfo: "/getAllDoctorInfo",
 };
 export default config;
