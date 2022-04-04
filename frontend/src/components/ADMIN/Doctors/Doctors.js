@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setLoading } from "../../../store/auth";
-import { Table } from "react-bootstrap";
+import { Table, Image } from "react-bootstrap";
 import getDoctorsAPI from "../../../api/getDoctorsAPI";
+import getDoctorProfilePicsAPI from "../../../api/getDoctorProfilePicsAPI";
 import { useNavigate } from "react-router";
+import doctor_image from "../../../images/doctor.jpg";
 function Doctors() {
 	const auth = useSelector((state) => state.auth);
 	//const history = useHistory();
 	const dispatch = useDispatch();
 	const [doctorDetails, setDoctorDetails] = useState([]);
+	const [profilePics, setProfilePics] = useState({});
 	const navigate = useNavigate();
 	useEffect(() => {
 		dispatch(setLoading({ loading: true }));
@@ -20,6 +23,18 @@ function Doctors() {
 					//setDisplayDoctors(res.data.doctor);
 					//setPages(Math.ceil(res.data.doctor.length / dataLimit));
 					//console.log(Math.ceil(res.data.doctor.length / dataLimit));
+				}
+				dispatch(setLoading({ loading: false }));
+				return getDoctorProfilePicsAPI({ token: auth.token });
+			})
+			.then((response) => {
+				if (response.success) {
+					//console.log(response.data.doctor);
+					var tp = {};
+					response.data.doctor.forEach((d) => {
+						if (d.image) tp[d.doctor_id] = d.image;
+					});
+					setProfilePics(tp);
 				}
 			})
 			.finally(() => {
@@ -33,7 +48,7 @@ function Doctors() {
 				<thead style={{ textAlign: "center" }}>
 					<tr>
 						<th>Doctor Id</th>
-						<th>Doctor Name</th>
+						<th>Doctor</th>
 						<th>Email Id</th>
 						<th>Phone No</th>
 						<th>Change Details</th>
@@ -44,6 +59,21 @@ function Doctors() {
 						<tr>
 							<td>{dd.doctor_id}</td>
 							<td>
+								<span style={{ float: "left" }}>
+									<Image
+										src={
+											profilePics[dd.doctor_id]
+												? `data:image/jpeg;base64,${new Buffer.from(
+														profilePics[dd.doctor_id].data
+												  ).toString("base64")}`
+												: doctor_image
+										}
+										variant='left'
+										roundedCircle
+										width={50}
+										height={50}
+									/>{" "}
+								</span>
 								{dd.first_name} {dd.last_name}
 							</td>
 							<td>{dd.email}</td>
