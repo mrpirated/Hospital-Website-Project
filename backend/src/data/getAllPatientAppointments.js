@@ -13,8 +13,8 @@ const getAllPatientAppointments = (user_id) => {
                 a.case_id,\
                 CONCAT(d.first_name, " ", d.last_name) AS doctor_name,\
                 c.case_description,\
-                a.start_time,\
-                a.end_time,\
+                s.start_time,\
+                s.end_time,\
                 a.preferred_date,\
                 a.state\
                 FROM\
@@ -22,10 +22,11 @@ const getAllPatientAppointments = (user_id) => {
                 JOIN cases c ON a.case_id = c.case_id\
                 JOIN doctor d ON a.doctor_id = d.doctor_id\
                 JOIN patient p ON c.patient_id = p.patient_id\
+				JOIN slots s ON s.appointment_id = a.appointment_id\
                 WHERE\
                 c.patient_id = ?\
                 ORDER BY\
-                a.start_time DESC,a.preferred_date ASC\
+                s.start_time DESC,a.preferred_date ASC\
                 ',
 				[user_id],
 				(err, result) => {
