@@ -19,13 +19,14 @@ const getScheduledAppointments = ({ type, user_id }) => {
                 c.case_description,\
                 CONCAT(d.first_name," ", d.last_name) AS doctor_name,\
                 CONCAT(p.first_name," ", p.last_name) AS patient_name,\
-                a.end_time,\
-                a.start_time\
+                s.end_time,\
+                s.start_time\
                 FROM\
                 appointment a\
                 JOIN doctor d ON a.doctor_id = d.doctor_id\
                 JOIN cases c ON a.case_id=c.case_id\
                 JOIN patient p ON p.patient_id = c.patient_id\
+				JOIN slots s ON s.appointment_id = a.appointment_id\
                 WHERE state="scheduled" AND ?? = ?\
             ',
 				[tp, user_id],
