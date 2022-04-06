@@ -74,21 +74,21 @@ function Doctors() {
 				}
 			});
 
-		// getDoctorsAPI({
-		// 	token: auth.token,
-		// }).then((res) => {
-		// 	if (res.success) {
-		// 		console.log(res.data.doctor);
+		getDoctorsAPI({
+			token: auth.token,
+		}).then((res) => {
+			if (res.success) {
+				console.log(res.data.doctor);
 
-		// 		setDoctorDetails(res.data.doctor);
-		// 		setDisplayDoctors(res.data.doctor);
-		// 		setPages(Math.ceil(res.data.doctor.length / dataLimit));
-		// 		console.log(Math.ceil(res.data.doctor.length / dataLimit));
-		// 	} else {
-		// 		console.log("No Doctors Recieved.");
-		// 	}
-		// 	dispatch(setLoading({ loading: false }));
-		// });
+				setDoctorDetails(res.data.doctor);
+				setDisplayDoctors(res.data.doctor);
+				setPages(Math.ceil(res.data.doctor.length / dataLimit));
+				console.log(Math.ceil(res.data.doctor.length / dataLimit));
+			} else {
+				console.log("No Doctors Recieved.");
+			}
+			dispatch(setLoading({ loading: false }));
+		});
 	}, [auth.isauth]);
 
 	const [pages, setPages] = useState(1);
