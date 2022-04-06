@@ -23,6 +23,7 @@ import {
 	tokenChecked,
 	userUpdated,
 } from "./store/auth";
+import { titleChanged } from "./store/layout";
 import { setSocketId } from "./store/socket";
 import { useSelector } from "react-redux";
 import io from "socket.io-client";
@@ -30,6 +31,7 @@ import config from "./config/config";
 import "./App.css";
 function App() {
 	const auth = useSelector((state) => state.auth);
+	const layout = useSelector((state) => state.layout);
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const [socket, setSocket] = useContext(SocketContext);
@@ -95,7 +97,11 @@ function App() {
 			dispatch(tokenChecked());
 			dispatch(setLoading({ loading: false }));
 		}
+		dispatch(titleChanged({ title: "PeriwalManavSeva" }));
 	}, []);
+	useEffect(() => {
+		document.title = layout.title;
+	}, [layout.title]);
 	useEffect(() => {
 		if (auth.updateUser) {
 			tokenAPI(auth.token).then((response) => {
