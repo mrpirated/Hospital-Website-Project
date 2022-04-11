@@ -6,7 +6,7 @@ const getDoctors = () => {
 	return new Promise((resolve, reject) => {
 		pool.getConnection((err, connection) => {
 			connection.query(
-				"SELECT doctor_id, first_name, last_name, dob, gender, address, email, phone,profile_pic FROM doctor",
+				"SELECT CONCAT(\"D\",YEAR(created),LPAD(doctor_id, 4, '0')) AS username, doctor_id, first_name, last_name, dob, gender, address, email, phone,profile_pic FROM doctor",
 				(err, result) => {
 					if (err) {
 						debug(err);
