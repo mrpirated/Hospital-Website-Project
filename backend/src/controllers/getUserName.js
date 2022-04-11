@@ -1,12 +1,12 @@
 import moment from "moment";
 const num = (n) => {
-	var tp = to_string(n);
+	var tp = n.toString();
 	while (tp.length < 4) {
 		tp = "0" + tp;
 	}
 	return tp;
 };
-const getUserName = (type, created, user_id) => {
+const getUserName = (type, user_id, created) => {
 	var id = "";
 	if (type == "patient") id += "P";
 	else if (type == "doctor") id += "D";

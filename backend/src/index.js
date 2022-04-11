@@ -40,6 +40,7 @@ import addQualification from "./routes/addQualification";
 import getQualification from "./routes/getQualification";
 import getDoctorDaySlots from "./routes/getDoctorDaySlots";
 import newAppointmentSlot from "./routes/newAppointmentSlot";
+import getUserName from "./routes/getUsername";
 import fs from "fs";
 import path from "path";
 import https from "https";
@@ -125,7 +126,8 @@ app.use(
 	addQualification,
 	getQualification,
 	getDoctorDaySlots,
-	newAppointmentSlot
+	newAppointmentSlot,
+	getUserName
 );
 app.use("/", (req, res) => {
 	res.send("Server is Running");
