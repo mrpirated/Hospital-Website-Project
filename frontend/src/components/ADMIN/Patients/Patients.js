@@ -30,7 +30,7 @@ function Patients() {
 			<Table striped bordered hover responsive='lg'>
 				<thead style={{ textAlign: "center" }}>
 					<tr>
-						<th>Patient Id</th>
+						<th>Patient UserName</th>
 						<th>Patient Name</th>
 						<th>Email Id</th>
 						<th>Phone No</th>
@@ -39,7 +39,7 @@ function Patients() {
 				<tbody style={{ textAlign: "center" }}>
 					{patientDetails.map((dd) => (
 						<tr>
-							<td>{dd.patient_id}</td>
+							<td>{dd.username}</td>
 							<td>
 								{dd.first_name} {dd.last_name}
 							</td>

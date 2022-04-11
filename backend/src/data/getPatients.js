@@ -9,6 +9,7 @@ const getPatients = () => {
 			}
 			connection.query(
 				"SELECT \
+				CONCAT(\"P\",YEAR(created),LPAD(patient_id, 4, '0')) AS username,\
 				patient_id, \
 				first_name, \
                 last_name, \

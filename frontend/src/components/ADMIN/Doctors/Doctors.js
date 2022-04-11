@@ -47,7 +47,7 @@ function Doctors() {
 			<Table striped bordered hover responsive='lg'>
 				<thead style={{ textAlign: "center" }}>
 					<tr>
-						<th>Doctor Id</th>
+						<th>Doctor Username</th>
 						<th>Doctor</th>
 						<th>Email Id</th>
 						<th>Phone No</th>
@@ -57,7 +57,7 @@ function Doctors() {
 				<tbody style={{ textAlign: "center" }}>
 					{doctorDetails.map((dd) => (
 						<tr>
-							<td>{dd.doctor_id}</td>
+							<td>{dd.username}</td>
 							<td>
 								<span style={{ float: "left" }}>
 									<Image
