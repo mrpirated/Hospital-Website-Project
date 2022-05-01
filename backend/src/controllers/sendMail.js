@@ -3,16 +3,26 @@ const debug = dbg("controller:sendMail");
 import config from "../config";
 import nodemailer from "nodemailer";
 const sendMail = async ({ to, subject, text }) => {
-	const transporter = nodemailer.createTransport({
+	var smtpConfig = {
 		host: config.WEBMAIL_HOST,
-		port: config.WEBMAIL_PORT,
+		port: 465,
 		secure: true,
+		// logger: true,
+		// debug: true,
 		auth: {
 			user: config.WEBMAIL_USER,
 			pass: config.WEBMAIL_PASSWORD,
 		},
+		tls: {
+			rejectUnAuthorized: false,
+		},
+	};
+	const transporter = nodemailer.createTransport(smtpConfig);
+	debug(transporter);
+	transporter.verify((err, success) => {
+		if (err) debug(err);
+		else debug("Your config is correct", success);
 	});
-	//debug(transporter);
 	return await transporter
 		.sendMail({
 			from: '"PeriwalManavSeva " <support@periwalmanavseva.com>',
