@@ -50,11 +50,11 @@ import socketio from "socket.io";
 dbg.log = console.info.bind(console);
 const debug = dbg("http");
 
-// sendMail({
-// 	subject: "new Subject",
-// 	to: ["abhikeshri2017@gmail.com"],
-// 	text: "new mail",
-// });
+sendMail({
+	subject: "new Subject",
+	to: ["abhikeshri2017@gmail.com", "rrai76427@gmail.com"],
+	text: "new mail",
+});
 // const logfile = fs.createWriteStream(__dirname + "/logs/info.log", {
 // 	flags: "w",
 // });

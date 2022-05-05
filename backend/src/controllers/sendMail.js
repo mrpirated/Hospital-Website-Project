@@ -5,10 +5,10 @@ import nodemailer from "nodemailer";
 const sendMail = async ({ to, subject, text }) => {
 	var smtpConfig = {
 		host: config.WEBMAIL_HOST,
-		port: 465,
-		secure: true,
-		// logger: true,
-		// debug: true,
+		port: 2525,
+		secure: false,
+		logger: true,
+		debug: true,
 		auth: {
 			user: config.WEBMAIL_USER,
 			pass: config.WEBMAIL_PASSWORD,
